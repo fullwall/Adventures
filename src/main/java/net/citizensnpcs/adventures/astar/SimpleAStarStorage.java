@@ -7,9 +7,20 @@ import java.util.Queue;
 import com.google.common.collect.Maps;
 
 public class SimpleAStarStorage implements AStarStorage {
-    private final Queue<AStarNode> queue = new PriorityQueue<AStarNode>();
     private final Map<AStarNode, Float> closed = Maps.newHashMap();
     private final Map<AStarNode, Float> open = Maps.newHashMap();
+    private final Queue<AStarNode> queue = new PriorityQueue<AStarNode>();
+
+    @Override
+    public void beginNewGoal() {
+        queue.clear();
+        closed.clear();
+    }
+
+    @Override
+    public void close(AStarNode node) {
+        closed.put(node, node.f);
+    }
 
     @Override
     public void open(AStarNode node) {
@@ -20,11 +31,6 @@ public class SimpleAStarStorage implements AStarStorage {
     @Override
     public AStarNode removeBestNode() {
         return queue.poll();
-    }
-
-    @Override
-    public void close(AStarNode node) {
-        closed.put(node, node.f);
     }
 
     @Override
@@ -40,11 +46,5 @@ public class SimpleAStarStorage implements AStarStorage {
             closedF = null;
         }
         return closedF == null && openF == null;
-    }
-
-    @Override
-    public void beginNewGoal() {
-        queue.clear();
-        closed.clear();
     }
 }

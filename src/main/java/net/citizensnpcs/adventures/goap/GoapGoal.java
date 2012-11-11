@@ -7,25 +7,22 @@ public class GoapGoal implements AStarGoal {
     private WorldState goal;
 
     @Override
-    public boolean isFinished(AStarNode node) {
-        return ((GoapNode) node).stateEquals(goal);
+    public float g(AStarNode from) {
+        return ((GoapNode) from).difference(goal);
     }
 
     @Override
     public float getInitialCost(AStarNode node) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public float g(AStarNode from) {
-        // TODO Auto-generated method stub
-        return 0;
+        return g(node);
     }
 
     @Override
     public float h(AStarNode from, AStarNode to) {
-        // TODO Auto-generated method stub
-        return 0;
+        return ((GoapNode) from).difference((GoapNode) to);
+    }
+
+    @Override
+    public boolean isFinished(AStarNode node) {
+        return ((GoapNode) node).stateEquals(goal);
     }
 }
