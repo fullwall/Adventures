@@ -12,6 +12,8 @@ import com.google.common.collect.Lists;
 public class GoapNode extends AStarNode {
     private final Agent agent;
     private final Action applied;
+    private float modifier = -1F;
+
     private final WorldState state;
 
     private GoapNode(Agent agent, WorldState initialState) {
@@ -37,12 +39,11 @@ public class GoapNode extends AStarNode {
         return new GoapPlan(plan);
     }
 
-    public int difference(GoapNode to) {
-        return to.state.difference(state);
-    }
-
-    public int difference(WorldState goal) {
-        return state.difference(goal);
+    private float getHeuristicModifier() {
+        if (modifier > -1)
+            return modifier;
+        modifier = applied == null ? 1F : agent.evaluateRelevancy(applied);
+        return modifier;
     }
 
     @Override
@@ -63,6 +64,16 @@ public class GoapNode extends AStarNode {
             neighbours.add(newNode);
         }
         return neighbours;
+    }
+
+    public float heuristic(GoapNode to) {
+        return heuristic(to.state);
+    }
+
+    public float heuristic(WorldState goal) {
+        int difference = state.difference(goal);
+        float modifier = getHeuristicModifier();
+        return difference * modifier;
     }
 
     public boolean stateEquals(WorldState goal) {

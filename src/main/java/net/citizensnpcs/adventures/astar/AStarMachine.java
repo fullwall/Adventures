@@ -1,7 +1,11 @@
 package net.citizensnpcs.adventures.astar;
 
 public class AStarMachine {
-    private AStarStorage storage;
+    private final AStarStorage storage;
+
+    private AStarMachine(AStarStorage storage) {
+        this.storage = storage;
+    }
 
     private void f(AStarGoal goal, AStarNode node, AStarNode neighbour) {
         float g = node.g + goal.g(neighbour);
@@ -10,10 +14,6 @@ public class AStarMachine {
         neighbour.f = g + h;
         neighbour.g = g;
         neighbour.h = h;
-    }
-
-    public void initialise(AStarStorage storage) {
-        this.storage = storage;
     }
 
     public Plan run(AStarGoal goal, AStarNode start) {
@@ -36,5 +36,13 @@ public class AStarMachine {
                 neighbour.parent = start;
             }
         }
+    }
+
+    public static AStarMachine createWithDefaultStorage() {
+        return createWithStorage(new SimpleAStarStorage());
+    }
+
+    public static AStarMachine createWithStorage(AStarStorage storage) {
+        return new AStarMachine(storage);
     }
 }

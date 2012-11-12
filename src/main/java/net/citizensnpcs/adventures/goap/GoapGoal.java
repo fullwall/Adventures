@@ -4,11 +4,15 @@ import net.citizensnpcs.adventures.astar.AStarGoal;
 import net.citizensnpcs.adventures.astar.AStarNode;
 
 public class GoapGoal implements AStarGoal {
-    private WorldState goal;
+    private final WorldState goal;
+
+    public GoapGoal(WorldState goal) {
+        this.goal = goal.clone();
+    }
 
     @Override
     public float g(AStarNode from) {
-        return ((GoapNode) from).difference(goal);
+        return ((GoapNode) from).heuristic(goal);
     }
 
     @Override
@@ -18,7 +22,7 @@ public class GoapGoal implements AStarGoal {
 
     @Override
     public float h(AStarNode from, AStarNode to) {
-        return ((GoapNode) from).difference((GoapNode) to);
+        return ((GoapNode) from).heuristic((GoapNode) to);
     }
 
     @Override
