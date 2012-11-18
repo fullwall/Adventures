@@ -8,7 +8,7 @@ import com.google.common.collect.Maps;
 public class WorldState implements Cloneable {
     private final Map<String, Object> state;
 
-    public WorldState() {
+    private WorldState() {
         state = Maps.newHashMap();
     }
 
@@ -57,5 +57,9 @@ public class WorldState implements Cloneable {
     @Override
     public String toString() {
         return state.toString();
+    }
+
+    public static WorldState createEmptyState() {
+        return new WorldState();
     }
 }

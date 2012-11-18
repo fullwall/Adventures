@@ -9,7 +9,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<citizens.version>LATEST</citizens.version>
+		<citizens.version>[2.0.4-SNAPSHOT,)</citizens.version>
 		<craftbukkit.version>LATEST</craftbukkit.version>
 		<build.number>Unknown</build.number>
 	</properties>
@@ -33,13 +33,13 @@
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>net.citizensnpcs</groupId>
-			<artifactId>citizens</artifactId>
-			<version>${citizens.version}</version>
-			<type>jar</type>
-			<scope>provided</scope>
-		</dependency>
+        <dependency>
+            <groupId>net.citizensnpcs</groupId>
+            <artifactId>citizens</artifactId>
+            <version>${citizens.version}</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
 	</dependencies>
 
 	<url>http://www.citizensnpcs.com</url>

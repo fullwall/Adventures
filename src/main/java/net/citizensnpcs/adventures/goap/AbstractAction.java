@@ -7,7 +7,7 @@ public abstract class AbstractAction implements Action {
     }
 
     @Override
-    public float evaluateRelevancy() {
-        return 1F;
+    public float getCost() {
+        return 0F;
     }
 }
