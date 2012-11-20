@@ -1,7 +1,7 @@
 package net.citizensnpcs.adventures.goap;
 
-import net.citizensnpcs.adventures.astar.AStarGoal;
-import net.citizensnpcs.adventures.astar.AStarNode;
+import net.citizensnpcs.api.astar.AStarGoal;
+import net.citizensnpcs.api.astar.AStarNode;
 
 public class AStarGoapGoal implements AStarGoal {
     private final WorldState goal;
@@ -11,18 +11,18 @@ public class AStarGoapGoal implements AStarGoal {
     }
 
     @Override
-    public float g(AStarNode from) {
-        return ((AStarGoapNode) from).heuristic(goal);
+    public float g(AStarNode from, AStarNode to) {
+        return ((AStarGoapNode) from).heuristic((AStarGoapNode) to);
     }
 
     @Override
     public float getInitialCost(AStarNode node) {
-        return g(node);
+        return ((AStarGoapNode) node).difference(goal);
     }
 
     @Override
-    public float h(AStarNode from, AStarNode to) {
-        return ((AStarGoapNode) from).heuristic((AStarGoapNode) to);
+    public float h(AStarNode from) {
+        return ((AStarGoapNode) from).heuristic(goal);
     }
 
     @Override

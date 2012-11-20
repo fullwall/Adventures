@@ -3,6 +3,7 @@ package net.citizensnpcs.adventures.goap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
 public class WorldState implements Cloneable {
@@ -59,7 +60,49 @@ public class WorldState implements Cloneable {
         return state.toString();
     }
 
+    public static final WorldState EMPTY = WorldState.createEmptyState();
+
     public static WorldState createEmptyState() {
         return new WorldState();
+    }
+
+    public boolean contains(WorldState o) {
+        return difference(o) == 0;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> T get(String string) {
+        return (T) state.get(string);
+    }
+
+    public static WorldState create(String firstKey, Object firstValue) {
+        return create(new Object[] { firstKey, firstValue });
+    }
+
+    public static WorldState create(String firstKey, Object firstValue, String secondKey, Object secondValue) {
+        return create(new Object[] { firstKey, firstValue, secondKey, secondValue });
+    }
+
+    private static WorldState create(Object[] objects, boolean immutable) {
+        Map<String, Object> map = Maps.newHashMap();
+        for (int i = 0; i < objects.length; i += 2) {
+            map.put((String) objects[i], objects[i + 1]);
+        }
+        if (immutable)
+            map = ImmutableMap.copyOf(map);
+        return new WorldState(map);
+    }
+
+    private static WorldState create(Object[] objects) {
+        return create(objects, false);
+    }
+
+    public static WorldState createImmutable(String firstKey, Object firstValue) {
+        return create(new Object[] { firstKey, firstValue }, true);
+    }
+
+    public static WorldState createImmutable(String firstKey, Object firstValue, String secondKey,
+            Object secondValue) {
+        return create(new Object[] { firstKey, firstValue, secondKey, secondValue }, true);
     }
 }

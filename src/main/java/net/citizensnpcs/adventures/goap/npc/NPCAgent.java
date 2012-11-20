@@ -1,92 +1,84 @@
 package net.citizensnpcs.adventures.goap.npc;
 
-import java.util.List;
 import java.util.Map;
 
-import net.citizensnpcs.adventures.astar.AStarGoal;
-import net.citizensnpcs.adventures.astar.AStarMachine;
-import net.citizensnpcs.adventures.astar.AStarNode;
-import net.citizensnpcs.adventures.astar.Plan;
 import net.citizensnpcs.adventures.goap.AStarGoapGoal;
 import net.citizensnpcs.adventures.goap.AStarGoapNode;
 import net.citizensnpcs.adventures.goap.Action;
 import net.citizensnpcs.adventures.goap.Agent;
-import net.citizensnpcs.adventures.goap.GoapGoal;
 import net.citizensnpcs.adventures.goap.Sensor;
 import net.citizensnpcs.adventures.goap.WorldState;
+import net.citizensnpcs.api.astar.AStarGoal;
+import net.citizensnpcs.api.astar.AStarMachine;
+import net.citizensnpcs.api.astar.AStarNode;
+import net.citizensnpcs.api.astar.Plan;
+import net.citizensnpcs.api.trait.Trait;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 
-public class NPCAgent implements Agent {
-    private final List<Action> availableActions = Lists.newArrayList();
-    private final List<GoapGoal> availableGoals = Lists.newArrayList();
-    private GoapGoal currentGoal;
-    private Plan currentPlan;
+public class NPCAgent extends Trait implements Agent {
+
     private final AStarMachine machine = AStarMachine.createWithDefaultStorage();
+    @Inject
+    private Planner planner;
+    private final Injector injector;
     private final Map<Class<? extends Sensor>, Sensor> sensors = Maps.newHashMap();
     private final WorldState worldState = WorldState.createEmptyState();
 
+    public NPCAgent() {
+        super("npcagent");
+        injector = Guice.createInjector(new AgentModule(this));
+        injector.injectMembers(this);
+    }
+
+    @Override
+    public void apply(WorldState changes) {
+        worldState.apply(changes);
+    }
+
+    @Override
+    public Plan generatePlan(WorldState to) {
+        AStarNode root = AStarGoapNode.create(this, worldState);
+        AStarGoal goal = AStarGoapGoal.createWithGoalState(to);
+        return machine.run(goal, root);
+    }
+
     @Override
     public Iterable<Action> getAvailableActions() {
-        return availableActions;
+        return planner.getAvailableActions();
     }
 
     @Override
     public float getCostModifierFor(Action action) {
-        return 0;
+        return planner.getCostModifierFor(action);
     }
 
-    public Sensor getSensorFor(Class<? extends Sensor> clazz) {
-        return sensors.get(clazz);
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T extends Sensor> T getSensor(Class<T> clazz) {
+        return (T) sensors.get(clazz);
     }
 
-    private void replan() {
-        GoapGoal best = selectBestGoal();
-        if (best == null)
-            return;
-        AStarNode root = AStarGoapNode.create(this, worldState);
-        AStarGoal goal = AStarGoapGoal.createWithGoalState(best.getGoalState());
-        currentPlan = machine.run(goal, root);
-        currentGoal = best;
-    }
-
-    private void resetPlan() {
-        currentPlan = null;
-        currentGoal = null;
-    }
-
-    private GoapGoal selectBestGoal() {
-        float bestRelevancy = Float.MIN_VALUE;
-        GoapGoal bestGoal = null;
-        for (GoapGoal goal : availableGoals) {
-            float relevancy = goal.evaluateRelevancy();
-            if (relevancy > bestRelevancy) {
-                bestGoal = goal;
-                bestRelevancy = relevancy;
-            }
-        }
-        return bestGoal;
-    }
-
-    public void update() {
+    @Override
+    public void run() {
         updateSensors();
-        if (currentPlan == null) {
-            replan();
-        } else {
-            currentPlan.update();
-            if (currentPlan.isComplete()) {
-                worldState.apply(currentPlan.getWorldStateChanges());
-                resetPlan();
-            }
-            if (!currentGoal.canContinue()) {
-                resetPlan();
-            }
-        }
+        planner.update();
     }
 
     private void updateSensors() {
         for (Sensor sensor : sensors.values())
             worldState.apply(sensor.generateState());
+    }
+
+    @Override
+    public boolean contains(WorldState state) {
+        return worldState.contains(state);
+    }
+
+    public <T> T getState(String string) {
+        return worldState.get(string);
     }
 }

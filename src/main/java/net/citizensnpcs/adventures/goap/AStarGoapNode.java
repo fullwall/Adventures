@@ -4,8 +4,8 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 
-import net.citizensnpcs.adventures.astar.AStarNode;
-import net.citizensnpcs.adventures.astar.Plan;
+import net.citizensnpcs.api.astar.AStarNode;
+import net.citizensnpcs.api.astar.Plan;
 
 import com.google.common.collect.Lists;
 
@@ -35,7 +35,7 @@ public class AStarGoapNode extends AStarNode {
             start = (AStarGoapNode) start.getParent();
         }
         Action[] plan = actions.toArray(new Action[actions.size()]);
-        return new AStarGoapPlan(state, plan);
+        return new AStarGoapPlan(state, plan, getPathCost());
     }
 
     private float getHeuristicModifier() {
@@ -75,6 +75,10 @@ public class AStarGoapNode extends AStarNode {
 
     public boolean stateEquals(WorldState goal) {
         return goal.difference(state) == 0;
+    }
+
+    public int difference(WorldState otherState) {
+        return otherState.difference(state);
     }
 
     public static AStarGoapNode create(Agent agent, WorldState initialState) {
