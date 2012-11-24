@@ -43,7 +43,7 @@ public class NPCAgent extends Trait implements Agent {
     public Plan generatePlan(WorldState to) {
         AStarNode root = AStarGoapNode.create(this, worldState);
         AStarGoal goal = AStarGoapGoal.createWithGoalState(to);
-        return machine.run(goal, root);
+        return machine.runFully(goal, root);
     }
 
     @Override

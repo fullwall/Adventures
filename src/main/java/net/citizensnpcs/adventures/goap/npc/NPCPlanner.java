@@ -60,10 +60,11 @@ public class NPCPlanner implements Planner {
         return null;
     }
 
+    @SuppressWarnings("unchecked")
     private boolean shouldReplaceCurrentPlan(Plan plan) {
         if (currentPlan == null)
             return true;
-        return currentPlan.compareTo(plan) < 0 && !currentPlan.equals(plan);
+        return ((Comparable<Plan>) currentPlan).compareTo(plan) < 0 && !currentPlan.equals(plan);
     }
 
     private void switchPlanTo(GoapGoal goal, Plan plan) {

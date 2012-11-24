@@ -27,12 +27,11 @@ public class AStarGoapNode extends AStarNode {
 
     @Override
     public Plan buildPlan() {
-        AStarGoapNode start = this;
         Deque<Action> actions = new ArrayDeque<Action>();
-        while (start != null) {
+        Iterable<AStarGoapNode> parents = getParents();
+        for (AStarGoapNode start : parents) {
             if (start.applied != null)
-                actions.addFirst(start.applied);
-            start = (AStarGoapNode) start.getParent();
+                actions.add(start.applied);
         }
         Action[] plan = actions.toArray(new Action[actions.size()]);
         return new AStarGoapPlan(state, plan, getPathCost());

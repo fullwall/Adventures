@@ -9,7 +9,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<citizens.version>[2.0.4-SNAPSHOT,)</citizens.version>
+		<citizensapi.version>[2.0.4-SNAPSHOT,)</citizensapi.version>
 		<guice.version>3.0</guice.version>
 		<craftbukkit.version>LATEST</craftbukkit.version>
 		<build.number>Unknown</build.number>
@@ -36,8 +36,8 @@
 		</dependency>
 		<dependency>
 			<groupId>net.citizensnpcs</groupId>
-			<artifactId>citizens</artifactId>
-			<version>${citizens.version}</version>
+			<artifactId>citizensapi</artifactId>
+			<version>${citizensapi.version}</version>
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>

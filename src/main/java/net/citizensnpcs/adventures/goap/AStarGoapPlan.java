@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import net.citizensnpcs.api.astar.Plan;
 
-public class AStarGoapPlan implements Plan {
+public class AStarGoapPlan implements Plan, Comparable<Plan> {
     private final float cost;
     private final WorldState end;
     private Action executing;
