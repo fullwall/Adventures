@@ -1,9 +1,10 @@
 package net.citizensnpcs.adventures.goap;
 
+import net.citizensnpcs.api.astar.Agent;
 import net.citizensnpcs.api.astar.Plan;
 import net.citizensnpcs.api.npc.NPC;
 
-public interface Agent {
+public interface GoapAgent extends Agent {
     NPC getNPC();
 
     void apply(WorldState changes);

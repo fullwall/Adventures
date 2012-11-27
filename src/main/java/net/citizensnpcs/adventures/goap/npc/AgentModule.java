@@ -1,7 +1,8 @@
 package net.citizensnpcs.adventures.goap.npc;
 
-import net.citizensnpcs.adventures.goap.Agent;
+import net.citizensnpcs.adventures.goap.GoapAgent;
 import net.citizensnpcs.adventures.goap.Sensor;
+import net.citizensnpcs.api.astar.Agent;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provider;
@@ -11,9 +12,9 @@ import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
 
 public class AgentModule extends AbstractModule {
-    private final Agent instance;
+    private final GoapAgent instance;
 
-    public AgentModule(Agent agent) {
+    public AgentModule(GoapAgent agent) {
         instance = agent;
     }
 

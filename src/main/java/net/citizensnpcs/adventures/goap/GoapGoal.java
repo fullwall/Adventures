@@ -5,5 +5,5 @@ public interface GoapGoal {
 
     WorldState getGoalState();
 
-    float evaluateRelevancy(Agent agent);
+    float evaluateRelevancy(GoapAgent agent);
 }

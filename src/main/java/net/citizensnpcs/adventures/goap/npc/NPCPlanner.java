@@ -6,18 +6,20 @@ import java.util.List;
 
 import net.citizensnpcs.adventures.goap.AStarGoapPlan;
 import net.citizensnpcs.adventures.goap.Action;
-import net.citizensnpcs.adventures.goap.Agent;
+import net.citizensnpcs.adventures.goap.GoapAgent;
 import net.citizensnpcs.adventures.goap.GoapGoal;
 import net.citizensnpcs.api.astar.Plan;
 
 import com.google.common.collect.Lists;
+import com.google.inject.Inject;
 
 public class NPCPlanner implements Planner {
     private final List<Action> availableActions = Lists.newArrayList();
     private final List<GoapGoal> availableGoals = Lists.newArrayList();
     private GoapGoal currentGoal;
     private Plan currentPlan;
-    private Agent agent;
+    @Inject
+    private GoapAgent agent;
 
     @Override
     public Iterable<Action> getAvailableActions() {
@@ -44,7 +46,7 @@ public class NPCPlanner implements Planner {
         currentGoal = null;
     }
 
-    private GoapGoal selectBestGoal(final Agent agent) {
+    private GoapGoal selectBestGoal(final GoapAgent agent) {
         Collections.sort(availableGoals, new Comparator<GoapGoal>() {
             @Override
             public int compare(GoapGoal o1, GoapGoal o2) {
@@ -83,7 +85,7 @@ public class NPCPlanner implements Planner {
             return;
         if (!currentGoal.canContinue())
             resetPlan();
-        currentPlan.update();
+        currentPlan.update(agent);
         if (currentPlan.isComplete()) {
             if (currentPlan instanceof AStarGoapPlan)
                 agent.apply(((AStarGoapPlan) currentPlan).getWorldStateChanges());

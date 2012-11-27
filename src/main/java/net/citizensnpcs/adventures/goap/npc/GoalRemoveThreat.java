@@ -1,6 +1,6 @@
 package net.citizensnpcs.adventures.goap.npc;
 
-import net.citizensnpcs.adventures.goap.Agent;
+import net.citizensnpcs.adventures.goap.GoapAgent;
 import net.citizensnpcs.adventures.goap.GoapGoal;
 import net.citizensnpcs.adventures.goap.WorldState;
 
@@ -11,7 +11,7 @@ public class GoalRemoveThreat implements GoapGoal {
     }
 
     @Override
-    public float evaluateRelevancy(Agent agent) {
+    public float evaluateRelevancy(GoapAgent agent) {
         return agent.getSensor(ThreatSensor.class).hasThreats() ? 1 : 0;
     }
 

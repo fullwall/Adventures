@@ -3,6 +3,7 @@ package net.citizensnpcs.adventures.goap.npc;
 import java.util.Collection;
 import java.util.Collections;
 
+import net.citizensnpcs.adventures.goap.GoapAgent;
 import net.citizensnpcs.adventures.goap.Sensor;
 import net.citizensnpcs.adventures.goap.WorldState;
 
@@ -11,14 +12,12 @@ import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 
 import com.google.common.collect.Iterables;
+import com.google.inject.Inject;
 
 public class ThreatSensor implements Sensor {
-    private final NPCAgent agent;
     private final WorldState state = WorldState.createEmptyState();
-
-    public ThreatSensor(NPCAgent agent) {
-        this.agent = agent;
-    }
+    @Inject
+    private GoapAgent agent;
 
     @Override
     public WorldState generateState() {

@@ -10,16 +10,16 @@ import net.citizensnpcs.api.astar.Plan;
 import com.google.common.collect.Lists;
 
 public class AStarGoapNode extends AStarNode {
-    private final Agent agent;
+    private final GoapAgent agent;
     private final Action applied;
     private float cachedModifier = -1f;
     private final WorldState state;
 
-    private AStarGoapNode(Agent agent, WorldState initialState) {
+    private AStarGoapNode(GoapAgent agent, WorldState initialState) {
         this(agent, initialState, null);
     }
 
-    private AStarGoapNode(Agent agent, WorldState initialState, Action appliedAction) {
+    private AStarGoapNode(GoapAgent agent, WorldState initialState, Action appliedAction) {
         this.agent = agent;
         this.state = initialState;
         this.applied = appliedAction;
@@ -80,7 +80,7 @@ public class AStarGoapNode extends AStarNode {
         return otherState.difference(state);
     }
 
-    public static AStarGoapNode create(Agent agent, WorldState initialState) {
+    public static AStarGoapNode create(GoapAgent agent, WorldState initialState) {
         return new AStarGoapNode(agent, initialState);
     }
 }

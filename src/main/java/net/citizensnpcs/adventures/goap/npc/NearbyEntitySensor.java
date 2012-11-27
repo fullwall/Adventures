@@ -3,7 +3,7 @@ package net.citizensnpcs.adventures.goap.npc;
 import java.util.Collections;
 import java.util.List;
 
-import net.citizensnpcs.adventures.goap.Agent;
+import net.citizensnpcs.adventures.goap.GoapAgent;
 import net.citizensnpcs.adventures.goap.Sensor;
 import net.citizensnpcs.adventures.goap.WorldState;
 
@@ -11,10 +11,12 @@ import org.bukkit.entity.Entity;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
+import com.google.inject.Inject;
 
 public class NearbyEntitySensor implements Sensor {
     private List<Entity> nearby = Collections.emptyList();
-    private Agent agent;
+    @Inject
+    private GoapAgent agent;
 
     @Override
     public WorldState generateState() {

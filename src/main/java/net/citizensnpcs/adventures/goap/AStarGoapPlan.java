@@ -2,6 +2,7 @@ package net.citizensnpcs.adventures.goap;
 
 import java.util.Arrays;
 
+import net.citizensnpcs.api.astar.Agent;
 import net.citizensnpcs.api.astar.Plan;
 
 public class AStarGoapPlan implements Plan, Comparable<Plan> {
@@ -51,8 +52,7 @@ public class AStarGoapPlan implements Plan, Comparable<Plan> {
     @Override
     public int hashCode() {
         final int prime = 31;
-        int result = prime * (prime + Float.floatToIntBits(cost)) + Arrays.hashCode(plan);
-        return result;
+        return prime * (prime + Float.floatToIntBits(cost)) + Arrays.hashCode(plan);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class AStarGoapPlan implements Plan, Comparable<Plan> {
     }
 
     @Override
-    public void update() {
+    public void update(Agent agent) {
         if (executing == null)
             return;
         executing.update();

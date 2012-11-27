@@ -1,14 +1,17 @@
 package net.citizensnpcs.adventures.goap.npc;
 
 import net.citizensnpcs.adventures.goap.AbstractAction;
-import net.citizensnpcs.adventures.goap.Agent;
+import net.citizensnpcs.adventures.goap.GoapAgent;
 import net.citizensnpcs.adventures.goap.WorldState;
 
 import org.bukkit.entity.LivingEntity;
 
+import com.google.inject.Inject;
+
 public class ActionKill extends AbstractAction {
     private LivingEntity target;
-    private Agent agent;
+    @Inject
+    private GoapAgent agent;
     private ThreatSensor sensor;
     private static final WorldState PRECONDITIONS = WorldState.createImmutable("hasThreat", false,
             "hasWeapon", true);
