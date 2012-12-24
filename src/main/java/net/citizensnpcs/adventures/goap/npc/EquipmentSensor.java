@@ -1,6 +1,6 @@
 package net.citizensnpcs.adventures.goap.npc;
 
-import net.citizensnpcs.adventures.goap.GoapAgent;
+import net.citizensnpcs.adventures.goap.PlannerAgent;
 import net.citizensnpcs.adventures.goap.Sensor;
 import net.citizensnpcs.adventures.goap.WorldState;
 
@@ -11,9 +11,9 @@ import org.bukkit.inventory.ItemStack;
 import com.google.inject.Inject;
 
 public class EquipmentSensor implements Sensor {
-    private final WorldState state = WorldState.createEmptyState();
     @Inject
-    private GoapAgent agent;
+    private PlannerAgent agent;
+    private final WorldState state = WorldState.createEmptyState();
 
     @Override
     public WorldState generateState() {

@@ -9,9 +9,10 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<citizensapi.version>[2.0.4-SNAPSHOT,)</citizensapi.version>
+		<citizensapi.version>[2.0.6-SNAPSHOT,)</citizensapi.version>
 		<guice.version>3.0</guice.version>
 		<craftbukkit.version>LATEST</craftbukkit.version>
+		<antlr.version>LATEST</antlr.version>
 		<build.number>Unknown</build.number>
 	</properties>
 
@@ -41,13 +42,18 @@
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
-        <dependency>
-            <groupId>com.google.inject</groupId>
-            <artifactId>guice</artifactId>
-            <version>${guice.version}</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+			<version>${guice.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>antlr-runtime</artifactId>
+			<version>${antlr.version}</version>
+		</dependency>
 	</dependencies>
 
 	<url>http://www.citizensnpcs.com</url>
@@ -62,7 +68,7 @@
 	</scm>
 
 	<build>
-		<defaultGoal>clean package install</defaultGoal>
+		<defaultGoal>clean generate-sources package install</defaultGoal>
 		<sourceDirectory>${basedir}/src/main/java</sourceDirectory>
 
 		<resources>
@@ -78,7 +84,6 @@
 		</resources>
 
 		<plugins>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -111,6 +116,10 @@
 								<relocation>
 									<pattern>com.google.inject</pattern>
 									<shadedPattern>lib.guice</shadedPattern>
+								</relocation>
+								<relocation>
+									<pattern>org.antlr</pattern>
+									<shadedPattern>lib.antlr</shadedPattern>
 								</relocation>
 							</relocations>
 						</configuration>

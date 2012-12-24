@@ -36,6 +36,10 @@ public class WorldState implements Cloneable {
         return null;
     }
 
+    public boolean contains(WorldState o) {
+        return difference(o) == 0;
+    }
+
     public int difference(WorldState goal) {
         int differences = 0;
         for (Entry<String, Object> entry : goal.state.entrySet()) {
@@ -51,6 +55,11 @@ public class WorldState implements Cloneable {
         return differences;
     }
 
+    @SuppressWarnings("unchecked")
+    public <T> T get(String string) {
+        return (T) state.get(string);
+    }
+
     public void put(String key, Object value) {
         state.put(key, value);
     }
@@ -62,25 +71,8 @@ public class WorldState implements Cloneable {
 
     public static final WorldState EMPTY = WorldState.createEmptyState();
 
-    public static WorldState createEmptyState() {
-        return new WorldState();
-    }
-
-    public boolean contains(WorldState o) {
-        return difference(o) == 0;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T get(String string) {
-        return (T) state.get(string);
-    }
-
-    public static WorldState create(String firstKey, Object firstValue) {
-        return create(new Object[] { firstKey, firstValue });
-    }
-
-    public static WorldState create(String firstKey, Object firstValue, String secondKey, Object secondValue) {
-        return create(new Object[] { firstKey, firstValue, secondKey, secondValue });
+    private static WorldState create(Object[] objects) {
+        return create(objects, false);
     }
 
     private static WorldState create(Object[] objects, boolean immutable) {
@@ -93,8 +85,16 @@ public class WorldState implements Cloneable {
         return new WorldState(map);
     }
 
-    private static WorldState create(Object[] objects) {
-        return create(objects, false);
+    public static WorldState create(String firstKey, Object firstValue) {
+        return create(new Object[] { firstKey, firstValue });
+    }
+
+    public static WorldState create(String firstKey, Object firstValue, String secondKey, Object secondValue) {
+        return create(new Object[] { firstKey, firstValue, secondKey, secondValue });
+    }
+
+    public static WorldState createEmptyState() {
+        return new WorldState();
     }
 
     public static WorldState createImmutable(String firstKey, Object firstValue) {

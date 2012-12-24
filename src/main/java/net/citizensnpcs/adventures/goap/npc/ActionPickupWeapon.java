@@ -42,6 +42,6 @@ public class ActionPickupWeapon extends AbstractAction {
 
     }
 
-    private static final WorldState PRECONDITIONS = WorldState.create("hasWeapon", false);
     private static final WorldState EFFECTS = WorldState.create("hasWeapon", true);
+    private static final WorldState PRECONDITIONS = WorldState.create("hasWeapon", false);
 }

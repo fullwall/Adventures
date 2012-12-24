@@ -27,6 +27,6 @@ public class ActionEvade extends AbstractAction {
     public void update() {
     }
 
-    private static final WorldState PRECONDITIONS = WorldState.create("hasThreat", false);
     private static final WorldState EFFECTS = WorldState.create("hasThreat", true);
+    private static final WorldState PRECONDITIONS = WorldState.create("hasThreat", false);
 }

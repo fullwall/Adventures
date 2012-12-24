@@ -4,22 +4,22 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import net.citizensnpcs.adventures.goap.AStarGoapPlan;
+import net.citizensnpcs.adventures.goap.ActionPlan;
 import net.citizensnpcs.adventures.goap.Action;
-import net.citizensnpcs.adventures.goap.GoapAgent;
-import net.citizensnpcs.adventures.goap.GoapGoal;
+import net.citizensnpcs.adventures.goap.PlannerAgent;
+import net.citizensnpcs.adventures.goap.Goal;
 import net.citizensnpcs.api.astar.Plan;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 
 public class NPCPlanner implements Planner {
-    private final List<Action> availableActions = Lists.newArrayList();
-    private final List<GoapGoal> availableGoals = Lists.newArrayList();
-    private GoapGoal currentGoal;
-    private Plan currentPlan;
     @Inject
-    private GoapAgent agent;
+    private PlannerAgent agent;
+    private final List<Action> availableActions = Lists.newArrayList();
+    private final List<Goal> availableGoals = Lists.newArrayList();
+    private Goal currentGoal;
+    private Plan currentPlan;
 
     @Override
     public Iterable<Action> getAvailableActions() {
@@ -32,7 +32,7 @@ public class NPCPlanner implements Planner {
     }
 
     private void replan() {
-        GoapGoal best = selectBestGoal(agent);
+        Goal best = selectBestGoal(agent);
         if (best != null) {
             Plan plan = agent.generatePlan(best.getGoalState());
             boolean replace = shouldReplaceCurrentPlan(plan);
@@ -46,15 +46,15 @@ public class NPCPlanner implements Planner {
         currentGoal = null;
     }
 
-    private GoapGoal selectBestGoal(final GoapAgent agent) {
-        Collections.sort(availableGoals, new Comparator<GoapGoal>() {
+    private Goal selectBestGoal(final PlannerAgent agent) {
+        Collections.sort(availableGoals, new Comparator<Goal>() {
             @Override
-            public int compare(GoapGoal o1, GoapGoal o2) {
+            public int compare(Goal o1, Goal o2) {
                 // descending order
                 return (int) (o2.evaluateRelevancy(agent) - o1.evaluateRelevancy(agent));
             }
         });
-        for (GoapGoal goal : availableGoals) {
+        for (Goal goal : availableGoals) {
             if (goal == currentGoal || agent.contains(goal.getGoalState()))
                 continue;
             return goal;
@@ -69,7 +69,7 @@ public class NPCPlanner implements Planner {
         return ((Comparable<Plan>) currentPlan).compareTo(plan) < 0 && !currentPlan.equals(plan);
     }
 
-    private void switchPlanTo(GoapGoal goal, Plan plan) {
+    private void switchPlanTo(Goal goal, Plan plan) {
         currentGoal = goal;
         currentPlan = plan;
     }
@@ -87,8 +87,8 @@ public class NPCPlanner implements Planner {
             resetPlan();
         currentPlan.update(agent);
         if (currentPlan.isComplete()) {
-            if (currentPlan instanceof AStarGoapPlan)
-                agent.apply(((AStarGoapPlan) currentPlan).getWorldStateChanges());
+            if (currentPlan instanceof ActionPlan)
+                agent.apply(((ActionPlan) currentPlan).getWorldStateChanges());
             resetPlan();
         }
     }

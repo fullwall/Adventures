@@ -5,14 +5,14 @@ import java.util.Arrays;
 import net.citizensnpcs.api.astar.Agent;
 import net.citizensnpcs.api.astar.Plan;
 
-public class AStarGoapPlan implements Plan, Comparable<Plan> {
+public class ActionPlan implements Plan, Comparable<Plan> {
     private final float cost;
     private final WorldState end;
     private Action executing;
     private int index = -1;
     private final Action[] plan;
 
-    AStarGoapPlan(WorldState end, Action[] plan, float cost) {
+    ActionPlan(WorldState end, Action[] plan, float cost) {
         this.plan = plan;
         this.end = end;
         this.cost = cost;
@@ -30,7 +30,7 @@ public class AStarGoapPlan implements Plan, Comparable<Plan> {
 
     @Override
     public int compareTo(Plan o) {
-        return (int) (this.cost - ((AStarGoapPlan) o).cost);
+        return (int) (this.cost - ((ActionPlan) o).cost);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class AStarGoapPlan implements Plan, Comparable<Plan> {
         if (obj == null || getClass() != obj.getClass())
             return false;
 
-        AStarGoapPlan other = (AStarGoapPlan) obj;
+        ActionPlan other = (ActionPlan) obj;
         return Float.floatToIntBits(cost) == Float.floatToIntBits(other.cost)
                 && Arrays.equals(plan, other.plan);
     }

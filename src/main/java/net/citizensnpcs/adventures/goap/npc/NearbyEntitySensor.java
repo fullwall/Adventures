@@ -3,7 +3,7 @@ package net.citizensnpcs.adventures.goap.npc;
 import java.util.Collections;
 import java.util.List;
 
-import net.citizensnpcs.adventures.goap.GoapAgent;
+import net.citizensnpcs.adventures.goap.PlannerAgent;
 import net.citizensnpcs.adventures.goap.Sensor;
 import net.citizensnpcs.adventures.goap.WorldState;
 
@@ -14,9 +14,17 @@ import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 
 public class NearbyEntitySensor implements Sensor {
-    private List<Entity> nearby = Collections.emptyList();
     @Inject
-    private GoapAgent agent;
+    private PlannerAgent agent;
+    private List<Entity> nearby = Collections.emptyList();
+
+    public Iterable<Entity> all() {
+        return nearby;
+    }
+
+    public Iterable<Entity> filtered(Predicate<Entity> predicate) {
+        return Iterables.filter(nearby, predicate);
+    }
 
     @Override
     public WorldState generateState() {
@@ -35,13 +43,5 @@ public class NearbyEntitySensor implements Sensor {
                 return false;
             }
         });
-    }
-
-    public Iterable<Entity> filtered(Predicate<Entity> predicate) {
-        return Iterables.filter(nearby, predicate);
-    }
-
-    public Iterable<Entity> all() {
-        return nearby;
     }
 }

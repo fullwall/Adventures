@@ -3,7 +3,7 @@ package net.citizensnpcs.adventures.goap.npc;
 import java.util.Collection;
 import java.util.Collections;
 
-import net.citizensnpcs.adventures.goap.GoapAgent;
+import net.citizensnpcs.adventures.goap.PlannerAgent;
 import net.citizensnpcs.adventures.goap.Sensor;
 import net.citizensnpcs.adventures.goap.WorldState;
 
@@ -15,9 +15,9 @@ import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 
 public class ThreatSensor implements Sensor {
-    private final WorldState state = WorldState.createEmptyState();
     @Inject
-    private GoapAgent agent;
+    private PlannerAgent agent;
+    private final WorldState state = WorldState.createEmptyState();
 
     @Override
     public WorldState generateState() {
@@ -32,13 +32,13 @@ public class ThreatSensor implements Sensor {
         return state;
     }
 
-    public boolean hasThreats() {
-        return state.get("hasThreat");
-    }
-
     @SuppressWarnings("unchecked")
     public Collection<Entity> getThreats() {
         Collection<Entity> threats = state.get("threats");
         return (Collection<Entity>) (threats == null ? Collections.emptyList() : threats);
+    }
+
+    public boolean hasThreats() {
+        return state.get("hasThreat");
     }
 }

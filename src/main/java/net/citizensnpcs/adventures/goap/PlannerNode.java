@@ -9,17 +9,17 @@ import net.citizensnpcs.api.astar.Plan;
 
 import com.google.common.collect.Lists;
 
-public class AStarGoapNode extends AStarNode {
-    private final GoapAgent agent;
+public class PlannerNode extends AStarNode {
+    private final PlannerAgent agent;
     private final Action applied;
     private float cachedModifier = -1f;
     private final WorldState state;
 
-    private AStarGoapNode(GoapAgent agent, WorldState initialState) {
+    private PlannerNode(PlannerAgent agent, WorldState initialState) {
         this(agent, initialState, null);
     }
 
-    private AStarGoapNode(GoapAgent agent, WorldState initialState, Action appliedAction) {
+    private PlannerNode(PlannerAgent agent, WorldState initialState, Action appliedAction) {
         this.agent = agent;
         this.state = initialState;
         this.applied = appliedAction;
@@ -28,13 +28,17 @@ public class AStarGoapNode extends AStarNode {
     @Override
     public Plan buildPlan() {
         Deque<Action> actions = new ArrayDeque<Action>();
-        Iterable<AStarGoapNode> parents = getParents();
-        for (AStarGoapNode start : parents) {
+        Iterable<PlannerNode> parents = getParents();
+        for (PlannerNode start : parents) {
             if (start.applied != null)
                 actions.add(start.applied);
         }
         Action[] plan = actions.toArray(new Action[actions.size()]);
-        return new AStarGoapPlan(state, plan, getPathCost());
+        return new ActionPlan(state, plan, getPathCost());
+    }
+
+    public int difference(WorldState otherState) {
+        return otherState.difference(state);
     }
 
     private float getHeuristicModifier() {
@@ -56,7 +60,7 @@ public class AStarGoapNode extends AStarNode {
                 continue;
             WorldState effects = action.getEffects();
             WorldState newState = state.apply(effects);
-            AStarGoapNode newNode = AStarGoapNode.create(agent, newState);
+            PlannerNode newNode = PlannerNode.create(agent, newState);
             if (neighbours == null)
                 neighbours = Lists.newArrayList();
             neighbours.add(newNode);
@@ -64,7 +68,7 @@ public class AStarGoapNode extends AStarNode {
         return neighbours;
     }
 
-    public float heuristic(AStarGoapNode to) {
+    public float heuristic(PlannerNode to) {
         return heuristic(to.state);
     }
 
@@ -76,11 +80,7 @@ public class AStarGoapNode extends AStarNode {
         return goal.difference(state) == 0;
     }
 
-    public int difference(WorldState otherState) {
-        return otherState.difference(state);
-    }
-
-    public static AStarGoapNode create(GoapAgent agent, WorldState initialState) {
-        return new AStarGoapNode(agent, initialState);
+    public static PlannerNode create(PlannerAgent agent, WorldState initialState) {
+        return new PlannerNode(agent, initialState);
     }
 }
