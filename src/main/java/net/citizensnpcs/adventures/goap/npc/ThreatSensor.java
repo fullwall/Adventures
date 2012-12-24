@@ -40,7 +40,7 @@ public class ThreatSensor implements Sensor {
     }
 
     public boolean hasThreats() {
-        return state.get("hasThreat");
+        return (Boolean) state.get("hasThreat");
     }
 
     private static final Collection<Entity> EMPTY = Lists.newArrayList();
