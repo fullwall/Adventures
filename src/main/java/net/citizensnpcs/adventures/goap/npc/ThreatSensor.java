@@ -21,8 +21,8 @@ public class ThreatSensor implements Sensor {
 
     @Override
     public WorldState generateState() {
-        Iterable<Entity> filtered = agent.getSensor(NearbyEntitySensor.class).getByClass(Monster.class,
-                Player.class);
+        NearbyEntitySensor sensor = agent.getSensor(NearbyEntitySensor.class);
+        Iterable<Entity> filtered = sensor.getByClass(Monster.class, Player.class);
         boolean hasThreat = Iterables.size(filtered) > 0;
         state.put("hasThreat", hasThreat);
         if (hasThreat)
