@@ -32,10 +32,11 @@ public class ThreatSensor implements Sensor {
         return state;
     }
 
-    @SuppressWarnings("unchecked")
     public Collection<Entity> getThreats() {
         Collection<Entity> threats = state.get("threats");
-        return (Collection<Entity>) (threats == null ? Collections.emptyList() : threats);
+        if (threats == null)
+            return Collections.emptyList();
+        return threats;
     }
 
     public boolean hasThreats() {
