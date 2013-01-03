@@ -43,10 +43,10 @@ rule returns [Collection<String> eventNames, Rule rule]:
     'rule' IDENT '{'! criteria {$eventNames = $criteria.eventNames;} ';'! (rule_statement[builder] ';'!)* '}'!;
     
 rule_statement[Rule.Builder builder] :
-    'response' n=IDENT 
+    ('response' n=IDENT 
     {CallResponse.Builder responseBuilder = CallResponse.builder($n.text);} 
-    ('then' target=IDENT event=IDENT {responseBuilder.callback(new CallEventCallback($target.text, $event.text));})? 
-    {builder.statement(responseBuilder.build());};
+    ('then' (target=IDENT|target=NUMBER) event=IDENT {responseBuilder.callback(new CallEventCallback($target.text, $event.text));})? 
+    {builder.statement(responseBuilder.build());});
     
 criteria returns [Collection<String> eventNames]:
     {$eventNames = new ArrayList<String>();}
@@ -111,6 +111,9 @@ fragment LETTER :
 
 fragment DIGIT :
     ('0'..'9');
+
+fragment INTEGER : 
+    DIGIT+;
 
 NUMBER :
     '-'? DIGIT+ ('.' DIGIT+)?;

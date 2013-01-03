@@ -1,6 +1,7 @@
 package net.citizensnpcs.adventures.goap;
 
 import java.util.ArrayDeque;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 
@@ -44,24 +45,24 @@ public class PlannerNode extends AStarNode {
     private float getHeuristicModifier() {
         if (applied == null)
             return 0;
-        return cachedModifier == -1 ? cachedModifier = agent.getCostModifierFor(applied) * applied.getCost()
-                : cachedModifier;
+        return cachedModifier == -1 ? cachedModifier = Math.max(1, agent.getCostModifierFor(applied))
+                * Math.max(1, applied.getCost()) : cachedModifier;
     }
 
     @Override
     public Iterable<AStarNode> getNeighbours() {
-        List<AStarNode> neighbours = null;
+        List<AStarNode> neighbours = Collections.emptyList();
         for (Action action : agent.getAvailableActions()) {
             WorldState preconditions = action.getPreconditions();
-            if (state.difference(preconditions) != 0)
+            if (preconditions != null && state.difference(preconditions) != 0)
                 continue;
             boolean canExecute = action.evaluateContextPreconditions();
             if (!canExecute)
                 continue;
             WorldState effects = action.getEffects();
             WorldState newState = state.apply(effects);
-            PlannerNode newNode = PlannerNode.create(agent, newState);
-            if (neighbours == null)
+            PlannerNode newNode = PlannerNode.create(agent, newState, action);
+            if (neighbours == Collections.EMPTY_LIST)
                 neighbours = Lists.newArrayList();
             neighbours.add(newNode);
         }
@@ -82,5 +83,9 @@ public class PlannerNode extends AStarNode {
 
     public static PlannerNode create(PlannerAgent agent, WorldState initialState) {
         return new PlannerNode(agent, initialState);
+    }
+
+    public static PlannerNode create(PlannerAgent agent, WorldState initialState, Action appliedAction) {
+        return new PlannerNode(agent, initialState, appliedAction);
     }
 }

@@ -26,6 +26,7 @@ public class SimpleDialogRegistry implements DialogRegistry {
                 if (rulesByEvent.containsKey(eventName))
                     throw new IllegalStateException();
                 rulesByEvent.put(eventName, rule);
+                Collections.sort(rulesByEvent.get(eventName));
             }
         }
     }

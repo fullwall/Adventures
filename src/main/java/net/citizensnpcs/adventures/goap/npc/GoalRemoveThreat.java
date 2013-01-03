@@ -1,13 +1,19 @@
 package net.citizensnpcs.adventures.goap.npc;
 
-import net.citizensnpcs.adventures.goap.PlannerAgent;
 import net.citizensnpcs.adventures.goap.Goal;
+import net.citizensnpcs.adventures.goap.PlannerAgent;
 import net.citizensnpcs.adventures.goap.WorldState;
+import net.citizensnpcs.adventures.sensors.ThreatSensor;
+
+import com.google.inject.Inject;
 
 public class GoalRemoveThreat implements Goal {
+    @Inject
+    private PlannerAgent agent;
+
     @Override
     public boolean canContinue() {
-        return true;
+        return evaluateRelevancy(agent) == 1;
     }
 
     @Override

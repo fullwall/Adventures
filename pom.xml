@@ -111,12 +111,8 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
-							<minimizeJar>true</minimizeJar>
+							<minimizeJar>false</minimizeJar>
 							<relocations>
-								<relocation>
-									<pattern>com.google.inject</pattern>
-									<shadedPattern>lib.guice</shadedPattern>
-								</relocation>
 								<relocation>
 									<pattern>org.antlr</pattern>
 									<shadedPattern>lib.antlr</shadedPattern>

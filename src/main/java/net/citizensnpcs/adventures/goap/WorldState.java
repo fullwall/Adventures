@@ -18,6 +18,8 @@ public class WorldState implements Cloneable {
     }
 
     public WorldState apply(WorldState effects) {
+        if (effects == EMPTY || effects.state.isEmpty())
+            return this;
         Map<String, Object> newState = Maps.newHashMap(effects.state);
         for (Entry<String, Object> entry : state.entrySet()) {
             if (!newState.containsKey(entry.getKey()))

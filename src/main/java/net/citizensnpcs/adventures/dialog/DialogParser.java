@@ -1,4 +1,4 @@
-// $ANTLR 3.4 Dialog.g 2012-12-24 23:36:13
+// $ANTLR 3.4 Dialog.g 2012-12-25 09:47:03
 
 package net.citizensnpcs.adventures.dialog;
 import java.util.concurrent.Callable;
@@ -18,11 +18,10 @@ import org.antlr.runtime.tree.*;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class DialogParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "DIGIT", "IDENT", "LETTER", "LINE_COMMENT", "ML_COMMENT", "NEWLINE", "NUMBER", "STRING_LITERAL", "WS", "'!='", "'%'", "'('", "')'", "'*'", "'+'", "','", "'-'", "'/'", "';'", "'<'", "'<='", "'='", "'>'", "'>='", "'criteria'", "'events='", "'response'", "'rule'", "'then'", "'{'", "'}'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "DIGIT", "IDENT", "INTEGER", "LETTER", "LINE_COMMENT", "ML_COMMENT", "NEWLINE", "NUMBER", "STRING_LITERAL", "WS", "'!='", "'%'", "'('", "')'", "'*'", "'+'", "','", "'-'", "'/'", "';'", "'<'", "'<='", "'='", "'>'", "'>='", "'criteria'", "'events='", "'response'", "'rule'", "'then'", "'{'", "'}'"
     };
 
     public static final int EOF=-1;
-    public static final int T__13=13;
     public static final int T__14=14;
     public static final int T__15=15;
     public static final int T__16=16;
@@ -44,15 +43,17 @@ public class DialogParser extends Parser {
     public static final int T__32=32;
     public static final int T__33=33;
     public static final int T__34=34;
+    public static final int T__35=35;
     public static final int DIGIT=4;
     public static final int IDENT=5;
-    public static final int LETTER=6;
-    public static final int LINE_COMMENT=7;
-    public static final int ML_COMMENT=8;
-    public static final int NEWLINE=9;
-    public static final int NUMBER=10;
-    public static final int STRING_LITERAL=11;
-    public static final int WS=12;
+    public static final int INTEGER=6;
+    public static final int LETTER=7;
+    public static final int LINE_COMMENT=8;
+    public static final int ML_COMMENT=9;
+    public static final int NEWLINE=10;
+    public static final int NUMBER=11;
+    public static final int STRING_LITERAL=12;
+    public static final int WS=13;
 
     // delegates
     public Parser[] getDelegates() {
@@ -122,10 +123,10 @@ public TreeAdaptor getTreeAdaptor() {
                 int alt1=3;
                 int LA1_0 = input.LA(1);
 
-                if ( (LA1_0==31) ) {
+                if ( (LA1_0==32) ) {
                     alt1=1;
                 }
-                else if ( (LA1_0==30) ) {
+                else if ( (LA1_0==31) ) {
                     alt1=2;
                 }
 
@@ -230,7 +231,7 @@ public TreeAdaptor getTreeAdaptor() {
 
             Response.Builder builder = Response.builder();
 
-            string_literal3=(Token)match(input,30,FOLLOW_30_in_response139); 
+            string_literal3=(Token)match(input,31,FOLLOW_31_in_response139); 
             string_literal3_tree = 
             (CommonTree)adaptor.create(string_literal3)
             ;
@@ -246,7 +247,7 @@ public TreeAdaptor getTreeAdaptor() {
 
             retval.responseName = (IDENT4!=null?IDENT4.getText():null);
 
-            char_literal5=(Token)match(input,33,FOLLOW_33_in_response145); 
+            char_literal5=(Token)match(input,34,FOLLOW_34_in_response145); 
 
             // Dialog.g:37:58: ( response_statement ';' !)*
             loop2:
@@ -254,7 +255,7 @@ public TreeAdaptor getTreeAdaptor() {
                 int alt2=2;
                 int LA2_0 = input.LA(1);
 
-                if ( (LA2_0==22) ) {
+                if ( (LA2_0==23) ) {
                     alt2=1;
                 }
 
@@ -270,7 +271,7 @@ public TreeAdaptor getTreeAdaptor() {
 
             	    adaptor.addChild(root_0, response_statement6.getTree());
 
-            	    char_literal7=(Token)match(input,22,FOLLOW_22_in_response151); 
+            	    char_literal7=(Token)match(input,23,FOLLOW_23_in_response151); 
 
             	    }
             	    break;
@@ -281,7 +282,7 @@ public TreeAdaptor getTreeAdaptor() {
             } while (true);
 
 
-            char_literal8=(Token)match(input,34,FOLLOW_34_in_response156); 
+            char_literal8=(Token)match(input,35,FOLLOW_35_in_response156); 
 
             }
 
@@ -390,7 +391,7 @@ public TreeAdaptor getTreeAdaptor() {
 
             Rule.Builder builder = Rule.builder();
 
-            string_literal9=(Token)match(input,31,FOLLOW_31_in_rule184); 
+            string_literal9=(Token)match(input,32,FOLLOW_32_in_rule184); 
             string_literal9_tree = 
             (CommonTree)adaptor.create(string_literal9)
             ;
@@ -404,7 +405,7 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.addChild(root_0, IDENT10_tree);
 
 
-            char_literal11=(Token)match(input,33,FOLLOW_33_in_rule188); 
+            char_literal11=(Token)match(input,34,FOLLOW_34_in_rule188); 
 
             pushFollow(FOLLOW_criteria_in_rule191);
             criteria12=criteria();
@@ -415,7 +416,7 @@ public TreeAdaptor getTreeAdaptor() {
 
             retval.eventNames = (criteria12!=null?criteria12.eventNames:null);
 
-            char_literal13=(Token)match(input,22,FOLLOW_22_in_rule195); 
+            char_literal13=(Token)match(input,23,FOLLOW_23_in_rule195); 
 
             // Dialog.g:43:75: ( rule_statement[builder] ';' !)*
             loop3:
@@ -423,7 +424,7 @@ public TreeAdaptor getTreeAdaptor() {
                 int alt3=2;
                 int LA3_0 = input.LA(1);
 
-                if ( (LA3_0==30) ) {
+                if ( (LA3_0==31) ) {
                     alt3=1;
                 }
 
@@ -439,7 +440,7 @@ public TreeAdaptor getTreeAdaptor() {
 
             	    adaptor.addChild(root_0, rule_statement14.getTree());
 
-            	    char_literal15=(Token)match(input,22,FOLLOW_22_in_rule202); 
+            	    char_literal15=(Token)match(input,23,FOLLOW_23_in_rule202); 
 
             	    }
             	    break;
@@ -450,7 +451,7 @@ public TreeAdaptor getTreeAdaptor() {
             } while (true);
 
 
-            char_literal16=(Token)match(input,34,FOLLOW_34_in_rule207); 
+            char_literal16=(Token)match(input,35,FOLLOW_35_in_rule207); 
 
             }
 
@@ -483,7 +484,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "rule_statement"
-    // Dialog.g:45:1: rule_statement[Rule.Builder builder] : 'response' n= IDENT ( 'then' target= IDENT event= IDENT )? ;
+    // Dialog.g:45:1: rule_statement[Rule.Builder builder] : ( 'response' n= IDENT ( 'then' (target= IDENT |target= NUMBER ) event= IDENT )? ) ;
     public final DialogParser.rule_statement_return rule_statement(Rule.Builder builder) throws RecognitionException {
         DialogParser.rule_statement_return retval = new DialogParser.rule_statement_return();
         retval.start = input.LT(1);
@@ -504,20 +505,23 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree string_literal18_tree=null;
 
         try {
-            // Dialog.g:45:38: ( 'response' n= IDENT ( 'then' target= IDENT event= IDENT )? )
-            // Dialog.g:46:5: 'response' n= IDENT ( 'then' target= IDENT event= IDENT )?
+            // Dialog.g:45:38: ( ( 'response' n= IDENT ( 'then' (target= IDENT |target= NUMBER ) event= IDENT )? ) )
+            // Dialog.g:46:5: ( 'response' n= IDENT ( 'then' (target= IDENT |target= NUMBER ) event= IDENT )? )
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            string_literal17=(Token)match(input,30,FOLLOW_30_in_rule_statement225); 
+            // Dialog.g:46:5: ( 'response' n= IDENT ( 'then' (target= IDENT |target= NUMBER ) event= IDENT )? )
+            // Dialog.g:46:6: 'response' n= IDENT ( 'then' (target= IDENT |target= NUMBER ) event= IDENT )?
+            {
+            string_literal17=(Token)match(input,31,FOLLOW_31_in_rule_statement226); 
             string_literal17_tree = 
             (CommonTree)adaptor.create(string_literal17)
             ;
             adaptor.addChild(root_0, string_literal17_tree);
 
 
-            n=(Token)match(input,IDENT,FOLLOW_IDENT_in_rule_statement229); 
+            n=(Token)match(input,IDENT,FOLLOW_IDENT_in_rule_statement230); 
             n_tree = 
             (CommonTree)adaptor.create(n)
             ;
@@ -526,32 +530,71 @@ public TreeAdaptor getTreeAdaptor() {
 
             CallResponse.Builder responseBuilder = CallResponse.builder((n!=null?n.getText():null));
 
-            // Dialog.g:48:5: ( 'then' target= IDENT event= IDENT )?
-            int alt4=2;
-            int LA4_0 = input.LA(1);
+            // Dialog.g:48:5: ( 'then' (target= IDENT |target= NUMBER ) event= IDENT )?
+            int alt5=2;
+            int LA5_0 = input.LA(1);
 
-            if ( (LA4_0==32) ) {
-                alt4=1;
+            if ( (LA5_0==33) ) {
+                alt5=1;
             }
-            switch (alt4) {
+            switch (alt5) {
                 case 1 :
-                    // Dialog.g:48:6: 'then' target= IDENT event= IDENT
+                    // Dialog.g:48:6: 'then' (target= IDENT |target= NUMBER ) event= IDENT
                     {
-                    string_literal18=(Token)match(input,32,FOLLOW_32_in_rule_statement244); 
+                    string_literal18=(Token)match(input,33,FOLLOW_33_in_rule_statement245); 
                     string_literal18_tree = 
                     (CommonTree)adaptor.create(string_literal18)
                     ;
                     adaptor.addChild(root_0, string_literal18_tree);
 
 
-                    target=(Token)match(input,IDENT,FOLLOW_IDENT_in_rule_statement248); 
-                    target_tree = 
-                    (CommonTree)adaptor.create(target)
-                    ;
-                    adaptor.addChild(root_0, target_tree);
+                    // Dialog.g:48:13: (target= IDENT |target= NUMBER )
+                    int alt4=2;
+                    int LA4_0 = input.LA(1);
+
+                    if ( (LA4_0==IDENT) ) {
+                        alt4=1;
+                    }
+                    else if ( (LA4_0==NUMBER) ) {
+                        alt4=2;
+                    }
+                    else {
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 4, 0, input);
+
+                        throw nvae;
+
+                    }
+                    switch (alt4) {
+                        case 1 :
+                            // Dialog.g:48:14: target= IDENT
+                            {
+                            target=(Token)match(input,IDENT,FOLLOW_IDENT_in_rule_statement250); 
+                            target_tree = 
+                            (CommonTree)adaptor.create(target)
+                            ;
+                            adaptor.addChild(root_0, target_tree);
 
 
-                    event=(Token)match(input,IDENT,FOLLOW_IDENT_in_rule_statement252); 
+                            }
+                            break;
+                        case 2 :
+                            // Dialog.g:48:27: target= NUMBER
+                            {
+                            target=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_rule_statement254); 
+                            target_tree = 
+                            (CommonTree)adaptor.create(target)
+                            ;
+                            adaptor.addChild(root_0, target_tree);
+
+
+                            }
+                            break;
+
+                    }
+
+
+                    event=(Token)match(input,IDENT,FOLLOW_IDENT_in_rule_statement259); 
                     event_tree = 
                     (CommonTree)adaptor.create(event)
                     ;
@@ -567,6 +610,9 @@ public TreeAdaptor getTreeAdaptor() {
 
 
             builder.statement(responseBuilder.build());
+
+            }
+
 
             }
 
@@ -667,7 +713,7 @@ public TreeAdaptor getTreeAdaptor() {
 
             retval.eventNames = new ArrayList<String>();
 
-            string_literal19=(Token)match(input,28,FOLLOW_28_in_criteria288); 
+            string_literal19=(Token)match(input,29,FOLLOW_29_in_criteria296); 
             string_literal19_tree = 
             (CommonTree)adaptor.create(string_literal19)
             ;
@@ -677,14 +723,14 @@ public TreeAdaptor getTreeAdaptor() {
             // Dialog.g:53:16: ( 'events=' e1= IDENT ( ',' e2= IDENT )+ )
             // Dialog.g:53:17: 'events=' e1= IDENT ( ',' e2= IDENT )+
             {
-            string_literal20=(Token)match(input,29,FOLLOW_29_in_criteria291); 
+            string_literal20=(Token)match(input,30,FOLLOW_30_in_criteria299); 
             string_literal20_tree = 
             (CommonTree)adaptor.create(string_literal20)
             ;
             adaptor.addChild(root_0, string_literal20_tree);
 
 
-            e1=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria295); 
+            e1=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria303); 
             e1_tree = 
             (CommonTree)adaptor.create(e1)
             ;
@@ -694,29 +740,29 @@ public TreeAdaptor getTreeAdaptor() {
             retval.eventNames.add((e1!=null?e1.getText():null));
 
             // Dialog.g:53:65: ( ',' e2= IDENT )+
-            int cnt5=0;
-            loop5:
+            int cnt6=0;
+            loop6:
             do {
-                int alt5=2;
-                int LA5_0 = input.LA(1);
+                int alt6=2;
+                int LA6_0 = input.LA(1);
 
-                if ( (LA5_0==19) ) {
-                    alt5=1;
+                if ( (LA6_0==20) ) {
+                    alt6=1;
                 }
 
 
-                switch (alt5) {
+                switch (alt6) {
             	case 1 :
             	    // Dialog.g:53:66: ',' e2= IDENT
             	    {
-            	    char_literal21=(Token)match(input,19,FOLLOW_19_in_criteria300); 
+            	    char_literal21=(Token)match(input,20,FOLLOW_20_in_criteria308); 
             	    char_literal21_tree = 
             	    (CommonTree)adaptor.create(char_literal21)
             	    ;
             	    adaptor.addChild(root_0, char_literal21_tree);
 
 
-            	    e2=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria304); 
+            	    e2=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria312); 
             	    e2_tree = 
             	    (CommonTree)adaptor.create(e2)
             	    ;
@@ -729,12 +775,12 @@ public TreeAdaptor getTreeAdaptor() {
             	    break;
 
             	default :
-            	    if ( cnt5 >= 1 ) break loop5;
+            	    if ( cnt6 >= 1 ) break loop6;
                         EarlyExitException eee =
-                            new EarlyExitException(5, input);
+                            new EarlyExitException(6, input);
                         throw eee;
                 }
-                cnt5++;
+                cnt6++;
             } while (true);
 
 
@@ -742,48 +788,48 @@ public TreeAdaptor getTreeAdaptor() {
 
 
             // Dialog.g:54:5: (i1= IDENT '=' op1= expression |i2= IDENT '>' op2= expression |i3= IDENT '<' op3= expression |i4= IDENT '<=' op4= expression |i5= IDENT '>=' op5= expression |i6= IDENT '!=' op6= expression |i7= IDENT )+
-            int cnt6=0;
-            loop6:
+            int cnt7=0;
+            loop7:
             do {
-                int alt6=8;
-                int LA6_0 = input.LA(1);
+                int alt7=8;
+                int LA7_0 = input.LA(1);
 
-                if ( (LA6_0==IDENT) ) {
+                if ( (LA7_0==IDENT) ) {
                     switch ( input.LA(2) ) {
-                    case 25:
-                        {
-                        alt6=1;
-                        }
-                        break;
                     case 26:
                         {
-                        alt6=2;
-                        }
-                        break;
-                    case 23:
-                        {
-                        alt6=3;
-                        }
-                        break;
-                    case 24:
-                        {
-                        alt6=4;
+                        alt7=1;
                         }
                         break;
                     case 27:
                         {
-                        alt6=5;
+                        alt7=2;
                         }
                         break;
-                    case 13:
+                    case 24:
                         {
-                        alt6=6;
+                        alt7=3;
+                        }
+                        break;
+                    case 25:
+                        {
+                        alt7=4;
+                        }
+                        break;
+                    case 28:
+                        {
+                        alt7=5;
+                        }
+                        break;
+                    case 14:
+                        {
+                        alt7=6;
                         }
                         break;
                     case IDENT:
-                    case 22:
+                    case 23:
                         {
-                        alt6=7;
+                        alt7=7;
                         }
                         break;
 
@@ -792,25 +838,25 @@ public TreeAdaptor getTreeAdaptor() {
                 }
 
 
-                switch (alt6) {
+                switch (alt7) {
             	case 1 :
             	    // Dialog.g:55:9: i1= IDENT '=' op1= expression
             	    {
-            	    i1=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria327); 
+            	    i1=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria335); 
             	    i1_tree = 
             	    (CommonTree)adaptor.create(i1)
             	    ;
             	    adaptor.addChild(root_0, i1_tree);
 
 
-            	    char_literal22=(Token)match(input,25,FOLLOW_25_in_criteria329); 
+            	    char_literal22=(Token)match(input,26,FOLLOW_26_in_criteria337); 
             	    char_literal22_tree = 
             	    (CommonTree)adaptor.create(char_literal22)
             	    ;
             	    adaptor.addChild(root_0, char_literal22_tree);
 
 
-            	    pushFollow(FOLLOW_expression_in_criteria333);
+            	    pushFollow(FOLLOW_expression_in_criteria341);
             	    op1=expression();
 
             	    state._fsp--;
@@ -824,21 +870,21 @@ public TreeAdaptor getTreeAdaptor() {
             	case 2 :
             	    // Dialog.g:56:11: i2= IDENT '>' op2= expression
             	    {
-            	    i2=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria349); 
+            	    i2=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria357); 
             	    i2_tree = 
             	    (CommonTree)adaptor.create(i2)
             	    ;
             	    adaptor.addChild(root_0, i2_tree);
 
 
-            	    char_literal23=(Token)match(input,26,FOLLOW_26_in_criteria351); 
+            	    char_literal23=(Token)match(input,27,FOLLOW_27_in_criteria359); 
             	    char_literal23_tree = 
             	    (CommonTree)adaptor.create(char_literal23)
             	    ;
             	    adaptor.addChild(root_0, char_literal23_tree);
 
 
-            	    pushFollow(FOLLOW_expression_in_criteria355);
+            	    pushFollow(FOLLOW_expression_in_criteria363);
             	    op2=expression();
 
             	    state._fsp--;
@@ -852,21 +898,21 @@ public TreeAdaptor getTreeAdaptor() {
             	case 3 :
             	    // Dialog.g:57:11: i3= IDENT '<' op3= expression
             	    {
-            	    i3=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria371); 
+            	    i3=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria379); 
             	    i3_tree = 
             	    (CommonTree)adaptor.create(i3)
             	    ;
             	    adaptor.addChild(root_0, i3_tree);
 
 
-            	    char_literal24=(Token)match(input,23,FOLLOW_23_in_criteria373); 
+            	    char_literal24=(Token)match(input,24,FOLLOW_24_in_criteria381); 
             	    char_literal24_tree = 
             	    (CommonTree)adaptor.create(char_literal24)
             	    ;
             	    adaptor.addChild(root_0, char_literal24_tree);
 
 
-            	    pushFollow(FOLLOW_expression_in_criteria377);
+            	    pushFollow(FOLLOW_expression_in_criteria385);
             	    op3=expression();
 
             	    state._fsp--;
@@ -880,21 +926,21 @@ public TreeAdaptor getTreeAdaptor() {
             	case 4 :
             	    // Dialog.g:58:11: i4= IDENT '<=' op4= expression
             	    {
-            	    i4=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria393); 
+            	    i4=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria401); 
             	    i4_tree = 
             	    (CommonTree)adaptor.create(i4)
             	    ;
             	    adaptor.addChild(root_0, i4_tree);
 
 
-            	    string_literal25=(Token)match(input,24,FOLLOW_24_in_criteria395); 
+            	    string_literal25=(Token)match(input,25,FOLLOW_25_in_criteria403); 
             	    string_literal25_tree = 
             	    (CommonTree)adaptor.create(string_literal25)
             	    ;
             	    adaptor.addChild(root_0, string_literal25_tree);
 
 
-            	    pushFollow(FOLLOW_expression_in_criteria399);
+            	    pushFollow(FOLLOW_expression_in_criteria407);
             	    op4=expression();
 
             	    state._fsp--;
@@ -908,21 +954,21 @@ public TreeAdaptor getTreeAdaptor() {
             	case 5 :
             	    // Dialog.g:59:11: i5= IDENT '>=' op5= expression
             	    {
-            	    i5=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria415); 
+            	    i5=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria423); 
             	    i5_tree = 
             	    (CommonTree)adaptor.create(i5)
             	    ;
             	    adaptor.addChild(root_0, i5_tree);
 
 
-            	    string_literal26=(Token)match(input,27,FOLLOW_27_in_criteria417); 
+            	    string_literal26=(Token)match(input,28,FOLLOW_28_in_criteria425); 
             	    string_literal26_tree = 
             	    (CommonTree)adaptor.create(string_literal26)
             	    ;
             	    adaptor.addChild(root_0, string_literal26_tree);
 
 
-            	    pushFollow(FOLLOW_expression_in_criteria421);
+            	    pushFollow(FOLLOW_expression_in_criteria429);
             	    op5=expression();
 
             	    state._fsp--;
@@ -936,21 +982,21 @@ public TreeAdaptor getTreeAdaptor() {
             	case 6 :
             	    // Dialog.g:60:11: i6= IDENT '!=' op6= expression
             	    {
-            	    i6=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria437); 
+            	    i6=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria445); 
             	    i6_tree = 
             	    (CommonTree)adaptor.create(i6)
             	    ;
             	    adaptor.addChild(root_0, i6_tree);
 
 
-            	    string_literal27=(Token)match(input,13,FOLLOW_13_in_criteria439); 
+            	    string_literal27=(Token)match(input,14,FOLLOW_14_in_criteria447); 
             	    string_literal27_tree = 
             	    (CommonTree)adaptor.create(string_literal27)
             	    ;
             	    adaptor.addChild(root_0, string_literal27_tree);
 
 
-            	    pushFollow(FOLLOW_expression_in_criteria443);
+            	    pushFollow(FOLLOW_expression_in_criteria451);
             	    op6=expression();
 
             	    state._fsp--;
@@ -964,7 +1010,7 @@ public TreeAdaptor getTreeAdaptor() {
             	case 7 :
             	    // Dialog.g:61:11: i7= IDENT
             	    {
-            	    i7=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria459); 
+            	    i7=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria467); 
             	    i7_tree = 
             	    (CommonTree)adaptor.create(i7)
             	    ;
@@ -977,12 +1023,12 @@ public TreeAdaptor getTreeAdaptor() {
             	    break;
 
             	default :
-            	    if ( cnt6 >= 1 ) break loop6;
+            	    if ( cnt7 >= 1 ) break loop7;
                         EarlyExitException eee =
-                            new EarlyExitException(6, input);
+                            new EarlyExitException(7, input);
                         throw eee;
                 }
-                cnt6++;
+                cnt7++;
             } while (true);
 
 
@@ -1043,7 +1089,7 @@ public TreeAdaptor getTreeAdaptor() {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            pushFollow(FOLLOW_mult_in_expression490);
+            pushFollow(FOLLOW_mult_in_expression498);
             op1=mult();
 
             state._fsp--;
@@ -1053,31 +1099,31 @@ public TreeAdaptor getTreeAdaptor() {
             retval.value = (op1!=null?op1.value:null);
 
             // Dialog.g:66:5: ( '+' op2= mult | '-' op2= mult )*
-            loop7:
+            loop8:
             do {
-                int alt7=3;
-                int LA7_0 = input.LA(1);
+                int alt8=3;
+                int LA8_0 = input.LA(1);
 
-                if ( (LA7_0==18) ) {
-                    alt7=1;
+                if ( (LA8_0==19) ) {
+                    alt8=1;
                 }
-                else if ( (LA7_0==20) ) {
-                    alt7=2;
+                else if ( (LA8_0==21) ) {
+                    alt8=2;
                 }
 
 
-                switch (alt7) {
+                switch (alt8) {
             	case 1 :
             	    // Dialog.g:67:5: '+' op2= mult
             	    {
-            	    char_literal28=(Token)match(input,18,FOLLOW_18_in_expression504); 
+            	    char_literal28=(Token)match(input,19,FOLLOW_19_in_expression512); 
             	    char_literal28_tree = 
             	    (CommonTree)adaptor.create(char_literal28)
             	    ;
             	    adaptor.addChild(root_0, char_literal28_tree);
 
 
-            	    pushFollow(FOLLOW_mult_in_expression508);
+            	    pushFollow(FOLLOW_mult_in_expression516);
             	    op2=mult();
 
             	    state._fsp--;
@@ -1091,14 +1137,14 @@ public TreeAdaptor getTreeAdaptor() {
             	case 2 :
             	    // Dialog.g:68:8: '-' op2= mult
             	    {
-            	    char_literal29=(Token)match(input,20,FOLLOW_20_in_expression519); 
+            	    char_literal29=(Token)match(input,21,FOLLOW_21_in_expression527); 
             	    char_literal29_tree = 
             	    (CommonTree)adaptor.create(char_literal29)
             	    ;
             	    adaptor.addChild(root_0, char_literal29_tree);
 
 
-            	    pushFollow(FOLLOW_mult_in_expression523);
+            	    pushFollow(FOLLOW_mult_in_expression531);
             	    op2=mult();
 
             	    state._fsp--;
@@ -1111,7 +1157,7 @@ public TreeAdaptor getTreeAdaptor() {
             	    break;
 
             	default :
-            	    break loop7;
+            	    break loop8;
                 }
             } while (true);
 
@@ -1174,24 +1220,24 @@ public TreeAdaptor getTreeAdaptor() {
             boolean positive = true;
 
             // Dialog.g:73:5: ( '+' | '-' )*
-            loop8:
+            loop9:
             do {
-                int alt8=3;
-                int LA8_0 = input.LA(1);
+                int alt9=3;
+                int LA9_0 = input.LA(1);
 
-                if ( (LA8_0==18) ) {
-                    alt8=1;
+                if ( (LA9_0==19) ) {
+                    alt9=1;
                 }
-                else if ( (LA8_0==20) ) {
-                    alt8=2;
+                else if ( (LA9_0==21) ) {
+                    alt9=2;
                 }
 
 
-                switch (alt8) {
+                switch (alt9) {
             	case 1 :
             	    // Dialog.g:73:6: '+'
             	    {
-            	    char_literal30=(Token)match(input,18,FOLLOW_18_in_unary555); 
+            	    char_literal30=(Token)match(input,19,FOLLOW_19_in_unary563); 
             	    char_literal30_tree = 
             	    (CommonTree)adaptor.create(char_literal30)
             	    ;
@@ -1203,7 +1249,7 @@ public TreeAdaptor getTreeAdaptor() {
             	case 2 :
             	    // Dialog.g:73:12: '-'
             	    {
-            	    char_literal31=(Token)match(input,20,FOLLOW_20_in_unary559); 
+            	    char_literal31=(Token)match(input,21,FOLLOW_21_in_unary567); 
             	    char_literal31_tree = 
             	    (CommonTree)adaptor.create(char_literal31)
             	    ;
@@ -1216,12 +1262,12 @@ public TreeAdaptor getTreeAdaptor() {
             	    break;
 
             	default :
-            	    break loop8;
+            	    break loop9;
                 }
             } while (true);
 
 
-            pushFollow(FOLLOW_term_in_unary569);
+            pushFollow(FOLLOW_term_in_unary577);
             term32=term();
 
             state._fsp--;
@@ -1293,7 +1339,7 @@ public TreeAdaptor getTreeAdaptor() {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            pushFollow(FOLLOW_unary_in_mult589);
+            pushFollow(FOLLOW_unary_in_mult597);
             op1=unary();
 
             state._fsp--;
@@ -1303,40 +1349,40 @@ public TreeAdaptor getTreeAdaptor() {
             retval.value = (op1!=null?op1.value:null);
 
             // Dialog.g:82:5: ( '*' op2= unary | '/' op2= unary | '%' op2= unary )*
-            loop9:
+            loop10:
             do {
-                int alt9=4;
+                int alt10=4;
                 switch ( input.LA(1) ) {
-                case 17:
+                case 18:
                     {
-                    alt9=1;
+                    alt10=1;
                     }
                     break;
-                case 21:
+                case 22:
                     {
-                    alt9=2;
+                    alt10=2;
                     }
                     break;
-                case 14:
+                case 15:
                     {
-                    alt9=3;
+                    alt10=3;
                     }
                     break;
 
                 }
 
-                switch (alt9) {
+                switch (alt10) {
             	case 1 :
             	    // Dialog.g:82:6: '*' op2= unary
             	    {
-            	    char_literal33=(Token)match(input,17,FOLLOW_17_in_mult598); 
+            	    char_literal33=(Token)match(input,18,FOLLOW_18_in_mult606); 
             	    char_literal33_tree = 
             	    (CommonTree)adaptor.create(char_literal33)
             	    ;
             	    adaptor.addChild(root_0, char_literal33_tree);
 
 
-            	    pushFollow(FOLLOW_unary_in_mult602);
+            	    pushFollow(FOLLOW_unary_in_mult610);
             	    op2=unary();
 
             	    state._fsp--;
@@ -1350,14 +1396,14 @@ public TreeAdaptor getTreeAdaptor() {
             	case 2 :
             	    // Dialog.g:83:11: '/' op2= unary
             	    {
-            	    char_literal34=(Token)match(input,21,FOLLOW_21_in_mult616); 
+            	    char_literal34=(Token)match(input,22,FOLLOW_22_in_mult624); 
             	    char_literal34_tree = 
             	    (CommonTree)adaptor.create(char_literal34)
             	    ;
             	    adaptor.addChild(root_0, char_literal34_tree);
 
 
-            	    pushFollow(FOLLOW_unary_in_mult620);
+            	    pushFollow(FOLLOW_unary_in_mult628);
             	    op2=unary();
 
             	    state._fsp--;
@@ -1371,14 +1417,14 @@ public TreeAdaptor getTreeAdaptor() {
             	case 3 :
             	    // Dialog.g:84:11: '%' op2= unary
             	    {
-            	    char_literal35=(Token)match(input,14,FOLLOW_14_in_mult634); 
+            	    char_literal35=(Token)match(input,15,FOLLOW_15_in_mult642); 
             	    char_literal35_tree = 
             	    (CommonTree)adaptor.create(char_literal35)
             	    ;
             	    adaptor.addChild(root_0, char_literal35_tree);
 
 
-            	    pushFollow(FOLLOW_unary_in_mult638);
+            	    pushFollow(FOLLOW_unary_in_mult646);
             	    op2=unary();
 
             	    state._fsp--;
@@ -1391,7 +1437,7 @@ public TreeAdaptor getTreeAdaptor() {
             	    break;
 
             	default :
-            	    break loop9;
+            	    break loop10;
                 }
             } while (true);
 
@@ -1452,58 +1498,58 @@ public TreeAdaptor getTreeAdaptor() {
 
         try {
             // Dialog.g:87:32: ( '(' expression ')' | NUMBER | STRING_LITERAL | IDENT )
-            int alt10=4;
+            int alt11=4;
             switch ( input.LA(1) ) {
-            case 15:
+            case 16:
                 {
-                alt10=1;
+                alt11=1;
                 }
                 break;
             case NUMBER:
                 {
-                alt10=2;
+                alt11=2;
                 }
                 break;
             case STRING_LITERAL:
                 {
-                alt10=3;
+                alt11=3;
                 }
                 break;
             case IDENT:
                 {
-                alt10=4;
+                alt11=4;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 10, 0, input);
+                    new NoViableAltException("", 11, 0, input);
 
                 throw nvae;
 
             }
 
-            switch (alt10) {
+            switch (alt11) {
                 case 1 :
                     // Dialog.g:88:5: '(' expression ')'
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    char_literal36=(Token)match(input,15,FOLLOW_15_in_term663); 
+                    char_literal36=(Token)match(input,16,FOLLOW_16_in_term671); 
                     char_literal36_tree = 
                     (CommonTree)adaptor.create(char_literal36)
                     ;
                     adaptor.addChild(root_0, char_literal36_tree);
 
 
-                    pushFollow(FOLLOW_expression_in_term665);
+                    pushFollow(FOLLOW_expression_in_term673);
                     expression37=expression();
 
                     state._fsp--;
 
                     adaptor.addChild(root_0, expression37.getTree());
 
-                    char_literal38=(Token)match(input,16,FOLLOW_16_in_term667); 
+                    char_literal38=(Token)match(input,17,FOLLOW_17_in_term675); 
                     char_literal38_tree = 
                     (CommonTree)adaptor.create(char_literal38)
                     ;
@@ -1520,7 +1566,7 @@ public TreeAdaptor getTreeAdaptor() {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    NUMBER39=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_term677); 
+                    NUMBER39=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_term685); 
                     NUMBER39_tree = 
                     (CommonTree)adaptor.create(NUMBER39)
                     ;
@@ -1537,7 +1583,7 @@ public TreeAdaptor getTreeAdaptor() {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    STRING_LITERAL40=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_term687); 
+                    STRING_LITERAL40=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_term695); 
                     STRING_LITERAL40_tree = 
                     (CommonTree)adaptor.create(STRING_LITERAL40)
                     ;
@@ -1554,7 +1600,7 @@ public TreeAdaptor getTreeAdaptor() {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    IDENT41=(Token)match(input,IDENT,FOLLOW_IDENT_in_term697); 
+                    IDENT41=(Token)match(input,IDENT,FOLLOW_IDENT_in_term705); 
                     IDENT41_tree = 
                     (CommonTree)adaptor.create(IDENT41)
                     ;
@@ -1593,71 +1639,72 @@ public TreeAdaptor getTreeAdaptor() {
 
  
 
-    public static final BitSet FOLLOW_rule_in_program95 = new BitSet(new long[]{0x00000000C0000002L});
-    public static final BitSet FOLLOW_response_in_program109 = new BitSet(new long[]{0x00000000C0000002L});
-    public static final BitSet FOLLOW_30_in_response139 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENT_in_response141 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_33_in_response145 = new BitSet(new long[]{0x0000000400400000L});
-    public static final BitSet FOLLOW_response_statement_in_response149 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_22_in_response151 = new BitSet(new long[]{0x0000000400400000L});
-    public static final BitSet FOLLOW_34_in_response156 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_31_in_rule184 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENT_in_rule186 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_33_in_rule188 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_criteria_in_rule191 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_22_in_rule195 = new BitSet(new long[]{0x0000000440000000L});
-    public static final BitSet FOLLOW_rule_statement_in_rule199 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_22_in_rule202 = new BitSet(new long[]{0x0000000440000000L});
-    public static final BitSet FOLLOW_34_in_rule207 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_rule_statement225 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENT_in_rule_statement229 = new BitSet(new long[]{0x0000000100000002L});
-    public static final BitSet FOLLOW_32_in_rule_statement244 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENT_in_rule_statement248 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENT_in_rule_statement252 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_28_in_criteria288 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_criteria291 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENT_in_criteria295 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_19_in_criteria300 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENT_in_criteria304 = new BitSet(new long[]{0x0000000000080020L});
-    public static final BitSet FOLLOW_IDENT_in_criteria327 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_25_in_criteria329 = new BitSet(new long[]{0x0000000000148C20L});
-    public static final BitSet FOLLOW_expression_in_criteria333 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_IDENT_in_criteria349 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_criteria351 = new BitSet(new long[]{0x0000000000148C20L});
-    public static final BitSet FOLLOW_expression_in_criteria355 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_IDENT_in_criteria371 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_23_in_criteria373 = new BitSet(new long[]{0x0000000000148C20L});
-    public static final BitSet FOLLOW_expression_in_criteria377 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_IDENT_in_criteria393 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_criteria395 = new BitSet(new long[]{0x0000000000148C20L});
-    public static final BitSet FOLLOW_expression_in_criteria399 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_IDENT_in_criteria415 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_27_in_criteria417 = new BitSet(new long[]{0x0000000000148C20L});
-    public static final BitSet FOLLOW_expression_in_criteria421 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_IDENT_in_criteria437 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_criteria439 = new BitSet(new long[]{0x0000000000148C20L});
-    public static final BitSet FOLLOW_expression_in_criteria443 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_IDENT_in_criteria459 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_mult_in_expression490 = new BitSet(new long[]{0x0000000000140002L});
-    public static final BitSet FOLLOW_18_in_expression504 = new BitSet(new long[]{0x0000000000148C20L});
-    public static final BitSet FOLLOW_mult_in_expression508 = new BitSet(new long[]{0x0000000000140002L});
-    public static final BitSet FOLLOW_20_in_expression519 = new BitSet(new long[]{0x0000000000148C20L});
-    public static final BitSet FOLLOW_mult_in_expression523 = new BitSet(new long[]{0x0000000000140002L});
-    public static final BitSet FOLLOW_18_in_unary555 = new BitSet(new long[]{0x0000000000148C20L});
-    public static final BitSet FOLLOW_20_in_unary559 = new BitSet(new long[]{0x0000000000148C20L});
-    public static final BitSet FOLLOW_term_in_unary569 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_unary_in_mult589 = new BitSet(new long[]{0x0000000000224002L});
-    public static final BitSet FOLLOW_17_in_mult598 = new BitSet(new long[]{0x0000000000148C20L});
-    public static final BitSet FOLLOW_unary_in_mult602 = new BitSet(new long[]{0x0000000000224002L});
-    public static final BitSet FOLLOW_21_in_mult616 = new BitSet(new long[]{0x0000000000148C20L});
-    public static final BitSet FOLLOW_unary_in_mult620 = new BitSet(new long[]{0x0000000000224002L});
-    public static final BitSet FOLLOW_14_in_mult634 = new BitSet(new long[]{0x0000000000148C20L});
-    public static final BitSet FOLLOW_unary_in_mult638 = new BitSet(new long[]{0x0000000000224002L});
-    public static final BitSet FOLLOW_15_in_term663 = new BitSet(new long[]{0x0000000000148C20L});
-    public static final BitSet FOLLOW_expression_in_term665 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_term667 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NUMBER_in_term677 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_LITERAL_in_term687 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IDENT_in_term697 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule_in_program95 = new BitSet(new long[]{0x0000000180000002L});
+    public static final BitSet FOLLOW_response_in_program109 = new BitSet(new long[]{0x0000000180000002L});
+    public static final BitSet FOLLOW_31_in_response139 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_IDENT_in_response141 = new BitSet(new long[]{0x0000000400000000L});
+    public static final BitSet FOLLOW_34_in_response145 = new BitSet(new long[]{0x0000000800800000L});
+    public static final BitSet FOLLOW_response_statement_in_response149 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_23_in_response151 = new BitSet(new long[]{0x0000000800800000L});
+    public static final BitSet FOLLOW_35_in_response156 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_32_in_rule184 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_IDENT_in_rule186 = new BitSet(new long[]{0x0000000400000000L});
+    public static final BitSet FOLLOW_34_in_rule188 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_criteria_in_rule191 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_23_in_rule195 = new BitSet(new long[]{0x0000000880000000L});
+    public static final BitSet FOLLOW_rule_statement_in_rule199 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_23_in_rule202 = new BitSet(new long[]{0x0000000880000000L});
+    public static final BitSet FOLLOW_35_in_rule207 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_31_in_rule_statement226 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_IDENT_in_rule_statement230 = new BitSet(new long[]{0x0000000200000002L});
+    public static final BitSet FOLLOW_33_in_rule_statement245 = new BitSet(new long[]{0x0000000000000820L});
+    public static final BitSet FOLLOW_IDENT_in_rule_statement250 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_NUMBER_in_rule_statement254 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_IDENT_in_rule_statement259 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_29_in_criteria296 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_30_in_criteria299 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_IDENT_in_criteria303 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_20_in_criteria308 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_IDENT_in_criteria312 = new BitSet(new long[]{0x0000000000100020L});
+    public static final BitSet FOLLOW_IDENT_in_criteria335 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_26_in_criteria337 = new BitSet(new long[]{0x0000000000291820L});
+    public static final BitSet FOLLOW_expression_in_criteria341 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_IDENT_in_criteria357 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_27_in_criteria359 = new BitSet(new long[]{0x0000000000291820L});
+    public static final BitSet FOLLOW_expression_in_criteria363 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_IDENT_in_criteria379 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_24_in_criteria381 = new BitSet(new long[]{0x0000000000291820L});
+    public static final BitSet FOLLOW_expression_in_criteria385 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_IDENT_in_criteria401 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_25_in_criteria403 = new BitSet(new long[]{0x0000000000291820L});
+    public static final BitSet FOLLOW_expression_in_criteria407 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_IDENT_in_criteria423 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_28_in_criteria425 = new BitSet(new long[]{0x0000000000291820L});
+    public static final BitSet FOLLOW_expression_in_criteria429 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_IDENT_in_criteria445 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_criteria447 = new BitSet(new long[]{0x0000000000291820L});
+    public static final BitSet FOLLOW_expression_in_criteria451 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_IDENT_in_criteria467 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_mult_in_expression498 = new BitSet(new long[]{0x0000000000280002L});
+    public static final BitSet FOLLOW_19_in_expression512 = new BitSet(new long[]{0x0000000000291820L});
+    public static final BitSet FOLLOW_mult_in_expression516 = new BitSet(new long[]{0x0000000000280002L});
+    public static final BitSet FOLLOW_21_in_expression527 = new BitSet(new long[]{0x0000000000291820L});
+    public static final BitSet FOLLOW_mult_in_expression531 = new BitSet(new long[]{0x0000000000280002L});
+    public static final BitSet FOLLOW_19_in_unary563 = new BitSet(new long[]{0x0000000000291820L});
+    public static final BitSet FOLLOW_21_in_unary567 = new BitSet(new long[]{0x0000000000291820L});
+    public static final BitSet FOLLOW_term_in_unary577 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_unary_in_mult597 = new BitSet(new long[]{0x0000000000448002L});
+    public static final BitSet FOLLOW_18_in_mult606 = new BitSet(new long[]{0x0000000000291820L});
+    public static final BitSet FOLLOW_unary_in_mult610 = new BitSet(new long[]{0x0000000000448002L});
+    public static final BitSet FOLLOW_22_in_mult624 = new BitSet(new long[]{0x0000000000291820L});
+    public static final BitSet FOLLOW_unary_in_mult628 = new BitSet(new long[]{0x0000000000448002L});
+    public static final BitSet FOLLOW_15_in_mult642 = new BitSet(new long[]{0x0000000000291820L});
+    public static final BitSet FOLLOW_unary_in_mult646 = new BitSet(new long[]{0x0000000000448002L});
+    public static final BitSet FOLLOW_16_in_term671 = new BitSet(new long[]{0x0000000000291820L});
+    public static final BitSet FOLLOW_expression_in_term673 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_17_in_term675 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NUMBER_in_term685 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_LITERAL_in_term695 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IDENT_in_term705 = new BitSet(new long[]{0x0000000000000002L});
 
 }

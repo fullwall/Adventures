@@ -1,10 +1,9 @@
-package net.citizensnpcs.adventures.goap.npc;
+package net.citizensnpcs.adventures.sensors;
 
 import java.util.Collections;
 import java.util.List;
 
 import net.citizensnpcs.adventures.goap.PlannerAgent;
-import net.citizensnpcs.adventures.goap.Sensor;
 import net.citizensnpcs.adventures.goap.WorldState;
 
 import org.bukkit.entity.Entity;

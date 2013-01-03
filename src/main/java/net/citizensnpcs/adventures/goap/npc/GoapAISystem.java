@@ -2,12 +2,16 @@ package net.citizensnpcs.adventures.goap.npc;
 
 import java.util.Map;
 
-import net.citizensnpcs.adventures.goap.PlannerGoal;
-import net.citizensnpcs.adventures.goap.PlannerNode;
+import net.citizensnpcs.adventures.AISystem;
 import net.citizensnpcs.adventures.goap.Action;
 import net.citizensnpcs.adventures.goap.PlannerAgent;
-import net.citizensnpcs.adventures.goap.Sensor;
+import net.citizensnpcs.adventures.goap.PlannerGoal;
+import net.citizensnpcs.adventures.goap.PlannerNode;
 import net.citizensnpcs.adventures.goap.WorldState;
+import net.citizensnpcs.adventures.sensors.EquipmentSensor;
+import net.citizensnpcs.adventures.sensors.NearbyEntitySensor;
+import net.citizensnpcs.adventures.sensors.Sensor;
+import net.citizensnpcs.adventures.sensors.ThreatSensor;
 import net.citizensnpcs.api.astar.AStarGoal;
 import net.citizensnpcs.api.astar.AStarMachine;
 import net.citizensnpcs.api.astar.Plan;
@@ -18,18 +22,21 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
-public class NPCAgent extends Trait implements PlannerAgent {
+public class GoapAISystem extends Trait implements PlannerAgent, AISystem {
     private final Injector injector;
     private final AStarMachine<PlannerNode, Plan> machine = AStarMachine.createWithDefaultStorage();
     @Inject
-    private Planner planner;
+    private ActionPlanner planner;
     private final Map<Class<? extends Sensor>, Sensor> sensors = Maps.newHashMap();
-    private final WorldState worldState = WorldState.createEmptyState();
+    private WorldState worldState = WorldState.createEmptyState();
 
-    public NPCAgent() {
-        super("npcagent");
+    public GoapAISystem() {
+        super("g");
         injector = Guice.createInjector(new AgentModule(this));
         injector.injectMembers(this);
+        sensors.put(EquipmentSensor.class, injector.getInstance(EquipmentSensor.class));
+        sensors.put(ThreatSensor.class, injector.getInstance(ThreatSensor.class));
+        sensors.put(NearbyEntitySensor.class, injector.getInstance(NearbyEntitySensor.class));
     }
 
     @Override
@@ -77,6 +84,6 @@ public class NPCAgent extends Trait implements PlannerAgent {
 
     private void updateSensors() {
         for (Sensor sensor : sensors.values())
-            worldState.apply(sensor.generateState());
+            worldState = worldState.apply(sensor.generateState());
     }
 }

@@ -41,18 +41,29 @@ public class ActionPlan implements Plan, Comparable<Plan> {
             return false;
 
         ActionPlan other = (ActionPlan) obj;
-        return Float.floatToIntBits(cost) == Float.floatToIntBits(other.cost)
-                && Arrays.equals(plan, other.plan);
+        if (Float.floatToIntBits(cost) != Float.floatToIntBits(other.cost))
+            return false;
+        if (plan.length != other.plan.length)
+            return false;
+        for (int i = 0; i < plan.length; i++) {
+            if (plan[i].getClass() != other.plan[i].getClass())
+                return false;
+        }
+        return true;
     }
 
     public WorldState getWorldStateChanges() {
         return end;
     }
 
+    int hashcode = -1;
+
     @Override
     public int hashCode() {
+        if (hashcode != -1)
+            return hashcode;
         final int prime = 31;
-        return prime * (prime + Float.floatToIntBits(cost)) + Arrays.hashCode(plan);
+        return (hashcode = prime * (prime + Float.floatToIntBits(cost)) + Arrays.hashCode(plan));
     }
 
     @Override

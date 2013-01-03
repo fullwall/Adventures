@@ -1,5 +1,6 @@
 package net.citizensnpcs.adventures.goap;
 
+import net.citizensnpcs.adventures.sensors.Sensor;
 import net.citizensnpcs.api.astar.Agent;
 import net.citizensnpcs.api.astar.Plan;
 import net.citizensnpcs.api.npc.NPC;

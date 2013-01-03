@@ -8,6 +8,6 @@ public abstract class AbstractAction implements Action {
 
     @Override
     public float getCost() {
-        return 0F;
+        return 1F;
     }
 }

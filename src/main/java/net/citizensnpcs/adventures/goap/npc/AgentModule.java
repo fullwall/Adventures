@@ -1,8 +1,7 @@
 package net.citizensnpcs.adventures.goap.npc;
 
 import net.citizensnpcs.adventures.goap.PlannerAgent;
-import net.citizensnpcs.adventures.goap.Sensor;
-import net.citizensnpcs.api.astar.Agent;
+import net.citizensnpcs.adventures.sensors.Sensor;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provider;
@@ -20,8 +19,8 @@ public class AgentModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(Agent.class).toInstance(instance);
-        bind(Planner.class).to(NPCPlanner.class);
+        bind(PlannerAgent.class).toInstance(instance);
+        bind(ActionPlanner.class).to(SimpleActionPlanner.class);
         SensorProvider sensorProvider = new SensorProvider();
         bind(Sensor.class).toProvider(sensorProvider);
         bindListener(Matchers.any(), sensorProvider);

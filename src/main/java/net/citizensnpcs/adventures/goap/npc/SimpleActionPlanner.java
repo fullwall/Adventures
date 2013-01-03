@@ -4,22 +4,31 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import net.citizensnpcs.adventures.goap.ActionPlan;
 import net.citizensnpcs.adventures.goap.Action;
-import net.citizensnpcs.adventures.goap.PlannerAgent;
+import net.citizensnpcs.adventures.goap.ActionPlan;
 import net.citizensnpcs.adventures.goap.Goal;
+import net.citizensnpcs.adventures.goap.PlannerAgent;
 import net.citizensnpcs.api.astar.Plan;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 
-public class NPCPlanner implements Planner {
-    @Inject
-    private PlannerAgent agent;
+public class SimpleActionPlanner implements ActionPlanner {
+    private final PlannerAgent agent;
     private final List<Action> availableActions = Lists.newArrayList();
     private final List<Goal> availableGoals = Lists.newArrayList();
     private Goal currentGoal;
     private Plan currentPlan;
+
+    @Inject
+    public SimpleActionPlanner(PlannerAgent agent, Injector injector) {
+        this.agent = agent;
+        availableActions.add(injector.getInstance(ActionEvade.class));
+        availableActions.add(injector.getInstance(ActionKill.class));
+        availableActions.add(injector.getInstance(ActionPickupWeapon.class));
+        availableGoals.add(injector.getInstance(GoalRemoveThreat.class));
+    }
 
     @Override
     public Iterable<Action> getAvailableActions() {
@@ -55,8 +64,12 @@ public class NPCPlanner implements Planner {
             }
         });
         for (Goal goal : availableGoals) {
-            if (goal == currentGoal || agent.contains(goal.getGoalState()))
+            if (goal == currentGoal) {
+                break;
+            }
+            if (agent.contains(goal.getGoalState())) {
                 continue;
+            }
             return goal;
         }
         return null;
@@ -64,6 +77,8 @@ public class NPCPlanner implements Planner {
 
     @SuppressWarnings("unchecked")
     private boolean shouldReplaceCurrentPlan(Plan plan) {
+        if (plan == null)
+            return false;
         if (currentPlan == null)
             return true;
         return ((Comparable<Plan>) currentPlan).compareTo(plan) < 0 && !currentPlan.equals(plan);
@@ -83,8 +98,9 @@ public class NPCPlanner implements Planner {
         replan();
         if (currentPlan == null)
             return;
-        if (!currentGoal.canContinue())
+        if (!currentGoal.canContinue()) {
             resetPlan();
+        }
         currentPlan.update(agent);
         if (currentPlan.isComplete()) {
             if (currentPlan instanceof ActionPlan)
