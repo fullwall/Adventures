@@ -7,9 +7,7 @@ public interface DialogRegistry {
 
     void registerResponse(String name, Response value);
 
-    Object getRuleSynchronizationObject();
-
-    Iterable<Rule> getRulesForEventName(String eventName);
-
     Response getResponse(String responseIdentifier);
+
+    Rule getBestRule(Query query);
 }

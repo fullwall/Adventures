@@ -1,4 +1,4 @@
-// $ANTLR 3.4 Dialog.g 2012-12-25 09:47:03
+// $ANTLR 3.4 Dialog.g 2013-01-06 19:12:50
 
 package net.citizensnpcs.adventures.dialog;
 import java.util.concurrent.Callable;

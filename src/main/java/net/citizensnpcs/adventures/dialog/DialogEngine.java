@@ -21,25 +21,7 @@ public class DialogEngine implements VariableSource {
     public void execute(Query query) {
         currentQuery = query;
 
-        Rule lastMatching = null;
-        int highestScore = 0;
-        int iterations = 0;
-        synchronized (globalRegistry.getRuleSynchronizationObject()) {
-            for (Rule rule : globalRegistry.getRulesForEventName(query.getEventName())) {
-                if (highestScore > rule.getNumberOfCriteria())
-                    break;
-
-                int matches = rule.getNumberOfMatches(query, highestScore);
-                if (matches > highestScore) {
-                    highestScore = matches;
-                    lastMatching = rule;
-                    System.err.println("[q] Found a new top score @" + highestScore);
-                }
-                iterations++;
-            }
-        }
-
-        System.err.println("[q] Iterated " + iterations + " highest score was " + highestScore);
+        Rule lastMatching = globalRegistry.getBestRule(query);
         if (lastMatching != null)
             lastMatching.run(new SimpleQueryContext(query));
         currentQuery = null;
@@ -91,10 +73,10 @@ public class DialogEngine implements VariableSource {
             public void run() {
                 folder.mkdirs();
 
-                for (String file : folder.list(DIALOG_FILE_FILTER)) {
+                for (File file : folder.listFiles(DIALOG_FILE_FILTER)) {
                     DialogLexer lexer;
                     try {
-                        lexer = new DialogLexer(new ANTLRFileStream(file));
+                        lexer = new DialogLexer(new ANTLRFileStream(file.getAbsolutePath()));
                     } catch (IOException e) {
                         e.printStackTrace();
                         continue;
