@@ -12,31 +12,37 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Multimaps;
 
 public class SimpleDialogRegistry implements DialogRegistry {
+    private final Map<String, Response> responses = Collections.synchronizedMap(Maps.<String, Response> newHashMap());
     private final ListMultimap<String, Rule> rulesByEvent = Multimaps.synchronizedListMultimap(ArrayListMultimap
             .<String, Rule> create());
-    private final Map<String, Response> responses = Collections.synchronizedMap(Maps.<String, Response> newHashMap());
+    private final Map<String, Rule> rulesByName = Collections.synchronizedMap(Maps.<String, Rule> newHashMap());
 
     @Override
-    public void registerRule(Collection<String> eventNames, Rule rule) {
-        Preconditions.checkNotNull(rule);
-        Preconditions.checkNotNull(eventNames);
+    public Rule getBestRule(Query query) {
+        int highestScore = 0;
+        int iterations = 0;
+        Rule lastMatching = null;
         synchronized (rulesByEvent) {
-            for (String eventName : eventNames) {
-                if (rulesByEvent.containsKey(eventName))
-                    throw new IllegalStateException();
-                rulesByEvent.put(eventName, rule);
-                Collections.sort(rulesByEvent.get(eventName));
+            for (Rule rule : Iterables.concat(rulesByEvent.get("any"), rulesByEvent.get(query.getEventName()))) {
+                if (highestScore > rule.getNumberOfCriteria()) {
+                    System.err.println("[q] Skipping rule as highest score " + highestScore + " > number of criteria "
+                            + rule.getNumberOfCriteria());
+                    break;
+                }
+
+                int matches = rule.getNumberOfMatches(query, highestScore);
+                if (matches > highestScore) {
+                    highestScore = matches;
+                    lastMatching = rule;
+                    System.err.println("[q] Found a new top score @" + highestScore);
+                } else {
+                    System.err.println("[q] Number of matches " + matches + " < highest score " + highestScore);
+                }
+                iterations++;
             }
         }
-    }
-
-    @Override
-    public void registerResponse(String name, Response value) {
-        Preconditions.checkNotNull(name);
-        Preconditions.checkNotNull(value);
-        synchronized (responses) {
-            responses.put(name, value);
-        }
+        System.err.println("[q] Iterated " + iterations + " highest score was " + highestScore);
+        return lastMatching;
     }
 
     @Override
@@ -47,25 +53,29 @@ public class SimpleDialogRegistry implements DialogRegistry {
     }
 
     @Override
-    public Rule getBestRule(Query query) {
-        int highestScore = 0;
-        int iterations = 0;
-        Rule lastMatching = null;
-        synchronized (rulesByEvent) {
-            for (Rule rule : Iterables.concat(rulesByEvent.get("any"), rulesByEvent.get(query.getEventName()))) {
-                if (highestScore > rule.getNumberOfCriteria())
-                    break;
+    public void registerResponse(Response response) {
+        Preconditions.checkNotNull(response);
+        synchronized (responses) {
+            if (responses.containsKey(response.getName()))
+                throw new IllegalArgumentException();
+            responses.put(response.getName(), response);
+        }
+    }
 
-                int matches = rule.getNumberOfMatches(query, highestScore);
-                if (matches > highestScore) {
-                    highestScore = matches;
-                    lastMatching = rule;
-                    System.err.println("[q] Found a new top score @" + highestScore);
-                }
-                iterations++;
+    @Override
+    public void registerRule(Collection<String> eventNames, Rule rule) {
+        Preconditions.checkNotNull(rule);
+        Preconditions.checkNotNull(eventNames);
+        synchronized (rulesByName) {
+            if (rulesByName.containsKey(rule.getName()))
+                throw new IllegalArgumentException();
+            rulesByName.put(rule.getName(), rule);
+        }
+        synchronized (rulesByEvent) {
+            for (String eventName : eventNames) {
+                rulesByEvent.put(eventName, rule);
+                Collections.sort(rulesByEvent.get(eventName));
             }
         }
-        System.err.println("[q] Iterated " + iterations + " highest score was " + highestScore);
-        return lastMatching;
     }
 }

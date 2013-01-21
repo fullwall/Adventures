@@ -16,6 +16,6 @@ public class Adventures extends JavaPlugin {
     @Override
     public void onEnable() {
         getDataFolder().mkdirs();
-        engine.load(new File(getDataFolder(), "dialog"));
+        engine.loadFolderAsynchronously(new File(getDataFolder(), "dialog"));
     }
 }

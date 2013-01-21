@@ -3,11 +3,11 @@ package net.citizensnpcs.adventures.dialog;
 import java.util.Collection;
 
 public interface DialogRegistry {
-    void registerRule(Collection<String> eventNames, Rule rule);
-
-    void registerResponse(String name, Response value);
+    Rule getBestRule(Query query);
 
     Response getResponse(String responseIdentifier);
 
-    Rule getBestRule(Query query);
+    void registerResponse(Response response);
+
+    void registerRule(Collection<String> eventNames, Rule rule);
 }

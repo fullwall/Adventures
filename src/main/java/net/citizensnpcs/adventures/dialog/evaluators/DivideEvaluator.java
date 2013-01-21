@@ -7,7 +7,7 @@ public class DivideEvaluator extends LeftRightEvaluator {
 
     @Override
     public Object get() {
-        return divide(left, right);
+        return divide(left.get(), right.get());
     }
 
     public static Evaluator create(Evaluator left, Evaluator right) {

@@ -9,7 +9,7 @@ public class NegationEvaluator implements Evaluator {
 
     @Override
     public Object get() {
-        return negate(evaluator);
+        return negate(evaluator.get());
     }
 
     @Override

@@ -7,7 +7,7 @@ public class PlusEvaluator extends LeftRightEvaluator {
 
     @Override
     public Object get() {
-        return plus(left, right);
+        return plus(left.get(), right.get());
     }
 
     public static Evaluator create(Evaluator left, Evaluator right) {

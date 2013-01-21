@@ -9,10 +9,10 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<citizensapi.version>[2.0.6-SNAPSHOT,)</citizensapi.version>
+		<citizensapi.version>[2.0.7-SNAPSHOT,)</citizensapi.version>
 		<guice.version>3.0</guice.version>
 		<craftbukkit.version>LATEST</craftbukkit.version>
-		<antlr.version>LATEST</antlr.version>
+		<antlr.version>3.5</antlr.version>
 		<build.number>Unknown</build.number>
 	</properties>
 
@@ -62,9 +62,9 @@
 		<url>http://ci.citizensnpcs.com</url>
 	</ciManagement>
 	<scm>
-		<connection>scm:git:git://github.com/CitizensDev/Adventures.git</connection>
-		<developerConnection>scm:git:git:@github.com:CitizensDev/Adventures.git</developerConnection>
-		<url>https://github.com/CitizensDev/Adventures/tree/master/</url>
+		<connection>scm:git:git://github.com/fullwall/Adventures.git</connection>
+		<developerConnection>scm:git:git:@github.com:fullwall/Adventures.git</developerConnection>
+		<url>https://github.com/CitizensDev/fullwall/tree/master/</url>
 	</scm>
 
 	<build>
@@ -111,11 +111,16 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
+							
 							<minimizeJar>false</minimizeJar>
 							<relocations>
 								<relocation>
 									<pattern>org.antlr</pattern>
 									<shadedPattern>lib.antlr</shadedPattern>
+								</relocation>
+								<relocation>
+									<pattern>com.google.inject</pattern>
+									<shadedPattern>lib.guice</shadedPattern>
 								</relocation>
 							</relocations>
 						</configuration>

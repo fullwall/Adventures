@@ -7,7 +7,7 @@ public class ModEvaluator extends LeftRightEvaluator {
 
     @Override
     public Object get() {
-        return mod(left, right);
+        return mod(left.get(), right.get());
     }
 
     public static Evaluator create(Evaluator left, Evaluator right) {

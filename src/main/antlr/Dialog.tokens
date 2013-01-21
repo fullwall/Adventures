@@ -20,6 +20,7 @@ T__32=32
 T__33=33
 T__34=34
 T__35=35
+T__36=36
 DIGIT=4
 IDENT=5
 INTEGER=6
@@ -47,8 +48,9 @@ WS=13
 '>='=28
 'criteria'=29
 'events='=30
-'response'=31
-'rule'=32
-'then'=33
-'{'=34
-'}'=35
+'log'=31
+'response'=32
+'rule'=33
+'then'=34
+'{'=35
+'}'=36

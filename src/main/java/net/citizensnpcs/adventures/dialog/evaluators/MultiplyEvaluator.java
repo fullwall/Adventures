@@ -7,7 +7,7 @@ public class MultiplyEvaluator extends LeftRightEvaluator {
 
     @Override
     public Object get() {
-        return multiply(left, right);
+        return multiply(left.get(), right.get());
     }
 
     public static Evaluator create(Evaluator left, Evaluator right) {
