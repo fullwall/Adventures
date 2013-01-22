@@ -68,7 +68,7 @@
 	</scm>
 
 	<build>
-		<defaultGoal>clean generate-sources package install</defaultGoal>
+		<defaultGoal>clean install</defaultGoal>
 		<sourceDirectory>${basedir}/src/main/java</sourceDirectory>
 
 		<resources>
@@ -111,7 +111,6 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
-							
 							<minimizeJar>false</minimizeJar>
 							<relocations>
 								<relocation>
