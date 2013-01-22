@@ -4,7 +4,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +27,7 @@ public class RuleTest {
         query.put("message", "test");
         boolean success = engine.execute(new AbstractQuery("onchat", query) {
             @Override
-            public void remember(String key, Object value, long expiration, TimeUnit unit) {
+            public void remember(String key, Object value, ExpirationTime time) {
             }
         });
         assertThat(success, is(true));

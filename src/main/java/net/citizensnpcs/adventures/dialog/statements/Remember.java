@@ -2,8 +2,8 @@ package net.citizensnpcs.adventures.dialog.statements;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
+import net.citizensnpcs.adventures.dialog.ExpirationTime;
 import net.citizensnpcs.adventures.dialog.QueryContext;
 import net.citizensnpcs.adventures.dialog.QueryRunnable;
 
@@ -19,7 +19,7 @@ public class Remember implements QueryRunnable {
     @Override
     public void run(QueryContext context) {
         for (MemoryEntry entry : entries) {
-            context.getQuery().remember(entry.key, entry.value, entry.expiration, entry.unit);
+            context.getQuery().remember(entry.key, entry.value, entry.expiration);
         }
     }
 
@@ -30,31 +30,21 @@ public class Remember implements QueryRunnable {
             return new Remember(entries);
         }
 
-        public Builder remember(String key, Object value) {
-            return remember(key, value, Long.MAX_VALUE);
-        }
-
-        public Builder remember(String key, Object value, long expiration) {
-            return remember(key, value, expiration, null);
-        }
-
-        public Builder remember(String key, Object value, long expiration, TimeUnit unit) {
-            entries.add(new MemoryEntry(key, value, expiration, unit));
+        public Builder remember(String key, Object value, ExpirationTime time) {
+            entries.add(new MemoryEntry(key, value, time));
             return this;
         }
     }
 
     private static class MemoryEntry {
-        private final long expiration;
         private final String key;
         private final Object value;
-        private final TimeUnit unit;
+        private final ExpirationTime expiration;
 
-        private MemoryEntry(String key, Object value, long expiration, TimeUnit unit) {
+        private MemoryEntry(String key, Object value, ExpirationTime time) {
             this.key = key;
             this.value = value;
-            this.expiration = expiration;
-            this.unit = unit;
+            this.expiration = time;
         }
     }
 
