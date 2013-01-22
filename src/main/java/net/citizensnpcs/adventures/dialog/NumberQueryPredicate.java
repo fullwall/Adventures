@@ -142,7 +142,7 @@ public class NumberQueryPredicate implements QueryPredicate {
         return of(key, getComparisonPredicate(evaluator, NOT_PREDICATE));
     }
 
-    public static <N extends Number & Comparable<N>> QueryPredicate of(String queryKey, Predicate<Number> predicate) {
+    public static QueryPredicate of(String queryKey, Predicate<Number> predicate) {
         return new NumberQueryPredicate(queryKey, predicate);
     }
 
