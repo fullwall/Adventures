@@ -31,4 +31,9 @@ public abstract class AbstractQuery implements Query {
     public void remember(String key, Object value) {
         remember(key, value, Long.MAX_VALUE);
     }
+
+    @Override
+    public void remember(String key, Object value, long expiration) {
+        remember(key, value, expiration, null);
+    }
 }

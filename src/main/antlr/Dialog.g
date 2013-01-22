@@ -26,6 +26,7 @@ import java.util.Collection;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Ranges;
 import net.citizensnpcs.adventures.dialog.*;
+import net.citizensnpcs.adventures.dialog.statements.*;
 import net.citizensnpcs.adventures.dialog.evaluators.*;
 }
 
@@ -46,7 +47,7 @@ public void setVariableSource(VariableSource source) {
 package net.citizensnpcs.adventures.dialog;
 }
 
-program [ParseContext context] :
+program [DialogEngine.ParseContext context] :
     (
         rule { $context.ruleLoaded($rule.eventNames, $rule.rule); }
         | response { $context.responseLoaded($response.response); }

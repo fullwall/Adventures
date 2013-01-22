@@ -21,7 +21,6 @@ public class DialogEngine {
     private Query currentQuery;
     private final DialogRegistry globalRegistry = new SimpleDialogRegistry();
     private final VariableSource variableSource = new VariableSource() {
-
         @Override
         public Object getVariable(String key) {
             if (currentQuery == null)
@@ -30,9 +29,14 @@ public class DialogEngine {
         }
     };
 
+    public interface ParseContext {
+        void responseLoaded(Response response);
+
+        void ruleLoaded(Collection<String> eventNames, Rule rule);
+    }
+
     public boolean execute(Query query) {
         currentQuery = query;
-
         Rule lastMatching = globalRegistry.getBestRule(query);
         if (lastMatching != null)
             lastMatching.run(new SimpleQueryContext(query));
