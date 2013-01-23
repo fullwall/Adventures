@@ -3,25 +3,24 @@ package net.citizensnpcs.adventures.dialog;
 import java.util.concurrent.TimeUnit;
 
 public class ExpirationTime {
-    private final boolean persistent;
     private final long expirationTime;
+    private final boolean persistent;
 
-    private ExpirationTime(long expirationTime, TimeUnit unit, boolean isPersistent) {
-        this.expirationTime = unit == null ? expirationTime : System.nanoTime()
-                + TimeUnit.NANOSECONDS.convert(expirationTime, unit);
+    private ExpirationTime(long expirationTime, boolean isPersistent) {
+        this.expirationTime = expirationTime;
         this.persistent = isPersistent;
+    }
+
+    public long getExpirationTimeFromNow() {
+        return System.nanoTime() + expirationTime;
     }
 
     public boolean isPersistent() {
         return persistent;
     }
 
-    public boolean hasExpired() {
-        return System.nanoTime() >= expirationTime;
-    }
-
     public static ExpirationTime expiringAt(long expirationTime, TimeUnit unit, boolean isPersistent) {
-        return new ExpirationTime(expirationTime, unit, isPersistent);
+        return new ExpirationTime(TimeUnit.NANOSECONDS.convert(expirationTime, unit), isPersistent);
     }
 
     public static ExpirationTime infinite(boolean isPersistent) {

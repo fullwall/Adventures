@@ -2,8 +2,6 @@ grammar Dialog;
 
 options {
     language     = Java;
-    output       = AST;
-    ASTLabelType = CommonTree;
 }
 @rulecatch {
 catch (RecognitionException e) {
@@ -11,20 +9,11 @@ catch (RecognitionException e) {
 }
 }
 
-@lexer::members {
-/*  @Override
-    public void reportError(RecognitionException e) {
-        throw e;
-    }
-*/
-}
-
 @header {
 package net.citizensnpcs.adventures.dialog;
-import java.util.concurrent.Callable;
 import java.util.Collection;
+import java.util.concurrent.TimeUnit;
 import com.google.common.base.Predicates;
-import com.google.common.collect.Ranges;
 import net.citizensnpcs.adventures.dialog.*;
 import net.citizensnpcs.adventures.dialog.statements.*;
 import net.citizensnpcs.adventures.dialog.evaluators.*;
@@ -45,6 +34,15 @@ public void setVariableSource(VariableSource source) {
 
 @lexer::header {
 package net.citizensnpcs.adventures.dialog;
+import java.util.concurrent.TimeUnit;
+}
+
+@lexer::members {
+/*  @Override
+    public void reportError(RecognitionException e) {
+        throw e;
+    }
+*/
 }
 
 program [DialogEngine.ParseContext context] :
@@ -55,28 +53,42 @@ program [DialogEngine.ParseContext context] :
 
 response returns [Response response] :
     { Response.Builder builder = Response.builder(); } 
-    'response' IDENT { builder.name($IDENT.text); } '{'! (response_statement[builder] ';'!)* '}'!
+    'response' IDENT { builder.name($IDENT.text); } '{' (response_statement[builder] ';')* '}'
     { $response = builder.build(); }
     ;
 
 response_statement [Response.Builder builder] :
-    'log' expression { builder.statement(Log.logging($expression.value));} 
+    'log' expression { builder.statement(Log.logging($expression.value)); }
+    | remember_statement { builder.statement($remember_statement.statement); } 
     ;
 
 rule returns [Collection<String> eventNames, Rule rule]:
     { Rule.Builder builder = Rule.builder(); }
-    'rule' IDENT { builder.name($IDENT.text); } '{'! criteria { $eventNames = $criteria.eventNames; } ';'! (rule_statement[builder] ';'!)* '}'!
+    'rule' IDENT { builder.name($IDENT.text); } '{' criteria { $eventNames = $criteria.eventNames; } ';' (rule_statement[builder] ';')* '}'
     { $rule = builder.build(); }
     ;
     
 rule_statement [Rule.Builder builder] :
-    ('response' n=IDENT 
-    { CallResponse.Builder responseBuilder = CallResponse.builder($n.text); } 
-    ('then' (target=IDENT|target=NUMBER) event=IDENT { responseBuilder.callback(new CallEventCallback($target.text, $event.text)); })? 
-    { builder.statement(responseBuilder.build()); });
+    ('response' n=IDENT { CallResponse.Builder responseBuilder = CallResponse.builder($n.text); } 
+        ('then' (target=IDENT | target=NUMBER) event=IDENT { responseBuilder.callback(new CallEventCallback($target.text, $event.text)); })? 
+        { builder.statement(responseBuilder.build()); })
+    | remember_statement { builder.statement($remember_statement.statement); }
+    ;
+
+remember_statement returns [QueryRunnable statement] :
+    { Remember.Builder builder = Remember.builder(); }
+    'remember' remember_assignment[builder] (',' remember_assignment[builder])*
+    { $statement = builder.build(); }
+    ;
+
+remember_assignment [Remember.Builder builder] :
+    { boolean isPersistent = false; }
+    QUERY_STRING '=' expression i1=INTEGER i2=time_unit ('-p' { isPersistent = true; })? 
+        { builder.remember($QUERY_STRING.text, $expression.value, ExpirationTime.expiringAt(Long.parseLong($INTEGER.text), $i2.unit, isPersistent)); } 
+    ;
     
 criteria returns [Collection<String> eventNames]:
-    {$eventNames = new ArrayList<String>();}
+    { $eventNames = new ArrayList<String>(); }
     'criteria' ('events=' e1=IDENT  { $eventNames.add($e1.text); } (',' e2=IDENT { $eventNames.add($e2.text); })* )
     (
         i1=IDENT '=' op1=expression { NumberQueryPredicate.equalTo($i1.text, $op1.value); }
@@ -89,15 +101,15 @@ criteria returns [Collection<String> eventNames]:
     )*;
     
 expression returns [Evaluator value] :
-    op1=mult {$value = $op1.value;}
+    op1=mult { $value = $op1.value; }
     (
-    '+' op2=mult {$value = PlusEvaluator.create($value, $op2.value);}
-     | '-' op2=mult {$value = MinusEvaluator.create($value, $op2.value);}
+    '+' op2=mult { $value = PlusEvaluator.create($value, $op2.value); }
+     | '-' op2=mult { $value = MinusEvaluator.create($value, $op2.value); }
     )*;
 
 unary returns [Evaluator value] :
     {boolean positive = true;}
-    ('+' | '-' {positive = !positive;})*
+    ('+' | '-' { positive = !positive; })*
     term {
          $value = $term.value;
          if (!positive)
@@ -109,14 +121,25 @@ mult returns [Evaluator value] :
     ('*' op2=unary { $value = MultiplyEvaluator.create($value, $op2.value); }
         | '/' op2=unary { $value = DivideEvaluator.create($value, $op2.value); }
         | '%' op2=unary { $value = ModEvaluator.create($value, $op2.value); }
+        | '**' op2=unary { $value = PowerEvaluator.create($value, $op2.value); }
     )*;
 
 term returns [Evaluator value] :
     '(' expression ')' { $value = $expression.value; }
     | NUMBER { $value = NumberEvaluator.create($NUMBER.text); }
     | STRING_LITERAL { $value = StringEvaluator.create($STRING_LITERAL.text); }
-    | IDENT  { $value = VariableEvaluator.create(variableSource, $IDENT.text); };
+    | QUERY_STRING  { $value = VariableEvaluator.create(variableSource, $QUERY_STRING.text); };
 
+time_unit returns [TimeUnit unit] :
+    'ns' { $unit = TimeUnit.NANOSECONDS; }
+    | 'us' { $unit = TimeUnit.MICROSECONDS; }
+    | 'ms' { $unit = TimeUnit.MILLISECONDS; }
+    | 's' { $unit = TimeUnit.SECONDS; }
+    | 'm' { $unit = TimeUnit.MINUTES; }
+    | 'h' { $unit = TimeUnit.HOURS; }
+    | 'd' { $unit = TimeUnit.DAYS; }
+    ;
+    
 ML_COMMENT :
     '/*' (options { greedy=false; }: .)* '*/' { $channel = HIDDEN; };
 
@@ -132,6 +155,9 @@ WS :
 
 IDENT :
     LETTER (LETTER | '_' | DIGIT)*;
+    
+fragment QUERY_STRING :
+    IDENT ('.' IDENT)*;
 
 fragment LETTER :
     ('a'..'z' | 'A'..'Z');

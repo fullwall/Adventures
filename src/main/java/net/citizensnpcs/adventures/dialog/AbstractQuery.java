@@ -4,8 +4,8 @@ import java.util.Collections;
 import java.util.Map;
 
 public abstract class AbstractQuery implements Query {
-    private final Map<String, Object> queryVariables;
     private final String eventName;
+    private final Map<String, Object> queryVariables;
 
     public AbstractQuery(String eventName, Map<String, Object> queryMap) {
         this.queryVariables = queryMap == null ? Collections.<String, Object> emptyMap() : queryMap;

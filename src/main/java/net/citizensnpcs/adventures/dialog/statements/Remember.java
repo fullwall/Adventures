@@ -37,9 +37,9 @@ public class Remember implements QueryRunnable {
     }
 
     private static class MemoryEntry {
+        private final ExpirationTime expiration;
         private final String key;
         private final Object value;
-        private final ExpirationTime expiration;
 
         private MemoryEntry(String key, Object value, ExpirationTime time) {
             this.key = key;

@@ -29,12 +29,6 @@ public class DialogEngine {
         }
     };
 
-    public interface ParseContext {
-        void responseLoaded(Response response);
-
-        void ruleLoaded(Collection<String> eventNames, Rule rule);
-    }
-
     public boolean execute(Query query) {
         currentQuery = query;
         Rule lastMatching = globalRegistry.getBestRule(query);
@@ -81,6 +75,12 @@ public class DialogEngine {
                 }
             }
         });
+    }
+
+    public interface ParseContext {
+        void responseLoaded(Response response);
+
+        void ruleLoaded(Collection<String> eventNames, Rule rule);
     }
 
     private class SimpleQueryContext implements QueryContext {
