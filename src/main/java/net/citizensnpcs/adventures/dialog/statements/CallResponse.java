@@ -1,4 +1,7 @@
-package net.citizensnpcs.adventures.dialog;
+package net.citizensnpcs.adventures.dialog.statements;
+
+import net.citizensnpcs.adventures.dialog.QueryContext;
+import net.citizensnpcs.adventures.dialog.QueryRunnable;
 
 public class CallResponse implements QueryRunnable {
     private final QueryRunnable callback;

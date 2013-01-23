@@ -38,7 +38,7 @@ public class DialogEngine {
         return lastMatching != null;
     }
 
-    public void load(String string) {
+    public void parse(final File parsingFolder, String string) {
         DialogLexer lexer = new DialogLexer(new ANTLRStringStream(string));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         DialogParser parser = new DialogParser(tokens);
@@ -54,10 +54,22 @@ public class DialogEngine {
                 public void ruleLoaded(Collection<String> eventNames, Rule rule) {
                     globalRegistry.registerRule(eventNames, rule);
                 }
+
+                @Override
+                public String disambiguateName(String raw) {
+                    if (parsingFolder != null) {
+                        return parsingFolder.getName() + '/' + raw;
+                    }
+                    return raw;
+                }
             });
         } catch (RecognitionException e) {
             e.printStackTrace();
         }
+    }
+
+    public void parse(String string) {
+        parse(null, string);
     }
 
     public void loadFolderAsynchronously(final File folder) {
@@ -68,7 +80,7 @@ public class DialogEngine {
 
                 for (File file : folder.listFiles(DIALOG_FILE_FILTER)) {
                     try {
-                        load(Files.toString(file, Charsets.UTF_8));
+                        parse(Files.toString(file, Charsets.UTF_8));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -79,6 +91,8 @@ public class DialogEngine {
 
     public interface ParseContext {
         void responseLoaded(Response response);
+
+        String disambiguateName(String raw);
 
         void ruleLoaded(Collection<String> eventNames, Rule rule);
     }

@@ -47,30 +47,30 @@ import java.util.concurrent.TimeUnit;
 
 program [DialogEngine.ParseContext context] :
     (
-        rule { $context.ruleLoaded($rule.eventNames, $rule.rule); }
-        | response { $context.responseLoaded($response.response); }
+        rule[context] { $context.ruleLoaded($rule.eventNames, $rule.rule); }
+        | response[context] { $context.responseLoaded($response.response); }
     )*;
 
-response returns [Response response] :
+response [DialogEngine.ParseContext context] returns [Response response] :
     { Response.Builder builder = Response.builder(); } 
-    'response' IDENT { builder.name($IDENT.text); } '{' (response_statement[builder] ';')* '}'
+    'response' IDENT { builder.name(context.disambiguateName($IDENT.text)); } '{' (response_statement[context, builder] ';')* '}'
     { $response = builder.build(); }
     ;
 
-response_statement [Response.Builder builder] :
+response_statement [DialogEngine.ParseContext context, Response.Builder builder] :
     'log' expression { builder.statement(Log.logging($expression.value)); }
     | remember_statement { builder.statement($remember_statement.statement); } 
     ;
 
-rule returns [Collection<String> eventNames, Rule rule]:
+rule [DialogEngine.ParseContext context] returns [Collection<String> eventNames, Rule rule]:
     { Rule.Builder builder = Rule.builder(); }
-    'rule' IDENT { builder.name($IDENT.text); } '{' criteria { $eventNames = $criteria.eventNames; } ';' (rule_statement[builder] ';')* '}'
+    'rule' IDENT { builder.name(context.disambiguateName($IDENT.text)); } '{' criteria { $eventNames = $criteria.eventNames; } ';' (rule_statement[context, builder] ';')* '}'
     { $rule = builder.build(); }
     ;
     
-rule_statement [Rule.Builder builder] :
-    ('response' n=IDENT { CallResponse.Builder responseBuilder = CallResponse.builder($n.text); } 
-        ('then' (target=IDENT | target=NUMBER) event=IDENT { responseBuilder.callback(new CallEventCallback($target.text, $event.text)); })? 
+rule_statement [DialogEngine.ParseContext context, Rule.Builder builder] :
+    ('response' n=IDENT { CallResponse.Builder responseBuilder = CallResponse.builder(context.disambiguateName($n.text)); } 
+        ('then' (target=IDENT | target=NUMBER) event=IDENT { responseBuilder.callback(new CallEventCallback(context.disambiguateName($target.text), $event.text)); })? 
         { builder.statement(responseBuilder.build()); })
     | remember_statement { builder.statement($remember_statement.statement); }
     ;

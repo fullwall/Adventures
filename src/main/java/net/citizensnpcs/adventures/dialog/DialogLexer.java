@@ -1,4 +1,4 @@
-// $ANTLR 3.4 Dialog.g 2013-01-23 22:32:48
+// $ANTLR 3.4 Dialog.g 2013-01-23 22:45:31
 
 package net.citizensnpcs.adventures.dialog;
 import java.util.concurrent.TimeUnit;

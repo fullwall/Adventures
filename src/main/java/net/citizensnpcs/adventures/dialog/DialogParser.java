@@ -1,4 +1,4 @@
-// $ANTLR 3.4 Dialog.g 2013-01-23 22:32:47
+// $ANTLR 3.4 Dialog.g 2013-01-23 22:45:31
 
 package net.citizensnpcs.adventures.dialog;
 import java.util.Collection;
@@ -99,7 +99,7 @@ public class DialogParser extends Parser {
 
 
     // $ANTLR start "program"
-    // Dialog.g:48:1: program[DialogEngine.ParseContext context] : ( rule | response )* ;
+    // Dialog.g:48:1: program[DialogEngine.ParseContext context] : ( rule[context] | response[context] )* ;
     public final void program(DialogEngine.ParseContext context) throws RecognitionException {
         DialogParser.rule_return rule1 =null;
 
@@ -107,10 +107,10 @@ public class DialogParser extends Parser {
 
 
         try {
-            // Dialog.g:48:45: ( ( rule | response )* )
-            // Dialog.g:49:5: ( rule | response )*
+            // Dialog.g:48:45: ( ( rule[context] | response[context] )* )
+            // Dialog.g:49:5: ( rule[context] | response[context] )*
             {
-            // Dialog.g:49:5: ( rule | response )*
+            // Dialog.g:49:5: ( rule[context] | response[context] )*
             loop1:
             do {
                 int alt1=3;
@@ -126,10 +126,10 @@ public class DialogParser extends Parser {
 
                 switch (alt1) {
             	case 1 :
-            	    // Dialog.g:50:9: rule
+            	    // Dialog.g:50:9: rule[context]
             	    {
             	    pushFollow(FOLLOW_rule_in_program81);
-            	    rule1=rule();
+            	    rule1=rule(context);
 
             	    state._fsp--;
 
@@ -139,10 +139,10 @@ public class DialogParser extends Parser {
             	    }
             	    break;
             	case 2 :
-            	    // Dialog.g:51:11: response
+            	    // Dialog.g:51:11: response[context]
             	    {
-            	    pushFollow(FOLLOW_response_in_program95);
-            	    response2=response();
+            	    pushFollow(FOLLOW_response_in_program96);
+            	    response2=response(context);
 
             	    state._fsp--;
 
@@ -176,28 +176,28 @@ public class DialogParser extends Parser {
 
 
     // $ANTLR start "response"
-    // Dialog.g:54:1: response returns [Response response] : 'response' IDENT '{' ( response_statement[builder] ';' )* '}' ;
-    public final Response response() throws RecognitionException {
+    // Dialog.g:54:1: response[DialogEngine.ParseContext context] returns [Response response] : 'response' IDENT '{' ( response_statement[context, builder] ';' )* '}' ;
+    public final Response response(DialogEngine.ParseContext context) throws RecognitionException {
         Response response = null;
 
 
         Token IDENT3=null;
 
         try {
-            // Dialog.g:54:38: ( 'response' IDENT '{' ( response_statement[builder] ';' )* '}' )
-            // Dialog.g:55:5: 'response' IDENT '{' ( response_statement[builder] ';' )* '}'
+            // Dialog.g:54:74: ( 'response' IDENT '{' ( response_statement[context, builder] ';' )* '}' )
+            // Dialog.g:55:5: 'response' IDENT '{' ( response_statement[context, builder] ';' )* '}'
             {
              Response.Builder builder = Response.builder(); 
 
-            match(input,41,FOLLOW_41_in_response127); 
+            match(input,41,FOLLOW_41_in_response131); 
 
-            IDENT3=(Token)match(input,IDENT,FOLLOW_IDENT_in_response129); 
+            IDENT3=(Token)match(input,IDENT,FOLLOW_IDENT_in_response133); 
 
-             builder.name((IDENT3!=null?IDENT3.getText():null)); 
+             builder.name(context.disambiguateName((IDENT3!=null?IDENT3.getText():null))); 
 
-            match(input,46,FOLLOW_46_in_response133); 
+            match(input,46,FOLLOW_46_in_response137); 
 
-            // Dialog.g:56:57: ( response_statement[builder] ';' )*
+            // Dialog.g:56:83: ( response_statement[context, builder] ';' )*
             loop2:
             do {
                 int alt2=2;
@@ -210,15 +210,15 @@ public class DialogParser extends Parser {
 
                 switch (alt2) {
             	case 1 :
-            	    // Dialog.g:56:58: response_statement[builder] ';'
+            	    // Dialog.g:56:84: response_statement[context, builder] ';'
             	    {
-            	    pushFollow(FOLLOW_response_statement_in_response136);
-            	    response_statement(builder);
+            	    pushFollow(FOLLOW_response_statement_in_response140);
+            	    response_statement(context, builder);
 
             	    state._fsp--;
 
 
-            	    match(input,26,FOLLOW_26_in_response139); 
+            	    match(input,26,FOLLOW_26_in_response143); 
 
             	    }
             	    break;
@@ -229,7 +229,7 @@ public class DialogParser extends Parser {
             } while (true);
 
 
-            match(input,47,FOLLOW_47_in_response143); 
+            match(input,47,FOLLOW_47_in_response147); 
 
              response = builder.build(); 
 
@@ -251,15 +251,15 @@ public class DialogParser extends Parser {
 
 
     // $ANTLR start "response_statement"
-    // Dialog.g:60:1: response_statement[Response.Builder builder] : ( 'log' expression | remember_statement );
-    public final void response_statement(Response.Builder builder) throws RecognitionException {
+    // Dialog.g:60:1: response_statement[DialogEngine.ParseContext context, Response.Builder builder] : ( 'log' expression | remember_statement );
+    public final void response_statement(DialogEngine.ParseContext context, Response.Builder builder) throws RecognitionException {
         Evaluator expression4 =null;
 
         QueryRunnable remember_statement5 =null;
 
 
         try {
-            // Dialog.g:60:47: ( 'log' expression | remember_statement )
+            // Dialog.g:60:82: ( 'log' expression | remember_statement )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -280,9 +280,9 @@ public class DialogParser extends Parser {
                 case 1 :
                     // Dialog.g:61:5: 'log' expression
                     {
-                    match(input,36,FOLLOW_36_in_response_statement168); 
+                    match(input,36,FOLLOW_36_in_response_statement172); 
 
-                    pushFollow(FOLLOW_expression_in_response_statement170);
+                    pushFollow(FOLLOW_expression_in_response_statement174);
                     expression4=expression();
 
                     state._fsp--;
@@ -295,7 +295,7 @@ public class DialogParser extends Parser {
                 case 2 :
                     // Dialog.g:62:7: remember_statement
                     {
-                    pushFollow(FOLLOW_remember_statement_in_response_statement180);
+                    pushFollow(FOLLOW_remember_statement_in_response_statement184);
                     remember_statement5=remember_statement();
 
                     state._fsp--;
@@ -328,8 +328,8 @@ public class DialogParser extends Parser {
 
 
     // $ANTLR start "rule"
-    // Dialog.g:65:1: rule returns [Collection<String> eventNames, Rule rule] : 'rule' IDENT '{' criteria ';' ( rule_statement[builder] ';' )* '}' ;
-    public final DialogParser.rule_return rule() throws RecognitionException {
+    // Dialog.g:65:1: rule[DialogEngine.ParseContext context] returns [Collection<String> eventNames, Rule rule] : 'rule' IDENT '{' criteria ';' ( rule_statement[context, builder] ';' )* '}' ;
+    public final DialogParser.rule_return rule(DialogEngine.ParseContext context) throws RecognitionException {
         DialogParser.rule_return retval = new DialogParser.rule_return();
         retval.start = input.LT(1);
 
@@ -339,20 +339,20 @@ public class DialogParser extends Parser {
 
 
         try {
-            // Dialog.g:65:56: ( 'rule' IDENT '{' criteria ';' ( rule_statement[builder] ';' )* '}' )
-            // Dialog.g:66:5: 'rule' IDENT '{' criteria ';' ( rule_statement[builder] ';' )* '}'
+            // Dialog.g:65:92: ( 'rule' IDENT '{' criteria ';' ( rule_statement[context, builder] ';' )* '}' )
+            // Dialog.g:66:5: 'rule' IDENT '{' criteria ';' ( rule_statement[context, builder] ';' )* '}'
             {
              Rule.Builder builder = Rule.builder(); 
 
-            match(input,42,FOLLOW_42_in_rule209); 
+            match(input,42,FOLLOW_42_in_rule215); 
 
-            IDENT6=(Token)match(input,IDENT,FOLLOW_IDENT_in_rule211); 
+            IDENT6=(Token)match(input,IDENT,FOLLOW_IDENT_in_rule217); 
 
-             builder.name((IDENT6!=null?IDENT6.getText():null)); 
+             builder.name(context.disambiguateName((IDENT6!=null?IDENT6.getText():null))); 
 
-            match(input,46,FOLLOW_46_in_rule215); 
+            match(input,46,FOLLOW_46_in_rule221); 
 
-            pushFollow(FOLLOW_criteria_in_rule217);
+            pushFollow(FOLLOW_criteria_in_rule223);
             criteria7=criteria();
 
             state._fsp--;
@@ -360,9 +360,9 @@ public class DialogParser extends Parser {
 
              retval.eventNames = criteria7; 
 
-            match(input,26,FOLLOW_26_in_rule221); 
+            match(input,26,FOLLOW_26_in_rule227); 
 
-            // Dialog.g:67:106: ( rule_statement[builder] ';' )*
+            // Dialog.g:67:132: ( rule_statement[context, builder] ';' )*
             loop4:
             do {
                 int alt4=2;
@@ -375,15 +375,15 @@ public class DialogParser extends Parser {
 
                 switch (alt4) {
             	case 1 :
-            	    // Dialog.g:67:107: rule_statement[builder] ';'
+            	    // Dialog.g:67:133: rule_statement[context, builder] ';'
             	    {
-            	    pushFollow(FOLLOW_rule_statement_in_rule224);
-            	    rule_statement(builder);
+            	    pushFollow(FOLLOW_rule_statement_in_rule230);
+            	    rule_statement(context, builder);
 
             	    state._fsp--;
 
 
-            	    match(input,26,FOLLOW_26_in_rule227); 
+            	    match(input,26,FOLLOW_26_in_rule233); 
 
             	    }
             	    break;
@@ -394,7 +394,7 @@ public class DialogParser extends Parser {
             } while (true);
 
 
-            match(input,47,FOLLOW_47_in_rule231); 
+            match(input,47,FOLLOW_47_in_rule237); 
 
              retval.rule = builder.build(); 
 
@@ -419,8 +419,8 @@ public class DialogParser extends Parser {
 
 
     // $ANTLR start "rule_statement"
-    // Dialog.g:71:1: rule_statement[Rule.Builder builder] : ( ( 'response' n= IDENT ( 'then' (target= IDENT |target= NUMBER ) event= IDENT )? ) | remember_statement );
-    public final void rule_statement(Rule.Builder builder) throws RecognitionException {
+    // Dialog.g:71:1: rule_statement[DialogEngine.ParseContext context, Rule.Builder builder] : ( ( 'response' n= IDENT ( 'then' (target= IDENT |target= NUMBER ) event= IDENT )? ) | remember_statement );
+    public final void rule_statement(DialogEngine.ParseContext context, Rule.Builder builder) throws RecognitionException {
         Token n=null;
         Token target=null;
         Token event=null;
@@ -428,7 +428,7 @@ public class DialogParser extends Parser {
 
 
         try {
-            // Dialog.g:71:39: ( ( 'response' n= IDENT ( 'then' (target= IDENT |target= NUMBER ) event= IDENT )? ) | remember_statement )
+            // Dialog.g:71:74: ( ( 'response' n= IDENT ( 'then' (target= IDENT |target= NUMBER ) event= IDENT )? ) | remember_statement )
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -452,11 +452,11 @@ public class DialogParser extends Parser {
                     // Dialog.g:72:5: ( 'response' n= IDENT ( 'then' (target= IDENT |target= NUMBER ) event= IDENT )? )
                     // Dialog.g:72:6: 'response' n= IDENT ( 'then' (target= IDENT |target= NUMBER ) event= IDENT )?
                     {
-                    match(input,41,FOLLOW_41_in_rule_statement261); 
+                    match(input,41,FOLLOW_41_in_rule_statement267); 
 
-                    n=(Token)match(input,IDENT,FOLLOW_IDENT_in_rule_statement265); 
+                    n=(Token)match(input,IDENT,FOLLOW_IDENT_in_rule_statement271); 
 
-                     CallResponse.Builder responseBuilder = CallResponse.builder((n!=null?n.getText():null)); 
+                     CallResponse.Builder responseBuilder = CallResponse.builder(context.disambiguateName((n!=null?n.getText():null))); 
 
                     // Dialog.g:73:9: ( 'then' (target= IDENT |target= NUMBER ) event= IDENT )?
                     int alt6=2;
@@ -469,7 +469,7 @@ public class DialogParser extends Parser {
                         case 1 :
                             // Dialog.g:73:10: 'then' (target= IDENT |target= NUMBER ) event= IDENT
                             {
-                            match(input,44,FOLLOW_44_in_rule_statement279); 
+                            match(input,44,FOLLOW_44_in_rule_statement285); 
 
                             // Dialog.g:73:17: (target= IDENT |target= NUMBER )
                             int alt5=2;
@@ -492,14 +492,14 @@ public class DialogParser extends Parser {
                                 case 1 :
                                     // Dialog.g:73:18: target= IDENT
                                     {
-                                    target=(Token)match(input,IDENT,FOLLOW_IDENT_in_rule_statement284); 
+                                    target=(Token)match(input,IDENT,FOLLOW_IDENT_in_rule_statement290); 
 
                                     }
                                     break;
                                 case 2 :
                                     // Dialog.g:73:33: target= NUMBER
                                     {
-                                    target=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_rule_statement290); 
+                                    target=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_rule_statement296); 
 
                                     }
                                     break;
@@ -507,9 +507,9 @@ public class DialogParser extends Parser {
                             }
 
 
-                            event=(Token)match(input,IDENT,FOLLOW_IDENT_in_rule_statement295); 
+                            event=(Token)match(input,IDENT,FOLLOW_IDENT_in_rule_statement301); 
 
-                             responseBuilder.callback(new CallEventCallback((target!=null?target.getText():null), (event!=null?event.getText():null))); 
+                             responseBuilder.callback(new CallEventCallback(context.disambiguateName((target!=null?target.getText():null)), (event!=null?event.getText():null))); 
 
                             }
                             break;
@@ -527,7 +527,7 @@ public class DialogParser extends Parser {
                 case 2 :
                     // Dialog.g:75:7: remember_statement
                     {
-                    pushFollow(FOLLOW_remember_statement_in_rule_statement319);
+                    pushFollow(FOLLOW_remember_statement_in_rule_statement325);
                     remember_statement8=remember_statement();
 
                     state._fsp--;
@@ -566,9 +566,9 @@ public class DialogParser extends Parser {
             {
              Remember.Builder builder = Remember.builder(); 
 
-            match(input,40,FOLLOW_40_in_remember_statement348); 
+            match(input,40,FOLLOW_40_in_remember_statement354); 
 
-            pushFollow(FOLLOW_remember_assignment_in_remember_statement350);
+            pushFollow(FOLLOW_remember_assignment_in_remember_statement356);
             remember_assignment(builder);
 
             state._fsp--;
@@ -589,9 +589,9 @@ public class DialogParser extends Parser {
             	case 1 :
             	    // Dialog.g:80:46: ',' remember_assignment[builder]
             	    {
-            	    match(input,22,FOLLOW_22_in_remember_statement354); 
+            	    match(input,22,FOLLOW_22_in_remember_statement360); 
 
-            	    pushFollow(FOLLOW_remember_assignment_in_remember_statement356);
+            	    pushFollow(FOLLOW_remember_assignment_in_remember_statement362);
             	    remember_assignment(builder);
 
             	    state._fsp--;
@@ -641,19 +641,19 @@ public class DialogParser extends Parser {
             {
              boolean isPersistent = false; 
 
-            QUERY_STRING9=(Token)match(input,QUERY_STRING,FOLLOW_QUERY_STRING_in_remember_assignment390); 
+            QUERY_STRING9=(Token)match(input,QUERY_STRING,FOLLOW_QUERY_STRING_in_remember_assignment396); 
 
-            match(input,29,FOLLOW_29_in_remember_assignment392); 
+            match(input,29,FOLLOW_29_in_remember_assignment398); 
 
-            pushFollow(FOLLOW_expression_in_remember_assignment394);
+            pushFollow(FOLLOW_expression_in_remember_assignment400);
             expression10=expression();
 
             state._fsp--;
 
 
-            i1=(Token)match(input,INTEGER,FOLLOW_INTEGER_in_remember_assignment398); 
+            i1=(Token)match(input,INTEGER,FOLLOW_INTEGER_in_remember_assignment404); 
 
-            pushFollow(FOLLOW_time_unit_in_remember_assignment402);
+            pushFollow(FOLLOW_time_unit_in_remember_assignment408);
             i2=time_unit();
 
             state._fsp--;
@@ -670,7 +670,7 @@ public class DialogParser extends Parser {
                 case 1 :
                     // Dialog.g:86:58: '-p'
                     {
-                    match(input,24,FOLLOW_24_in_remember_assignment405); 
+                    match(input,24,FOLLOW_24_in_remember_assignment411); 
 
                      isPersistent = true; 
 
@@ -733,14 +733,14 @@ public class DialogParser extends Parser {
             {
              eventNames = new ArrayList<String>(); 
 
-            match(input,32,FOLLOW_32_in_criteria451); 
+            match(input,32,FOLLOW_32_in_criteria457); 
 
             // Dialog.g:92:16: ( 'events=' e1= IDENT ( ',' e2= IDENT )* )
             // Dialog.g:92:17: 'events=' e1= IDENT ( ',' e2= IDENT )*
             {
-            match(input,34,FOLLOW_34_in_criteria454); 
+            match(input,34,FOLLOW_34_in_criteria460); 
 
-            e1=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria458); 
+            e1=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria464); 
 
              eventNames.add((e1!=null?e1.getText():null)); 
 
@@ -759,9 +759,9 @@ public class DialogParser extends Parser {
             	case 1 :
             	    // Dialog.g:92:69: ',' e2= IDENT
             	    {
-            	    match(input,22,FOLLOW_22_in_criteria464); 
+            	    match(input,22,FOLLOW_22_in_criteria470); 
 
-            	    e2=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria468); 
+            	    e2=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria474); 
 
             	     eventNames.add((e2!=null?e2.getText():null)); 
 
@@ -831,11 +831,11 @@ public class DialogParser extends Parser {
             	case 1 :
             	    // Dialog.g:94:9: i1= IDENT '=' op1= expression
             	    {
-            	    i1=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria492); 
+            	    i1=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria498); 
 
-            	    match(input,29,FOLLOW_29_in_criteria494); 
+            	    match(input,29,FOLLOW_29_in_criteria500); 
 
-            	    pushFollow(FOLLOW_expression_in_criteria498);
+            	    pushFollow(FOLLOW_expression_in_criteria504);
             	    op1=expression();
 
             	    state._fsp--;
@@ -848,11 +848,11 @@ public class DialogParser extends Parser {
             	case 2 :
             	    // Dialog.g:95:11: i2= IDENT '>' op2= expression
             	    {
-            	    i2=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria514); 
+            	    i2=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria520); 
 
-            	    match(input,30,FOLLOW_30_in_criteria516); 
+            	    match(input,30,FOLLOW_30_in_criteria522); 
 
-            	    pushFollow(FOLLOW_expression_in_criteria520);
+            	    pushFollow(FOLLOW_expression_in_criteria526);
             	    op2=expression();
 
             	    state._fsp--;
@@ -865,11 +865,11 @@ public class DialogParser extends Parser {
             	case 3 :
             	    // Dialog.g:96:11: i3= IDENT '<' op3= expression
             	    {
-            	    i3=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria536); 
+            	    i3=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria542); 
 
-            	    match(input,27,FOLLOW_27_in_criteria538); 
+            	    match(input,27,FOLLOW_27_in_criteria544); 
 
-            	    pushFollow(FOLLOW_expression_in_criteria542);
+            	    pushFollow(FOLLOW_expression_in_criteria548);
             	    op3=expression();
 
             	    state._fsp--;
@@ -882,11 +882,11 @@ public class DialogParser extends Parser {
             	case 4 :
             	    // Dialog.g:97:11: i4= IDENT '<=' op4= expression
             	    {
-            	    i4=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria558); 
+            	    i4=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria564); 
 
-            	    match(input,28,FOLLOW_28_in_criteria560); 
+            	    match(input,28,FOLLOW_28_in_criteria566); 
 
-            	    pushFollow(FOLLOW_expression_in_criteria564);
+            	    pushFollow(FOLLOW_expression_in_criteria570);
             	    op4=expression();
 
             	    state._fsp--;
@@ -899,11 +899,11 @@ public class DialogParser extends Parser {
             	case 5 :
             	    // Dialog.g:98:11: i5= IDENT '>=' op5= expression
             	    {
-            	    i5=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria580); 
+            	    i5=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria586); 
 
-            	    match(input,31,FOLLOW_31_in_criteria582); 
+            	    match(input,31,FOLLOW_31_in_criteria588); 
 
-            	    pushFollow(FOLLOW_expression_in_criteria586);
+            	    pushFollow(FOLLOW_expression_in_criteria592);
             	    op5=expression();
 
             	    state._fsp--;
@@ -916,11 +916,11 @@ public class DialogParser extends Parser {
             	case 6 :
             	    // Dialog.g:99:11: i6= IDENT '!=' op6= expression
             	    {
-            	    i6=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria602); 
+            	    i6=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria608); 
 
-            	    match(input,15,FOLLOW_15_in_criteria604); 
+            	    match(input,15,FOLLOW_15_in_criteria610); 
 
-            	    pushFollow(FOLLOW_expression_in_criteria608);
+            	    pushFollow(FOLLOW_expression_in_criteria614);
             	    op6=expression();
 
             	    state._fsp--;
@@ -933,7 +933,7 @@ public class DialogParser extends Parser {
             	case 7 :
             	    // Dialog.g:100:11: i7= IDENT
             	    {
-            	    i7=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria624); 
+            	    i7=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria630); 
 
             	     NumberQueryPredicate.of((i7!=null?i7.getText():null), Predicates.<Number>alwaysTrue()); 
 
@@ -978,7 +978,7 @@ public class DialogParser extends Parser {
             // Dialog.g:103:38: (op1= mult ( '+' op2= mult | '-' op2= mult )* )
             // Dialog.g:104:5: op1= mult ( '+' op2= mult | '-' op2= mult )*
             {
-            pushFollow(FOLLOW_mult_in_expression655);
+            pushFollow(FOLLOW_mult_in_expression661);
             op1=mult();
 
             state._fsp--;
@@ -1004,9 +1004,9 @@ public class DialogParser extends Parser {
             	case 1 :
             	    // Dialog.g:106:5: '+' op2= mult
             	    {
-            	    match(input,21,FOLLOW_21_in_expression669); 
+            	    match(input,21,FOLLOW_21_in_expression675); 
 
-            	    pushFollow(FOLLOW_mult_in_expression673);
+            	    pushFollow(FOLLOW_mult_in_expression679);
             	    op2=mult();
 
             	    state._fsp--;
@@ -1019,9 +1019,9 @@ public class DialogParser extends Parser {
             	case 2 :
             	    // Dialog.g:107:8: '-' op2= mult
             	    {
-            	    match(input,23,FOLLOW_23_in_expression684); 
+            	    match(input,23,FOLLOW_23_in_expression690); 
 
-            	    pushFollow(FOLLOW_mult_in_expression688);
+            	    pushFollow(FOLLOW_mult_in_expression694);
             	    op2=mult();
 
             	    state._fsp--;
@@ -1088,14 +1088,14 @@ public class DialogParser extends Parser {
             	case 1 :
             	    // Dialog.g:112:6: '+'
             	    {
-            	    match(input,21,FOLLOW_21_in_unary720); 
+            	    match(input,21,FOLLOW_21_in_unary726); 
 
             	    }
             	    break;
             	case 2 :
             	    // Dialog.g:112:12: '-'
             	    {
-            	    match(input,23,FOLLOW_23_in_unary724); 
+            	    match(input,23,FOLLOW_23_in_unary730); 
 
             	     positive = !positive; 
 
@@ -1108,7 +1108,7 @@ public class DialogParser extends Parser {
             } while (true);
 
 
-            pushFollow(FOLLOW_term_in_unary734);
+            pushFollow(FOLLOW_term_in_unary740);
             term11=term();
 
             state._fsp--;
@@ -1152,7 +1152,7 @@ public class DialogParser extends Parser {
             // Dialog.g:119:32: (op1= unary ( '*' op2= unary | '/' op2= unary | '%' op2= unary | '**' op2= unary )* )
             // Dialog.g:120:5: op1= unary ( '*' op2= unary | '/' op2= unary | '%' op2= unary | '**' op2= unary )*
             {
-            pushFollow(FOLLOW_unary_in_mult754);
+            pushFollow(FOLLOW_unary_in_mult760);
             op1=unary();
 
             state._fsp--;
@@ -1192,9 +1192,9 @@ public class DialogParser extends Parser {
             	case 1 :
             	    // Dialog.g:121:6: '*' op2= unary
             	    {
-            	    match(input,19,FOLLOW_19_in_mult763); 
+            	    match(input,19,FOLLOW_19_in_mult769); 
 
-            	    pushFollow(FOLLOW_unary_in_mult767);
+            	    pushFollow(FOLLOW_unary_in_mult773);
             	    op2=unary();
 
             	    state._fsp--;
@@ -1207,9 +1207,9 @@ public class DialogParser extends Parser {
             	case 2 :
             	    // Dialog.g:122:11: '/' op2= unary
             	    {
-            	    match(input,25,FOLLOW_25_in_mult781); 
+            	    match(input,25,FOLLOW_25_in_mult787); 
 
-            	    pushFollow(FOLLOW_unary_in_mult785);
+            	    pushFollow(FOLLOW_unary_in_mult791);
             	    op2=unary();
 
             	    state._fsp--;
@@ -1222,9 +1222,9 @@ public class DialogParser extends Parser {
             	case 3 :
             	    // Dialog.g:123:11: '%' op2= unary
             	    {
-            	    match(input,16,FOLLOW_16_in_mult799); 
+            	    match(input,16,FOLLOW_16_in_mult805); 
 
-            	    pushFollow(FOLLOW_unary_in_mult803);
+            	    pushFollow(FOLLOW_unary_in_mult809);
             	    op2=unary();
 
             	    state._fsp--;
@@ -1237,9 +1237,9 @@ public class DialogParser extends Parser {
             	case 4 :
             	    // Dialog.g:124:11: '**' op2= unary
             	    {
-            	    match(input,20,FOLLOW_20_in_mult817); 
+            	    match(input,20,FOLLOW_20_in_mult823); 
 
-            	    pushFollow(FOLLOW_unary_in_mult821);
+            	    pushFollow(FOLLOW_unary_in_mult827);
             	    op2=unary();
 
             	    state._fsp--;
@@ -1321,15 +1321,15 @@ public class DialogParser extends Parser {
                 case 1 :
                     // Dialog.g:128:5: '(' expression ')'
                     {
-                    match(input,17,FOLLOW_17_in_term846); 
+                    match(input,17,FOLLOW_17_in_term852); 
 
-                    pushFollow(FOLLOW_expression_in_term848);
+                    pushFollow(FOLLOW_expression_in_term854);
                     expression12=expression();
 
                     state._fsp--;
 
 
-                    match(input,18,FOLLOW_18_in_term850); 
+                    match(input,18,FOLLOW_18_in_term856); 
 
                      value = expression12; 
 
@@ -1338,7 +1338,7 @@ public class DialogParser extends Parser {
                 case 2 :
                     // Dialog.g:129:7: NUMBER
                     {
-                    NUMBER13=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_term860); 
+                    NUMBER13=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_term866); 
 
                      value = NumberEvaluator.create((NUMBER13!=null?NUMBER13.getText():null)); 
 
@@ -1347,7 +1347,7 @@ public class DialogParser extends Parser {
                 case 3 :
                     // Dialog.g:130:7: STRING_LITERAL
                     {
-                    STRING_LITERAL14=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_term870); 
+                    STRING_LITERAL14=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_term876); 
 
                      value = StringEvaluator.create((STRING_LITERAL14!=null?STRING_LITERAL14.getText():null)); 
 
@@ -1356,7 +1356,7 @@ public class DialogParser extends Parser {
                 case 4 :
                     // Dialog.g:131:7: QUERY_STRING
                     {
-                    QUERY_STRING15=(Token)match(input,QUERY_STRING,FOLLOW_QUERY_STRING_in_term880); 
+                    QUERY_STRING15=(Token)match(input,QUERY_STRING,FOLLOW_QUERY_STRING_in_term886); 
 
                      value = VariableEvaluator.create(variableSource, (QUERY_STRING15!=null?QUERY_STRING15.getText():null)); 
 
@@ -1436,7 +1436,7 @@ public class DialogParser extends Parser {
                 case 1 :
                     // Dialog.g:134:5: 'ns'
                     {
-                    match(input,39,FOLLOW_39_in_time_unit899); 
+                    match(input,39,FOLLOW_39_in_time_unit905); 
 
                      unit = TimeUnit.NANOSECONDS; 
 
@@ -1445,7 +1445,7 @@ public class DialogParser extends Parser {
                 case 2 :
                     // Dialog.g:135:7: 'us'
                     {
-                    match(input,45,FOLLOW_45_in_time_unit909); 
+                    match(input,45,FOLLOW_45_in_time_unit915); 
 
                      unit = TimeUnit.MICROSECONDS; 
 
@@ -1454,7 +1454,7 @@ public class DialogParser extends Parser {
                 case 3 :
                     // Dialog.g:136:7: 'ms'
                     {
-                    match(input,38,FOLLOW_38_in_time_unit919); 
+                    match(input,38,FOLLOW_38_in_time_unit925); 
 
                      unit = TimeUnit.MILLISECONDS; 
 
@@ -1463,7 +1463,7 @@ public class DialogParser extends Parser {
                 case 4 :
                     // Dialog.g:137:7: 's'
                     {
-                    match(input,43,FOLLOW_43_in_time_unit929); 
+                    match(input,43,FOLLOW_43_in_time_unit935); 
 
                      unit = TimeUnit.SECONDS; 
 
@@ -1472,7 +1472,7 @@ public class DialogParser extends Parser {
                 case 5 :
                     // Dialog.g:138:7: 'm'
                     {
-                    match(input,37,FOLLOW_37_in_time_unit939); 
+                    match(input,37,FOLLOW_37_in_time_unit945); 
 
                      unit = TimeUnit.MINUTES; 
 
@@ -1481,7 +1481,7 @@ public class DialogParser extends Parser {
                 case 6 :
                     // Dialog.g:139:7: 'h'
                     {
-                    match(input,35,FOLLOW_35_in_time_unit949); 
+                    match(input,35,FOLLOW_35_in_time_unit955); 
 
                      unit = TimeUnit.HOURS; 
 
@@ -1490,7 +1490,7 @@ public class DialogParser extends Parser {
                 case 7 :
                     // Dialog.g:140:7: 'd'
                     {
-                    match(input,33,FOLLOW_33_in_time_unit959); 
+                    match(input,33,FOLLOW_33_in_time_unit965); 
 
                      unit = TimeUnit.DAYS; 
 
@@ -1517,94 +1517,94 @@ public class DialogParser extends Parser {
  
 
     public static final BitSet FOLLOW_rule_in_program81 = new BitSet(new long[]{0x0000060000000002L});
-    public static final BitSet FOLLOW_response_in_program95 = new BitSet(new long[]{0x0000060000000002L});
-    public static final BitSet FOLLOW_41_in_response127 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENT_in_response129 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_46_in_response133 = new BitSet(new long[]{0x0000811000000000L});
-    public static final BitSet FOLLOW_response_statement_in_response136 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_response139 = new BitSet(new long[]{0x0000811000000000L});
-    public static final BitSet FOLLOW_47_in_response143 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_36_in_response_statement168 = new BitSet(new long[]{0x0000000000A23800L});
-    public static final BitSet FOLLOW_expression_in_response_statement170 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_remember_statement_in_response_statement180 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_42_in_rule209 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENT_in_rule211 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_46_in_rule215 = new BitSet(new long[]{0x0000000100000000L});
-    public static final BitSet FOLLOW_criteria_in_rule217 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_rule221 = new BitSet(new long[]{0x0000830000000000L});
-    public static final BitSet FOLLOW_rule_statement_in_rule224 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_response_in_program96 = new BitSet(new long[]{0x0000060000000002L});
+    public static final BitSet FOLLOW_41_in_response131 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_IDENT_in_response133 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_46_in_response137 = new BitSet(new long[]{0x0000811000000000L});
+    public static final BitSet FOLLOW_response_statement_in_response140 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_26_in_response143 = new BitSet(new long[]{0x0000811000000000L});
+    public static final BitSet FOLLOW_47_in_response147 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_36_in_response_statement172 = new BitSet(new long[]{0x0000000000A23800L});
+    public static final BitSet FOLLOW_expression_in_response_statement174 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_remember_statement_in_response_statement184 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_42_in_rule215 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_IDENT_in_rule217 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_46_in_rule221 = new BitSet(new long[]{0x0000000100000000L});
+    public static final BitSet FOLLOW_criteria_in_rule223 = new BitSet(new long[]{0x0000000004000000L});
     public static final BitSet FOLLOW_26_in_rule227 = new BitSet(new long[]{0x0000830000000000L});
-    public static final BitSet FOLLOW_47_in_rule231 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_41_in_rule_statement261 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENT_in_rule_statement265 = new BitSet(new long[]{0x0000100000000002L});
-    public static final BitSet FOLLOW_44_in_rule_statement279 = new BitSet(new long[]{0x0000000000000820L});
-    public static final BitSet FOLLOW_IDENT_in_rule_statement284 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_NUMBER_in_rule_statement290 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENT_in_rule_statement295 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_remember_statement_in_rule_statement319 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_40_in_remember_statement348 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_remember_assignment_in_remember_statement350 = new BitSet(new long[]{0x0000000000400002L});
-    public static final BitSet FOLLOW_22_in_remember_statement354 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_rule_statement_in_rule230 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_26_in_rule233 = new BitSet(new long[]{0x0000830000000000L});
+    public static final BitSet FOLLOW_47_in_rule237 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_41_in_rule_statement267 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_IDENT_in_rule_statement271 = new BitSet(new long[]{0x0000100000000002L});
+    public static final BitSet FOLLOW_44_in_rule_statement285 = new BitSet(new long[]{0x0000000000000820L});
+    public static final BitSet FOLLOW_IDENT_in_rule_statement290 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_NUMBER_in_rule_statement296 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_IDENT_in_rule_statement301 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_remember_statement_in_rule_statement325 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_40_in_remember_statement354 = new BitSet(new long[]{0x0000000000001000L});
     public static final BitSet FOLLOW_remember_assignment_in_remember_statement356 = new BitSet(new long[]{0x0000000000400002L});
-    public static final BitSet FOLLOW_QUERY_STRING_in_remember_assignment390 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_remember_assignment392 = new BitSet(new long[]{0x0000000000A23800L});
-    public static final BitSet FOLLOW_expression_in_remember_assignment394 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_INTEGER_in_remember_assignment398 = new BitSet(new long[]{0x000028EA00000000L});
-    public static final BitSet FOLLOW_time_unit_in_remember_assignment402 = new BitSet(new long[]{0x0000000001000002L});
-    public static final BitSet FOLLOW_24_in_remember_assignment405 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_32_in_criteria451 = new BitSet(new long[]{0x0000000400000000L});
-    public static final BitSet FOLLOW_34_in_criteria454 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENT_in_criteria458 = new BitSet(new long[]{0x0000000000400022L});
-    public static final BitSet FOLLOW_22_in_criteria464 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENT_in_criteria468 = new BitSet(new long[]{0x0000000000400022L});
-    public static final BitSet FOLLOW_IDENT_in_criteria492 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_criteria494 = new BitSet(new long[]{0x0000000000A23800L});
-    public static final BitSet FOLLOW_expression_in_criteria498 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_IDENT_in_criteria514 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_30_in_criteria516 = new BitSet(new long[]{0x0000000000A23800L});
-    public static final BitSet FOLLOW_expression_in_criteria520 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_IDENT_in_criteria536 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_27_in_criteria538 = new BitSet(new long[]{0x0000000000A23800L});
-    public static final BitSet FOLLOW_expression_in_criteria542 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_IDENT_in_criteria558 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_28_in_criteria560 = new BitSet(new long[]{0x0000000000A23800L});
-    public static final BitSet FOLLOW_expression_in_criteria564 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_IDENT_in_criteria580 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_31_in_criteria582 = new BitSet(new long[]{0x0000000000A23800L});
-    public static final BitSet FOLLOW_expression_in_criteria586 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_IDENT_in_criteria602 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_criteria604 = new BitSet(new long[]{0x0000000000A23800L});
-    public static final BitSet FOLLOW_expression_in_criteria608 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_IDENT_in_criteria624 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_mult_in_expression655 = new BitSet(new long[]{0x0000000000A00002L});
-    public static final BitSet FOLLOW_21_in_expression669 = new BitSet(new long[]{0x0000000000A23800L});
-    public static final BitSet FOLLOW_mult_in_expression673 = new BitSet(new long[]{0x0000000000A00002L});
-    public static final BitSet FOLLOW_23_in_expression684 = new BitSet(new long[]{0x0000000000A23800L});
-    public static final BitSet FOLLOW_mult_in_expression688 = new BitSet(new long[]{0x0000000000A00002L});
-    public static final BitSet FOLLOW_21_in_unary720 = new BitSet(new long[]{0x0000000000A23800L});
-    public static final BitSet FOLLOW_23_in_unary724 = new BitSet(new long[]{0x0000000000A23800L});
-    public static final BitSet FOLLOW_term_in_unary734 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_unary_in_mult754 = new BitSet(new long[]{0x0000000002190002L});
-    public static final BitSet FOLLOW_19_in_mult763 = new BitSet(new long[]{0x0000000000A23800L});
-    public static final BitSet FOLLOW_unary_in_mult767 = new BitSet(new long[]{0x0000000002190002L});
-    public static final BitSet FOLLOW_25_in_mult781 = new BitSet(new long[]{0x0000000000A23800L});
-    public static final BitSet FOLLOW_unary_in_mult785 = new BitSet(new long[]{0x0000000002190002L});
-    public static final BitSet FOLLOW_16_in_mult799 = new BitSet(new long[]{0x0000000000A23800L});
-    public static final BitSet FOLLOW_unary_in_mult803 = new BitSet(new long[]{0x0000000002190002L});
-    public static final BitSet FOLLOW_20_in_mult817 = new BitSet(new long[]{0x0000000000A23800L});
-    public static final BitSet FOLLOW_unary_in_mult821 = new BitSet(new long[]{0x0000000002190002L});
-    public static final BitSet FOLLOW_17_in_term846 = new BitSet(new long[]{0x0000000000A23800L});
-    public static final BitSet FOLLOW_expression_in_term848 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_18_in_term850 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NUMBER_in_term860 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_LITERAL_in_term870 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_QUERY_STRING_in_term880 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_39_in_time_unit899 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_45_in_time_unit909 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_38_in_time_unit919 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_43_in_time_unit929 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_37_in_time_unit939 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_35_in_time_unit949 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_33_in_time_unit959 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_22_in_remember_statement360 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_remember_assignment_in_remember_statement362 = new BitSet(new long[]{0x0000000000400002L});
+    public static final BitSet FOLLOW_QUERY_STRING_in_remember_assignment396 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_remember_assignment398 = new BitSet(new long[]{0x0000000000A23800L});
+    public static final BitSet FOLLOW_expression_in_remember_assignment400 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_INTEGER_in_remember_assignment404 = new BitSet(new long[]{0x000028EA00000000L});
+    public static final BitSet FOLLOW_time_unit_in_remember_assignment408 = new BitSet(new long[]{0x0000000001000002L});
+    public static final BitSet FOLLOW_24_in_remember_assignment411 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_32_in_criteria457 = new BitSet(new long[]{0x0000000400000000L});
+    public static final BitSet FOLLOW_34_in_criteria460 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_IDENT_in_criteria464 = new BitSet(new long[]{0x0000000000400022L});
+    public static final BitSet FOLLOW_22_in_criteria470 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_IDENT_in_criteria474 = new BitSet(new long[]{0x0000000000400022L});
+    public static final BitSet FOLLOW_IDENT_in_criteria498 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_criteria500 = new BitSet(new long[]{0x0000000000A23800L});
+    public static final BitSet FOLLOW_expression_in_criteria504 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_IDENT_in_criteria520 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_30_in_criteria522 = new BitSet(new long[]{0x0000000000A23800L});
+    public static final BitSet FOLLOW_expression_in_criteria526 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_IDENT_in_criteria542 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_27_in_criteria544 = new BitSet(new long[]{0x0000000000A23800L});
+    public static final BitSet FOLLOW_expression_in_criteria548 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_IDENT_in_criteria564 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_28_in_criteria566 = new BitSet(new long[]{0x0000000000A23800L});
+    public static final BitSet FOLLOW_expression_in_criteria570 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_IDENT_in_criteria586 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_31_in_criteria588 = new BitSet(new long[]{0x0000000000A23800L});
+    public static final BitSet FOLLOW_expression_in_criteria592 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_IDENT_in_criteria608 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_15_in_criteria610 = new BitSet(new long[]{0x0000000000A23800L});
+    public static final BitSet FOLLOW_expression_in_criteria614 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_IDENT_in_criteria630 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_mult_in_expression661 = new BitSet(new long[]{0x0000000000A00002L});
+    public static final BitSet FOLLOW_21_in_expression675 = new BitSet(new long[]{0x0000000000A23800L});
+    public static final BitSet FOLLOW_mult_in_expression679 = new BitSet(new long[]{0x0000000000A00002L});
+    public static final BitSet FOLLOW_23_in_expression690 = new BitSet(new long[]{0x0000000000A23800L});
+    public static final BitSet FOLLOW_mult_in_expression694 = new BitSet(new long[]{0x0000000000A00002L});
+    public static final BitSet FOLLOW_21_in_unary726 = new BitSet(new long[]{0x0000000000A23800L});
+    public static final BitSet FOLLOW_23_in_unary730 = new BitSet(new long[]{0x0000000000A23800L});
+    public static final BitSet FOLLOW_term_in_unary740 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_unary_in_mult760 = new BitSet(new long[]{0x0000000002190002L});
+    public static final BitSet FOLLOW_19_in_mult769 = new BitSet(new long[]{0x0000000000A23800L});
+    public static final BitSet FOLLOW_unary_in_mult773 = new BitSet(new long[]{0x0000000002190002L});
+    public static final BitSet FOLLOW_25_in_mult787 = new BitSet(new long[]{0x0000000000A23800L});
+    public static final BitSet FOLLOW_unary_in_mult791 = new BitSet(new long[]{0x0000000002190002L});
+    public static final BitSet FOLLOW_16_in_mult805 = new BitSet(new long[]{0x0000000000A23800L});
+    public static final BitSet FOLLOW_unary_in_mult809 = new BitSet(new long[]{0x0000000002190002L});
+    public static final BitSet FOLLOW_20_in_mult823 = new BitSet(new long[]{0x0000000000A23800L});
+    public static final BitSet FOLLOW_unary_in_mult827 = new BitSet(new long[]{0x0000000002190002L});
+    public static final BitSet FOLLOW_17_in_term852 = new BitSet(new long[]{0x0000000000A23800L});
+    public static final BitSet FOLLOW_expression_in_term854 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_18_in_term856 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NUMBER_in_term866 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_LITERAL_in_term876 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_QUERY_STRING_in_term886 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_39_in_time_unit905 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_45_in_time_unit915 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_38_in_time_unit925 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_43_in_time_unit935 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_37_in_time_unit945 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_35_in_time_unit955 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_33_in_time_unit965 = new BitSet(new long[]{0x0000000000000002L});
 
 }

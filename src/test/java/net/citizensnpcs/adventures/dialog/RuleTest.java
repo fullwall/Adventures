@@ -22,7 +22,7 @@ public class RuleTest {
     public void testSimpleQuery() {
         String parse = "rule test {" + "\ncriteria events=onchat message='test';" + "\nresponse test2;" + "\n  }"
                 + "\nresponse test2 {" + "\nlog 'Hello, dialog world!';" + "\n}";
-        engine.load(parse);
+        engine.parse(parse);
         Map<String, Object> query = Maps.newHashMap();
         query.put("message", "test");
         boolean success = engine.execute(new AbstractQuery("onchat", query) {
