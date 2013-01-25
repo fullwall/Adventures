@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.WeakHashMap;
 
 import net.citizensnpcs.adventures.dialog.DialogEngine;
-import net.citizensnpcs.adventures.dialog.DialogTrait;
 import net.citizensnpcs.api.event.NPCAddTraitEvent;
 import net.citizensnpcs.api.event.NPCRemoveTraitEvent;
 

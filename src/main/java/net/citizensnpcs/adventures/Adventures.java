@@ -3,7 +3,6 @@ package net.citizensnpcs.adventures;
 import java.io.File;
 
 import net.citizensnpcs.adventures.dialog.DialogEngine;
-import net.citizensnpcs.adventures.dialog.DialogTrait;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.trait.TraitInfo;
 

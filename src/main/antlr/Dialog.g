@@ -51,30 +51,41 @@ program [DialogEngine.ParseContext context] :
         | response[context] { $context.responseLoaded($response.response); }
     )*;
 
+name [DialogEngine.ParseContext context] returns [String name] :
+    (
+        i1=IDENT { $name= context.disambiguateName($i1.text); } 
+        | i2=IDENT '/' i3=IDENT { $name = $i2.text + '/' + $i3.text; }
+    )
+    ;
+
 response [DialogEngine.ParseContext context] returns [Response response] :
     { Response.Builder builder = Response.builder(); } 
-    'response' IDENT { builder.name(context.disambiguateName($IDENT.text)); } '{' (response_statement[context, builder] ';')* '}'
+    'response' name[context] { builder.name($name.name); } '{' (response_statement[context, builder] ';')* '}'
     { $response = builder.build(); }
     ;
 
 response_statement [DialogEngine.ParseContext context, Response.Builder builder] :
     'log' expression { builder.statement(Log.logging($expression.value)); }
-    | remember_statement { builder.statement($remember_statement.statement); } 
+    | remember_statement { builder.statement($remember_statement.statement); }
     ;
 
 rule [DialogEngine.ParseContext context] returns [Collection<String> eventNames, Rule rule]:
     { Rule.Builder builder = Rule.builder(); }
-    'rule' IDENT { builder.name(context.disambiguateName($IDENT.text)); } '{' criteria { $eventNames = $criteria.eventNames; } ';' (rule_statement[context, builder] ';')* '}'
+    'rule' name[context] { builder.name($name.name); } '{' criteria { $eventNames = $criteria.eventNames; } ';' (rule_statement[context, builder] ';')* '}'
     { $rule = builder.build(); }
     ;
     
 rule_statement [DialogEngine.ParseContext context, Rule.Builder builder] :
-    ('response' n=IDENT { CallResponse.Builder responseBuilder = CallResponse.builder(context.disambiguateName($n.text)); } 
-        ('then' (target=IDENT | target=NUMBER) event=IDENT { responseBuilder.callback(new CallEventCallback(context.disambiguateName($target.text), $event.text)); })? 
-        { builder.statement(responseBuilder.build()); })
+    ('response' n=name[context] { CallResponse.Builder responseBuilder = CallResponse.builder($n.name); } 
+        (
+            // target is a name or number
+            'then' (target=IDENT | target=NUMBER) event=IDENT { responseBuilder.callback(new CallEventCallback($target.text, $event.text)); }
+        )? 
+        { builder.statement(responseBuilder.build()); }
+    )
     | remember_statement { builder.statement($remember_statement.statement); }
     ;
-
+    
 remember_statement returns [QueryRunnable statement] :
     { Remember.Builder builder = Remember.builder(); }
     'remember' remember_assignment[builder] (',' remember_assignment[builder])*
@@ -82,14 +93,22 @@ remember_statement returns [QueryRunnable statement] :
     ;
 
 remember_assignment [Remember.Builder builder] :
-    { boolean isPersistent = false; }
-    QUERY_STRING '=' expression i1=INTEGER i2=time_unit ('-p' { isPersistent = true; })? 
-        { builder.remember($QUERY_STRING.text, $expression.value, ExpirationTime.expiringAt(Long.parseLong($INTEGER.text), $i2.unit, isPersistent)); } 
+    { boolean isPersistent = false; long expiration = Long.MAX_VALUE; TimeUnit unit = TimeUnit.DAYS; }
+    QUERY_STRING '=' expression 
+        (
+            i1=INTEGER i2=time_unit { expiration = Long.parseLong($INTEGER.text); unit = $i2.unit; }
+        )? 
+        (
+            '-p' { isPersistent = true; }
+        )? 
+        { builder.remember($QUERY_STRING.text, $expression.value, ExpirationTime.expiringAt(expiration, unit, isPersistent)); } 
     ;
     
 criteria returns [Collection<String> eventNames]:
     { $eventNames = new ArrayList<String>(); }
-    'criteria' ('events=' e1=IDENT  { $eventNames.add($e1.text); } (',' e2=IDENT { $eventNames.add($e2.text); })* )
+    'criteria' (
+                    'events=' e1=IDENT  { $eventNames.add($e1.text); } (',' e2=IDENT { $eventNames.add($e2.text); })* 
+               )
     (
         i1=IDENT '=' op1=expression { NumberQueryPredicate.equalTo($i1.text, $op1.value); }
         | i2=IDENT '>' op2=expression { NumberQueryPredicate.greaterThan($i2.text, $op2.value); }
@@ -118,7 +137,8 @@ unary returns [Evaluator value] :
 
 mult returns [Evaluator value] :
     op1=unary { $value = $op1.value; }
-    ('*' op2=unary { $value = MultiplyEvaluator.create($value, $op2.value); }
+    (
+        '*' op2=unary { $value = MultiplyEvaluator.create($value, $op2.value); }
         | '/' op2=unary { $value = DivideEvaluator.create($value, $op2.value); }
         | '%' op2=unary { $value = ModEvaluator.create($value, $op2.value); }
         | '**' op2=unary { $value = PowerEvaluator.create($value, $op2.value); }
