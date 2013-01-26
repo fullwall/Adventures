@@ -3,20 +3,17 @@ package net.citizensnpcs.adventures.dialog.evaluators;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import net.citizensnpcs.adventures.dialog.DialogParserException;
-
-import com.google.common.collect.Lists;
+import net.citizensnpcs.adventures.util.Util;
 
 public class ArrayEvaluator {
     private static class ConstantArrayEvaluator implements Evaluator {
         private final Object[] value;
 
         public ConstantArrayEvaluator(Evaluator[] evaluators) {
-            List<Class<?>> commonClasses = getCommonSuperClasses(evaluators);
+            List<Class<?>> commonClasses = Util.getCommonSuperClasses(evaluators);
             if (commonClasses.size() == 0)
                 throw new DialogParserException("No common superclass in array " + Arrays.toString(evaluators));
             value = (Object[]) Array.newInstance(commonClasses.get(0), evaluators.length);
@@ -44,7 +41,7 @@ public class ArrayEvaluator {
 
         @Override
         public Object get() {
-            List<Class<?>> commonClasses = getCommonSuperClasses(evaluators);
+            List<Class<?>> commonClasses = Util.getCommonSuperClasses(evaluators);
             if (commonClasses.size() == 0)
                 throw new DialogParserException("No common superclass in array " + Arrays.toString(evaluators));
             Object[] value = (Object[]) Array.newInstance(getClass(), evaluators.length);
@@ -70,34 +67,5 @@ public class ArrayEvaluator {
 
     public static Evaluator create(Collection<Evaluator> array) {
         return create(array.toArray(new Evaluator[array.size()]));
-    }
-
-    private static Set<Class<?>> getClassesBfs(Class<?> clazz) {
-        Set<Class<?>> classes = new LinkedHashSet<Class<?>>();
-        Set<Class<?>> nextLevel = new LinkedHashSet<Class<?>>();
-        nextLevel.add(clazz);
-        do {
-            classes.addAll(nextLevel);
-            Set<Class<?>> thisLevel = new LinkedHashSet<Class<?>>(nextLevel);
-            nextLevel.clear();
-            for (Class<?> each : thisLevel) {
-                Class<?> superClass = each.getSuperclass();
-                if (superClass != null && superClass != Object.class) {
-                    nextLevel.add(superClass);
-                }
-                for (Class<?> eachInt : each.getInterfaces()) {
-                    nextLevel.add(eachInt);
-                }
-            }
-        } while (!nextLevel.isEmpty());
-        return classes;
-    }
-
-    private static List<Class<?>> getCommonSuperClasses(Evaluator[] evaluators) {
-        Set<Class<?>> rollingIntersect = new LinkedHashSet<Class<?>>(getClassesBfs(evaluators[0].get().getClass()));
-        for (int i = 1; i < evaluators.length; i++) {
-            rollingIntersect.retainAll(getClassesBfs(evaluators[i].get().getClass()));
-        }
-        return Lists.newArrayList(rollingIntersect);
     }
 }

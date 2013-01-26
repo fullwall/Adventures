@@ -1,4 +1,4 @@
-// $ANTLR 3.4 Dialog.g 2013-01-26 18:14:23
+// $ANTLR 3.4 Dialog.g 2013-01-26 18:43:59
 
 package net.citizensnpcs.adventures.dialog;
 import java.util.concurrent.TimeUnit;
@@ -47,6 +47,7 @@ public class DialogLexer extends Lexer {
     public static final int T__48=48;
     public static final int T__49=49;
     public static final int T__50=50;
+    public static final int T__51=51;
     public static final int BOOLEAN_LITERAL=4;
     public static final int DIGIT=5;
     public static final int IDENT=6;
@@ -324,10 +325,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:30:7: ( ';' )
-            // Dialog.g:30:9: ';'
+            // Dialog.g:30:7: ( ':' )
+            // Dialog.g:30:9: ':'
             {
-            match(';'); 
+            match(':'); 
 
             }
 
@@ -345,10 +346,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:31:7: ( '<' )
-            // Dialog.g:31:9: '<'
+            // Dialog.g:31:7: ( ';' )
+            // Dialog.g:31:9: ';'
             {
-            match('<'); 
+            match(';'); 
 
             }
 
@@ -366,12 +367,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:32:7: ( '<=' )
-            // Dialog.g:32:9: '<='
+            // Dialog.g:32:7: ( '<' )
+            // Dialog.g:32:9: '<'
             {
-            match("<="); 
-
-
+            match('<'); 
 
             }
 
@@ -389,10 +388,12 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:33:7: ( '=' )
-            // Dialog.g:33:9: '='
+            // Dialog.g:33:7: ( '<=' )
+            // Dialog.g:33:9: '<='
             {
-            match('='); 
+            match("<="); 
+
+
 
             }
 
@@ -410,10 +411,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:34:7: ( '>' )
-            // Dialog.g:34:9: '>'
+            // Dialog.g:34:7: ( '=' )
+            // Dialog.g:34:9: '='
             {
-            match('>'); 
+            match('='); 
 
             }
 
@@ -431,12 +432,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:35:7: ( '>=' )
-            // Dialog.g:35:9: '>='
+            // Dialog.g:35:7: ( '>' )
+            // Dialog.g:35:9: '>'
             {
-            match(">="); 
-
-
+            match('>'); 
 
             }
 
@@ -454,10 +453,12 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:36:7: ( '[' )
-            // Dialog.g:36:9: '['
+            // Dialog.g:36:7: ( '>=' )
+            // Dialog.g:36:9: '>='
             {
-            match('['); 
+            match(">="); 
+
+
 
             }
 
@@ -475,10 +476,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:37:7: ( ']' )
-            // Dialog.g:37:9: ']'
+            // Dialog.g:37:7: ( '[' )
+            // Dialog.g:37:9: '['
             {
-            match(']'); 
+            match('['); 
 
             }
 
@@ -496,12 +497,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:38:7: ( 'criteria' )
-            // Dialog.g:38:9: 'criteria'
+            // Dialog.g:38:7: ( ']' )
+            // Dialog.g:38:9: ']'
             {
-            match("criteria"); 
-
-
+            match(']'); 
 
             }
 
@@ -519,10 +518,12 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:39:7: ( 'd' )
-            // Dialog.g:39:9: 'd'
+            // Dialog.g:39:7: ( 'criteria' )
+            // Dialog.g:39:9: 'criteria'
             {
-            match('d'); 
+            match("criteria"); 
+
+
 
             }
 
@@ -540,12 +541,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__37;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:40:7: ( 'events=' )
-            // Dialog.g:40:9: 'events='
+            // Dialog.g:40:7: ( 'd' )
+            // Dialog.g:40:9: 'd'
             {
-            match("events="); 
-
-
+            match('d'); 
 
             }
 
@@ -563,10 +562,12 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__38;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:41:7: ( 'h' )
-            // Dialog.g:41:9: 'h'
+            // Dialog.g:41:7: ( 'events=' )
+            // Dialog.g:41:9: 'events='
             {
-            match('h'); 
+            match("events="); 
+
+
 
             }
 
@@ -584,12 +585,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__39;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:42:7: ( 'log' )
-            // Dialog.g:42:9: 'log'
+            // Dialog.g:42:7: ( 'h' )
+            // Dialog.g:42:9: 'h'
             {
-            match("log"); 
-
-
+            match('h'); 
 
             }
 
@@ -607,10 +606,12 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__40;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:43:7: ( 'm' )
-            // Dialog.g:43:9: 'm'
+            // Dialog.g:43:7: ( 'log' )
+            // Dialog.g:43:9: 'log'
             {
-            match('m'); 
+            match("log"); 
+
+
 
             }
 
@@ -628,12 +629,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__41;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:44:7: ( 'ms' )
-            // Dialog.g:44:9: 'ms'
+            // Dialog.g:44:7: ( 'm' )
+            // Dialog.g:44:9: 'm'
             {
-            match("ms"); 
-
-
+            match('m'); 
 
             }
 
@@ -651,10 +650,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__42;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:45:7: ( 'ns' )
-            // Dialog.g:45:9: 'ns'
+            // Dialog.g:45:7: ( 'ms' )
+            // Dialog.g:45:9: 'ms'
             {
-            match("ns"); 
+            match("ms"); 
 
 
 
@@ -674,10 +673,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:46:7: ( 'remember' )
-            // Dialog.g:46:9: 'remember'
+            // Dialog.g:46:7: ( 'ns' )
+            // Dialog.g:46:9: 'ns'
             {
-            match("remember"); 
+            match("ns"); 
 
 
 
@@ -697,10 +696,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__44;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:47:7: ( 'response' )
-            // Dialog.g:47:9: 'response'
+            // Dialog.g:47:7: ( 'remember' )
+            // Dialog.g:47:9: 'remember'
             {
-            match("response"); 
+            match("remember"); 
 
 
 
@@ -720,10 +719,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__45;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:48:7: ( 'rule' )
-            // Dialog.g:48:9: 'rule'
+            // Dialog.g:48:7: ( 'response' )
+            // Dialog.g:48:9: 'response'
             {
-            match("rule"); 
+            match("response"); 
 
 
 
@@ -743,10 +742,12 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__46;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:49:7: ( 's' )
-            // Dialog.g:49:9: 's'
+            // Dialog.g:49:7: ( 'rule' )
+            // Dialog.g:49:9: 'rule'
             {
-            match('s'); 
+            match("rule"); 
+
+
 
             }
 
@@ -764,12 +765,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__47;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:50:7: ( 'then' )
-            // Dialog.g:50:9: 'then'
+            // Dialog.g:50:7: ( 's' )
+            // Dialog.g:50:9: 's'
             {
-            match("then"); 
-
-
+            match('s'); 
 
             }
 
@@ -787,10 +786,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__48;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:51:7: ( 'us' )
-            // Dialog.g:51:9: 'us'
+            // Dialog.g:51:7: ( 'then' )
+            // Dialog.g:51:9: 'then'
             {
-            match("us"); 
+            match("then"); 
 
 
 
@@ -810,10 +809,12 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__49;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:52:7: ( '{' )
-            // Dialog.g:52:9: '{'
+            // Dialog.g:52:7: ( 'us' )
+            // Dialog.g:52:9: 'us'
             {
-            match('{'); 
+            match("us"); 
+
+
 
             }
 
@@ -831,10 +832,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__50;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:53:7: ( '}' )
-            // Dialog.g:53:9: '}'
+            // Dialog.g:53:7: ( '{' )
+            // Dialog.g:53:9: '{'
             {
-            match('}'); 
+            match('{'); 
 
             }
 
@@ -847,19 +848,40 @@ public class DialogLexer extends Lexer {
     }
     // $ANTLR end "T__50"
 
+    // $ANTLR start "T__51"
+    public final void mT__51() throws RecognitionException {
+        try {
+            int _type = T__51;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:54:7: ( '}' )
+            // Dialog.g:54:9: '}'
+            {
+            match('}'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__51"
+
     // $ANTLR start "ML_COMMENT"
     public final void mML_COMMENT() throws RecognitionException {
         try {
             int _type = ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:186:12: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // Dialog.g:187:5: '/*' ( options {greedy=false; } : . )* '*/'
+            // Dialog.g:192:12: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // Dialog.g:193:5: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
 
 
-            // Dialog.g:187:10: ( options {greedy=false; } : . )*
+            // Dialog.g:193:10: ( options {greedy=false; } : . )*
             loop1:
             do {
                 int alt1=2;
@@ -884,7 +906,7 @@ public class DialogLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // Dialog.g:187:38: .
+            	    // Dialog.g:193:38: .
             	    {
             	    matchAny(); 
 
@@ -919,14 +941,14 @@ public class DialogLexer extends Lexer {
         try {
             int _type = LINE_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:189:14: ( '//' (~ NEWLINE )* )
-            // Dialog.g:190:5: '//' (~ NEWLINE )*
+            // Dialog.g:195:14: ( '//' (~ NEWLINE )* )
+            // Dialog.g:196:5: '//' (~ NEWLINE )*
             {
             match("//"); 
 
 
 
-            // Dialog.g:190:10: (~ NEWLINE )*
+            // Dialog.g:196:10: (~ NEWLINE )*
             loop2:
             do {
                 int alt2=2;
@@ -976,7 +998,7 @@ public class DialogLexer extends Lexer {
     // $ANTLR start "NEWLINE"
     public final void mNEWLINE() throws RecognitionException {
         try {
-            // Dialog.g:192:18: ( '\\n' | '\\r' )
+            // Dialog.g:198:18: ( '\\n' | '\\r' )
             // Dialog.g:
             {
             if ( input.LA(1)=='\n'||input.LA(1)=='\r' ) {
@@ -1004,10 +1026,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:196:4: ( ( ' ' | '\\t' | '\\n' | '\\r' )+ )
-            // Dialog.g:197:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
+            // Dialog.g:202:4: ( ( ' ' | '\\t' | '\\n' | '\\r' )+ )
+            // Dialog.g:203:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
             {
-            // Dialog.g:197:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
+            // Dialog.g:203:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
             int cnt3=0;
             loop3:
             do {
@@ -1064,13 +1086,13 @@ public class DialogLexer extends Lexer {
         try {
             int _type = IDENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:199:7: ( LETTER ( LETTER | '_' | DIGIT )* )
-            // Dialog.g:200:5: LETTER ( LETTER | '_' | DIGIT )*
+            // Dialog.g:205:7: ( LETTER ( LETTER | '_' | DIGIT )* )
+            // Dialog.g:206:5: LETTER ( LETTER | '_' | DIGIT )*
             {
             mLETTER(); 
 
 
-            // Dialog.g:200:12: ( LETTER | '_' | DIGIT )*
+            // Dialog.g:206:12: ( LETTER | '_' | DIGIT )*
             loop4:
             do {
                 int alt4=2;
@@ -1118,13 +1140,13 @@ public class DialogLexer extends Lexer {
     // $ANTLR start "QUERY_STRING"
     public final void mQUERY_STRING() throws RecognitionException {
         try {
-            // Dialog.g:202:23: ( IDENT ( '.' IDENT )* )
-            // Dialog.g:203:5: IDENT ( '.' IDENT )*
+            // Dialog.g:208:23: ( IDENT ( '.' IDENT )* )
+            // Dialog.g:209:5: IDENT ( '.' IDENT )*
             {
             mIDENT(); 
 
 
-            // Dialog.g:203:11: ( '.' IDENT )*
+            // Dialog.g:209:11: ( '.' IDENT )*
             loop5:
             do {
                 int alt5=2;
@@ -1137,7 +1159,7 @@ public class DialogLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // Dialog.g:203:12: '.' IDENT
+            	    // Dialog.g:209:12: '.' IDENT
             	    {
             	    match('.'); 
 
@@ -1166,7 +1188,7 @@ public class DialogLexer extends Lexer {
     // $ANTLR start "LETTER"
     public final void mLETTER() throws RecognitionException {
         try {
-            // Dialog.g:205:17: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
+            // Dialog.g:211:17: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
             // Dialog.g:
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
@@ -1192,7 +1214,7 @@ public class DialogLexer extends Lexer {
     // $ANTLR start "DIGIT"
     public final void mDIGIT() throws RecognitionException {
         try {
-            // Dialog.g:208:16: ( ( '0' .. '9' ) )
+            // Dialog.g:214:16: ( ( '0' .. '9' ) )
             // Dialog.g:
             {
             if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
@@ -1218,10 +1240,10 @@ public class DialogLexer extends Lexer {
     // $ANTLR start "INTEGER"
     public final void mINTEGER() throws RecognitionException {
         try {
-            // Dialog.g:211:18: ( ( DIGIT )+ )
-            // Dialog.g:212:5: ( DIGIT )+
+            // Dialog.g:217:18: ( ( DIGIT )+ )
+            // Dialog.g:218:5: ( DIGIT )+
             {
-            // Dialog.g:212:5: ( DIGIT )+
+            // Dialog.g:218:5: ( DIGIT )+
             int cnt6=0;
             loop6:
             do {
@@ -1273,10 +1295,10 @@ public class DialogLexer extends Lexer {
     // $ANTLR start "BOOLEAN_LITERAL"
     public final void mBOOLEAN_LITERAL() throws RecognitionException {
         try {
-            // Dialog.g:214:26: ( ( 'true' | 'false' ) )
-            // Dialog.g:215:5: ( 'true' | 'false' )
+            // Dialog.g:220:26: ( ( 'true' | 'false' ) )
+            // Dialog.g:221:5: ( 'true' | 'false' )
             {
-            // Dialog.g:215:5: ( 'true' | 'false' )
+            // Dialog.g:221:5: ( 'true' | 'false' )
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -1295,7 +1317,7 @@ public class DialogLexer extends Lexer {
             }
             switch (alt7) {
                 case 1 :
-                    // Dialog.g:215:6: 'true'
+                    // Dialog.g:221:6: 'true'
                     {
                     match("true"); 
 
@@ -1304,7 +1326,7 @@ public class DialogLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Dialog.g:215:15: 'false'
+                    // Dialog.g:221:15: 'false'
                     {
                     match("false"); 
 
@@ -1331,10 +1353,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = NUMBER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:217:8: ( ( '-' )? ( DIGIT )+ ( '.' ( DIGIT )+ )? )
-            // Dialog.g:218:5: ( '-' )? ( DIGIT )+ ( '.' ( DIGIT )+ )?
+            // Dialog.g:223:8: ( ( '-' )? ( DIGIT )+ ( '.' ( DIGIT )+ )? )
+            // Dialog.g:224:5: ( '-' )? ( DIGIT )+ ( '.' ( DIGIT )+ )?
             {
-            // Dialog.g:218:5: ( '-' )?
+            // Dialog.g:224:5: ( '-' )?
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -1343,7 +1365,7 @@ public class DialogLexer extends Lexer {
             }
             switch (alt8) {
                 case 1 :
-                    // Dialog.g:218:5: '-'
+                    // Dialog.g:224:5: '-'
                     {
                     match('-'); 
 
@@ -1353,7 +1375,7 @@ public class DialogLexer extends Lexer {
             }
 
 
-            // Dialog.g:218:10: ( DIGIT )+
+            // Dialog.g:224:10: ( DIGIT )+
             int cnt9=0;
             loop9:
             do {
@@ -1392,7 +1414,7 @@ public class DialogLexer extends Lexer {
             } while (true);
 
 
-            // Dialog.g:218:17: ( '.' ( DIGIT )+ )?
+            // Dialog.g:224:17: ( '.' ( DIGIT )+ )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -1401,11 +1423,11 @@ public class DialogLexer extends Lexer {
             }
             switch (alt11) {
                 case 1 :
-                    // Dialog.g:218:18: '.' ( DIGIT )+
+                    // Dialog.g:224:18: '.' ( DIGIT )+
                     {
                     match('.'); 
 
-                    // Dialog.g:218:22: ( DIGIT )+
+                    // Dialog.g:224:22: ( DIGIT )+
                     int cnt10=0;
                     loop10:
                     do {
@@ -1466,7 +1488,7 @@ public class DialogLexer extends Lexer {
         try {
             int _type = STRING_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:220:16: ( '\"' ( . )+ '\"' | '\\'' ( . )+ '\\'' )
+            // Dialog.g:226:16: ( '\"' ( . )+ '\"' | '\\'' ( . )+ '\\'' )
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -1485,11 +1507,11 @@ public class DialogLexer extends Lexer {
             }
             switch (alt14) {
                 case 1 :
-                    // Dialog.g:221:5: '\"' ( . )+ '\"'
+                    // Dialog.g:227:5: '\"' ( . )+ '\"'
                     {
                     match('\"'); 
 
-                    // Dialog.g:221:9: ( . )+
+                    // Dialog.g:227:9: ( . )+
                     int cnt12=0;
                     loop12:
                     do {
@@ -1506,7 +1528,7 @@ public class DialogLexer extends Lexer {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // Dialog.g:221:9: .
+                    	    // Dialog.g:227:9: .
                     	    {
                     	    matchAny(); 
 
@@ -1528,11 +1550,11 @@ public class DialogLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Dialog.g:222:7: '\\'' ( . )+ '\\''
+                    // Dialog.g:228:7: '\\'' ( . )+ '\\''
                     {
                     match('\''); 
 
-                    // Dialog.g:222:12: ( . )+
+                    // Dialog.g:228:12: ( . )+
                     int cnt13=0;
                     loop13:
                     do {
@@ -1549,7 +1571,7 @@ public class DialogLexer extends Lexer {
 
                         switch (alt13) {
                     	case 1 :
-                    	    // Dialog.g:222:12: .
+                    	    // Dialog.g:228:12: .
                     	    {
                     	    matchAny(); 
 
@@ -1582,8 +1604,8 @@ public class DialogLexer extends Lexer {
     // $ANTLR end "STRING_LITERAL"
 
     public void mTokens() throws RecognitionException {
-        // Dialog.g:1:8: ( T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | ML_COMMENT | LINE_COMMENT | WS | IDENT | NUMBER | STRING_LITERAL )
-        int alt15=41;
+        // Dialog.g:1:8: ( T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | ML_COMMENT | LINE_COMMENT | WS | IDENT | NUMBER | STRING_LITERAL )
+        int alt15=42;
         alt15 = dfa15.predict(input);
         switch (alt15) {
             case 1 :
@@ -1867,47 +1889,55 @@ public class DialogLexer extends Lexer {
                 }
                 break;
             case 36 :
-                // Dialog.g:1:220: ML_COMMENT
+                // Dialog.g:1:220: T__51
+                {
+                mT__51(); 
+
+
+                }
+                break;
+            case 37 :
+                // Dialog.g:1:226: ML_COMMENT
                 {
                 mML_COMMENT(); 
 
 
                 }
                 break;
-            case 37 :
-                // Dialog.g:1:231: LINE_COMMENT
+            case 38 :
+                // Dialog.g:1:237: LINE_COMMENT
                 {
                 mLINE_COMMENT(); 
 
 
                 }
                 break;
-            case 38 :
-                // Dialog.g:1:244: WS
+            case 39 :
+                // Dialog.g:1:250: WS
                 {
                 mWS(); 
 
 
                 }
                 break;
-            case 39 :
-                // Dialog.g:1:247: IDENT
+            case 40 :
+                // Dialog.g:1:253: IDENT
                 {
                 mIDENT(); 
 
 
                 }
                 break;
-            case 40 :
-                // Dialog.g:1:253: NUMBER
+            case 41 :
+                // Dialog.g:1:259: NUMBER
                 {
                 mNUMBER(); 
 
 
                 }
                 break;
-            case 41 :
-                // Dialog.g:1:260: STRING_LITERAL
+            case 42 :
+                // Dialog.g:1:266: STRING_LITERAL
                 {
                 mSTRING_LITERAL(); 
 
@@ -1922,15 +1952,15 @@ public class DialogLexer extends Lexer {
 
     protected DFA15 dfa15 = new DFA15(this);
     static final String DFA15_eotS =
-        "\5\uffff\1\42\2\uffff\1\44\1\47\1\uffff\1\51\1\uffff\1\53\2\uffff"+
-        "\1\36\1\55\1\36\1\57\1\36\1\62\2\36\1\66\2\36\21\uffff\1\36\1\uffff"+
-        "\1\36\1\uffff\1\36\1\74\1\uffff\1\75\2\36\1\uffff\1\36\1\102\2\36"+
-        "\1\105\2\uffff\4\36\1\uffff\2\36\1\uffff\2\36\1\116\1\117\4\36\2"+
-        "\uffff\5\36\1\uffff\2\36\1\133\1\134\1\135\3\uffff";
+        "\5\uffff\1\43\2\uffff\1\45\1\50\2\uffff\1\52\1\uffff\1\54\2\uffff"+
+        "\1\37\1\56\1\37\1\60\1\37\1\63\2\37\1\67\2\37\21\uffff\1\37\1\uffff"+
+        "\1\37\1\uffff\1\37\1\75\1\uffff\1\76\2\37\1\uffff\1\37\1\103\2\37"+
+        "\1\106\2\uffff\4\37\1\uffff\2\37\1\uffff\2\37\1\117\1\120\4\37\2"+
+        "\uffff\5\37\1\uffff\2\37\1\134\1\135\1\136\3\uffff";
     static final String DFA15_eofS =
-        "\136\uffff";
+        "\137\uffff";
     static final String DFA15_minS =
-        "\1\11\4\uffff\1\52\2\uffff\1\60\1\52\1\uffff\1\75\1\uffff\1\75\2"+
+        "\1\11\4\uffff\1\52\2\uffff\1\60\1\52\2\uffff\1\75\1\uffff\1\75\2"+
         "\uffff\1\162\1\60\1\166\1\60\1\157\1\60\1\163\1\145\1\60\1\150\1"+
         "\163\21\uffff\1\151\1\uffff\1\145\1\uffff\1\147\1\60\1\uffff\1\60"+
         "\1\155\1\154\1\uffff\1\145\1\60\1\164\1\156\1\60\2\uffff\1\145\1"+
@@ -1938,7 +1968,7 @@ public class DialogLexer extends Lexer {
         "\162\1\163\1\142\1\156\2\uffff\1\151\1\75\1\145\1\163\1\141\1\uffff"+
         "\1\162\1\145\3\60\3\uffff";
     static final String DFA15_maxS =
-        "\1\175\4\uffff\1\52\2\uffff\1\160\1\57\1\uffff\1\75\1\uffff\1\75"+
+        "\1\175\4\uffff\1\52\2\uffff\1\160\1\57\2\uffff\1\75\1\uffff\1\75"+
         "\2\uffff\1\162\1\172\1\166\1\172\1\157\1\172\1\163\1\165\1\172\1"+
         "\150\1\163\21\uffff\1\151\1\uffff\1\145\1\uffff\1\147\1\172\1\uffff"+
         "\1\172\1\163\1\154\1\uffff\1\145\1\172\1\164\1\156\1\172\2\uffff"+
@@ -1946,110 +1976,111 @@ public class DialogLexer extends Lexer {
         "\2\172\1\162\1\163\1\142\1\156\2\uffff\1\151\1\75\1\145\1\163\1"+
         "\141\1\uffff\1\162\1\145\3\172\3\uffff";
     static final String DFA15_acceptS =
-        "\1\uffff\1\1\1\2\1\3\1\4\1\uffff\1\7\1\10\2\uffff\1\14\1\uffff\1"+
-        "\17\1\uffff\1\22\1\23\13\uffff\1\42\1\43\1\46\1\47\1\50\1\51\1\6"+
-        "\1\5\1\12\1\11\1\44\1\45\1\13\1\16\1\15\1\21\1\20\1\uffff\1\25\1"+
-        "\uffff\1\27\2\uffff\1\31\3\uffff\1\37\5\uffff\1\32\1\33\4\uffff"+
-        "\1\41\2\uffff\1\30\10\uffff\1\36\1\40\5\uffff\1\26\5\uffff\1\24"+
-        "\1\34\1\35";
+        "\1\uffff\1\1\1\2\1\3\1\4\1\uffff\1\7\1\10\2\uffff\1\14\1\15\1\uffff"+
+        "\1\20\1\uffff\1\23\1\24\13\uffff\1\43\1\44\1\47\1\50\1\51\1\52\1"+
+        "\6\1\5\1\12\1\11\1\45\1\46\1\13\1\17\1\16\1\22\1\21\1\uffff\1\26"+
+        "\1\uffff\1\30\2\uffff\1\32\3\uffff\1\40\5\uffff\1\33\1\34\4\uffff"+
+        "\1\42\2\uffff\1\31\10\uffff\1\37\1\41\5\uffff\1\27\5\uffff\1\25"+
+        "\1\35\1\36";
     static final String DFA15_specialS =
-        "\136\uffff}>";
+        "\137\uffff}>";
     static final String[] DFA15_transitionS = {
-            "\2\35\2\uffff\1\35\22\uffff\1\35\1\1\1\40\2\uffff\1\2\1\uffff"+
-            "\1\40\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\11\12\37\1\uffff\1"+
-            "\12\1\13\1\14\1\15\2\uffff\32\36\1\16\1\uffff\1\17\3\uffff\2"+
-            "\36\1\20\1\21\1\22\2\36\1\23\3\36\1\24\1\25\1\26\3\36\1\27\1"+
-            "\30\1\31\1\32\5\36\1\33\1\uffff\1\34",
+            "\2\36\2\uffff\1\36\22\uffff\1\36\1\1\1\41\2\uffff\1\2\1\uffff"+
+            "\1\41\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\11\12\40\1\12\1\13"+
+            "\1\14\1\15\1\16\2\uffff\32\37\1\17\1\uffff\1\20\3\uffff\2\37"+
+            "\1\21\1\22\1\23\2\37\1\24\3\37\1\25\1\26\1\27\3\37\1\30\1\31"+
+            "\1\32\1\33\5\37\1\34\1\uffff\1\35",
             "",
             "",
             "",
             "",
-            "\1\41",
+            "\1\42",
             "",
             "",
-            "\12\37\66\uffff\1\43",
-            "\1\45\4\uffff\1\46",
-            "",
-            "\1\50",
-            "",
-            "\1\52",
+            "\12\40\66\uffff\1\44",
+            "\1\46\4\uffff\1\47",
             "",
             "",
-            "\1\54",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "\1\56",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "\1\60",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\22\36\1\61\7\36",
-            "\1\63",
-            "\1\64\17\uffff\1\65",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "\1\67",
+            "\1\51",
+            "",
+            "\1\53",
+            "",
+            "",
+            "\1\55",
+            "\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\32\37",
+            "\1\57",
+            "\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\32\37",
+            "\1\61",
+            "\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\22\37\1\62\7\37",
+            "\1\64",
+            "\1\65\17\uffff\1\66",
+            "\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\32\37",
             "\1\70",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
             "\1\71",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "",
             "\1\72",
             "",
             "\1\73",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "\1\76\5\uffff\1\77",
-            "\1\100",
+            "\1\74",
+            "\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\32\37",
             "",
+            "\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\32\37",
+            "\1\77\5\uffff\1\100",
             "\1\101",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "\1\103",
+            "",
+            "\1\102",
+            "\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\32\37",
             "\1\104",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\105",
+            "\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\32\37",
             "",
             "",
-            "\1\106",
             "\1\107",
             "\1\110",
             "\1\111",
-            "",
             "\1\112",
-            "\1\113",
             "",
+            "\1\113",
             "\1\114",
+            "",
             "\1\115",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "\1\120",
+            "\1\116",
+            "\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\32\37",
+            "\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\32\37",
             "\1\121",
             "\1\122",
             "\1\123",
-            "",
-            "",
             "\1\124",
+            "",
+            "",
             "\1\125",
             "\1\126",
             "\1\127",
             "\1\130",
-            "",
             "\1\131",
+            "",
             "\1\132",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\133",
+            "\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\32\37",
+            "\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\32\37",
+            "\12\37\7\uffff\32\37\4\uffff\1\37\1\uffff\32\37",
             "",
             "",
             ""
@@ -2085,7 +2116,7 @@ public class DialogLexer extends Lexer {
             this.transition = DFA15_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | ML_COMMENT | LINE_COMMENT | WS | IDENT | NUMBER | STRING_LITERAL );";
+            return "1:1: Tokens : ( T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | ML_COMMENT | LINE_COMMENT | WS | IDENT | NUMBER | STRING_LITERAL );";
         }
     }
  

@@ -161,17 +161,23 @@ term returns [Evaluator value] :
     | NUMBER { $value = NumberEvaluator.create($NUMBER.text); }
     | STRING_LITERAL { $value = StringEvaluator.create($STRING_LITERAL.text); }
     | QUERY_STRING  { $value = VariableEvaluator.create(variableSource, $QUERY_STRING.text); }
-    | '[' expression { 
-                     List<Evaluator> array = Lists.newArrayList($expression.value); 
-                     } 
-                     (
-                     array_rest { array.add($array_rest.value); }
-                     )* 
+    | '[' 
+            exp1=expression 
+            { 
+            List<Evaluator> array = Lists.newArrayList($exp1.value); 
+            } 
+            (
+            ',' exp2=expression { array.add($exp2.value); }
+            )* 
      ']' { $value = ArrayEvaluator.create(array); }
+    | '{' 
+         { Map<String, Evaluator> vars = Maps.newHashMap(); } 
+          map_pair[vars] (',' map_pair[vars])*
+      '}' { $value = MapEvaluator.create(vars); }
     ;
     
-array_rest returns [Evaluator value]:
-    ',' expression { $value = $expression.value; };
+map_pair [Map<String, Evaluator> vars] :
+    IDENT ':' expression { vars.put($IDENT.text, $expression.value); };
 
 time_unit returns [TimeUnit unit] :
     'ns' { $unit = TimeUnit.NANOSECONDS; }
