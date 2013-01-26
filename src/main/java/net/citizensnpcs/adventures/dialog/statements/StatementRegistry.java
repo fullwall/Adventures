@@ -2,10 +2,10 @@ package net.citizensnpcs.adventures.dialog.statements;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Map;
 
-import javassist.Modifier;
 import net.citizensnpcs.adventures.dialog.DialogEngine.ParseContext;
 import net.citizensnpcs.adventures.dialog.QueryRunnable;
 import net.citizensnpcs.adventures.dialog.evaluators.Evaluator;
@@ -19,7 +19,8 @@ public class StatementRegistry {
     private Injector injector;
     private final ListMultimap<String, DialogStatement> statements = ArrayListMultimap.create();
 
-    public QueryRunnable getMatchingStatement(ParseContext parseContext, String statementName, Map<String, Evaluator> vars) {
+    public QueryRunnable getMatchingStatement(ParseContext parseContext, String statementName,
+            Map<String, Evaluator> vars) {
         if (!statements.containsKey(statementName))
             return null;
         for (DialogStatement entry : statements.values()) {
