@@ -81,7 +81,7 @@
 	</scm>
 
 	<build>
-		<defaultGoal>clean install</defaultGoal>
+		<defaultGoal>clean generate-sources install</defaultGoal>
 		<sourceDirectory>${basedir}/src/main/java</sourceDirectory>
 
 		<resources>
@@ -106,6 +106,12 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr3-maven-plugin</artifactId>
+                <version>3.5</version>
+            </plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -124,7 +130,6 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
-							
 							<minimizeJar>false</minimizeJar>
 							<relocations>
 								<relocation>
