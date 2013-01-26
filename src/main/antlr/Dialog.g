@@ -34,6 +34,10 @@ private VariableSource variableSource;
 public void setVariableSource(VariableSource source) {
     this.variableSource = source;
 }
+
+private String stripQuotes(String quoted) {
+    return quoted.substring(1, quoted.length() - 1);
+}
 }
 
 @lexer::header {
@@ -94,7 +98,10 @@ rule_statement [DialogEngine.ParseContext context, Rule.Builder builder] :
 
 generic_statement [DialogEngine.ParseContext context] returns [QueryRunnable statement] :
     { String name; Map<String,Evaluator> vars = Maps.newHashMap(); }
-    i1=IDENT { name = $i1.text; } (i2=IDENT '=' expression { vars.put($i2.text, $expression.value); })* 
+    i1=IDENT { name = $i1.text; } 
+    (
+        i2=IDENT '=' expression { vars.put($i2.text, $expression.value); }
+    )* 
     { $statement = context.buildStatement(name, vars); } { $statement != null }?;
     
 remember_statement returns [QueryRunnable statement] :
@@ -105,14 +112,14 @@ remember_statement returns [QueryRunnable statement] :
 
 remember_assignment [Remember.Builder builder] :
     { boolean isPersistent = false; long expiration = Long.MAX_VALUE; TimeUnit unit = TimeUnit.DAYS; }
-    QUERY_STRING '=' expression 
+    q=query '=' expression 
         (
             i1=INTEGER i2=time_unit { expiration = Long.parseLong($INTEGER.text); unit = $i2.unit; }
         )? 
         (
             '-p' { isPersistent = true; }
         )? 
-        { builder.remember($QUERY_STRING.text, $expression.value, ExpirationTime.expiringAt(expiration, unit, isPersistent)); } 
+        { builder.remember($q.text, $expression.value, ExpirationTime.expiringAt(expiration, unit, isPersistent)); } 
     ;
     
 criteria returns [Collection<String> eventNames]:
@@ -157,27 +164,28 @@ mult returns [Evaluator value] :
 
 term returns [Evaluator value] :
     '(' expression ')' { $value = $expression.value; }
-    | BOOLEAN_LITERAL { $value = BooleanEvaluator.create($BOOLEAN_LITERAL.text); }
+    | b=bool { $value = new BooleanEvaluator($b.value); }
     | NUMBER { $value = NumberEvaluator.create($NUMBER.text); }
     | STRING_LITERAL { $value = StringEvaluator.create($STRING_LITERAL.text); }
-    | QUERY_STRING  { $value = VariableEvaluator.create(variableSource, $QUERY_STRING.text); }
+    | (q=query)  { $value = VariableEvaluator.create(variableSource, $q.text); }
     | '[' 
-            exp1=expression 
-            { 
-            List<Evaluator> array = Lists.newArrayList($exp1.value); 
-            } 
+            { List<Evaluator> array = Lists.newArrayList(); }
             (
-            ',' exp2=expression { array.add($exp2.value); }
-            )* 
+	            exp1=expression { array.add($exp1.value); }
+	            (',' exp2=expression { array.add($exp2.value); })* 
+            )?
      ']' { $value = ArrayEvaluator.create(array); }
     | '{' 
          { Map<String, Evaluator> vars = Maps.newHashMap(); } 
-          map_pair[vars] (',' map_pair[vars])*
+          (map_pair[vars] (',' map_pair[vars])*)?
       '}' { $value = MapEvaluator.create(vars); }
     ;
+
+bool returns [boolean value] :
+    ('true' { $value = true; } | 'false' { $value = false; });
     
 map_pair [Map<String, Evaluator> vars] :
-    IDENT ':' expression { vars.put($IDENT.text, $expression.value); };
+    k=STRING_LITERAL ':' expression { vars.put(stripQuotes($k.text), $expression.value); };
 
 time_unit returns [TimeUnit unit] :
     'ns' { $unit = TimeUnit.NANOSECONDS; }
@@ -188,6 +196,9 @@ time_unit returns [TimeUnit unit] :
     | 'h' { $unit = TimeUnit.HOURS; }
     | 'd' { $unit = TimeUnit.DAYS; }
     ;
+  
+query :
+    IDENT ('.' IDENT)*;
     
 ML_COMMENT :
     '/*' (options { greedy=false; }: .)* '*/' { $channel = HIDDEN; };
@@ -204,9 +215,6 @@ WS :
 
 IDENT :
     LETTER (LETTER | '_' | DIGIT)*;
-    
-fragment QUERY_STRING :
-    IDENT ('.' IDENT)*;
 
 fragment LETTER :
     ('a'..'z' | 'A'..'Z');
@@ -216,13 +224,10 @@ fragment DIGIT :
 
 fragment INTEGER : 
     DIGIT+;
-    
-fragment BOOLEAN_LITERAL :
-    ('true' | 'false');
 
 NUMBER :
     '-'? DIGIT+ ('.' DIGIT+)?;
 
 STRING_LITERAL :
-    '"' .+ '"'
-    | '\'' .+ '\'';
+    '"' .* '"'
+    | '\'' .* '\'';

@@ -33,6 +33,10 @@ public class DialogEngine {
         }
     };
 
+    public StatementRegistry getStatementRegistry() {
+        return statementRegistry;
+    }
+
     public boolean execute(Query query) {
         currentQuery = query;
         Rule lastMatching = globalRegistry.getBestRule(query);

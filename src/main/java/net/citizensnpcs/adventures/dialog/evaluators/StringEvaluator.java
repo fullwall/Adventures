@@ -23,6 +23,6 @@ public class StringEvaluator implements Evaluator {
     }
 
     public static Evaluator create(String raw) {
-        return new StringEvaluator(raw.replace("\"", "").replace("'", ""));
+        return new StringEvaluator(raw.substring(1, raw.length() - 1));
     }
 }

@@ -2,6 +2,7 @@ package net.citizensnpcs.adventures.util;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,12 +38,15 @@ public class Util {
     }
 
     public static List<Class<?>> getCommonSuperClasses(Collection<Evaluator> evaluators) {
-        List<Evaluator> list = evaluators instanceof List ? (List<Evaluator>) evaluators : Lists
-                .newArrayList(evaluators);
-        Set<Class<?>> rollingIntersect = new LinkedHashSet<Class<?>>(getClassesBfs(list.get(0).getClass()));
-        for (int i = 1; i < evaluators.size(); i++) {
-            rollingIntersect.retainAll(getClassesBfs(list.get(i).getClass()));
+        if (evaluators.size() == 0)
+            return OBJECT;
+        Iterator<Evaluator> itr = evaluators.iterator();
+        Set<Class<?>> rollingIntersect = new LinkedHashSet<Class<?>>(getClassesBfs(itr.next().get().getClass()));
+        while (itr.hasNext()) {
+            rollingIntersect.retainAll(getClassesBfs(itr.next().get().getClass()));
         }
         return Lists.newArrayList(rollingIntersect);
     }
+
+    private static final List<Class<?>> OBJECT = Arrays.<Class<?>> asList(Object.class);
 }

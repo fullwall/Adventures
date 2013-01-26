@@ -27,11 +27,15 @@ public class NumberEvaluator implements Evaluator {
     public static Evaluator create(String raw) {
         try {
             return new NumberEvaluator(Integer.parseInt(raw));
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException iex) {
             try {
-                return new NumberEvaluator(Double.parseDouble(raw));
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
+                return new NumberEvaluator(Long.parseLong(raw));
+            } catch (NumberFormatException lex) {
+                try {
+                    return new NumberEvaluator(Double.parseDouble(raw));
+                } catch (NumberFormatException dex) {
+                    dex.printStackTrace();
+                }
             }
         }
         throw new DialogParserException("Couldn't parse a number from " + raw);

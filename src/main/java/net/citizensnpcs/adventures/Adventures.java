@@ -23,4 +23,8 @@ public class Adventures extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new QueryEventListener(this, engine), this);
         CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(DialogTrait.class).withName("dialog"));
     }
+
+    public DialogEngine getDialogEngine() {
+        return engine;
+    }
 }
