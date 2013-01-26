@@ -11,8 +11,8 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 public class ArgumentFormat {
-    private final Set<String> requiredArguments = Sets.newHashSet();
     private final Set<String> optionalArguments = Sets.newHashSet();
+    private final Set<String> requiredArguments = Sets.newHashSet();
 
     public ArgumentFormat(String argumentFormat) {
         for (String part : argumentFormat.split(" ")) {
@@ -29,18 +29,17 @@ public class ArgumentFormat {
         }
     }
 
-    public boolean matches(Set<String> vars) {
-        return vars.containsAll(requiredArguments);
-    }
-
     public StatementContext createStatementContext(Map<String, Evaluator> vars) {
         if (!vars.keySet().containsAll(requiredArguments))
             throw new DialogException("Variables did not contain all required arguments " + requiredArguments);
         Set<String> union = Sets.union(optionalArguments, requiredArguments);
         Map<String, Object> map = Maps.newHashMap();
         for (Map.Entry<String, Evaluator> entry : vars.entrySet()) {
-            if (union.contains(entry.getKey()))
-                map.put(entry.getKey(), entry.getValue().get());
+            String key = entry.getKey();
+            Evaluator value = entry.getValue();
+            if (union.contains(key)) {
+                map.put(key, value.isConstant() ? value.get() : value);
+            }
         }
         return new StatementContext(map);
     }

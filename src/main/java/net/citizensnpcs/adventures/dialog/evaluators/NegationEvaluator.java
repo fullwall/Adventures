@@ -1,5 +1,7 @@
 package net.citizensnpcs.adventures.dialog.evaluators;
 
+import net.citizensnpcs.adventures.dialog.DialogParserException;
+
 public class NegationEvaluator implements Evaluator {
     private final Evaluator evaluator;
 
@@ -28,6 +30,6 @@ public class NegationEvaluator implements Evaluator {
             return -(Integer) object;
         if (object instanceof Number)
             return -((Number) object).doubleValue();
-        throw new IllegalStateException();
+        throw new DialogParserException("Expected a number to negate");
     }
 }

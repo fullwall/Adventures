@@ -1,9 +1,9 @@
 package net.citizensnpcs.adventures.dialog.evaluators;
 
-public class ConstantEvaluator implements Evaluator {
-    private final Object value;
+public class BooleanEvaluator implements Evaluator {
+    private final boolean value;
 
-    private ConstantEvaluator(Object value) {
+    public BooleanEvaluator(boolean value) {
         this.value = value;
     }
 
@@ -19,10 +19,10 @@ public class ConstantEvaluator implements Evaluator {
 
     @Override
     public String toString() {
-        return "ConstantEvaluator[" + value.toString() + "]";
+        return "BooleanEvaluator[" + value + "]";
     }
 
-    public static Evaluator create(Object value) {
-        return new ConstantEvaluator(value);
+    public static BooleanEvaluator create(String raw) {
+        return new BooleanEvaluator(Boolean.valueOf(raw));
     }
 }

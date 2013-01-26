@@ -1,5 +1,7 @@
 package net.citizensnpcs.adventures.dialog.evaluators;
 
+import net.citizensnpcs.adventures.dialog.DialogParserException;
+
 public class NumberEvaluator implements Evaluator {
     private final Number value;
 
@@ -17,6 +19,11 @@ public class NumberEvaluator implements Evaluator {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "NumberEvaluator[" + value + "]";
+    }
+
     public static Evaluator create(String raw) {
         try {
             return new NumberEvaluator(Integer.parseInt(raw));
@@ -27,6 +34,6 @@ public class NumberEvaluator implements Evaluator {
                 e.printStackTrace();
             }
         }
-        throw new IllegalArgumentException();
+        throw new DialogParserException("Couldn't parse a number from " + raw);
     }
 }

@@ -3,6 +3,7 @@ package net.citizensnpcs.adventures.dialog.statements;
 import java.util.Map;
 
 import net.citizensnpcs.adventures.dialog.DialogException;
+import net.citizensnpcs.adventures.dialog.evaluators.Evaluator;
 
 public class StatementContext {
     private final Map<String, Object> map;
@@ -15,6 +16,8 @@ public class StatementContext {
         Object raw = map.get(key);
         if (raw == null)
             return null;
+        if (raw instanceof Evaluator)
+            raw = ((Evaluator) raw).get();
         try {
             return keyClass.cast(raw);
         } catch (ClassCastException ex) {

@@ -12,7 +12,9 @@ catch (RecognitionException e) {
 @header {
 package net.citizensnpcs.adventures.dialog;
 import java.util.Collection;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import com.google.common.collect.Maps;
 import com.google.common.base.Predicates;
 import net.citizensnpcs.adventures.dialog.*;
 import net.citizensnpcs.adventures.dialog.statements.*;
@@ -67,6 +69,7 @@ response [DialogEngine.ParseContext context] returns [Response response] :
 response_statement [DialogEngine.ParseContext context, Response.Builder builder] :
     'log' expression { builder.statement(Log.logging($expression.value)); }
     | remember_statement { builder.statement($remember_statement.statement); }
+    | generic_statement[context] { builder.statement($generic_statement.statement); }
     ;
 
 rule [DialogEngine.ParseContext context] returns [Collection<String> eventNames, Rule rule]:
@@ -84,7 +87,13 @@ rule_statement [DialogEngine.ParseContext context, Rule.Builder builder] :
         { builder.statement(responseBuilder.build()); }
     )
     | remember_statement { builder.statement($remember_statement.statement); }
+    | generic_statement[context] { builder.statement($generic_statement.statement); }
     ;
+
+generic_statement [DialogEngine.ParseContext context] returns [QueryRunnable statement] :
+    { String name; Map<String,Evaluator> vars = Maps.newHashMap(); }
+    i1=IDENT { name = $i1.text; } (i2=IDENT '=' expression { vars.put($i2.text, $expression.value); })* 
+    { $statement = context.buildStatement(name, vars); } { $statement != null }?;
     
 remember_statement returns [QueryRunnable statement] :
     { Remember.Builder builder = Remember.builder(); }
@@ -127,7 +136,7 @@ expression returns [Evaluator value] :
     )*;
 
 unary returns [Evaluator value] :
-    {boolean positive = true;}
+    { boolean positive = true; }
     ('+' | '-' { positive = !positive; })*
     term {
          $value = $term.value;
@@ -146,6 +155,7 @@ mult returns [Evaluator value] :
 
 term returns [Evaluator value] :
     '(' expression ')' { $value = $expression.value; }
+    | BOOLEAN_LITERAL { $value = BooleanEvaluator.create($BOOLEAN_LITERAL.text); }
     | NUMBER { $value = NumberEvaluator.create($NUMBER.text); }
     | STRING_LITERAL { $value = StringEvaluator.create($STRING_LITERAL.text); }
     | QUERY_STRING  { $value = VariableEvaluator.create(variableSource, $QUERY_STRING.text); };
@@ -173,7 +183,7 @@ fragment NEWLINE :
 WS :
     (' ' | '\t' | '\n' | '\r')+ { $channel = HIDDEN; };
 
-IDENT :
+fragment IDENT :
     LETTER (LETTER | '_' | DIGIT)*;
     
 fragment QUERY_STRING :
@@ -187,10 +197,13 @@ fragment DIGIT :
 
 fragment INTEGER : 
     DIGIT+;
+    
+fragment BOOLEAN_LITERAL :
+    ('true' | 'false');
 
-NUMBER :
+fragment NUMBER :
     '-'? DIGIT+ ('.' DIGIT+)?;
 
-STRING_LITERAL :
+fragment STRING_LITERAL :
     '"' .+ '"'
     | '\'' .+ '\'';

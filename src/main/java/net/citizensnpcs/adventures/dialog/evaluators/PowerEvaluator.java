@@ -1,5 +1,7 @@
 package net.citizensnpcs.adventures.dialog.evaluators;
 
+import net.citizensnpcs.adventures.dialog.DialogParserException;
+
 public class PowerEvaluator extends LeftRightEvaluator {
     private PowerEvaluator(Evaluator left, Evaluator right) {
         super(left, right);
@@ -21,6 +23,6 @@ public class PowerEvaluator extends LeftRightEvaluator {
             return Math.pow((Integer) one, (Integer) two);
         if (one instanceof Number && two instanceof Number)
             return Math.pow(((Number) one).doubleValue(), ((Number) two).doubleValue());
-        throw new IllegalStateException();
+        throw new DialogParserException("Expected two numbers to raise to the power but got " + one + " " + two);
     }
 }

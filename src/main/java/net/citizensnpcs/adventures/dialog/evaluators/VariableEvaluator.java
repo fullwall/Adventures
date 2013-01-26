@@ -19,6 +19,11 @@ public class VariableEvaluator implements Evaluator {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return "VariableEvaluator [" + identifier + "]";
+    }
+
     public static VariableEvaluator create(VariableSource source, String identifier) {
         return new VariableEvaluator(source, identifier);
     }

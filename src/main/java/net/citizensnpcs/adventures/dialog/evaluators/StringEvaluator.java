@@ -17,6 +17,11 @@ public class StringEvaluator implements Evaluator {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "StringEvaluator [" + value + "]";
+    }
+
     public static Evaluator create(String raw) {
         return new StringEvaluator(raw.replace("\"", "").replace("'", ""));
     }

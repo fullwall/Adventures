@@ -1,5 +1,7 @@
 package net.citizensnpcs.adventures.dialog.evaluators;
 
+import net.citizensnpcs.adventures.dialog.DialogParserException;
+
 public class MinusEvaluator extends LeftRightEvaluator {
     private MinusEvaluator(Evaluator left, Evaluator right) {
         super(left, right);
@@ -21,6 +23,6 @@ public class MinusEvaluator extends LeftRightEvaluator {
             return (Integer) one - (Integer) two;
         if (one instanceof Number && two instanceof Number)
             return ((Number) one).doubleValue() - ((Number) two).doubleValue();
-        throw new IllegalStateException();
+        throw new DialogParserException("Expected two numbers while subtracting");
     }
 }

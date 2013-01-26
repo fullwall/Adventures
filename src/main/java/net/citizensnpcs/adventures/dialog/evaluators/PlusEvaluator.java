@@ -1,5 +1,7 @@
 package net.citizensnpcs.adventures.dialog.evaluators;
 
+import net.citizensnpcs.adventures.dialog.DialogParserException;
+
 public class PlusEvaluator extends LeftRightEvaluator {
     private PlusEvaluator(Evaluator left, Evaluator right) {
         super(left, right);
@@ -23,6 +25,6 @@ public class PlusEvaluator extends LeftRightEvaluator {
             return ((Number) one).doubleValue() + ((Number) two).doubleValue();
         if (one instanceof String && two instanceof String)
             return (String) one + (String) two;
-        throw new IllegalStateException();
+        throw new DialogParserException("Expected two numbers to add but got " + one + " " + two);
     }
 }

@@ -12,4 +12,10 @@ public abstract class LeftRightEvaluator implements Evaluator {
     public boolean isConstant() {
         return left.isConstant() && right.isConstant();
     }
+
+    @Override
+    public String toString() {
+        return "LeftRightEvaluator[" + (left.isConstant() ? left.get() : left.toString()) + " "
+                + (right.isConstant() ? right.get() : right.toString()) + "]";
+    }
 }

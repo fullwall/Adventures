@@ -4,8 +4,11 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Map;
 
+import net.citizensnpcs.adventures.dialog.evaluators.Evaluator;
 import net.citizensnpcs.adventures.dialog.evaluators.VariableSource;
+import net.citizensnpcs.adventures.dialog.statements.StatementRegistry;
 import net.citizensnpcs.api.CitizensAPI;
 
 import org.antlr.runtime.ANTLRStringStream;
@@ -20,6 +23,7 @@ import com.google.common.io.Files;
 public class DialogEngine {
     private Query currentQuery;
     private final DialogRegistry globalRegistry = new SimpleDialogRegistry();
+    private final StatementRegistry statementRegistry = new StatementRegistry();
     private final VariableSource variableSource = new VariableSource() {
         @Override
         public Object getVariable(String key) {
@@ -36,40 +40,6 @@ public class DialogEngine {
             lastMatching.run(new SimpleQueryContext(query));
         currentQuery = null;
         return lastMatching != null;
-    }
-
-    public void parse(final File parsingFolder, String string) {
-        DialogLexer lexer = new DialogLexer(new ANTLRStringStream(string));
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        DialogParser parser = new DialogParser(tokens);
-        parser.setVariableSource(variableSource);
-        try {
-            parser.program(new ParseContext() {
-                @Override
-                public void responseLoaded(Response response) {
-                    globalRegistry.registerResponse(response);
-                }
-
-                @Override
-                public void ruleLoaded(Collection<String> eventNames, Rule rule) {
-                    globalRegistry.registerRule(eventNames, rule);
-                }
-
-                @Override
-                public String disambiguateName(String raw) {
-                    if (parsingFolder != null) {
-                        return parsingFolder.getName() + '/' + raw;
-                    }
-                    return raw;
-                }
-            });
-        } catch (RecognitionException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void parse(String string) {
-        parse(null, string);
     }
 
     public void loadFolderAsynchronously(final File folder) {
@@ -89,10 +59,53 @@ public class DialogEngine {
         });
     }
 
+    public void parse(final File parsingFolder, String string) {
+        DialogLexer lexer = new DialogLexer(new ANTLRStringStream(string));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        DialogParser parser = new DialogParser(tokens);
+        parser.setVariableSource(variableSource);
+        try {
+            parser.program(new ParseContext() {
+                @Override
+                public QueryRunnable buildStatement(String name, Map<String, Evaluator> args) {
+                    return statementRegistry.getMatchingStatement(this, name, args);
+                }
+
+                @Override
+                public String disambiguateName(String raw) {
+                    if (parsingFolder != null) {
+                        return parsingFolder.getName() + '/' + raw;
+                    }
+                    return raw;
+                }
+
+                @Override
+                public void responseLoaded(Response response) {
+                    globalRegistry.registerResponse(response);
+                }
+
+                @Override
+                public void ruleLoaded(Collection<String> eventNames, Rule rule) {
+                    globalRegistry.registerRule(eventNames, rule);
+                }
+            });
+        } catch (RecognitionException e) {
+            e.printStackTrace();
+        } catch (DialogException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void parse(String string) {
+        parse(null, string);
+    }
+
     public interface ParseContext {
-        void responseLoaded(Response response);
+        QueryRunnable buildStatement(String name, Map<String, Evaluator> args);
 
         String disambiguateName(String raw);
+
+        void responseLoaded(Response response);
 
         void ruleLoaded(Collection<String> eventNames, Rule rule);
     }
