@@ -183,7 +183,7 @@ fragment NEWLINE :
 WS :
     (' ' | '\t' | '\n' | '\r')+ { $channel = HIDDEN; };
 
-fragment IDENT :
+IDENT :
     LETTER (LETTER | '_' | DIGIT)*;
     
 fragment QUERY_STRING :
@@ -201,9 +201,9 @@ fragment INTEGER :
 fragment BOOLEAN_LITERAL :
     ('true' | 'false');
 
-fragment NUMBER :
+NUMBER :
     '-'? DIGIT+ ('.' DIGIT+)?;
 
-fragment STRING_LITERAL :
+STRING_LITERAL :
     '"' .+ '"'
     | '\'' .+ '\'';

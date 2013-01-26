@@ -1,4 +1,4 @@
-// $ANTLR 3.4 Dialog.g 2013-01-26 17:44:56
+// $ANTLR 3.4 Dialog.g 2013-01-26 17:49:18
 
 package net.citizensnpcs.adventures.dialog;
 import java.util.concurrent.TimeUnit;
@@ -1018,7 +1018,9 @@ public class DialogLexer extends Lexer {
     // $ANTLR start "IDENT"
     public final void mIDENT() throws RecognitionException {
         try {
-            // Dialog.g:186:16: ( LETTER ( LETTER | '_' | DIGIT )* )
+            int _type = IDENT;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:186:7: ( LETTER ( LETTER | '_' | DIGIT )* )
             // Dialog.g:187:5: LETTER ( LETTER | '_' | DIGIT )*
             {
             mLETTER(); 
@@ -1060,7 +1062,8 @@ public class DialogLexer extends Lexer {
 
             }
 
-
+            state.type = _type;
+            state.channel = _channel;
         }
         finally {
         	// do for sure before leaving
@@ -1282,7 +1285,9 @@ public class DialogLexer extends Lexer {
     // $ANTLR start "NUMBER"
     public final void mNUMBER() throws RecognitionException {
         try {
-            // Dialog.g:204:17: ( ( '-' )? ( DIGIT )+ ( '.' ( DIGIT )+ )? )
+            int _type = NUMBER;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:204:8: ( ( '-' )? ( DIGIT )+ ( '.' ( DIGIT )+ )? )
             // Dialog.g:205:5: ( '-' )? ( DIGIT )+ ( '.' ( DIGIT )+ )?
             {
             // Dialog.g:205:5: ( '-' )?
@@ -1403,7 +1408,8 @@ public class DialogLexer extends Lexer {
 
             }
 
-
+            state.type = _type;
+            state.channel = _channel;
         }
         finally {
         	// do for sure before leaving
@@ -1414,7 +1420,9 @@ public class DialogLexer extends Lexer {
     // $ANTLR start "STRING_LITERAL"
     public final void mSTRING_LITERAL() throws RecognitionException {
         try {
-            // Dialog.g:207:25: ( '\"' ( . )+ '\"' | '\\'' ( . )+ '\\'' )
+            int _type = STRING_LITERAL;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:207:16: ( '\"' ( . )+ '\"' | '\\'' ( . )+ '\\'' )
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -1520,7 +1528,8 @@ public class DialogLexer extends Lexer {
                     break;
 
             }
-
+            state.type = _type;
+            state.channel = _channel;
         }
         finally {
         	// do for sure before leaving
@@ -1529,232 +1538,9 @@ public class DialogLexer extends Lexer {
     // $ANTLR end "STRING_LITERAL"
 
     public void mTokens() throws RecognitionException {
-        // Dialog.g:1:8: ( T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | ML_COMMENT | LINE_COMMENT | WS )
-        int alt15=36;
-        switch ( input.LA(1) ) {
-        case '!':
-            {
-            alt15=1;
-            }
-            break;
-        case '%':
-            {
-            alt15=2;
-            }
-            break;
-        case '(':
-            {
-            alt15=3;
-            }
-            break;
-        case ')':
-            {
-            alt15=4;
-            }
-            break;
-        case '*':
-            {
-            int LA15_5 = input.LA(2);
-
-            if ( (LA15_5=='*') ) {
-                alt15=6;
-            }
-            else {
-                alt15=5;
-            }
-            }
-            break;
-        case '+':
-            {
-            alt15=7;
-            }
-            break;
-        case ',':
-            {
-            alt15=8;
-            }
-            break;
-        case '-':
-            {
-            int LA15_8 = input.LA(2);
-
-            if ( (LA15_8=='p') ) {
-                alt15=10;
-            }
-            else {
-                alt15=9;
-            }
-            }
-            break;
-        case '/':
-            {
-            switch ( input.LA(2) ) {
-            case '*':
-                {
-                alt15=34;
-                }
-                break;
-            case '/':
-                {
-                alt15=35;
-                }
-                break;
-            default:
-                alt15=11;
-            }
-
-            }
-            break;
-        case ';':
-            {
-            alt15=12;
-            }
-            break;
-        case '<':
-            {
-            int LA15_11 = input.LA(2);
-
-            if ( (LA15_11=='=') ) {
-                alt15=14;
-            }
-            else {
-                alt15=13;
-            }
-            }
-            break;
-        case '=':
-            {
-            alt15=15;
-            }
-            break;
-        case '>':
-            {
-            int LA15_13 = input.LA(2);
-
-            if ( (LA15_13=='=') ) {
-                alt15=17;
-            }
-            else {
-                alt15=16;
-            }
-            }
-            break;
-        case 'c':
-            {
-            alt15=18;
-            }
-            break;
-        case 'd':
-            {
-            alt15=19;
-            }
-            break;
-        case 'e':
-            {
-            alt15=20;
-            }
-            break;
-        case 'h':
-            {
-            alt15=21;
-            }
-            break;
-        case 'l':
-            {
-            alt15=22;
-            }
-            break;
-        case 'm':
-            {
-            int LA15_19 = input.LA(2);
-
-            if ( (LA15_19=='s') ) {
-                alt15=24;
-            }
-            else {
-                alt15=23;
-            }
-            }
-            break;
-        case 'n':
-            {
-            alt15=25;
-            }
-            break;
-        case 'r':
-            {
-            int LA15_21 = input.LA(2);
-
-            if ( (LA15_21=='e') ) {
-                int LA15_41 = input.LA(3);
-
-                if ( (LA15_41=='m') ) {
-                    alt15=26;
-                }
-                else if ( (LA15_41=='s') ) {
-                    alt15=27;
-                }
-                else {
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 15, 41, input);
-
-                    throw nvae;
-
-                }
-            }
-            else if ( (LA15_21=='u') ) {
-                alt15=28;
-            }
-            else {
-                NoViableAltException nvae =
-                    new NoViableAltException("", 15, 21, input);
-
-                throw nvae;
-
-            }
-            }
-            break;
-        case 's':
-            {
-            alt15=29;
-            }
-            break;
-        case 't':
-            {
-            alt15=30;
-            }
-            break;
-        case 'u':
-            {
-            alt15=31;
-            }
-            break;
-        case '{':
-            {
-            alt15=32;
-            }
-            break;
-        case '}':
-            {
-            alt15=33;
-            }
-            break;
-        case '\t':
-        case '\n':
-        case '\r':
-        case ' ':
-            {
-            alt15=36;
-            }
-            break;
-        default:
-            NoViableAltException nvae =
-                new NoViableAltException("", 15, 0, input);
-
-            throw nvae;
-
-        }
-
+        // Dialog.g:1:8: ( T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | ML_COMMENT | LINE_COMMENT | WS | IDENT | NUMBER | STRING_LITERAL )
+        int alt15=39;
+        alt15 = dfa15.predict(input);
         switch (alt15) {
             case 1 :
                 // Dialog.g:1:10: T__16
@@ -2044,12 +1830,201 @@ public class DialogLexer extends Lexer {
 
                 }
                 break;
+            case 37 :
+                // Dialog.g:1:235: IDENT
+                {
+                mIDENT(); 
+
+
+                }
+                break;
+            case 38 :
+                // Dialog.g:1:241: NUMBER
+                {
+                mNUMBER(); 
+
+
+                }
+                break;
+            case 39 :
+                // Dialog.g:1:248: STRING_LITERAL
+                {
+                mSTRING_LITERAL(); 
+
+
+                }
+                break;
 
         }
 
     }
 
 
+    protected DFA15 dfa15 = new DFA15(this);
+    static final String DFA15_eotS =
+        "\5\uffff\1\40\2\uffff\1\42\1\45\1\uffff\1\47\1\uffff\1\51\1\34\1"+
+        "\53\1\34\1\55\1\34\1\60\2\34\1\64\2\34\21\uffff\1\34\1\uffff\1\34"+
+        "\1\uffff\1\34\1\72\1\uffff\1\73\2\34\1\uffff\1\34\1\100\2\34\1\103"+
+        "\2\uffff\4\34\1\uffff\2\34\1\uffff\2\34\1\114\1\115\4\34\2\uffff"+
+        "\5\34\1\uffff\2\34\1\131\1\132\1\133\3\uffff";
+    static final String DFA15_eofS =
+        "\134\uffff";
+    static final String DFA15_minS =
+        "\1\11\4\uffff\1\52\2\uffff\1\60\1\52\1\uffff\1\75\1\uffff\1\75\1"+
+        "\162\1\60\1\166\1\60\1\157\1\60\1\163\1\145\1\60\1\150\1\163\21"+
+        "\uffff\1\151\1\uffff\1\145\1\uffff\1\147\1\60\1\uffff\1\60\1\155"+
+        "\1\154\1\uffff\1\145\1\60\1\164\1\156\1\60\2\uffff\1\145\1\160\1"+
+        "\145\1\156\1\uffff\1\145\1\164\1\uffff\1\155\1\157\2\60\1\162\1"+
+        "\163\1\142\1\156\2\uffff\1\151\1\75\1\145\1\163\1\141\1\uffff\1"+
+        "\162\1\145\3\60\3\uffff";
+    static final String DFA15_maxS =
+        "\1\175\4\uffff\1\52\2\uffff\1\160\1\57\1\uffff\1\75\1\uffff\1\75"+
+        "\1\162\1\172\1\166\1\172\1\157\1\172\1\163\1\165\1\172\1\150\1\163"+
+        "\21\uffff\1\151\1\uffff\1\145\1\uffff\1\147\1\172\1\uffff\1\172"+
+        "\1\163\1\154\1\uffff\1\145\1\172\1\164\1\156\1\172\2\uffff\1\145"+
+        "\1\160\1\145\1\156\1\uffff\1\145\1\164\1\uffff\1\155\1\157\2\172"+
+        "\1\162\1\163\1\142\1\156\2\uffff\1\151\1\75\1\145\1\163\1\141\1"+
+        "\uffff\1\162\1\145\3\172\3\uffff";
+    static final String DFA15_acceptS =
+        "\1\uffff\1\1\1\2\1\3\1\4\1\uffff\1\7\1\10\2\uffff\1\14\1\uffff\1"+
+        "\17\14\uffff\1\40\1\41\1\44\1\45\1\46\1\47\1\6\1\5\1\12\1\11\1\42"+
+        "\1\43\1\13\1\16\1\15\1\21\1\20\1\uffff\1\23\1\uffff\1\25\2\uffff"+
+        "\1\27\3\uffff\1\35\5\uffff\1\30\1\31\4\uffff\1\37\2\uffff\1\26\10"+
+        "\uffff\1\34\1\36\5\uffff\1\24\5\uffff\1\22\1\32\1\33";
+    static final String DFA15_specialS =
+        "\134\uffff}>";
+    static final String[] DFA15_transitionS = {
+            "\2\33\2\uffff\1\33\22\uffff\1\33\1\1\1\36\2\uffff\1\2\1\uffff"+
+            "\1\36\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\11\12\35\1\uffff\1"+
+            "\12\1\13\1\14\1\15\2\uffff\32\34\6\uffff\2\34\1\16\1\17\1\20"+
+            "\2\34\1\21\3\34\1\22\1\23\1\24\3\34\1\25\1\26\1\27\1\30\5\34"+
+            "\1\31\1\uffff\1\32",
+            "",
+            "",
+            "",
+            "",
+            "\1\37",
+            "",
+            "",
+            "\12\35\66\uffff\1\41",
+            "\1\43\4\uffff\1\44",
+            "",
+            "\1\46",
+            "",
+            "\1\50",
+            "\1\52",
+            "\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "\1\54",
+            "\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "\1\56",
+            "\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\22\34\1\57\7\34",
+            "\1\61",
+            "\1\62\17\uffff\1\63",
+            "\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "\1\65",
+            "\1\66",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\67",
+            "",
+            "\1\70",
+            "",
+            "\1\71",
+            "\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "",
+            "\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "\1\74\5\uffff\1\75",
+            "\1\76",
+            "",
+            "\1\77",
+            "\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "\1\101",
+            "\1\102",
+            "\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "",
+            "",
+            "\1\104",
+            "\1\105",
+            "\1\106",
+            "\1\107",
+            "",
+            "\1\110",
+            "\1\111",
+            "",
+            "\1\112",
+            "\1\113",
+            "\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "\1\116",
+            "\1\117",
+            "\1\120",
+            "\1\121",
+            "",
+            "",
+            "\1\122",
+            "\1\123",
+            "\1\124",
+            "\1\125",
+            "\1\126",
+            "",
+            "\1\127",
+            "\1\130",
+            "\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "",
+            "",
+            ""
+    };
+
+    static final short[] DFA15_eot = DFA.unpackEncodedString(DFA15_eotS);
+    static final short[] DFA15_eof = DFA.unpackEncodedString(DFA15_eofS);
+    static final char[] DFA15_min = DFA.unpackEncodedStringToUnsignedChars(DFA15_minS);
+    static final char[] DFA15_max = DFA.unpackEncodedStringToUnsignedChars(DFA15_maxS);
+    static final short[] DFA15_accept = DFA.unpackEncodedString(DFA15_acceptS);
+    static final short[] DFA15_special = DFA.unpackEncodedString(DFA15_specialS);
+    static final short[][] DFA15_transition;
+
+    static {
+        int numStates = DFA15_transitionS.length;
+        DFA15_transition = new short[numStates][];
+        for (int i=0; i<numStates; i++) {
+            DFA15_transition[i] = DFA.unpackEncodedString(DFA15_transitionS[i]);
+        }
+    }
+
+    class DFA15 extends DFA {
+
+        public DFA15(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 15;
+            this.eot = DFA15_eot;
+            this.eof = DFA15_eof;
+            this.min = DFA15_min;
+            this.max = DFA15_max;
+            this.accept = DFA15_accept;
+            this.special = DFA15_special;
+            this.transition = DFA15_transition;
+        }
+        public String getDescription() {
+            return "1:1: Tokens : ( T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | ML_COMMENT | LINE_COMMENT | WS | IDENT | NUMBER | STRING_LITERAL );";
+        }
+    }
  
 
 }
