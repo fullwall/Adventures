@@ -2,6 +2,7 @@ package net.citizensnpcs.adventures.dialog.evaluators;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -59,12 +60,16 @@ public class ArrayEvaluator {
         }
     }
 
-    public static Evaluator create(Evaluator... evaluators) {
+    public static Evaluator create(Evaluator[] evaluators) {
         for (Evaluator evaluator : evaluators) {
             if (!evaluator.isConstant())
                 return new DynamicArrayEvaluator(evaluators);
         }
         return new ConstantArrayEvaluator(evaluators);
+    }
+
+    public static Evaluator create(Collection<Evaluator> array) {
+        return create(array.toArray(new Evaluator[array.size()]));
     }
 
     private static Set<Class<?>> getClassesBfs(Class<?> clazz) {

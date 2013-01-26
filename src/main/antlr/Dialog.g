@@ -13,8 +13,10 @@ catch (RecognitionException e) {
 package net.citizensnpcs.adventures.dialog;
 import java.util.Collection;
 import java.util.Map;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Lists;
 import com.google.common.base.Predicates;
 import net.citizensnpcs.adventures.dialog.*;
 import net.citizensnpcs.adventures.dialog.statements.*;
@@ -158,7 +160,18 @@ term returns [Evaluator value] :
     | BOOLEAN_LITERAL { $value = BooleanEvaluator.create($BOOLEAN_LITERAL.text); }
     | NUMBER { $value = NumberEvaluator.create($NUMBER.text); }
     | STRING_LITERAL { $value = StringEvaluator.create($STRING_LITERAL.text); }
-    | QUERY_STRING  { $value = VariableEvaluator.create(variableSource, $QUERY_STRING.text); };
+    | QUERY_STRING  { $value = VariableEvaluator.create(variableSource, $QUERY_STRING.text); }
+    | '[' expression { 
+                     List<Evaluator> array = Lists.newArrayList($expression.value); 
+                     } 
+                     (
+                     array_rest { array.add($array_rest.value); }
+                     )* 
+     ']' { $value = ArrayEvaluator.create(array); }
+    ;
+    
+array_rest returns [Evaluator value]:
+    ',' expression { $value = $expression.value; };
 
 time_unit returns [TimeUnit unit] :
     'ns' { $unit = TimeUnit.NANOSECONDS; }
