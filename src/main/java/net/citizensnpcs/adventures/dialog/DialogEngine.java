@@ -9,6 +9,7 @@ import java.util.Map;
 import net.citizensnpcs.adventures.dialog.evaluators.Evaluator;
 import net.citizensnpcs.adventures.dialog.evaluators.VariableSource;
 import net.citizensnpcs.adventures.dialog.statements.Code;
+import net.citizensnpcs.adventures.dialog.statements.DenizenScript;
 import net.citizensnpcs.adventures.dialog.statements.Say;
 import net.citizensnpcs.adventures.dialog.statements.StatementRegistry;
 import net.citizensnpcs.api.CitizensAPI;
@@ -17,6 +18,7 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
@@ -39,6 +41,9 @@ public class DialogEngine {
     public DialogEngine() {
         statementRegistry.register(Say.class);
         statementRegistry.register(Code.class);
+        Plugin denizenPlugin = Bukkit.getPluginManager().getPlugin("Denizen");
+        if (denizenPlugin != null)
+            statementRegistry.register(DenizenScript.class);
     }
 
     public boolean execute(Query query) {

@@ -19,7 +19,7 @@ public class Say implements QueryRunnable {
         TargetUtil.sendMessage(message, rawTarget);
     }
 
-    @StatementHandler(name = "say", arguments = "[message] [target]")
+    @StatementBuilder(name = "say", arguments = "[message] [target]")
     public static QueryRunnable parse(ParseContext parseContext, StatementContext context) {
         return new Say(context);
     }

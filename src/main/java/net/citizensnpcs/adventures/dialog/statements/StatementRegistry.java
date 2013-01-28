@@ -45,7 +45,7 @@ public class StatementRegistry {
 
     private void registerMethods(Class<?> clazz, Object instance) {
         for (Method method : clazz.getDeclaredMethods()) {
-            if (!method.isAnnotationPresent(StatementHandler.class))
+            if (!method.isAnnotationPresent(StatementBuilder.class))
                 continue;
             method.setAccessible(true);
 
@@ -59,12 +59,12 @@ public class StatementRegistry {
                     continue;
             }
 
-            StatementHandler annotation = method.getAnnotation(StatementHandler.class);
+            StatementBuilder annotation = method.getAnnotation(StatementBuilder.class);
             registerStatement(instance, method, annotation);
         }
     }
 
-    private void registerStatement(Object instance, Method method, StatementHandler annotation) {
+    private void registerStatement(Object instance, Method method, StatementBuilder annotation) {
         ArgumentFormat descriptor = new ArgumentFormat(annotation.arguments());
         DialogStatement stmt = new DialogStatement(instance, method, descriptor);
         for (String name : Splitter.on('|').split(annotation.name())) {

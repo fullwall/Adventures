@@ -33,7 +33,7 @@ public class Code implements QueryRunnable {
         }
     }
 
-    @StatementHandler(name = "js|py|lua|rb|clj|scala", arguments = "[code]")
+    @StatementBuilder(name = "js|py|lua|rb|clj|scala", arguments = "[code]")
     public static QueryRunnable js(ParseContext parseContext, StatementContext statementContext) {
         return new Code(statementContext.getName(), statementContext);
     }

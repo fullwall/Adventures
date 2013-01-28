@@ -13,7 +13,7 @@ public class TargetUtil {
     }
 
     /**
-     * Accepted formats: p:name n:npcid
+     * Accepted formats: p:name n:npc id e:id
      */
     private static void parseAndSend(String message, String target) {
         if (target.equalsIgnoreCase("log")) {

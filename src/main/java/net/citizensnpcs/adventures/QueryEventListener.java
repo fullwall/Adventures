@@ -42,7 +42,7 @@ public class QueryEventListener implements Listener {
             public void run() {
                 Map<String, Object> eventMap = Maps.newHashMap();
                 eventMap.put("message", event.getMessage());
-                representEntity(eventMap, event.getPlayer());
+                representEntity(eventMap, event.getPlayer(), "sender");
                 for (DialogTrait trait : getDialogTraits()) {
                     trait.executeQuery(engine, "onchat", eventMap);
                 }
@@ -61,22 +61,21 @@ public class QueryEventListener implements Listener {
         dialogTraits.remove(event.getTrait());
     }
 
-    private void representEntity(Map<String, Object> eventMap, LivingEntity entity) {
-        eventMap.put("entity", entity);
-        eventMap.put("entity.health", entity.getHealth());
-        eventMap.put("entity.maxhealth", entity.getMaxHealth());
-        eventMap.put("entity.type", entity.getType().name().toLowerCase());
+    private void representEntity(Map<String, Object> eventMap, LivingEntity entity, String root) {
+        eventMap.put(root, entity);
+        eventMap.put(root + ".health", entity.getHealth());
+        eventMap.put(root + ".maxhealth", entity.getMaxHealth());
+        eventMap.put(root + ".type", entity.getType().name().toLowerCase());
         Location location = entity.getLocation();
-        eventMap.put("entity.location.x", location.getX());
-        eventMap.put("entity.location.y", location.getY());
-        eventMap.put("entity.location.z", location.getZ());
-        eventMap.put("entity.location.world", location.getWorld().getName());
-        eventMap.put("entity.location.yaw", location.getYaw());
-        eventMap.put("entity.location.pitch", location.getPitch());
+        eventMap.put(root + "location.x", location.getX());
+        eventMap.put(root + "location.y", location.getY());
+        eventMap.put(root + "location.z", location.getZ());
+        eventMap.put(root + "location.world", location.getWorld().getName());
+        eventMap.put(root + "location.yaw", location.getYaw());
+        eventMap.put(root + "location.pitch", location.getPitch());
         if (entity instanceof Player) {
             Player player = (Player) entity;
-            eventMap.put("player.name", player.getName());
-            eventMap.put("player", player);
+            eventMap.put(root + ".name", player.getName());
         }
     }
 }

@@ -3,3 +3,4 @@ author: fullwall
 version: 1.0
 main: net.citizensnpcs.adventures.Adventures
 depend: [Citizens]
+softdepend: [Denizen]
