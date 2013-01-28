@@ -49,6 +49,7 @@ public class DialogEngine {
                 lastMatching.run(new SimpleQueryContext(query));
         } catch (DialogException ex) {
             Throwables.getRootCause(ex).printStackTrace();
+            return false;
         }
         currentQuery = null;
         return lastMatching != null;

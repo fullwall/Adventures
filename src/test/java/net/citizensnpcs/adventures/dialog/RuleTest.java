@@ -21,7 +21,7 @@ public class RuleTest {
     @Test
     public void testSimpleQuery() {
         String parse = "rule test {" + "\ncriteria events=onchat message='test';" + "\nresponse test2;" + "\n  }"
-                + "\nresponse test2 {" + "\nlog 'Hello, dialog world!';" + "\n}";
+                + "\nresponse test2 {" + "\nsay message='Hello, dialog world!' target=\"log\";" + "\n}";
         engine.parse(parse);
         Map<String, Object> query = Maps.newHashMap();
         query.put("message", "test");

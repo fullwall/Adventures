@@ -227,10 +227,6 @@ NUMBER :
     '-'? DIGIT+ ('.' DIGIT+)?;
 
 STRING_LITERAL :
-    '"' (STR_ESC | ~('\\' | '"' | '\r' | '\n')) '"' { setText(stripQuotes(getText())); }
-    | '\'' (STR_ESC | ~('\\' | '"' | '\r' | '\n')) '\'' { setText(stripQuotes(getText())); }
+    '"' .* '"' { setText(stripQuotes(getText())); }
+    | '\'' .* '\'' { setText(stripQuotes(getText())); }
     ;
-    
-fragment STR_ESC
-  :  '\\' ('\\' | '"' | 't' | 'n' | 'r')
-  ;

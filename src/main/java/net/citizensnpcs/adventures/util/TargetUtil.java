@@ -17,7 +17,10 @@ public class TargetUtil {
      */
     private static void parseAndSend(String message, String target) {
         if (target.equalsIgnoreCase("log")) {
-            Bukkit.getConsoleSender().sendMessage(message);
+            if (Bukkit.getServer() == null) {
+                System.out.println(message);
+            } else
+                Bukkit.getConsoleSender().sendMessage(message);
             return;
         }
         if (target.equalsIgnoreCase("broadcast")) {
@@ -59,14 +62,15 @@ public class TargetUtil {
             }
             return;
         }
-
         if (rawTarget instanceof String) {
             parseAndSend(message, (String) rawTarget);
+            return;
         }
         if (rawTarget instanceof String[]) {
             for (String string : (String[]) rawTarget) {
                 parseAndSend(message, string);
             }
+            return;
         }
         throw new DialogException("Invalid target type " + rawTarget);
     }
