@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Map;
 
 import net.citizensnpcs.adventures.dialog.DialogEngine.ParseContext;
@@ -11,6 +12,7 @@ import net.citizensnpcs.adventures.dialog.QueryRunnable;
 import net.citizensnpcs.adventures.dialog.evaluators.Evaluator;
 import net.citizensnpcs.api.command.Injector;
 
+import com.google.common.base.Splitter;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 
@@ -21,10 +23,11 @@ public class StatementRegistry {
 
     public QueryRunnable getMatchingStatement(ParseContext parseContext, String statementName,
             Map<String, Evaluator> vars) {
-        if (!statements.containsKey(statementName))
+        Collection<DialogStatement> matchingTopLevel = statements.get(statementName);
+        if (matchingTopLevel == null)
             return null;
-        for (DialogStatement entry : statements.values()) {
-            QueryRunnable runnable = entry.tryMatch(parseContext, vars);
+        for (DialogStatement entry : matchingTopLevel) {
+            QueryRunnable runnable = entry.tryMatch(parseContext, statementName, vars);
             if (runnable != null)
                 return runnable;
         }
@@ -63,7 +66,10 @@ public class StatementRegistry {
 
     private void registerStatement(Object instance, Method method, StatementHandler annotation) {
         ArgumentFormat descriptor = new ArgumentFormat(annotation.arguments());
-        statements.put(annotation.name(), new DialogStatement(instance, method, descriptor));
+        DialogStatement stmt = new DialogStatement(instance, method, descriptor);
+        for (String name : Splitter.on('|').split(annotation.name())) {
+            statements.put(name, stmt);
+        }
     }
 
     public void setInjector(Injector injector) {
@@ -81,8 +87,8 @@ public class StatementRegistry {
             this.format = format;
         }
 
-        public QueryRunnable tryMatch(ParseContext parseContext, Map<String, Evaluator> vars) {
-            StatementContext statementContext = format.createStatementContext(vars);
+        public QueryRunnable tryMatch(ParseContext parseContext, String name, Map<String, Evaluator> vars) {
+            StatementContext statementContext = format.createStatementContext(name, vars);
             if (statementContext == null)
                 return null;
             try {

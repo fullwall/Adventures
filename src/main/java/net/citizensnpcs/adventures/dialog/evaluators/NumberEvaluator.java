@@ -2,37 +2,16 @@ package net.citizensnpcs.adventures.dialog.evaluators;
 
 import net.citizensnpcs.adventures.dialog.DialogParserException;
 
-public class NumberEvaluator implements Evaluator {
-    private final Number value;
-
-    public NumberEvaluator(Number number) {
-        this.value = number;
-    }
-
-    @Override
-    public Object get() {
-        return value;
-    }
-
-    @Override
-    public boolean isConstant() {
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "NumberEvaluator[" + value + "]";
-    }
-
+public class NumberEvaluator {
     public static Evaluator create(String raw) {
         try {
-            return new NumberEvaluator(Integer.parseInt(raw));
+            return ConstantEvaluator.create(Integer.parseInt(raw));
         } catch (NumberFormatException iex) {
             try {
-                return new NumberEvaluator(Long.parseLong(raw));
+                return ConstantEvaluator.create(Long.parseLong(raw));
             } catch (NumberFormatException lex) {
                 try {
-                    return new NumberEvaluator(Double.parseDouble(raw));
+                    return ConstantEvaluator.create(Double.parseDouble(raw));
                 } catch (NumberFormatException dex) {
                     dex.printStackTrace();
                 }

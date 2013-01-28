@@ -8,6 +8,8 @@ import java.util.Map;
 
 import net.citizensnpcs.adventures.dialog.evaluators.Evaluator;
 import net.citizensnpcs.adventures.dialog.evaluators.VariableSource;
+import net.citizensnpcs.adventures.dialog.statements.Code;
+import net.citizensnpcs.adventures.dialog.statements.Say;
 import net.citizensnpcs.adventures.dialog.statements.StatementRegistry;
 import net.citizensnpcs.api.CitizensAPI;
 
@@ -18,6 +20,7 @@ import org.bukkit.Bukkit;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Throwables;
 import com.google.common.io.Files;
 
 public class DialogEngine {
@@ -33,6 +36,11 @@ public class DialogEngine {
         }
     };
 
+    public DialogEngine() {
+        statementRegistry.register(Say.class);
+        statementRegistry.register(Code.class);
+    }
+
     public StatementRegistry getStatementRegistry() {
         return statementRegistry;
     }
@@ -40,8 +48,12 @@ public class DialogEngine {
     public boolean execute(Query query) {
         currentQuery = query;
         Rule lastMatching = globalRegistry.getBestRule(query);
-        if (lastMatching != null)
-            lastMatching.run(new SimpleQueryContext(query));
+        try {
+            if (lastMatching != null)
+                lastMatching.run(new SimpleQueryContext(query));
+        } catch (DialogException ex) {
+            Throwables.getRootCause(ex).printStackTrace();
+        }
         currentQuery = null;
         return lastMatching != null;
     }
@@ -54,7 +66,7 @@ public class DialogEngine {
 
                 for (File file : folder.listFiles(DIALOG_FILE_FILTER)) {
                     try {
-                        parse(Files.toString(file, Charsets.UTF_8));
+                        parse(folder, Files.toString(file, Charsets.UTF_8));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

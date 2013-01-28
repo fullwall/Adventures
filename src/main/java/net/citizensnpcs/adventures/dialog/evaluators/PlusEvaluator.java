@@ -23,8 +23,8 @@ public class PlusEvaluator extends LeftRightEvaluator {
             return (Integer) one + (Integer) two;
         if (one instanceof Number && two instanceof Number)
             return ((Number) one).doubleValue() + ((Number) two).doubleValue();
-        if (one instanceof String && two instanceof String)
-            return (String) one + (String) two;
-        throw new DialogParserException("Expected two numbers to add but got " + one + " " + two);
+        if (one instanceof String)
+            return (String) one + two.toString();
+        throw new DialogParserException("Expected two numbers or strings to add but got " + one + " " + two);
     }
 }

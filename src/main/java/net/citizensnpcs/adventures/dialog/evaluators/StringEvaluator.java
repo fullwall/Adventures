@@ -1,28 +1,54 @@
 package net.citizensnpcs.adventures.dialog.evaluators;
 
-public class StringEvaluator implements Evaluator {
-    private final String value;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-    public StringEvaluator(String value) {
-        this.value = value;
+public class StringEvaluator {
+    private static class InterpolatedStringEvaluator implements Evaluator {
+        private final String value;
+        private final Matcher matcher;
+        private final VariableSource source;
+
+        private InterpolatedStringEvaluator(VariableSource source, String value, Matcher matcher) {
+            this.value = value;
+            this.matcher = matcher;
+            this.source = source;
+        }
+
+        @Override
+        public Object get() {
+            matcher.reset();
+            boolean result = matcher.find();
+            if (result) {
+                StringBuffer sb = new StringBuffer();
+                do {
+                    Object variable = source.getVariable(matcher.group(1));
+                    matcher.appendReplacement(sb, variable == null ? "null" : variable.toString());
+                    result = matcher.find();
+                } while (result);
+                matcher.appendTail(sb);
+                return sb.toString();
+            }
+            return value;
+        }
+
+        @Override
+        public boolean isConstant() {
+            return false;
+        }
+
+        @Override
+        public String toString() {
+            return "InterpolatedStringEvaluator [" + value + "]";
+        }
     }
 
-    @Override
-    public Object get() {
-        return value;
+    public static Evaluator create(String raw, VariableSource source) {
+        Matcher matcher = INTERPOLATION.matcher(raw);
+        if (matcher.matches())
+            return new InterpolatedStringEvaluator(source, raw, matcher);
+        return ConstantEvaluator.create(raw);
     }
 
-    @Override
-    public boolean isConstant() {
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "StringEvaluator [" + value + "]";
-    }
-
-    public static Evaluator create(String raw) {
-        return new StringEvaluator(raw.substring(1, raw.length() - 1));
-    }
+    private static final Pattern INTERPOLATION = Pattern.compile("[$][{]([a-zA-Z.]+?)[}]");
 }

@@ -9,29 +9,6 @@ import net.citizensnpcs.adventures.dialog.DialogParserException;
 import net.citizensnpcs.adventures.util.Util;
 
 public class ArrayEvaluator {
-    private static class ConstantArrayEvaluator implements Evaluator {
-        private final Object[] value;
-
-        public ConstantArrayEvaluator(Evaluator[] evaluators) {
-            List<Class<?>> commonClasses = Util.getCommonSuperClasses(evaluators);
-            if (commonClasses.size() == 0)
-                throw new DialogParserException("No common superclass in array " + Arrays.toString(evaluators));
-            value = (Object[]) Array.newInstance(commonClasses.get(0), evaluators.length);
-            for (int i = 0; i < evaluators.length; i++)
-                value[i] = evaluators[i].get();
-        }
-
-        @Override
-        public Object get() {
-            return value;
-        }
-
-        @Override
-        public boolean isConstant() {
-            return true;
-        }
-    }
-
     private static class DynamicArrayEvaluator implements Evaluator {
         private final Evaluator[] evaluators;
 
@@ -62,7 +39,13 @@ public class ArrayEvaluator {
             if (!evaluator.isConstant())
                 return new DynamicArrayEvaluator(evaluators);
         }
-        return new ConstantArrayEvaluator(evaluators);
+        List<Class<?>> commonClasses = Util.getCommonSuperClasses(evaluators);
+        if (commonClasses.size() == 0)
+            throw new DialogParserException("No common superclass in array " + Arrays.toString(evaluators));
+        Object[] value = (Object[]) Array.newInstance(commonClasses.get(0), evaluators.length);
+        for (int i = 0; i < evaluators.length; i++)
+            value[i] = evaluators[i].get();
+        return ConstantEvaluator.create(value);
     }
 
     public static Evaluator create(Collection<Evaluator> array) {

@@ -5,14 +5,22 @@ import java.util.Map;
 import net.citizensnpcs.adventures.dialog.DialogException;
 import net.citizensnpcs.adventures.dialog.evaluators.Evaluator;
 
+import com.google.common.collect.ForwardingMap;
+
 public class StatementContext {
     private final Map<String, Object> map;
+    private final String name;
 
-    public StatementContext(Map<String, Object> map) {
+    public StatementContext(String name, Map<String, Object> map) {
         this.map = map;
+        this.name = name;
     }
 
-    public <T> T safeGet(String key, Class<? extends T> keyClass) throws DialogException {
+    public String getName() {
+        return name;
+    }
+
+    public <T> T getSafe(String key, Class<? extends T> keyClass) throws DialogException {
         Object raw = map.get(key);
         if (raw == null)
             return null;
@@ -24,5 +32,32 @@ public class StatementContext {
             throw new DialogException("Expected " + keyClass.getSimpleName() + " but got "
                     + raw.getClass().getSimpleName() + " for key " + key);
         }
+    }
+
+    public <T> T getRequired(String key, Class<? extends T> keyClass) throws DialogException {
+        T unknown = getSafe(key, keyClass);
+        if (unknown == null)
+            throw new DialogException("Expected a value for key " + key);
+        return unknown;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> T getUnsafe(String key) {
+        return (T) map.get(key);
+    }
+
+    public Map<String, Object> getMap() {
+        return new ForwardingMap<String, Object>() {
+            @Override
+            public Object get(Object key) {
+                Object value = map.get(key);
+                return value != null && value instanceof Evaluator ? ((Evaluator) value).get() : null;
+            }
+
+            @Override
+            protected Map<String, Object> delegate() {
+                return map;
+            }
+        };
     }
 }

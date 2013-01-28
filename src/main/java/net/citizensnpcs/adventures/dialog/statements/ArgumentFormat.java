@@ -3,7 +3,6 @@ package net.citizensnpcs.adventures.dialog.statements;
 import java.util.Map;
 import java.util.Set;
 
-import net.citizensnpcs.adventures.dialog.DialogException;
 import net.citizensnpcs.adventures.dialog.evaluators.Evaluator;
 
 import com.google.common.base.Preconditions;
@@ -29,9 +28,9 @@ public class ArgumentFormat {
         }
     }
 
-    public StatementContext createStatementContext(Map<String, Evaluator> vars) {
+    public StatementContext createStatementContext(String name, Map<String, Evaluator> vars) {
         if (!vars.keySet().containsAll(requiredArguments))
-            throw new DialogException("Variables did not contain all required arguments " + requiredArguments);
+            return null;
         Set<String> union = Sets.union(optionalArguments, requiredArguments);
         Map<String, Object> map = Maps.newHashMap();
         for (Map.Entry<String, Evaluator> entry : vars.entrySet()) {
@@ -41,6 +40,6 @@ public class ArgumentFormat {
                 map.put(key, value.isConstant() ? value.get() : value);
             }
         }
-        return new StatementContext(map);
+        return new StatementContext(name, map);
     }
 }

@@ -34,10 +34,6 @@ private VariableSource variableSource;
 public void setVariableSource(VariableSource source) {
     this.variableSource = source;
 }
-
-private String stripQuotes(String quoted) {
-    return quoted.substring(1, quoted.length() - 1);
-}
 }
 
 @lexer::header {
@@ -51,6 +47,9 @@ import java.util.concurrent.TimeUnit;
         throw e;
     }
 */
+private String stripQuotes(String quoted) {
+    return quoted.substring(1, quoted.length() - 1);
+}
 }
 
 program [DialogEngine.ParseContext context] :
@@ -73,8 +72,7 @@ response [DialogEngine.ParseContext context] returns [Response response] :
     ;
 
 response_statement [DialogEngine.ParseContext context, Response.Builder builder] :
-    'log' expression { builder.statement(Log.logging($expression.value)); }
-    | remember_statement { builder.statement($remember_statement.statement); }
+    remember_statement { builder.statement($remember_statement.statement); }
     | generic_statement[context] { builder.statement($generic_statement.statement); }
     ;
 
@@ -164,10 +162,10 @@ mult returns [Evaluator value] :
 
 term returns [Evaluator value] :
     '(' expression ')' { $value = $expression.value; }
-    | b=bool { $value = new BooleanEvaluator($b.value); }
+    | b=bool { $value = BooleanEvaluator.create($b.value); }
     | NUMBER { $value = NumberEvaluator.create($NUMBER.text); }
-    | STRING_LITERAL { $value = StringEvaluator.create($STRING_LITERAL.text); }
-    | (q=query)  { $value = VariableEvaluator.create(variableSource, $q.text); }
+    | STRING_LITERAL { $value = StringEvaluator.create($STRING_LITERAL.text, this.variableSource); }
+    | q=query  { $value = VariableEvaluator.create(variableSource, $q.text); }
     | '[' 
             { List<Evaluator> array = Lists.newArrayList(); }
             (
@@ -185,7 +183,7 @@ bool returns [boolean value] :
     ('true' { $value = true; } | 'false' { $value = false; });
     
 map_pair [Map<String, Evaluator> vars] :
-    k=STRING_LITERAL ':' expression { vars.put(stripQuotes($k.text), $expression.value); };
+    k=STRING_LITERAL ':' expression { vars.put($k.text, $expression.value); };
 
 time_unit returns [TimeUnit unit] :
     'ns' { $unit = TimeUnit.NANOSECONDS; }
@@ -229,5 +227,10 @@ NUMBER :
     '-'? DIGIT+ ('.' DIGIT+)?;
 
 STRING_LITERAL :
-    '"' .* '"'
-    | '\'' .* '\'';
+    '"' (STR_ESC | ~('\\' | '"' | '\r' | '\n')) '"' { setText(stripQuotes(getText())); }
+    | '\'' (STR_ESC | ~('\\' | '"' | '\r' | '\n')) '\'' { setText(stripQuotes(getText())); }
+    ;
+    
+fragment STR_ESC
+  :  '\\' ('\\' | '"' | 't' | 'n' | 'r')
+  ;
