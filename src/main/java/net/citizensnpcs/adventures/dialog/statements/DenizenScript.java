@@ -23,7 +23,6 @@ public class DenizenScript implements QueryRunnable {
 
     @Override
     public void run(QueryContext context) {
-        DenizenAPI.getCurrentInstance().getScriptEngine().getScriptBuilder();
         DenizenNPC denizen = parseDenizen(statementContext.getUnsafe("denizen"));
         Player player = parsePlayer(statementContext.getUnsafe("player"));
         if (player == null && denizen == null) {
