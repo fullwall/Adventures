@@ -12,6 +12,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Adventures extends JavaPlugin {
     private final DialogEngine engine = new DialogEngine();
 
+    public DialogEngine getDialogEngine() {
+        return engine;
+    }
+
     @Override
     public void onDisable() {
     }
@@ -22,9 +26,5 @@ public class Adventures extends JavaPlugin {
         engine.loadFolderAsynchronously(new File(getDataFolder(), "dialog"));
         Bukkit.getPluginManager().registerEvents(new QueryEventListener(this, engine), this);
         CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(DialogTrait.class).withName("dialog"));
-    }
-
-    public DialogEngine getDialogEngine() {
-        return engine;
     }
 }

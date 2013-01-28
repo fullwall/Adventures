@@ -19,26 +19,6 @@ public class ExpressionTest {
     private VariableSource source;
     private Map<String, Object> variables;
 
-    @Before
-    public void setUp() {
-        variables = Maps.newHashMap();
-        source = new VariableSource() {
-            @Override
-            public Object getVariable(String key) {
-                return variables.get(key);
-            }
-        };
-    }
-
-    @Test
-    public void testMap() {
-        Map<String, Boolean> test = Maps.newHashMap();
-        test.put("false", false);
-        test.put("true", true);
-        Map<String, Boolean> res = parse("{\"false\" : false, 'true' : true}");
-        assertThat(res, equalTo(test));
-    }
-
     @Test
     public void arrayLiteral() {
         assertThat((String[]) parse("['test']"), equalTo(new String[] { "test" }));
@@ -61,26 +41,11 @@ public class ExpressionTest {
     }
 
     @Test
-    public void stringLiteral() {
-        assertThat((String) parse("'test'"), equalTo("test"));
-        assertThat((String) parse("\"test\""), equalTo("test"));
-    }
-
-    @Test
     public void numberLiteral() {
         assertThat((Double) parse("1.5"), equalTo(1.5D));
         assertThat((Double) parse("-1.15"), equalTo(-1.15D));
         assertThat((Integer) parse("100"), equalTo(100));
         assertThat((Long) parse("100000000000000000"), equalTo(100000000000000000L));
-    }
-
-    @Test
-    public void variable() {
-        variables.put("test", false);
-        variables.put("test2.a.p", true);
-        for (String key : variables.keySet()) {
-            assertThat(parse(key), equalTo(variables.get(key)));
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -97,5 +62,40 @@ public class ExpressionTest {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Before
+    public void setUp() {
+        variables = Maps.newHashMap();
+        source = new VariableSource() {
+            @Override
+            public Object getVariable(String key) {
+                return variables.get(key);
+            }
+        };
+    }
+
+    @Test
+    public void stringLiteral() {
+        assertThat((String) parse("'test'"), equalTo("test"));
+        assertThat((String) parse("\"test\""), equalTo("test"));
+    }
+
+    @Test
+    public void testMap() {
+        Map<String, Boolean> test = Maps.newHashMap();
+        test.put("false", false);
+        test.put("true", true);
+        Map<String, Boolean> res = parse("{\"false\" : false, 'true' : true}");
+        assertThat(res, equalTo(test));
+    }
+
+    @Test
+    public void variable() {
+        variables.put("test", false);
+        variables.put("test2.a.p", true);
+        for (String key : variables.keySet()) {
+            assertThat(parse(key), equalTo(variables.get(key)));
+        }
     }
 }

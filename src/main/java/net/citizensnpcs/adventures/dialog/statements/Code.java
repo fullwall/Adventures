@@ -13,19 +13,14 @@ import net.citizensnpcs.api.CitizensAPI;
 import com.google.common.collect.Maps;
 
 public class Code implements QueryRunnable {
+    private final Map<String, Object> codeVars;
     private final String extension;
     private final StatementContext statementContext;
-    private final Map<String, Object> codeVars;
 
     private Code(String extension, StatementContext statementContext) {
         this.extension = extension;
         this.statementContext = statementContext;
         this.codeVars = Maps.newHashMap(statementContext.getMap());
-    }
-
-    @StatementHandler(name = "js|py|lua|rb|clj|scala", arguments = "[code]")
-    public static QueryRunnable js(ParseContext parseContext, StatementContext statementContext) {
-        return new Code(statementContext.getName(), statementContext);
     }
 
     @Override
@@ -36,5 +31,10 @@ public class Code implements QueryRunnable {
         } catch (ScriptException e) {
             throw new DialogException(e);
         }
+    }
+
+    @StatementHandler(name = "js|py|lua|rb|clj|scala", arguments = "[code]")
+    public static QueryRunnable js(ParseContext parseContext, StatementContext statementContext) {
+        return new Code(statementContext.getName(), statementContext);
     }
 }

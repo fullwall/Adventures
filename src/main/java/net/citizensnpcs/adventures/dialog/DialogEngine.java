@@ -41,10 +41,6 @@ public class DialogEngine {
         statementRegistry.register(Code.class);
     }
 
-    public StatementRegistry getStatementRegistry() {
-        return statementRegistry;
-    }
-
     public boolean execute(Query query) {
         currentQuery = query;
         Rule lastMatching = globalRegistry.getBestRule(query);
@@ -56,6 +52,10 @@ public class DialogEngine {
         }
         currentQuery = null;
         return lastMatching != null;
+    }
+
+    public StatementRegistry getStatementRegistry() {
+        return statementRegistry;
     }
 
     public void loadFolderAsynchronously(final File folder) {

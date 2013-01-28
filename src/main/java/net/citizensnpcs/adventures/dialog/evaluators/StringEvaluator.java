@@ -5,9 +5,9 @@ import java.util.regex.Pattern;
 
 public class StringEvaluator {
     private static class InterpolatedStringEvaluator implements Evaluator {
-        private final String value;
         private final Matcher matcher;
         private final VariableSource source;
+        private final String value;
 
         private InterpolatedStringEvaluator(VariableSource source, String value, Matcher matcher) {
             this.value = value;
@@ -43,12 +43,12 @@ public class StringEvaluator {
         }
     }
 
+    private static final Pattern INTERPOLATION = Pattern.compile("[$][{]([a-zA-Z.]+?)[}]");
+
     public static Evaluator create(String raw, VariableSource source) {
         Matcher matcher = INTERPOLATION.matcher(raw);
         if (matcher.matches())
             return new InterpolatedStringEvaluator(source, raw, matcher);
         return ConstantEvaluator.create(raw);
     }
-
-    private static final Pattern INTERPOLATION = Pattern.compile("[$][{]([a-zA-Z.]+?)[}]");
 }

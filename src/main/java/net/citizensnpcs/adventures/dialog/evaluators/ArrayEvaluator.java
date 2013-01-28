@@ -34,6 +34,10 @@ public class ArrayEvaluator {
         }
     }
 
+    public static Evaluator create(Collection<Evaluator> array) {
+        return create(array.toArray(new Evaluator[array.size()]));
+    }
+
     public static Evaluator create(Evaluator[] evaluators) {
         for (Evaluator evaluator : evaluators) {
             if (!evaluator.isConstant())
@@ -46,9 +50,5 @@ public class ArrayEvaluator {
         for (int i = 0; i < evaluators.length; i++)
             value[i] = evaluators[i].get();
         return ConstantEvaluator.create(value);
-    }
-
-    public static Evaluator create(Collection<Evaluator> array) {
-        return create(array.toArray(new Evaluator[array.size()]));
     }
 }

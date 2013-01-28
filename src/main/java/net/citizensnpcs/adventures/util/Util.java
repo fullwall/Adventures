@@ -12,6 +12,8 @@ import net.citizensnpcs.adventures.dialog.evaluators.Evaluator;
 import com.google.common.collect.Lists;
 
 public class Util {
+    private static final List<Class<?>> OBJECT = Arrays.<Class<?>> asList(Object.class);
+
     private static Set<Class<?>> getClassesBfs(Class<?> clazz) {
         Set<Class<?>> classes = new LinkedHashSet<Class<?>>();
         Set<Class<?>> nextLevel = new LinkedHashSet<Class<?>>();
@@ -33,10 +35,6 @@ public class Util {
         return classes;
     }
 
-    public static List<Class<?>> getCommonSuperClasses(Evaluator... evaluators) {
-        return getCommonSuperClasses(Arrays.asList(evaluators));
-    }
-
     public static List<Class<?>> getCommonSuperClasses(Collection<Evaluator> evaluators) {
         if (evaluators.size() == 0)
             return OBJECT;
@@ -48,5 +46,7 @@ public class Util {
         return Lists.newArrayList(rollingIntersect);
     }
 
-    private static final List<Class<?>> OBJECT = Arrays.<Class<?>> asList(Object.class);
+    public static List<Class<?>> getCommonSuperClasses(Evaluator... evaluators) {
+        return getCommonSuperClasses(Arrays.asList(evaluators));
+    }
 }

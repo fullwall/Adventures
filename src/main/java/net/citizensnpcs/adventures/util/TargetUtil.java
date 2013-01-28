@@ -12,29 +12,6 @@ public class TargetUtil {
     private TargetUtil() {
     }
 
-    public static void sendMessage(String message, Object rawTarget) {
-        if (rawTarget instanceof CommandSender) {
-            ((CommandSender) rawTarget).sendMessage(message);
-            return;
-        }
-        if (rawTarget instanceof CommandSender[]) {
-            for (CommandSender sender : ((CommandSender[]) rawTarget)) {
-                sender.sendMessage(message);
-            }
-            return;
-        }
-
-        if (rawTarget instanceof String) {
-            parseAndSend(message, (String) rawTarget);
-        }
-        if (rawTarget instanceof String[]) {
-            for (String string : (String[]) rawTarget) {
-                parseAndSend(message, string);
-            }
-        }
-        throw new DialogException("Invalid target type " + rawTarget);
-    }
-
     /**
      * Accepted formats: p:name n:npcid
      */
@@ -69,5 +46,28 @@ public class TargetUtil {
             return;
         }
         throw new DialogException("Unable to parse target format");
+    }
+
+    public static void sendMessage(String message, Object rawTarget) {
+        if (rawTarget instanceof CommandSender) {
+            ((CommandSender) rawTarget).sendMessage(message);
+            return;
+        }
+        if (rawTarget instanceof CommandSender[]) {
+            for (CommandSender sender : ((CommandSender[]) rawTarget)) {
+                sender.sendMessage(message);
+            }
+            return;
+        }
+
+        if (rawTarget instanceof String) {
+            parseAndSend(message, (String) rawTarget);
+        }
+        if (rawTarget instanceof String[]) {
+            for (String string : (String[]) rawTarget) {
+                parseAndSend(message, string);
+            }
+        }
+        throw new DialogException("Invalid target type " + rawTarget);
     }
 }
