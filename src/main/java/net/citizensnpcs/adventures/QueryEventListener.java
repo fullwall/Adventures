@@ -76,6 +76,7 @@ public class QueryEventListener implements Listener {
         if (entity instanceof Player) {
             Player player = (Player) entity;
             eventMap.put("player.name", player.getName());
+            eventMap.put("player", player);
         }
     }
 }

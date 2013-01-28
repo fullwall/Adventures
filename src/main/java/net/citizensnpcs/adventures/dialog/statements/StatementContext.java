@@ -58,6 +58,9 @@ public class StatementContext {
 
     @SuppressWarnings("unchecked")
     public <T> T getUnsafe(String key) {
-        return (T) map.get(key);
+        Object obj = map.get(key);
+        if (obj != null && obj instanceof Evaluator)
+            obj = ((Evaluator) obj).get();
+        return (T) obj;
     }
 }
