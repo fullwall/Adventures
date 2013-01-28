@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 
 import java.util.Map;
 
+import net.citizensnpcs.adventures.dialog.evaluators.StringEvaluator;
 import net.citizensnpcs.adventures.dialog.evaluators.VariableSource;
 
 import org.antlr.runtime.ANTLRStringStream;
@@ -18,6 +19,12 @@ import com.google.common.collect.Maps;
 public class ExpressionTest {
     private VariableSource source;
     private Map<String, Object> variables;
+
+    @Test
+    public void stringInterpolation() {
+        variables.put("player.name", "test");
+        assertThat((String) StringEvaluator.create("Hello, ${player.name}!", source).get(), equalTo("Hello, test!"));
+    }
 
     @Test
     public void arrayLiteral() {

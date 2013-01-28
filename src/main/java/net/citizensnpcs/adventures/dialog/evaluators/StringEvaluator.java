@@ -47,7 +47,7 @@ public class StringEvaluator {
 
     public static Evaluator create(String raw, VariableSource source) {
         Matcher matcher = INTERPOLATION.matcher(raw);
-        if (matcher.matches())
+        if (matcher.find())
             return new InterpolatedStringEvaluator(source, raw, matcher);
         return ConstantEvaluator.create(raw);
     }
