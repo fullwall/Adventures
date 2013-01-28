@@ -1,0 +1,33 @@
+name: Denizen
+author: aufdemrand
+version: 0.8-prerelease
+main: net.aufdemrand.denizen.Denizen
+depend: [Citizens]
+softdepend: [Vault, WorldGuard]
+
+commands:
+  denizen:
+    description: Lists denizen commands.
+    usage: /denizen help
+    permission: denizen.basic
+  notable:
+    description: Lists notable commands.
+    usage: /notable help
+    permission: denizen.notable
+  flag:
+    description: Lists flag commands.
+    usage: /flag help
+    permission: denizen.flag
+  dscript:
+    descriptions: Lists dScript commands.
+    usage: /dScript help
+    permission: denizen.dscript
+
+permissions:
+  denizen.*:
+    description: Gives access to Denizen commands
+    children:
+      denizen.basic: true
+      denizen.notable: true
+      denizen.flag: true
+      denizen.dscript: true

@@ -1,6 +1,6 @@
 package net.citizensnpcs.adventures.dialog.statements;
 
-import net.aufdemrand.denizen.npc.DenizenNPC;
+import net.aufdemrand.denizen.npc.dNPC;
 import net.aufdemrand.denizen.utilities.DenizenAPI;
 import net.citizensnpcs.adventures.dialog.DialogEngine.ParseContext;
 import net.citizensnpcs.adventures.dialog.DialogException;
@@ -23,7 +23,7 @@ public class DenizenScript implements QueryRunnable {
 
     @Override
     public void run(QueryContext context) {
-        DenizenNPC denizen = parseDenizen(statementContext.getUnsafe("denizen"));
+        dNPC denizen = parseDenizen(statementContext.getUnsafe("denizen"));
         Player player = parsePlayer(statementContext.getUnsafe("player"));
         if (player == null && denizen == null) {
             throw new DialogException("Couldn't parse a player or a denizen");
@@ -39,9 +39,9 @@ public class DenizenScript implements QueryRunnable {
         return null;
     }
 
-    private DenizenNPC parseDenizen(Object unsafe) {
-        if (unsafe instanceof DenizenNPC)
-            return (DenizenNPC) unsafe;
+    private dNPC parseDenizen(Object unsafe) {
+        if (unsafe instanceof dNPC)
+            return (dNPC) unsafe;
         if (unsafe instanceof NPC)
             return DenizenAPI.getDenizenNPC((NPC) unsafe);
         if (unsafe instanceof String) {

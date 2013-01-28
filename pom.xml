@@ -13,7 +13,7 @@
 		<craftbukkit.version>LATEST</craftbukkit.version>
 		<antlr.version>3.5</antlr.version>
 		<denizen.version>0.8-PRERELEASE</denizen.version>
-        <powermock.version>1.5</powermock.version>
+		<powermock.version>1.5</powermock.version>
 		<build.number>Unknown</build.number>
 	</properties>
 
@@ -38,18 +38,18 @@
 		</dependency>
 		<dependency>
 			<groupId>net.citizensnpcs</groupId>
-			<artifactId>citizensapi</artifactId>
+			<artifactId>citizens</artifactId>
 			<version>${citizensapi.version}</version>
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-            <groupId>net.aufdemrand</groupId>
-            <artifactId>denizen</artifactId>
-            <version>${denizen.version}</version>
-            <type>jar</type>
-            <scope>provided</scope>
-        </dependency>
+			<groupId>net.aufdemrand</groupId>
+			<artifactId>denizen</artifactId>
+			<version>${denizen.version}</version>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.antlr</groupId>
 			<artifactId>antlr-runtime</artifactId>
@@ -57,17 +57,17 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-module-junit4</artifactId>
-            <version>${powermock.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-api-mockito</artifactId>
-            <version>${powermock.version}</version>
-            <scope>test</scope>
-        </dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<version>${powermock.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito</artifactId>
+			<version>${powermock.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<url>http://www.citizensnpcs.com</url>
