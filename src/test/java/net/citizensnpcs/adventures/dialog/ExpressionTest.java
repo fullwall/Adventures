@@ -21,12 +21,6 @@ public class ExpressionTest {
     private Map<String, Object> variables;
 
     @Test
-    public void stringInterpolation() {
-        variables.put("player.name", "test");
-        assertThat((String) StringEvaluator.create("Hello, ${player.name}!", source).get(), equalTo("Hello, test!"));
-    }
-
-    @Test
     public void arrayLiteral() {
         assertThat((String[]) parse("['test']"), equalTo(new String[] { "test" }));
         assertThat((Integer[]) parse("[0, 1]"), equalTo(new Integer[] { 0, 1 }));
@@ -80,6 +74,12 @@ public class ExpressionTest {
                 return variables.get(key);
             }
         };
+    }
+
+    @Test
+    public void stringInterpolation() {
+        variables.put("player.name", "test");
+        assertThat((String) StringEvaluator.create("Hello, ${player.name}!", source).get(), equalTo("Hello, test!"));
     }
 
     @Test

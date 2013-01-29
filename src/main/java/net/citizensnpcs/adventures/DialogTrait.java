@@ -41,6 +41,14 @@ public class DialogTrait extends Trait {
         }
 
         @Override
+        public void forget(String... keys) {
+            super.forget(keys);
+            for (String key : keys) {
+                memory.remove(key);
+            }
+        }
+
+        @Override
         public void remember(String key, Object value, ExpirationTime time) {
             memory.put(key, value, time);
         }

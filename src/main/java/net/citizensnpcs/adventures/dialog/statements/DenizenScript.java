@@ -21,24 +21,6 @@ public class DenizenScript implements QueryRunnable {
         this.statementContext = statementContext;
     }
 
-    @Override
-    public void run(QueryContext context) {
-        dNPC denizen = parseDenizen(statementContext.getUnsafe("denizen"));
-        Player player = parsePlayer(statementContext.getUnsafe("player"));
-        if (player == null && denizen == null) {
-            throw new DialogException("Couldn't parse a player or a denizen");
-        }
-        DenizenAPI.getCurrentInstance().getScriptEngine().getScriptBuilder().runTaskScript(denizen, player, name);
-    }
-
-    private Player parsePlayer(Object unsafe) {
-        if (unsafe instanceof Player)
-            return (Player) unsafe;
-        if (unsafe instanceof String)
-            return Bukkit.getPlayerExact(unsafe.toString());
-        return null;
-    }
-
     private dNPC parseDenizen(Object unsafe) {
         if (unsafe instanceof dNPC)
             return (dNPC) unsafe;
@@ -54,13 +36,31 @@ public class DenizenScript implements QueryRunnable {
         return null;
     }
 
-    @StatementBuilder(name = "dtask", arguments = "[name] [player] (denizen)")
-    public static QueryRunnable buildPlayer(ParseContext parseContext, StatementContext statementContext) {
-        return new DenizenScript(statementContext);
+    private Player parsePlayer(Object unsafe) {
+        if (unsafe instanceof Player)
+            return (Player) unsafe;
+        if (unsafe instanceof String)
+            return Bukkit.getPlayerExact(unsafe.toString());
+        return null;
+    }
+
+    @Override
+    public void run(QueryContext context) {
+        dNPC denizen = parseDenizen(statementContext.getUnsafe("denizen"));
+        Player player = parsePlayer(statementContext.getUnsafe("player"));
+        if (player == null && denizen == null) {
+            throw new DialogException("Couldn't parse a player or a denizen");
+        }
+        DenizenAPI.getCurrentInstance().getScriptEngine().getScriptBuilder().runTaskScript(denizen, player, name);
     }
 
     @StatementBuilder(name = "dtask", arguments = "[name] [denizen] (player)")
     public static QueryRunnable buildDenizen(ParseContext parseContext, StatementContext statementContext) {
+        return new DenizenScript(statementContext);
+    }
+
+    @StatementBuilder(name = "dtask", arguments = "[name] [player] (denizen)")
+    public static QueryRunnable buildPlayer(ParseContext parseContext, StatementContext statementContext) {
         return new DenizenScript(statementContext);
     }
 }

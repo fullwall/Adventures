@@ -5,11 +5,9 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Map;
 
 import net.citizensnpcs.adventures.dialog.DialogEngine.ParseContext;
 import net.citizensnpcs.adventures.dialog.QueryRunnable;
-import net.citizensnpcs.adventures.dialog.evaluators.Evaluator;
 import net.citizensnpcs.api.command.Injector;
 
 import com.google.common.base.Splitter;
@@ -21,8 +19,7 @@ public class StatementRegistry {
     private Injector injector;
     private final ListMultimap<String, DialogStatement> statements = ArrayListMultimap.create();
 
-    public QueryRunnable getMatchingStatement(ParseContext parseContext, String statementName,
-            Map<String, Evaluator> vars) {
+    public QueryRunnable getMatchingStatement(ParseContext parseContext, String statementName, Collection<Argument> vars) {
         Collection<DialogStatement> matchingTopLevel = statements.get(statementName);
         if (matchingTopLevel == null)
             return null;
@@ -87,7 +84,7 @@ public class StatementRegistry {
             this.format = format;
         }
 
-        public QueryRunnable tryMatch(ParseContext parseContext, String name, Map<String, Evaluator> vars) {
+        public QueryRunnable tryMatch(ParseContext parseContext, String name, Collection<Argument> vars) {
             StatementContext statementContext = format.createStatementContext(name, vars);
             if (statementContext == null)
                 return null;

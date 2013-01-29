@@ -1,4 +1,4 @@
-// $ANTLR 3.4 Dialog.g 2013-01-28 23:07:14
+// $ANTLR 3.4 Dialog.g 2013-01-29 20:10:31
 
 package net.citizensnpcs.adventures.dialog;
 import java.util.concurrent.TimeUnit;
@@ -921,14 +921,14 @@ public class DialogLexer extends Lexer {
         try {
             int _type = ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:201:12: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // Dialog.g:202:5: '/*' ( options {greedy=false; } : . )* '*/'
+            // Dialog.g:208:12: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // Dialog.g:209:5: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
 
 
-            // Dialog.g:202:10: ( options {greedy=false; } : . )*
+            // Dialog.g:209:10: ( options {greedy=false; } : . )*
             loop1:
             do {
                 int alt1=2;
@@ -953,7 +953,7 @@ public class DialogLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // Dialog.g:202:38: .
+            	    // Dialog.g:209:38: .
             	    {
             	    matchAny(); 
 
@@ -988,14 +988,14 @@ public class DialogLexer extends Lexer {
         try {
             int _type = LINE_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:204:14: ( '//' (~ NEWLINE )* )
-            // Dialog.g:205:5: '//' (~ NEWLINE )*
+            // Dialog.g:211:14: ( '//' (~ NEWLINE )* )
+            // Dialog.g:212:5: '//' (~ NEWLINE )*
             {
             match("//"); 
 
 
 
-            // Dialog.g:205:10: (~ NEWLINE )*
+            // Dialog.g:212:10: (~ NEWLINE )*
             loop2:
             do {
                 int alt2=2;
@@ -1045,7 +1045,7 @@ public class DialogLexer extends Lexer {
     // $ANTLR start "NEWLINE"
     public final void mNEWLINE() throws RecognitionException {
         try {
-            // Dialog.g:207:18: ( '\\n' | '\\r' )
+            // Dialog.g:214:18: ( '\\n' | '\\r' )
             // Dialog.g:
             {
             if ( input.LA(1)=='\n'||input.LA(1)=='\r' ) {
@@ -1073,10 +1073,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:211:4: ( ( ' ' | '\\t' | '\\n' | '\\r' )+ )
-            // Dialog.g:212:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
+            // Dialog.g:218:4: ( ( ' ' | '\\t' | '\\n' | '\\r' )+ )
+            // Dialog.g:219:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
             {
-            // Dialog.g:212:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
+            // Dialog.g:219:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
             int cnt3=0;
             loop3:
             do {
@@ -1133,13 +1133,13 @@ public class DialogLexer extends Lexer {
         try {
             int _type = IDENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:214:7: ( LETTER ( LETTER | '_' | DIGIT )* )
-            // Dialog.g:215:5: LETTER ( LETTER | '_' | DIGIT )*
+            // Dialog.g:221:7: ( LETTER ( LETTER | '_' | DIGIT )* )
+            // Dialog.g:222:5: LETTER ( LETTER | '_' | DIGIT )*
             {
             mLETTER(); 
 
 
-            // Dialog.g:215:12: ( LETTER | '_' | DIGIT )*
+            // Dialog.g:222:12: ( LETTER | '_' | DIGIT )*
             loop4:
             do {
                 int alt4=2;
@@ -1187,7 +1187,7 @@ public class DialogLexer extends Lexer {
     // $ANTLR start "LETTER"
     public final void mLETTER() throws RecognitionException {
         try {
-            // Dialog.g:217:17: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
+            // Dialog.g:224:17: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
             // Dialog.g:
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
@@ -1213,7 +1213,7 @@ public class DialogLexer extends Lexer {
     // $ANTLR start "DIGIT"
     public final void mDIGIT() throws RecognitionException {
         try {
-            // Dialog.g:220:16: ( ( '0' .. '9' ) )
+            // Dialog.g:227:16: ( ( '0' .. '9' ) )
             // Dialog.g:
             {
             if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
@@ -1239,10 +1239,10 @@ public class DialogLexer extends Lexer {
     // $ANTLR start "INTEGER"
     public final void mINTEGER() throws RecognitionException {
         try {
-            // Dialog.g:223:18: ( ( DIGIT )+ )
-            // Dialog.g:224:5: ( DIGIT )+
+            // Dialog.g:230:18: ( ( DIGIT )+ )
+            // Dialog.g:231:5: ( DIGIT )+
             {
-            // Dialog.g:224:5: ( DIGIT )+
+            // Dialog.g:231:5: ( DIGIT )+
             int cnt5=0;
             loop5:
             do {
@@ -1296,10 +1296,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = NUMBER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:226:8: ( ( '-' )? ( DIGIT )+ ( '.' ( DIGIT )+ )? )
-            // Dialog.g:227:5: ( '-' )? ( DIGIT )+ ( '.' ( DIGIT )+ )?
+            // Dialog.g:233:8: ( ( '-' )? ( DIGIT )+ ( '.' ( DIGIT )+ )? )
+            // Dialog.g:234:5: ( '-' )? ( DIGIT )+ ( '.' ( DIGIT )+ )?
             {
-            // Dialog.g:227:5: ( '-' )?
+            // Dialog.g:234:5: ( '-' )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -1308,7 +1308,7 @@ public class DialogLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // Dialog.g:227:5: '-'
+                    // Dialog.g:234:5: '-'
                     {
                     match('-'); 
 
@@ -1318,7 +1318,7 @@ public class DialogLexer extends Lexer {
             }
 
 
-            // Dialog.g:227:10: ( DIGIT )+
+            // Dialog.g:234:10: ( DIGIT )+
             int cnt7=0;
             loop7:
             do {
@@ -1357,7 +1357,7 @@ public class DialogLexer extends Lexer {
             } while (true);
 
 
-            // Dialog.g:227:17: ( '.' ( DIGIT )+ )?
+            // Dialog.g:234:17: ( '.' ( DIGIT )+ )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -1366,11 +1366,11 @@ public class DialogLexer extends Lexer {
             }
             switch (alt9) {
                 case 1 :
-                    // Dialog.g:227:18: '.' ( DIGIT )+
+                    // Dialog.g:234:18: '.' ( DIGIT )+
                     {
                     match('.'); 
 
-                    // Dialog.g:227:22: ( DIGIT )+
+                    // Dialog.g:234:22: ( DIGIT )+
                     int cnt8=0;
                     loop8:
                     do {
@@ -1431,7 +1431,7 @@ public class DialogLexer extends Lexer {
         try {
             int _type = STRING_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:229:16: ( '\"' ( . )* '\"' | '\\'' ( . )* '\\'' )
+            // Dialog.g:236:16: ( '\"' ( . )* '\"' | '\\'' ( . )* '\\'' )
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -1450,11 +1450,11 @@ public class DialogLexer extends Lexer {
             }
             switch (alt12) {
                 case 1 :
-                    // Dialog.g:230:5: '\"' ( . )* '\"'
+                    // Dialog.g:237:5: '\"' ( . )* '\"'
                     {
                     match('\"'); 
 
-                    // Dialog.g:230:9: ( . )*
+                    // Dialog.g:237:9: ( . )*
                     loop10:
                     do {
                         int alt10=2;
@@ -1470,7 +1470,7 @@ public class DialogLexer extends Lexer {
 
                         switch (alt10) {
                     	case 1 :
-                    	    // Dialog.g:230:9: .
+                    	    // Dialog.g:237:9: .
                     	    {
                     	    matchAny(); 
 
@@ -1490,11 +1490,11 @@ public class DialogLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Dialog.g:231:7: '\\'' ( . )* '\\''
+                    // Dialog.g:238:7: '\\'' ( . )* '\\''
                     {
                     match('\''); 
 
-                    // Dialog.g:231:12: ( . )*
+                    // Dialog.g:238:12: ( . )*
                     loop11:
                     do {
                         int alt11=2;
@@ -1510,7 +1510,7 @@ public class DialogLexer extends Lexer {
 
                         switch (alt11) {
                     	case 1 :
-                    	    // Dialog.g:231:12: .
+                    	    // Dialog.g:238:12: .
                     	    {
                     	    matchAny(); 
 

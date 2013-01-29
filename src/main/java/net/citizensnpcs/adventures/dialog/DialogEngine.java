@@ -4,12 +4,12 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Map;
 
-import net.citizensnpcs.adventures.dialog.evaluators.Evaluator;
 import net.citizensnpcs.adventures.dialog.evaluators.VariableSource;
+import net.citizensnpcs.adventures.dialog.statements.Argument;
 import net.citizensnpcs.adventures.dialog.statements.Code;
 import net.citizensnpcs.adventures.dialog.statements.DenizenScript;
+import net.citizensnpcs.adventures.dialog.statements.Forget;
 import net.citizensnpcs.adventures.dialog.statements.Say;
 import net.citizensnpcs.adventures.dialog.statements.StatementRegistry;
 import net.citizensnpcs.api.CitizensAPI;
@@ -41,6 +41,7 @@ public class DialogEngine {
     public DialogEngine() {
         statementRegistry.register(Say.class);
         statementRegistry.register(Code.class);
+        statementRegistry.register(Forget.class);
 
         if (Bukkit.getServer() != null) {
             Plugin denizenPlugin = Bukkit.getPluginManager().getPlugin("Denizen");
@@ -92,7 +93,7 @@ public class DialogEngine {
         try {
             parser.program(new ParseContext() {
                 @Override
-                public QueryRunnable buildStatement(String name, Map<String, Evaluator> args) {
+                public QueryRunnable buildStatement(String name, Collection<Argument> args) {
                     return statementRegistry.getMatchingStatement(this, name, args);
                 }
 
@@ -126,7 +127,7 @@ public class DialogEngine {
     }
 
     public interface ParseContext {
-        QueryRunnable buildStatement(String name, Map<String, Evaluator> args);
+        QueryRunnable buildStatement(String name, Collection<Argument> args);
 
         String disambiguateName(String raw);
 

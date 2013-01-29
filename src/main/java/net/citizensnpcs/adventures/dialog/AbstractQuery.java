@@ -18,6 +18,13 @@ public abstract class AbstractQuery implements Query {
     }
 
     @Override
+    public void forget(String... keys) {
+        for (String key : keys) {
+            queryVariables.remove(key);
+        }
+    }
+
+    @Override
     public Object get(String key) {
         return queryVariables.get(key);
     }

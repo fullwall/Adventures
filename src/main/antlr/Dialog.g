@@ -95,12 +95,19 @@ rule_statement [DialogEngine.ParseContext context, Rule.Builder builder] :
     ;
 
 generic_statement [DialogEngine.ParseContext context] returns [QueryRunnable statement] :
-    { String name; Map<String,Evaluator> vars = Maps.newHashMap(); }
+    { String name; List<Argument> vars = Lists.newArrayList(); }
     i1=IDENT { name = $i1.text; } 
     (
-        i2=IDENT '=' expression { vars.put($i2.text, $expression.value); }
-    )* 
+        a1=argument_decl { vars.add($a1.arg); }
+        (
+            ',' a2=argument_decl { vars.add($a2.arg); }
+        )*
+    )?
     { $statement = context.buildStatement(name, vars); } { $statement != null }?;
+    
+argument_decl returns [Argument arg] : 
+    i1=IDENT '=' e1=expression { $arg = new Argument($i1.text, $e1.value); }
+    | e2=expression { $arg = new Argument(null, $e2.value); };
     
 remember_statement returns [QueryRunnable statement] :
     { Remember.Builder builder = Remember.builder(); }

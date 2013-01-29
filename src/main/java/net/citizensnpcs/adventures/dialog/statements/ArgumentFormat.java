@@ -1,16 +1,16 @@
 package net.citizensnpcs.adventures.dialog.statements;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-
-import net.citizensnpcs.adventures.dialog.evaluators.Evaluator;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 public class ArgumentFormat {
-    private final Set<String> optionalArguments = Sets.newHashSet();
+    private final Set<String> orderedArguments = Sets.newLinkedHashSet();
     private final Set<String> requiredArguments = Sets.newHashSet();
 
     public ArgumentFormat(String argumentFormat) {
@@ -18,26 +18,33 @@ public class ArgumentFormat {
             char start = part.charAt(0), last = part.charAt(part.length() - 1);
             if (start == '[') {
                 Preconditions.checkArgument(last == ']');
-                requiredArguments.add(part.substring(1, part.length() - 1));
+                part = part.substring(1, part.length() - 1);
+                requiredArguments.add(part);
             } else if (start == '(') {
                 Preconditions.checkArgument(last == ')');
-                optionalArguments.add(part.substring(1, part.length() - 1));
+                part = part.substring(1, part.length() - 1);
             } else {
                 requiredArguments.add(part);
             }
+            orderedArguments.add(part);
         }
     }
 
-    public StatementContext createStatementContext(String name, Map<String, Evaluator> vars) {
-        if (!vars.keySet().containsAll(requiredArguments))
-            return null;
-        Set<String> union = Sets.union(optionalArguments, requiredArguments);
+    public StatementContext createStatementContext(String name, Collection<Argument> vars) {
+        Set<String> remaining = Sets.newLinkedHashSet(orderedArguments);
         Map<String, Object> map = Maps.newHashMap();
-        for (Map.Entry<String, Evaluator> entry : vars.entrySet()) {
-            String key = entry.getKey();
-            Evaluator value = entry.getValue();
-            if (union.contains(key)) {
-                map.put(key, value.isConstant() ? value.get() : value);
+        for (Argument arg : vars) {
+            if (remaining.size() == 0)
+                break;
+            if (arg.name != null) {
+                remaining.remove(arg.name);
+                map.put(arg.name, arg.value.isConstant() ? arg.value.get() : arg.value);
+                continue;
+            } else {
+                Iterator<String> itr = remaining.iterator();
+                String next = itr.next();
+                map.put(next, arg.value);
+                itr.remove();
             }
         }
         return new StatementContext(name, map);
