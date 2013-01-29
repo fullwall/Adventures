@@ -41,9 +41,12 @@ public class DialogEngine {
     public DialogEngine() {
         statementRegistry.register(Say.class);
         statementRegistry.register(Code.class);
-        Plugin denizenPlugin = Bukkit.getPluginManager().getPlugin("Denizen");
-        if (denizenPlugin != null)
-            statementRegistry.register(DenizenScript.class);
+
+        if (Bukkit.getServer() != null) {
+            Plugin denizenPlugin = Bukkit.getPluginManager().getPlugin("Denizen");
+            if (denizenPlugin != null)
+                statementRegistry.register(DenizenScript.class);
+        }
     }
 
     public boolean execute(Query query) {
