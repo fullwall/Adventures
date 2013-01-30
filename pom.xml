@@ -13,6 +13,7 @@
 		<craftbukkit.version>LATEST</craftbukkit.version>
 		<antlr.version>3.5</antlr.version>
 		<denizen.version>0.8-PRERELEASE</denizen.version>
+		<javassist.version>3.12.1.GA</javassist.version>
 		<powermock.version>1.5</powermock.version>
 		<build.number>Unknown</build.number>
 	</properties>
@@ -38,11 +39,16 @@
 		</dependency>
 		<dependency>
 			<groupId>net.citizensnpcs</groupId>
-			<artifactId>citizens</artifactId>
+			<artifactId>citizensapi</artifactId>
 			<version>${citizensapi.version}</version>
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
+        <dependency>
+            <groupId>javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>${javassist.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>net.aufdemrand</groupId>
 			<artifactId>denizen</artifactId>

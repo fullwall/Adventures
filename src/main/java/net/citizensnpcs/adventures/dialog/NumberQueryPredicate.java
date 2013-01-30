@@ -31,6 +31,11 @@ public class NumberQueryPredicate implements QueryPredicate {
         return queryKey;
     }
 
+    @Override
+    public String toString() {
+        return "NumberQueryPredicate [predicate=" + predicate + ", queryKey=" + queryKey + "]";
+    }
+
     private static Comparator<Number> DOUBLE_COMPARATOR = new Comparator<Number>() {
         @Override
         public int compare(Number o1, Number o2) {
@@ -50,6 +55,11 @@ public class NumberQueryPredicate implements QueryPredicate {
         public boolean apply(@Nullable Integer input) {
             return input >= 0;
         }
+
+        @Override
+        public String toString() {
+            return "NumberQueryPredicate [>=]";
+        }
     };
 
     private static final Predicate<Integer> GREATER_THAN_PREDICATE = Predicates.equalTo(1);
@@ -65,6 +75,11 @@ public class NumberQueryPredicate implements QueryPredicate {
         @Override
         public boolean apply(@Nullable Integer input) {
             return input <= 0;
+        }
+
+        @Override
+        public String toString() {
+            return "NumberQueryPredicate [<=]";
         }
     };
 
@@ -82,6 +97,11 @@ public class NumberQueryPredicate implements QueryPredicate {
         public boolean apply(@Nullable Integer input) {
             return input != 0;
         }
+
+        @Override
+        public String toString() {
+            return "NumberQueryPredicate [!=]";
+        }
     };
 
     public static QueryPredicate equalTo(String key, final Evaluator evaluator) {
@@ -92,6 +112,11 @@ public class NumberQueryPredicate implements QueryPredicate {
             @Override
             public boolean apply(@Nullable Number input) {
                 return toNumber(evaluator).equals(input);
+            }
+
+            @Override
+            public String toString() {
+                return "NumberQueryPredicate [==]";
             }
         });
     }
@@ -110,6 +135,11 @@ public class NumberQueryPredicate implements QueryPredicate {
                 public boolean apply(@Nullable Number input) {
                     return pred.apply(comparator.compare(number, input));
                 }
+
+                @Override
+                public String toString() {
+                    return "DelegatingPredicate [" + pred + "]";
+                }
             };
         }
         return new Predicate<Number>() {
@@ -118,6 +148,11 @@ public class NumberQueryPredicate implements QueryPredicate {
                 final Number number = toNumber(evaluator);
                 final Comparator<Number> comparator = getBestComparator(number);
                 return pred.apply(comparator.compare(number, input));
+            }
+
+            @Override
+            public String toString() {
+                return "DelegatingPredicate [" + pred + "]";
             }
         };
     }

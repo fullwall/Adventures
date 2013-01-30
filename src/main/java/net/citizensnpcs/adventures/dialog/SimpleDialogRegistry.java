@@ -25,8 +25,8 @@ public class SimpleDialogRegistry implements DialogRegistry {
         synchronized (rulesByEvent) {
             for (Rule rule : Iterables.concat(rulesByEvent.get("any"), rulesByEvent.get(query.getEventName()))) {
                 if (highestScore > rule.getNumberOfCriteria()) {
-                    System.err.println("[q] Skipping rule as highest score " + highestScore + " > number of criteria "
-                            + rule.getNumberOfCriteria());
+                    System.err.println("[q] Skipping rest of rules as highest score > number of criteria ("
+                            + highestScore + ">" + rule.getNumberOfCriteria() + ")");
                     break;
                 }
 
@@ -68,7 +68,7 @@ public class SimpleDialogRegistry implements DialogRegistry {
         Preconditions.checkNotNull(eventNames);
         synchronized (rulesByName) {
             if (rulesByName.containsKey(rule.getName()))
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("A rule already exists with name " + rule.getName());
             rulesByName.put(rule.getName(), rule);
         }
         synchronized (rulesByEvent) {

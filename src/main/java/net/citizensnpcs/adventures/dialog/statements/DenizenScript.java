@@ -33,6 +33,9 @@ public class DenizenScript implements QueryRunnable {
             } catch (NumberFormatException swallow) {
             }
         }
+        if (unsafe instanceof Integer) {
+            return DenizenAPI.getDenizenNPC(CitizensAPI.getNPCRegistry().getById((Integer) unsafe));
+        }
         return null;
     }
 

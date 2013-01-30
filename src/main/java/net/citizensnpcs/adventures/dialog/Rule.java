@@ -1,5 +1,6 @@
 package net.citizensnpcs.adventures.dialog;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -58,6 +59,12 @@ public class Rule implements Comparable<Rule> {
         for (QueryRunnable statement : statements) {
             statement.run(context);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Rule [criteria=" + Arrays.toString(criteria) + ", name=" + name + ", statements="
+                + Arrays.toString(statements) + "]";
     }
 
     public static class Builder {

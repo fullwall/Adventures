@@ -5,8 +5,8 @@ import java.util.regex.Pattern;
 import javax.annotation.Nullable;
 
 public class RegexQueryPredicate implements QueryPredicate {
-    private final Pattern regex;
     private final String key;
+    private final Pattern regex;
 
     public RegexQueryPredicate(String key, Pattern regex) {
         this.key = key;

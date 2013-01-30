@@ -1,4 +1,4 @@
-// $ANTLR 3.4 Dialog.g 2013-01-30 12:01:35
+// $ANTLR 3.4 Dialog.g 2013-01-30 20:02:15
 
 package net.citizensnpcs.adventures.dialog;
 import java.util.Collection;
