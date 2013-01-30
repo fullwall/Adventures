@@ -8,7 +8,6 @@ import java.util.Collection;
 import net.citizensnpcs.adventures.dialog.evaluators.VariableSource;
 import net.citizensnpcs.adventures.dialog.statements.Argument;
 import net.citizensnpcs.adventures.dialog.statements.Code;
-import net.citizensnpcs.adventures.dialog.statements.DenizenScript;
 import net.citizensnpcs.adventures.dialog.statements.Forget;
 import net.citizensnpcs.adventures.dialog.statements.Say;
 import net.citizensnpcs.adventures.dialog.statements.StatementRegistry;
@@ -18,7 +17,6 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
@@ -42,12 +40,6 @@ public class DialogEngine {
         statementRegistry.register(Say.class);
         statementRegistry.register(Code.class);
         statementRegistry.register(Forget.class);
-
-        if (Bukkit.getServer() != null) {
-            Plugin denizenPlugin = Bukkit.getPluginManager().getPlugin("Denizen");
-            if (denizenPlugin != null)
-                statementRegistry.register(DenizenScript.class);
-        }
     }
 
     public boolean execute(Query query) {
@@ -58,7 +50,7 @@ public class DialogEngine {
                 lastMatching.run(new SimpleQueryContext(query));
         } catch (DialogException ex) {
             Throwables.getRootCause(ex).printStackTrace();
-            return false;
+            lastMatching = null;
         }
         currentQuery = null;
         return lastMatching != null;

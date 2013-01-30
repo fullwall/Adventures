@@ -49,8 +49,9 @@ public class ArgumentFormat {
                 itr.remove();
             }
         }
-        if (Sets.union(remaining, requiredArguments).size() > 0)
-            throw new DialogException("Missing required arguments " + Sets.union(remaining, requiredArguments));
+        Set<String> intersection = Sets.intersection(remaining, requiredArguments);
+        if (intersection.size() > 0)
+            throw new DialogException("Missing required arguments " + intersection);
         return new StatementContext(name, map);
     }
 }

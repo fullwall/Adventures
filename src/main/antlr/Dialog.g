@@ -60,7 +60,7 @@ program [DialogEngine.ParseContext context] :
 
 name [DialogEngine.ParseContext context] returns [String name] :
     (
-        i1=IDENT { $name= context.disambiguateName($i1.text); } 
+        i1=IDENT { $name = context.disambiguateName($i1.text); }
         | i2=IDENT '/' i3=IDENT { $name = $i2.text + '/' + $i3.text; }
     )
     ;
