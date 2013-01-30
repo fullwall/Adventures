@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import net.citizensnpcs.adventures.dialog.DialogException;
+
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -47,6 +49,8 @@ public class ArgumentFormat {
                 itr.remove();
             }
         }
+        if (Sets.union(remaining, requiredArguments).size() > 0)
+            throw new DialogException("Missing required arguments " + Sets.union(remaining, requiredArguments));
         return new StatementContext(name, map);
     }
 }
