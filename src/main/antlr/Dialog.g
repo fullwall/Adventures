@@ -97,8 +97,18 @@ rule_statement [DialogEngine.ParseContext context, Rule.Builder builder] :
     | generic_statement[context] { builder.statement($generic_statement.statement); }
     ;
 
+block [DialogEngine.ParseContext context] returns [QueryRunnable statement] : 
+    'random {'
+        { SequentialRandomSelector.Builder builder = SequentialRandomSelector.builder(); }
+        (
+            generic_statement[context] ':' NUMBER 
+            { builder.choice($generic_statement.statement, Double.parseDouble($NUMBER.text)); }
+        )+
+    '}';
+
 generic_statement [DialogEngine.ParseContext context] returns [QueryRunnable statement] :
-    { String name; List<Argument> vars = Lists.newArrayList(); }
+    block[context] { $statement = $block.statement; }
+    | { String name; List<Argument> vars = Lists.newArrayList(); }
     i1=IDENT { name = $i1.text; } 
     (
         a1=argument_decl { vars.add($a1.arg); }
@@ -109,7 +119,7 @@ generic_statement [DialogEngine.ParseContext context] returns [QueryRunnable sta
     { $statement = context.buildStatement(name, vars); } { $statement != null }?;
     
 argument_decl returns [Argument arg] : 
-    i1=IDENT '=' e1=expression { $arg = new Argument($i1.text, $e1.value); }
+    i1=IDENT ':' e1=expression { $arg = new Argument($i1.text, $e1.value); }
     | e2=expression { $arg = new Argument(null, $e2.value); };
     
 remember_statement returns [QueryRunnable statement] :
@@ -207,7 +217,7 @@ time_unit returns [TimeUnit unit] :
     ;
   
 query :
-    IDENT ('.' IDENT)*;
+    '$' IDENT ('.' IDENT)*;
     
 ML_COMMENT :
     '/*' (options { greedy=false; }: .)* '*/' { $channel = HIDDEN; };
