@@ -11,10 +11,13 @@ import net.citizensnpcs.api.event.NPCRemoveTraitEvent;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.Plugin;
 
@@ -31,8 +34,30 @@ public class QueryEventListener implements Listener {
         this.engine = engine;
     }
 
+    private void executeQuery(Map<String, Object> eventMap, String eventName) {
+        for (DialogTrait trait : getDialogTraits()) {
+            trait.executeQuery(engine, eventName, eventMap);
+        }
+    }
+
     private Iterable<DialogTrait> getDialogTraits() {
         return dialogTraits;
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onBlockBreak(BlockBreakEvent event) {
+        Map<String, Object> eventMap = Maps.newHashMap();
+        representBlock(event.getBlock(), "block", eventMap);
+        representEntity(event.getPlayer(), "player", eventMap);
+        executeQuery(eventMap, "onblockbreak");
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onBlockPlace(BlockPlaceEvent event) {
+        Map<String, Object> eventMap = Maps.newHashMap();
+        representBlock(event.getBlock(), "block", eventMap);
+        representEntity(event.getPlayer(), "player", eventMap);
+        executeQuery(eventMap, "onblockplace");
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -42,10 +67,8 @@ public class QueryEventListener implements Listener {
             public void run() {
                 Map<String, Object> eventMap = Maps.newHashMap();
                 eventMap.put("message", event.getMessage());
-                representEntity(eventMap, event.getPlayer(), "sender");
-                for (DialogTrait trait : getDialogTraits()) {
-                    trait.executeQuery(engine, "onchat", eventMap);
-                }
+                representEntity(event.getPlayer(), "sender", eventMap);
+                executeQuery(eventMap, "onchat");
             }
         });
     }
@@ -61,21 +84,32 @@ public class QueryEventListener implements Listener {
         dialogTraits.remove(event.getTrait());
     }
 
-    private void representEntity(Map<String, Object> eventMap, LivingEntity entity, String root) {
+    private void representBlock(Block block, String root, Map<String, Object> eventMap) {
+        eventMap.put(root, block);
+        eventMap.put(root + ".type", block.getType());
+        eventMap.put(root + ".type.name", block.getType().name().toLowerCase());
+        representLocation(block.getLocation(), root + ".location", eventMap);
+    }
+
+    private void representEntity(LivingEntity entity, String root, Map<String, Object> eventMap) {
         eventMap.put(root, entity);
         eventMap.put(root + ".health", entity.getHealth());
         eventMap.put(root + ".maxhealth", entity.getMaxHealth());
-        eventMap.put(root + ".type", entity.getType().name().toLowerCase());
-        Location location = entity.getLocation();
-        eventMap.put(root + "location.x", location.getX());
-        eventMap.put(root + "location.y", location.getY());
-        eventMap.put(root + "location.z", location.getZ());
-        eventMap.put(root + "location.world", location.getWorld().getName());
-        eventMap.put(root + "location.yaw", location.getYaw());
-        eventMap.put(root + "location.pitch", location.getPitch());
+        eventMap.put(root + ".type", entity.getType());
+        eventMap.put(root + ".type.name", entity.getType().name().toLowerCase());
+        representLocation(entity.getLocation(), root + ".location", eventMap);
         if (entity instanceof Player) {
             Player player = (Player) entity;
             eventMap.put(root + ".name", player.getName());
         }
+    }
+
+    private void representLocation(Location location, String root, Map<String, Object> eventMap) {
+        eventMap.put(root + ".x", location.getX());
+        eventMap.put(root + ".y", location.getY());
+        eventMap.put(root + ".z", location.getZ());
+        eventMap.put(root + ".world", location.getWorld().getName());
+        eventMap.put(root + ".yaw", location.getYaw());
+        eventMap.put(root + ".pitch", location.getPitch());
     }
 }

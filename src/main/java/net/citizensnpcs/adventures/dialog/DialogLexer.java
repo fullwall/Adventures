@@ -11,93 +11,88 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class DialogLexer extends Lexer {
-    public static final int EOF=-1;
-    public static final int T__15=15;
-    public static final int T__16=16;
-    public static final int T__17=17;
-    public static final int T__18=18;
-    public static final int T__19=19;
-    public static final int T__20=20;
-    public static final int T__21=21;
-    public static final int T__22=22;
-    public static final int T__23=23;
-    public static final int T__24=24;
-    public static final int T__25=25;
-    public static final int T__26=26;
-    public static final int T__27=27;
-    public static final int T__28=28;
-    public static final int T__29=29;
-    public static final int T__30=30;
-    public static final int T__31=31;
-    public static final int T__32=32;
-    public static final int T__33=33;
-    public static final int T__34=34;
-    public static final int T__35=35;
-    public static final int T__36=36;
-    public static final int T__37=37;
-    public static final int T__38=38;
-    public static final int T__39=39;
-    public static final int T__40=40;
-    public static final int T__41=41;
-    public static final int T__42=42;
-    public static final int T__43=43;
-    public static final int T__44=44;
-    public static final int T__45=45;
-    public static final int T__46=46;
-    public static final int T__47=47;
-    public static final int T__48=48;
-    public static final int T__49=49;
-    public static final int T__50=50;
-    public static final int T__51=51;
-    public static final int T__52=52;
-    public static final int T__53=53;
-    public static final int DIGIT=4;
-    public static final int IDENT=5;
-    public static final int INTEGER=6;
-    public static final int LETTER=7;
-    public static final int LINE_COMMENT=8;
-    public static final int ML_COMMENT=9;
-    public static final int NEWLINE=10;
-    public static final int NUMBER=11;
-    public static final int QUERY=12;
-    public static final int STRING_LITERAL=13;
-    public static final int WS=14;
-
-    /*  @Override
-        public void reportError(RecognitionException e) {
-            throw e;
-        }
-    */
-    private String stripQuotes(String quoted) {
-        return quoted.substring(1, quoted.length() - 1);
-    }
-
-
-    // delegates
-    // delegators
-    public Lexer[] getDelegates() {
-        return new Lexer[] {};
-    }
-
-    public DialogLexer() {} 
+    protected DFA14 dfa14 = new DFA14(this);
+    public DialogLexer() {}
     public DialogLexer(CharStream input) {
         this(input, new RecognizerSharedState());
     }
     public DialogLexer(CharStream input, RecognizerSharedState state) {
         super(input,state);
     }
+    // delegates
+    // delegators
+    public Lexer[] getDelegates() {
+        return new Lexer[] {};
+    }
     public String getGrammarFileName() { return "Dialog.g"; }
-
-    // $ANTLR start "T__15"
-    public final void mT__15() throws RecognitionException {
+    // $ANTLR start "DIGIT"
+    public final void mDIGIT() throws RecognitionException {
         try {
-            int _type = T__15;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:22:7: ( '!=' )
-            // Dialog.g:22:9: '!='
+            // Dialog.g:241:16: ( ( '0' .. '9' ) )
+            // Dialog.g:
             {
-            match("!="); 
+            if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+                input.consume();
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;
+            }
 
+
+            }
+
+
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "DIGIT"
+    // $ANTLR start "IDENT"
+    public final void mIDENT() throws RecognitionException {
+        try {
+            int _type = IDENT;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:235:7: ( LETTER ( LETTER | '_' | DIGIT )* )
+            // Dialog.g:236:5: LETTER ( LETTER | '_' | DIGIT )*
+            {
+            mLETTER(); 
+
+
+            // Dialog.g:236:12: ( LETTER | '_' | DIGIT )*
+            loop5:
+            do {
+                int alt5=2;
+                int LA5_0 = input.LA(1);
+
+                if ( ((LA5_0 >= '0' && LA5_0 <= '9')||(LA5_0 >= 'A' && LA5_0 <= 'Z')||LA5_0=='_'||(LA5_0 >= 'a' && LA5_0 <= 'z')) ) {
+                    alt5=1;
+                }
+
+
+                switch (alt5) {
+            	case 1 :
+            	    // Dialog.g:
+            	    {
+            	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
+            	        input.consume();
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop5;
+                }
+            } while (true);
 
 
             }
@@ -109,17 +104,133 @@ public class DialogLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "T__15"
-
-    // $ANTLR start "T__16"
-    public final void mT__16() throws RecognitionException {
+    // $ANTLR end "IDENT"
+    // $ANTLR start "INTEGER"
+    public final void mINTEGER() throws RecognitionException {
         try {
-            int _type = T__16;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:23:7: ( '%' )
-            // Dialog.g:23:9: '%'
+            // Dialog.g:244:18: ( ( DIGIT )+ )
+            // Dialog.g:245:5: ( DIGIT )+
             {
-            match('%'); 
+            // Dialog.g:245:5: ( DIGIT )+
+            int cnt6=0;
+            loop6:
+            do {
+                int alt6=2;
+                int LA6_0 = input.LA(1);
+
+                if ( ((LA6_0 >= '0' && LA6_0 <= '9')) ) {
+                    alt6=1;
+                }
+
+
+                switch (alt6) {
+            	case 1 :
+            	    // Dialog.g:
+            	    {
+            	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+            	        input.consume();
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt6 >= 1 ) break loop6;
+                        EarlyExitException eee =
+                            new EarlyExitException(6, input);
+                        throw eee;
+                }
+                cnt6++;
+            } while (true);
+
+
+            }
+
+
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "INTEGER"
+    // $ANTLR start "LETTER"
+    public final void mLETTER() throws RecognitionException {
+        try {
+            // Dialog.g:238:17: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
+            // Dialog.g:
+            {
+            if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
+                input.consume();
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;
+            }
+
+
+            }
+
+
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "LETTER"
+    // $ANTLR start "LINE_COMMENT"
+    public final void mLINE_COMMENT() throws RecognitionException {
+        try {
+            int _type = LINE_COMMENT;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:222:14: ( '//' (~ NEWLINE )* )
+            // Dialog.g:223:5: '//' (~ NEWLINE )*
+            {
+            match("//"); 
+
+
+
+            // Dialog.g:223:10: (~ NEWLINE )*
+            loop2:
+            do {
+                int alt2=2;
+                int LA2_0 = input.LA(1);
+
+                if ( ((LA2_0 >= '\u0000' && LA2_0 <= '\t')||(LA2_0 >= '\u000B' && LA2_0 <= '\f')||(LA2_0 >= '\u000E' && LA2_0 <= '\uFFFF')) ) {
+                    alt2=1;
+                }
+
+
+                switch (alt2) {
+            	case 1 :
+            	    // Dialog.g:
+            	    {
+            	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '\t')||(input.LA(1) >= '\u000B' && input.LA(1) <= '\f')||(input.LA(1) >= '\u000E' && input.LA(1) <= '\uFFFF') ) {
+            	        input.consume();
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop2;
+                }
+            } while (true);
+
+
+             _channel = HIDDEN; 
 
             }
 
@@ -130,819 +241,7 @@ public class DialogLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "T__16"
-
-    // $ANTLR start "T__17"
-    public final void mT__17() throws RecognitionException {
-        try {
-            int _type = T__17;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:24:7: ( '(' )
-            // Dialog.g:24:9: '('
-            {
-            match('('); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__17"
-
-    // $ANTLR start "T__18"
-    public final void mT__18() throws RecognitionException {
-        try {
-            int _type = T__18;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:25:7: ( ')' )
-            // Dialog.g:25:9: ')'
-            {
-            match(')'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__18"
-
-    // $ANTLR start "T__19"
-    public final void mT__19() throws RecognitionException {
-        try {
-            int _type = T__19;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:26:7: ( '*' )
-            // Dialog.g:26:9: '*'
-            {
-            match('*'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__19"
-
-    // $ANTLR start "T__20"
-    public final void mT__20() throws RecognitionException {
-        try {
-            int _type = T__20;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:27:7: ( '**' )
-            // Dialog.g:27:9: '**'
-            {
-            match("**"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__20"
-
-    // $ANTLR start "T__21"
-    public final void mT__21() throws RecognitionException {
-        try {
-            int _type = T__21;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:28:7: ( '+' )
-            // Dialog.g:28:9: '+'
-            {
-            match('+'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__21"
-
-    // $ANTLR start "T__22"
-    public final void mT__22() throws RecognitionException {
-        try {
-            int _type = T__22;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:29:7: ( ',' )
-            // Dialog.g:29:9: ','
-            {
-            match(','); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__22"
-
-    // $ANTLR start "T__23"
-    public final void mT__23() throws RecognitionException {
-        try {
-            int _type = T__23;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:30:7: ( '-' )
-            // Dialog.g:30:9: '-'
-            {
-            match('-'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__23"
-
-    // $ANTLR start "T__24"
-    public final void mT__24() throws RecognitionException {
-        try {
-            int _type = T__24;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:31:7: ( '-p' )
-            // Dialog.g:31:9: '-p'
-            {
-            match("-p"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__24"
-
-    // $ANTLR start "T__25"
-    public final void mT__25() throws RecognitionException {
-        try {
-            int _type = T__25;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:32:7: ( '/' )
-            // Dialog.g:32:9: '/'
-            {
-            match('/'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__25"
-
-    // $ANTLR start "T__26"
-    public final void mT__26() throws RecognitionException {
-        try {
-            int _type = T__26;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:33:7: ( ':' )
-            // Dialog.g:33:9: ':'
-            {
-            match(':'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__26"
-
-    // $ANTLR start "T__27"
-    public final void mT__27() throws RecognitionException {
-        try {
-            int _type = T__27;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:34:7: ( ';' )
-            // Dialog.g:34:9: ';'
-            {
-            match(';'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__27"
-
-    // $ANTLR start "T__28"
-    public final void mT__28() throws RecognitionException {
-        try {
-            int _type = T__28;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:35:7: ( '<' )
-            // Dialog.g:35:9: '<'
-            {
-            match('<'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__28"
-
-    // $ANTLR start "T__29"
-    public final void mT__29() throws RecognitionException {
-        try {
-            int _type = T__29;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:36:7: ( '<=' )
-            // Dialog.g:36:9: '<='
-            {
-            match("<="); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__29"
-
-    // $ANTLR start "T__30"
-    public final void mT__30() throws RecognitionException {
-        try {
-            int _type = T__30;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:37:7: ( '=' )
-            // Dialog.g:37:9: '='
-            {
-            match('='); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__30"
-
-    // $ANTLR start "T__31"
-    public final void mT__31() throws RecognitionException {
-        try {
-            int _type = T__31;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:38:7: ( '>' )
-            // Dialog.g:38:9: '>'
-            {
-            match('>'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__31"
-
-    // $ANTLR start "T__32"
-    public final void mT__32() throws RecognitionException {
-        try {
-            int _type = T__32;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:39:7: ( '>=' )
-            // Dialog.g:39:9: '>='
-            {
-            match(">="); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__32"
-
-    // $ANTLR start "T__33"
-    public final void mT__33() throws RecognitionException {
-        try {
-            int _type = T__33;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:40:7: ( '[' )
-            // Dialog.g:40:9: '['
-            {
-            match('['); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__33"
-
-    // $ANTLR start "T__34"
-    public final void mT__34() throws RecognitionException {
-        try {
-            int _type = T__34;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:41:7: ( ']' )
-            // Dialog.g:41:9: ']'
-            {
-            match(']'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__34"
-
-    // $ANTLR start "T__35"
-    public final void mT__35() throws RecognitionException {
-        try {
-            int _type = T__35;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:42:7: ( 'criteria' )
-            // Dialog.g:42:9: 'criteria'
-            {
-            match("criteria"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__35"
-
-    // $ANTLR start "T__36"
-    public final void mT__36() throws RecognitionException {
-        try {
-            int _type = T__36;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:43:7: ( 'd' )
-            // Dialog.g:43:9: 'd'
-            {
-            match('d'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__36"
-
-    // $ANTLR start "T__37"
-    public final void mT__37() throws RecognitionException {
-        try {
-            int _type = T__37;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:44:7: ( 'events=' )
-            // Dialog.g:44:9: 'events='
-            {
-            match("events="); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__37"
-
-    // $ANTLR start "T__38"
-    public final void mT__38() throws RecognitionException {
-        try {
-            int _type = T__38;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:45:7: ( 'false' )
-            // Dialog.g:45:9: 'false'
-            {
-            match("false"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__38"
-
-    // $ANTLR start "T__39"
-    public final void mT__39() throws RecognitionException {
-        try {
-            int _type = T__39;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:46:7: ( 'h' )
-            // Dialog.g:46:9: 'h'
-            {
-            match('h'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__39"
-
-    // $ANTLR start "T__40"
-    public final void mT__40() throws RecognitionException {
-        try {
-            int _type = T__40;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:47:7: ( 'm' )
-            // Dialog.g:47:9: 'm'
-            {
-            match('m'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__40"
-
-    // $ANTLR start "T__41"
-    public final void mT__41() throws RecognitionException {
-        try {
-            int _type = T__41;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:48:7: ( 'ms' )
-            // Dialog.g:48:9: 'ms'
-            {
-            match("ms"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__41"
-
-    // $ANTLR start "T__42"
-    public final void mT__42() throws RecognitionException {
-        try {
-            int _type = T__42;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:49:7: ( 'ns' )
-            // Dialog.g:49:9: 'ns'
-            {
-            match("ns"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__42"
-
-    // $ANTLR start "T__43"
-    public final void mT__43() throws RecognitionException {
-        try {
-            int _type = T__43;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:50:7: ( 'random {' )
-            // Dialog.g:50:9: 'random {'
-            {
-            match("random {"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__43"
-
-    // $ANTLR start "T__44"
-    public final void mT__44() throws RecognitionException {
-        try {
-            int _type = T__44;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:51:7: ( 'remember' )
-            // Dialog.g:51:9: 'remember'
-            {
-            match("remember"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__44"
-
-    // $ANTLR start "T__45"
-    public final void mT__45() throws RecognitionException {
-        try {
-            int _type = T__45;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:52:7: ( 'response' )
-            // Dialog.g:52:9: 'response'
-            {
-            match("response"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__45"
-
-    // $ANTLR start "T__46"
-    public final void mT__46() throws RecognitionException {
-        try {
-            int _type = T__46;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:53:7: ( 'rule' )
-            // Dialog.g:53:9: 'rule'
-            {
-            match("rule"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__46"
-
-    // $ANTLR start "T__47"
-    public final void mT__47() throws RecognitionException {
-        try {
-            int _type = T__47;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:54:7: ( 's' )
-            // Dialog.g:54:9: 's'
-            {
-            match('s'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__47"
-
-    // $ANTLR start "T__48"
-    public final void mT__48() throws RecognitionException {
-        try {
-            int _type = T__48;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:55:7: ( 'then' )
-            // Dialog.g:55:9: 'then'
-            {
-            match("then"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__48"
-
-    // $ANTLR start "T__49"
-    public final void mT__49() throws RecognitionException {
-        try {
-            int _type = T__49;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:56:7: ( 'true' )
-            // Dialog.g:56:9: 'true'
-            {
-            match("true"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__49"
-
-    // $ANTLR start "T__50"
-    public final void mT__50() throws RecognitionException {
-        try {
-            int _type = T__50;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:57:7: ( 'us' )
-            // Dialog.g:57:9: 'us'
-            {
-            match("us"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__50"
-
-    // $ANTLR start "T__51"
-    public final void mT__51() throws RecognitionException {
-        try {
-            int _type = T__51;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:58:7: ( '{' )
-            // Dialog.g:58:9: '{'
-            {
-            match('{'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__51"
-
-    // $ANTLR start "T__52"
-    public final void mT__52() throws RecognitionException {
-        try {
-            int _type = T__52;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:59:7: ( '}' )
-            // Dialog.g:59:9: '}'
-            {
-            match('}'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__52"
-
-    // $ANTLR start "T__53"
-    public final void mT__53() throws RecognitionException {
-        try {
-            int _type = T__53;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:60:7: ( '~=' )
-            // Dialog.g:60:9: '~='
-            {
-            match("~="); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__53"
-
+    // $ANTLR end "LINE_COMMENT"
     // $ANTLR start "ML_COMMENT"
     public final void mML_COMMENT() throws RecognitionException {
         try {
@@ -1009,66 +308,6 @@ public class DialogLexer extends Lexer {
         }
     }
     // $ANTLR end "ML_COMMENT"
-
-    // $ANTLR start "LINE_COMMENT"
-    public final void mLINE_COMMENT() throws RecognitionException {
-        try {
-            int _type = LINE_COMMENT;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:222:14: ( '//' (~ NEWLINE )* )
-            // Dialog.g:223:5: '//' (~ NEWLINE )*
-            {
-            match("//"); 
-
-
-
-            // Dialog.g:223:10: (~ NEWLINE )*
-            loop2:
-            do {
-                int alt2=2;
-                int LA2_0 = input.LA(1);
-
-                if ( ((LA2_0 >= '\u0000' && LA2_0 <= '\t')||(LA2_0 >= '\u000B' && LA2_0 <= '\f')||(LA2_0 >= '\u000E' && LA2_0 <= '\uFFFF')) ) {
-                    alt2=1;
-                }
-
-
-                switch (alt2) {
-            	case 1 :
-            	    // Dialog.g:
-            	    {
-            	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '\t')||(input.LA(1) >= '\u000B' && input.LA(1) <= '\f')||(input.LA(1) >= '\u000E' && input.LA(1) <= '\uFFFF') ) {
-            	        input.consume();
-            	    }
-            	    else {
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        recover(mse);
-            	        throw mse;
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop2;
-                }
-            } while (true);
-
-
-             _channel = HIDDEN; 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "LINE_COMMENT"
-
     // $ANTLR start "NEWLINE"
     public final void mNEWLINE() throws RecognitionException {
         try {
@@ -1094,285 +333,6 @@ public class DialogLexer extends Lexer {
         }
     }
     // $ANTLR end "NEWLINE"
-
-    // $ANTLR start "WS"
-    public final void mWS() throws RecognitionException {
-        try {
-            int _type = WS;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:229:4: ( ( ' ' | '\\t' | '\\n' | '\\r' )+ )
-            // Dialog.g:230:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
-            {
-            // Dialog.g:230:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
-            int cnt3=0;
-            loop3:
-            do {
-                int alt3=2;
-                int LA3_0 = input.LA(1);
-
-                if ( ((LA3_0 >= '\t' && LA3_0 <= '\n')||LA3_0=='\r'||LA3_0==' ') ) {
-                    alt3=1;
-                }
-
-
-                switch (alt3) {
-            	case 1 :
-            	    // Dialog.g:
-            	    {
-            	    if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
-            	        input.consume();
-            	    }
-            	    else {
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        recover(mse);
-            	        throw mse;
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    if ( cnt3 >= 1 ) break loop3;
-                        EarlyExitException eee =
-                            new EarlyExitException(3, input);
-                        throw eee;
-                }
-                cnt3++;
-            } while (true);
-
-
-             _channel = HIDDEN; 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "WS"
-
-    // $ANTLR start "QUERY"
-    public final void mQUERY() throws RecognitionException {
-        try {
-            int _type = QUERY;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:232:7: ( '$' IDENT ( '.' IDENT )* )
-            // Dialog.g:233:5: '$' IDENT ( '.' IDENT )*
-            {
-            match('$'); 
-
-            mIDENT(); 
-
-
-            // Dialog.g:233:15: ( '.' IDENT )*
-            loop4:
-            do {
-                int alt4=2;
-                int LA4_0 = input.LA(1);
-
-                if ( (LA4_0=='.') ) {
-                    alt4=1;
-                }
-
-
-                switch (alt4) {
-            	case 1 :
-            	    // Dialog.g:233:16: '.' IDENT
-            	    {
-            	    match('.'); 
-
-            	    mIDENT(); 
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop4;
-                }
-            } while (true);
-
-
-             setText(getText().substring(1)); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "QUERY"
-
-    // $ANTLR start "IDENT"
-    public final void mIDENT() throws RecognitionException {
-        try {
-            int _type = IDENT;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:235:7: ( LETTER ( LETTER | '_' | DIGIT )* )
-            // Dialog.g:236:5: LETTER ( LETTER | '_' | DIGIT )*
-            {
-            mLETTER(); 
-
-
-            // Dialog.g:236:12: ( LETTER | '_' | DIGIT )*
-            loop5:
-            do {
-                int alt5=2;
-                int LA5_0 = input.LA(1);
-
-                if ( ((LA5_0 >= '0' && LA5_0 <= '9')||(LA5_0 >= 'A' && LA5_0 <= 'Z')||LA5_0=='_'||(LA5_0 >= 'a' && LA5_0 <= 'z')) ) {
-                    alt5=1;
-                }
-
-
-                switch (alt5) {
-            	case 1 :
-            	    // Dialog.g:
-            	    {
-            	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
-            	        input.consume();
-            	    }
-            	    else {
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        recover(mse);
-            	        throw mse;
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop5;
-                }
-            } while (true);
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "IDENT"
-
-    // $ANTLR start "LETTER"
-    public final void mLETTER() throws RecognitionException {
-        try {
-            // Dialog.g:238:17: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
-            // Dialog.g:
-            {
-            if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
-                input.consume();
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;
-            }
-
-
-            }
-
-
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "LETTER"
-
-    // $ANTLR start "DIGIT"
-    public final void mDIGIT() throws RecognitionException {
-        try {
-            // Dialog.g:241:16: ( ( '0' .. '9' ) )
-            // Dialog.g:
-            {
-            if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
-                input.consume();
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;
-            }
-
-
-            }
-
-
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "DIGIT"
-
-    // $ANTLR start "INTEGER"
-    public final void mINTEGER() throws RecognitionException {
-        try {
-            // Dialog.g:244:18: ( ( DIGIT )+ )
-            // Dialog.g:245:5: ( DIGIT )+
-            {
-            // Dialog.g:245:5: ( DIGIT )+
-            int cnt6=0;
-            loop6:
-            do {
-                int alt6=2;
-                int LA6_0 = input.LA(1);
-
-                if ( ((LA6_0 >= '0' && LA6_0 <= '9')) ) {
-                    alt6=1;
-                }
-
-
-                switch (alt6) {
-            	case 1 :
-            	    // Dialog.g:
-            	    {
-            	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
-            	        input.consume();
-            	    }
-            	    else {
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        recover(mse);
-            	        throw mse;
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    if ( cnt6 >= 1 ) break loop6;
-                        EarlyExitException eee =
-                            new EarlyExitException(6, input);
-                        throw eee;
-                }
-                cnt6++;
-            } while (true);
-
-
-            }
-
-
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "INTEGER"
-
     // $ANTLR start "NUMBER"
     public final void mNUMBER() throws RecognitionException {
         try {
@@ -1507,7 +467,60 @@ public class DialogLexer extends Lexer {
         }
     }
     // $ANTLR end "NUMBER"
+    // $ANTLR start "QUERY"
+    public final void mQUERY() throws RecognitionException {
+        try {
+            int _type = QUERY;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:232:7: ( '$' IDENT ( '.' IDENT )* )
+            // Dialog.g:233:5: '$' IDENT ( '.' IDENT )*
+            {
+            match('$'); 
 
+            mIDENT(); 
+
+
+            // Dialog.g:233:15: ( '.' IDENT )*
+            loop4:
+            do {
+                int alt4=2;
+                int LA4_0 = input.LA(1);
+
+                if ( (LA4_0=='.') ) {
+                    alt4=1;
+                }
+
+
+                switch (alt4) {
+            	case 1 :
+            	    // Dialog.g:233:16: '.' IDENT
+            	    {
+            	    match('.'); 
+
+            	    mIDENT(); 
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop4;
+                }
+            } while (true);
+
+
+             setText(getText().substring(1)); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "QUERY"
     // $ANTLR start "STRING_LITERAL"
     public final void mSTRING_LITERAL() throws RecognitionException {
         try {
@@ -1621,7 +634,826 @@ public class DialogLexer extends Lexer {
         }
     }
     // $ANTLR end "STRING_LITERAL"
+    // $ANTLR start "T__15"
+    public final void mT__15() throws RecognitionException {
+        try {
+            int _type = T__15;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:22:7: ( '!=' )
+            // Dialog.g:22:9: '!='
+            {
+            match("!="); 
 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__15"
+    // $ANTLR start "T__16"
+    public final void mT__16() throws RecognitionException {
+        try {
+            int _type = T__16;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:23:7: ( '%' )
+            // Dialog.g:23:9: '%'
+            {
+            match('%'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__16"
+    // $ANTLR start "T__17"
+    public final void mT__17() throws RecognitionException {
+        try {
+            int _type = T__17;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:24:7: ( '(' )
+            // Dialog.g:24:9: '('
+            {
+            match('('); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__17"
+    // $ANTLR start "T__18"
+    public final void mT__18() throws RecognitionException {
+        try {
+            int _type = T__18;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:25:7: ( ')' )
+            // Dialog.g:25:9: ')'
+            {
+            match(')'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__18"
+    // $ANTLR start "T__19"
+    public final void mT__19() throws RecognitionException {
+        try {
+            int _type = T__19;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:26:7: ( '*' )
+            // Dialog.g:26:9: '*'
+            {
+            match('*'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__19"
+    // $ANTLR start "T__20"
+    public final void mT__20() throws RecognitionException {
+        try {
+            int _type = T__20;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:27:7: ( '**' )
+            // Dialog.g:27:9: '**'
+            {
+            match("**"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__20"
+    // $ANTLR start "T__21"
+    public final void mT__21() throws RecognitionException {
+        try {
+            int _type = T__21;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:28:7: ( '+' )
+            // Dialog.g:28:9: '+'
+            {
+            match('+'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__21"
+    // $ANTLR start "T__22"
+    public final void mT__22() throws RecognitionException {
+        try {
+            int _type = T__22;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:29:7: ( ',' )
+            // Dialog.g:29:9: ','
+            {
+            match(','); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__22"
+    // $ANTLR start "T__23"
+    public final void mT__23() throws RecognitionException {
+        try {
+            int _type = T__23;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:30:7: ( '-' )
+            // Dialog.g:30:9: '-'
+            {
+            match('-'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__23"
+    // $ANTLR start "T__24"
+    public final void mT__24() throws RecognitionException {
+        try {
+            int _type = T__24;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:31:7: ( '-p' )
+            // Dialog.g:31:9: '-p'
+            {
+            match("-p"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__24"
+    // $ANTLR start "T__25"
+    public final void mT__25() throws RecognitionException {
+        try {
+            int _type = T__25;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:32:7: ( '/' )
+            // Dialog.g:32:9: '/'
+            {
+            match('/'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__25"
+    // $ANTLR start "T__26"
+    public final void mT__26() throws RecognitionException {
+        try {
+            int _type = T__26;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:33:7: ( ':' )
+            // Dialog.g:33:9: ':'
+            {
+            match(':'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__26"
+    // $ANTLR start "T__27"
+    public final void mT__27() throws RecognitionException {
+        try {
+            int _type = T__27;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:34:7: ( ';' )
+            // Dialog.g:34:9: ';'
+            {
+            match(';'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__27"
+    // $ANTLR start "T__28"
+    public final void mT__28() throws RecognitionException {
+        try {
+            int _type = T__28;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:35:7: ( '<' )
+            // Dialog.g:35:9: '<'
+            {
+            match('<'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__28"
+    // $ANTLR start "T__29"
+    public final void mT__29() throws RecognitionException {
+        try {
+            int _type = T__29;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:36:7: ( '<=' )
+            // Dialog.g:36:9: '<='
+            {
+            match("<="); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__29"
+    // $ANTLR start "T__30"
+    public final void mT__30() throws RecognitionException {
+        try {
+            int _type = T__30;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:37:7: ( '=' )
+            // Dialog.g:37:9: '='
+            {
+            match('='); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__30"
+    // $ANTLR start "T__31"
+    public final void mT__31() throws RecognitionException {
+        try {
+            int _type = T__31;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:38:7: ( '>' )
+            // Dialog.g:38:9: '>'
+            {
+            match('>'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__31"
+    // $ANTLR start "T__32"
+    public final void mT__32() throws RecognitionException {
+        try {
+            int _type = T__32;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:39:7: ( '>=' )
+            // Dialog.g:39:9: '>='
+            {
+            match(">="); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__32"
+    // $ANTLR start "T__33"
+    public final void mT__33() throws RecognitionException {
+        try {
+            int _type = T__33;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:40:7: ( '[' )
+            // Dialog.g:40:9: '['
+            {
+            match('['); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__33"
+    // $ANTLR start "T__34"
+    public final void mT__34() throws RecognitionException {
+        try {
+            int _type = T__34;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:41:7: ( ']' )
+            // Dialog.g:41:9: ']'
+            {
+            match(']'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__34"
+    // $ANTLR start "T__35"
+    public final void mT__35() throws RecognitionException {
+        try {
+            int _type = T__35;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:42:7: ( 'criteria' )
+            // Dialog.g:42:9: 'criteria'
+            {
+            match("criteria"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__35"
+    // $ANTLR start "T__36"
+    public final void mT__36() throws RecognitionException {
+        try {
+            int _type = T__36;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:43:7: ( 'd' )
+            // Dialog.g:43:9: 'd'
+            {
+            match('d'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__36"
+    // $ANTLR start "T__37"
+    public final void mT__37() throws RecognitionException {
+        try {
+            int _type = T__37;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:44:7: ( 'events=' )
+            // Dialog.g:44:9: 'events='
+            {
+            match("events="); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__37"
+    // $ANTLR start "T__38"
+    public final void mT__38() throws RecognitionException {
+        try {
+            int _type = T__38;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:45:7: ( 'false' )
+            // Dialog.g:45:9: 'false'
+            {
+            match("false"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__38"
+    // $ANTLR start "T__39"
+    public final void mT__39() throws RecognitionException {
+        try {
+            int _type = T__39;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:46:7: ( 'h' )
+            // Dialog.g:46:9: 'h'
+            {
+            match('h'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__39"
+    // $ANTLR start "T__40"
+    public final void mT__40() throws RecognitionException {
+        try {
+            int _type = T__40;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:47:7: ( 'm' )
+            // Dialog.g:47:9: 'm'
+            {
+            match('m'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__40"
+    // $ANTLR start "T__41"
+    public final void mT__41() throws RecognitionException {
+        try {
+            int _type = T__41;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:48:7: ( 'ms' )
+            // Dialog.g:48:9: 'ms'
+            {
+            match("ms"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__41"
+    // $ANTLR start "T__42"
+    public final void mT__42() throws RecognitionException {
+        try {
+            int _type = T__42;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:49:7: ( 'ns' )
+            // Dialog.g:49:9: 'ns'
+            {
+            match("ns"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__42"
+    // $ANTLR start "T__43"
+    public final void mT__43() throws RecognitionException {
+        try {
+            int _type = T__43;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:50:7: ( 'random {' )
+            // Dialog.g:50:9: 'random {'
+            {
+            match("random {"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__43"
+    // $ANTLR start "T__44"
+    public final void mT__44() throws RecognitionException {
+        try {
+            int _type = T__44;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:51:7: ( 'remember' )
+            // Dialog.g:51:9: 'remember'
+            {
+            match("remember"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__44"
+    // $ANTLR start "T__45"
+    public final void mT__45() throws RecognitionException {
+        try {
+            int _type = T__45;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:52:7: ( 'response' )
+            // Dialog.g:52:9: 'response'
+            {
+            match("response"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__45"
+    // $ANTLR start "T__46"
+    public final void mT__46() throws RecognitionException {
+        try {
+            int _type = T__46;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:53:7: ( 'rule' )
+            // Dialog.g:53:9: 'rule'
+            {
+            match("rule"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__46"
+    // $ANTLR start "T__47"
+    public final void mT__47() throws RecognitionException {
+        try {
+            int _type = T__47;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:54:7: ( 's' )
+            // Dialog.g:54:9: 's'
+            {
+            match('s'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__47"
+    // $ANTLR start "T__48"
+    public final void mT__48() throws RecognitionException {
+        try {
+            int _type = T__48;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:55:7: ( 'then' )
+            // Dialog.g:55:9: 'then'
+            {
+            match("then"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__48"
+    // $ANTLR start "T__49"
+    public final void mT__49() throws RecognitionException {
+        try {
+            int _type = T__49;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:56:7: ( 'true' )
+            // Dialog.g:56:9: 'true'
+            {
+            match("true"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__49"
+
+    // $ANTLR start "T__50"
+    public final void mT__50() throws RecognitionException {
+        try {
+            int _type = T__50;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:57:7: ( 'us' )
+            // Dialog.g:57:9: 'us'
+            {
+            match("us"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__50"
+
+
+    // $ANTLR start "T__51"
+    public final void mT__51() throws RecognitionException {
+        try {
+            int _type = T__51;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:58:7: ( '{' )
+            // Dialog.g:58:9: '{'
+            {
+            match('{'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__51"
+
+    // $ANTLR start "T__52"
+    public final void mT__52() throws RecognitionException {
+        try {
+            int _type = T__52;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:59:7: ( '}' )
+            // Dialog.g:59:9: '}'
+            {
+            match('}'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__52" 
+    // $ANTLR start "T__53"
+    public final void mT__53() throws RecognitionException {
+        try {
+            int _type = T__53;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:60:7: ( '~=' )
+            // Dialog.g:60:9: '~='
+            {
+            match("~="); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__53"
     public void mTokens() throws RecognitionException {
         // Dialog.g:1:8: ( T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | ML_COMMENT | LINE_COMMENT | WS | QUERY | IDENT | NUMBER | STRING_LITERAL )
         int alt14=46;
@@ -1999,26 +1831,119 @@ public class DialogLexer extends Lexer {
         }
 
     }
+    // $ANTLR start "WS"
+    public final void mWS() throws RecognitionException {
+        try {
+            int _type = WS;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:229:4: ( ( ' ' | '\\t' | '\\n' | '\\r' )+ )
+            // Dialog.g:230:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
+            {
+            // Dialog.g:230:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
+            int cnt3=0;
+            loop3:
+            do {
+                int alt3=2;
+                int LA3_0 = input.LA(1);
+
+                if ( ((LA3_0 >= '\t' && LA3_0 <= '\n')||LA3_0=='\r'||LA3_0==' ') ) {
+                    alt3=1;
+                }
 
 
-    protected DFA14 dfa14 = new DFA14(this);
+                switch (alt3) {
+            	case 1 :
+            	    // Dialog.g:
+            	    {
+            	    if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
+            	        input.consume();
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt3 >= 1 ) break loop3;
+                        EarlyExitException eee =
+                            new EarlyExitException(3, input);
+                        throw eee;
+                }
+                cnt3++;
+            } while (true);
+
+
+             _channel = HIDDEN; 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "WS"
+
+    /*  @Override
+        public void reportError(RecognitionException e) {
+            throw e;
+        }
+    */
+    private String stripQuotes(String quoted) {
+        return quoted.substring(1, quoted.length() - 1);
+    }
+
+    class DFA14 extends DFA {
+
+        public DFA14(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 14;
+            this.eot = DFA14_eot;
+            this.eof = DFA14_eof;
+            this.min = DFA14_min;
+            this.max = DFA14_max;
+            this.accept = DFA14_accept;
+            this.special = DFA14_special;
+            this.transition = DFA14_transition;
+        }
+        public String getDescription() {
+            return "1:1: Tokens : ( T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | ML_COMMENT | LINE_COMMENT | WS | QUERY | IDENT | NUMBER | STRING_LITERAL );";
+        }
+    }
+
+    static final short[] DFA14_accept = DFA.unpackEncodedString(DFA14_acceptS);
+
+    static final String DFA14_acceptS =
+        "\1\uffff\1\1\1\2\1\3\1\4\1\uffff\1\7\1\10\2\uffff\1\14\1\15\1\uffff"+
+        "\1\20\1\uffff\1\23\1\24\13\uffff\1\45\1\46\1\47\1\52\1\53\1\54\1"+
+        "\55\1\56\1\6\1\5\1\12\1\11\1\50\1\51\1\13\1\17\1\16\1\22\1\21\1"+
+        "\uffff\1\26\2\uffff\1\31\1\uffff\1\32\4\uffff\1\41\6\uffff\1\33"+
+        "\1\34\6\uffff\1\44\17\uffff\1\40\1\42\1\43\2\uffff\1\30\4\uffff"+
+        "\1\27\1\35\5\uffff\1\25\1\36\1\37";
+
+    static final short[] DFA14_eof = DFA.unpackEncodedString(DFA14_eofS);
+
+    static final String DFA14_eofS =
+        "\155\uffff";
+
+    static final short[] DFA14_eot = DFA.unpackEncodedString(DFA14_eotS);
+
     static final String DFA14_eotS =
         "\5\uffff\1\45\2\uffff\1\47\1\52\2\uffff\1\54\1\uffff\1\56\2\uffff"+
         "\1\41\1\60\2\41\1\63\1\65\2\41\1\72\2\41\23\uffff\1\41\1\uffff\2"+
         "\41\1\uffff\1\101\1\uffff\1\102\3\41\1\uffff\2\41\1\111\3\41\2\uffff"+
         "\6\41\1\uffff\6\41\1\131\1\132\1\133\2\41\1\136\3\41\3\uffff\2\41"+
         "\1\uffff\4\41\2\uffff\2\41\1\152\1\153\1\154\3\uffff";
-    static final String DFA14_eofS =
-        "\155\uffff";
-    static final String DFA14_minS =
-        "\1\11\4\uffff\1\52\2\uffff\1\60\1\52\2\uffff\1\75\1\uffff\1\75\2"+
-        "\uffff\1\162\1\60\1\166\1\141\2\60\1\163\1\141\1\60\1\150\1\163"+
-        "\23\uffff\1\151\1\uffff\1\145\1\154\1\uffff\1\60\1\uffff\1\60\1"+
-        "\156\1\155\1\154\1\uffff\1\145\1\165\1\60\1\164\1\156\1\163\2\uffff"+
-        "\1\144\1\145\1\160\1\145\1\156\1\145\1\uffff\1\145\1\164\1\145\1"+
-        "\157\1\155\1\157\3\60\1\162\1\163\1\60\1\155\1\142\1\156\3\uffff"+
-        "\1\151\1\75\1\uffff\1\40\1\145\1\163\1\141\2\uffff\1\162\1\145\3"+
-        "\60\3\uffff";
+
+    static final char[] DFA14_max = DFA.unpackEncodedStringToUnsignedChars(DFA14_maxS);
+
     static final String DFA14_maxS =
         "\1\176\4\uffff\1\52\2\uffff\1\160\1\57\2\uffff\1\75\1\uffff\1\75"+
         "\2\uffff\1\162\1\172\1\166\1\141\2\172\1\163\1\165\1\172\1\162\1"+
@@ -2028,15 +1953,26 @@ public class DialogLexer extends Lexer {
         "\1\145\1\157\1\155\1\157\3\172\1\162\1\163\1\172\1\155\1\142\1\156"+
         "\3\uffff\1\151\1\75\1\uffff\1\40\1\145\1\163\1\141\2\uffff\1\162"+
         "\1\145\3\172\3\uffff";
-    static final String DFA14_acceptS =
-        "\1\uffff\1\1\1\2\1\3\1\4\1\uffff\1\7\1\10\2\uffff\1\14\1\15\1\uffff"+
-        "\1\20\1\uffff\1\23\1\24\13\uffff\1\45\1\46\1\47\1\52\1\53\1\54\1"+
-        "\55\1\56\1\6\1\5\1\12\1\11\1\50\1\51\1\13\1\17\1\16\1\22\1\21\1"+
-        "\uffff\1\26\2\uffff\1\31\1\uffff\1\32\4\uffff\1\41\6\uffff\1\33"+
-        "\1\34\6\uffff\1\44\17\uffff\1\40\1\42\1\43\2\uffff\1\30\4\uffff"+
-        "\1\27\1\35\5\uffff\1\25\1\36\1\37";
+
+    static final char[] DFA14_min = DFA.unpackEncodedStringToUnsignedChars(DFA14_minS);
+
+    static final String DFA14_minS =
+        "\1\11\4\uffff\1\52\2\uffff\1\60\1\52\2\uffff\1\75\1\uffff\1\75\2"+
+        "\uffff\1\162\1\60\1\166\1\141\2\60\1\163\1\141\1\60\1\150\1\163"+
+        "\23\uffff\1\151\1\uffff\1\145\1\154\1\uffff\1\60\1\uffff\1\60\1"+
+        "\156\1\155\1\154\1\uffff\1\145\1\165\1\60\1\164\1\156\1\163\2\uffff"+
+        "\1\144\1\145\1\160\1\145\1\156\1\145\1\uffff\1\145\1\164\1\145\1"+
+        "\157\1\155\1\157\3\60\1\162\1\163\1\60\1\155\1\142\1\156\3\uffff"+
+        "\1\151\1\75\1\uffff\1\40\1\145\1\163\1\141\2\uffff\1\162\1\145\3"+
+        "\60\3\uffff";
+
+    static final short[] DFA14_special = DFA.unpackEncodedString(DFA14_specialS);
+
     static final String DFA14_specialS =
         "\155\uffff}>";
+
+    static final short[][] DFA14_transition;
+
     static final String[] DFA14_transitionS = {
             "\2\37\2\uffff\1\37\22\uffff\1\37\1\1\1\43\1\uffff\1\40\1\2\1"+
             "\uffff\1\43\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\11\12\42\1\12"+
@@ -2153,37 +2089,101 @@ public class DialogLexer extends Lexer {
             ""
     };
 
-    static final short[] DFA14_eot = DFA.unpackEncodedString(DFA14_eotS);
-    static final short[] DFA14_eof = DFA.unpackEncodedString(DFA14_eofS);
-    static final char[] DFA14_min = DFA.unpackEncodedStringToUnsignedChars(DFA14_minS);
-    static final char[] DFA14_max = DFA.unpackEncodedStringToUnsignedChars(DFA14_maxS);
-    static final short[] DFA14_accept = DFA.unpackEncodedString(DFA14_acceptS);
-    static final short[] DFA14_special = DFA.unpackEncodedString(DFA14_specialS);
-    static final short[][] DFA14_transition;
+    public static final int DIGIT=4;
+
+    public static final int EOF=-1;
+
+    public static final int IDENT=5;
+
+    public static final int INTEGER=6;
+
+    public static final int LETTER=7;
+
+    public static final int LINE_COMMENT=8;
+
+    public static final int ML_COMMENT=9;
+
+    public static final int NEWLINE=10;
+
+    public static final int NUMBER=11;
+
+    public static final int QUERY=12;
+
+    public static final int STRING_LITERAL=13;
+
+    public static final int T__15=15;
+
+    public static final int T__16=16;
+
+    public static final int T__17=17;
+
+    public static final int T__18=18;
+
+    public static final int T__19=19;
+
+    public static final int T__20=20;
+
+    public static final int T__21=21;
+
+    public static final int T__22=22;
+
+    public static final int T__23=23;
+
+    public static final int T__24=24;
+
+    public static final int T__25=25;
+
+    public static final int T__26=26;
+
+    public static final int T__27=27;
+
+    public static final int T__28=28;
+
+    public static final int T__29=29;
+
+    public static final int T__30=30;
+
+    public static final int T__31=31;
+
+    public static final int T__32=32;
+
+    public static final int T__33=33;
+
+    public static final int T__34=34;
+
+    public static final int T__35=35;
+
+    public static final int T__36=36;
+
+    public static final int T__37=37;
+
+    public static final int T__38=38;
+
+
+    public static final int T__39=39;
+    public static final int T__40=40;
+    public static final int T__41=41;
+    public static final int T__42=42;
+    public static final int T__43=43;
+    public static final int T__44=44;
+    public static final int T__45=45;
+    public static final int T__46=46;
+
+    public static final int T__47=47;
+    public static final int T__48=48;
+    public static final int T__49=49;
+    public static final int T__50=50;
+    public static final int T__51=51;
+    public static final int T__52=52;
+    public static final int T__53=53;
+
+    public static final int WS=14;
 
     static {
         int numStates = DFA14_transitionS.length;
         DFA14_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
             DFA14_transition[i] = DFA.unpackEncodedString(DFA14_transitionS[i]);
-        }
-    }
-
-    class DFA14 extends DFA {
-
-        public DFA14(BaseRecognizer recognizer) {
-            this.recognizer = recognizer;
-            this.decisionNumber = 14;
-            this.eot = DFA14_eot;
-            this.eof = DFA14_eof;
-            this.min = DFA14_min;
-            this.max = DFA14_max;
-            this.accept = DFA14_accept;
-            this.special = DFA14_special;
-            this.transition = DFA14_transition;
-        }
-        public String getDescription() {
-            return "1:1: Tokens : ( T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | ML_COMMENT | LINE_COMMENT | WS | QUERY | IDENT | NUMBER | STRING_LITERAL );";
         }
     }
  
