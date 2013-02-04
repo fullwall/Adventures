@@ -130,7 +130,7 @@ remember_statement returns [QueryRunnable statement] :
 
 remember_assignment [Remember.Builder builder] :
     { boolean isPersistent = false; long expiration = Long.MAX_VALUE; TimeUnit unit = TimeUnit.DAYS; }
-    q=query '=' expression 
+    q=QUERY '=' expression 
         (
             i1=INTEGER i2=time_unit { expiration = Long.parseLong($INTEGER.text); unit = $i2.unit; }
         )? 
@@ -186,7 +186,7 @@ term returns [Evaluator value] :
     | b=bool { $value = BooleanEvaluator.create($b.value); }
     | NUMBER { $value = NumberEvaluator.create($NUMBER.text); }
     | STRING_LITERAL { $value = StringEvaluator.create($STRING_LITERAL.text, this.variableSource); }
-    | q=query  { $value = VariableEvaluator.create(variableSource, $q.text); }
+    | q=QUERY  { $value = VariableEvaluator.create(variableSource, $q.text); }
     | '[' 
             { List<Evaluator> array = Lists.newArrayList(); }
             (
@@ -215,9 +215,6 @@ time_unit returns [TimeUnit unit] :
     | 'h' { $unit = TimeUnit.HOURS; }
     | 'd' { $unit = TimeUnit.DAYS; }
     ;
-  
-query :
-    '$' IDENT ('.' IDENT)*;
     
 ML_COMMENT :
     '/*' (options { greedy=false; }: .)* '*/' { $channel = HIDDEN; };
@@ -232,6 +229,9 @@ fragment NEWLINE :
 WS :
     (' ' | '\t' | '\n' | '\r')+ { $channel = HIDDEN; };
 
+QUERY :
+    '$' IDENT ('.' IDENT)* { setText(getText().substring(1)); };
+    
 IDENT :
     LETTER (LETTER | '_' | DIGIT)*;
 

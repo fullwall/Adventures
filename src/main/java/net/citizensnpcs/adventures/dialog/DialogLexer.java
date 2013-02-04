@@ -1,4 +1,4 @@
-// $ANTLR 3.4 Dialog.g 2013-02-04 10:42:21
+// $ANTLR 3.4 Dialog.g 2013-02-04 11:39:04
 
 package net.citizensnpcs.adventures.dialog;
 import java.util.concurrent.TimeUnit;
@@ -12,7 +12,6 @@ import java.util.ArrayList;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class DialogLexer extends Lexer {
     public static final int EOF=-1;
-    public static final int T__14=14;
     public static final int T__15=15;
     public static final int T__16=16;
     public static final int T__17=17;
@@ -52,7 +51,6 @@ public class DialogLexer extends Lexer {
     public static final int T__51=51;
     public static final int T__52=52;
     public static final int T__53=53;
-    public static final int T__54=54;
     public static final int DIGIT=4;
     public static final int IDENT=5;
     public static final int INTEGER=6;
@@ -61,8 +59,9 @@ public class DialogLexer extends Lexer {
     public static final int ML_COMMENT=9;
     public static final int NEWLINE=10;
     public static final int NUMBER=11;
-    public static final int STRING_LITERAL=12;
-    public static final int WS=13;
+    public static final int QUERY=12;
+    public static final int STRING_LITERAL=13;
+    public static final int WS=14;
 
     /*  @Override
         public void reportError(RecognitionException e) {
@@ -89,10 +88,10 @@ public class DialogLexer extends Lexer {
     }
     public String getGrammarFileName() { return "Dialog.g"; }
 
-    // $ANTLR start "T__14"
-    public final void mT__14() throws RecognitionException {
+    // $ANTLR start "T__15"
+    public final void mT__15() throws RecognitionException {
         try {
-            int _type = T__14;
+            int _type = T__15;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // Dialog.g:22:7: ( '!=' )
             // Dialog.g:22:9: '!='
@@ -110,27 +109,6 @@ public class DialogLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "T__14"
-
-    // $ANTLR start "T__15"
-    public final void mT__15() throws RecognitionException {
-        try {
-            int _type = T__15;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:23:7: ( '$' )
-            // Dialog.g:23:9: '$'
-            {
-            match('$'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
     // $ANTLR end "T__15"
 
     // $ANTLR start "T__16"
@@ -138,8 +116,8 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__16;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:24:7: ( '%' )
-            // Dialog.g:24:9: '%'
+            // Dialog.g:23:7: ( '%' )
+            // Dialog.g:23:9: '%'
             {
             match('%'); 
 
@@ -159,8 +137,8 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__17;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:25:7: ( '(' )
-            // Dialog.g:25:9: '('
+            // Dialog.g:24:7: ( '(' )
+            // Dialog.g:24:9: '('
             {
             match('('); 
 
@@ -180,8 +158,8 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__18;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:26:7: ( ')' )
-            // Dialog.g:26:9: ')'
+            // Dialog.g:25:7: ( ')' )
+            // Dialog.g:25:9: ')'
             {
             match(')'); 
 
@@ -201,8 +179,8 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__19;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:27:7: ( '*' )
-            // Dialog.g:27:9: '*'
+            // Dialog.g:26:7: ( '*' )
+            // Dialog.g:26:9: '*'
             {
             match('*'); 
 
@@ -222,8 +200,8 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:28:7: ( '**' )
-            // Dialog.g:28:9: '**'
+            // Dialog.g:27:7: ( '**' )
+            // Dialog.g:27:9: '**'
             {
             match("**"); 
 
@@ -245,8 +223,8 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:29:7: ( '+' )
-            // Dialog.g:29:9: '+'
+            // Dialog.g:28:7: ( '+' )
+            // Dialog.g:28:9: '+'
             {
             match('+'); 
 
@@ -266,8 +244,8 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:30:7: ( ',' )
-            // Dialog.g:30:9: ','
+            // Dialog.g:29:7: ( ',' )
+            // Dialog.g:29:9: ','
             {
             match(','); 
 
@@ -287,8 +265,8 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:31:7: ( '-' )
-            // Dialog.g:31:9: '-'
+            // Dialog.g:30:7: ( '-' )
+            // Dialog.g:30:9: '-'
             {
             match('-'); 
 
@@ -308,8 +286,8 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:32:7: ( '-p' )
-            // Dialog.g:32:9: '-p'
+            // Dialog.g:31:7: ( '-p' )
+            // Dialog.g:31:9: '-p'
             {
             match("-p"); 
 
@@ -331,10 +309,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:33:7: ( '.' )
-            // Dialog.g:33:9: '.'
+            // Dialog.g:32:7: ( '/' )
+            // Dialog.g:32:9: '/'
             {
-            match('.'); 
+            match('/'); 
 
             }
 
@@ -352,10 +330,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:34:7: ( '/' )
-            // Dialog.g:34:9: '/'
+            // Dialog.g:33:7: ( ':' )
+            // Dialog.g:33:9: ':'
             {
-            match('/'); 
+            match(':'); 
 
             }
 
@@ -373,10 +351,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:35:7: ( ':' )
-            // Dialog.g:35:9: ':'
+            // Dialog.g:34:7: ( ';' )
+            // Dialog.g:34:9: ';'
             {
-            match(':'); 
+            match(';'); 
 
             }
 
@@ -394,10 +372,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:36:7: ( ';' )
-            // Dialog.g:36:9: ';'
+            // Dialog.g:35:7: ( '<' )
+            // Dialog.g:35:9: '<'
             {
-            match(';'); 
+            match('<'); 
 
             }
 
@@ -415,10 +393,12 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:37:7: ( '<' )
-            // Dialog.g:37:9: '<'
+            // Dialog.g:36:7: ( '<=' )
+            // Dialog.g:36:9: '<='
             {
-            match('<'); 
+            match("<="); 
+
+
 
             }
 
@@ -436,12 +416,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:38:7: ( '<=' )
-            // Dialog.g:38:9: '<='
+            // Dialog.g:37:7: ( '=' )
+            // Dialog.g:37:9: '='
             {
-            match("<="); 
-
-
+            match('='); 
 
             }
 
@@ -459,10 +437,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:39:7: ( '=' )
-            // Dialog.g:39:9: '='
+            // Dialog.g:38:7: ( '>' )
+            // Dialog.g:38:9: '>'
             {
-            match('='); 
+            match('>'); 
 
             }
 
@@ -480,10 +458,12 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:40:7: ( '>' )
-            // Dialog.g:40:9: '>'
+            // Dialog.g:39:7: ( '>=' )
+            // Dialog.g:39:9: '>='
             {
-            match('>'); 
+            match(">="); 
+
+
 
             }
 
@@ -501,12 +481,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:41:7: ( '>=' )
-            // Dialog.g:41:9: '>='
+            // Dialog.g:40:7: ( '[' )
+            // Dialog.g:40:9: '['
             {
-            match(">="); 
-
-
+            match('['); 
 
             }
 
@@ -524,10 +502,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:42:7: ( '[' )
-            // Dialog.g:42:9: '['
+            // Dialog.g:41:7: ( ']' )
+            // Dialog.g:41:9: ']'
             {
-            match('['); 
+            match(']'); 
 
             }
 
@@ -545,10 +523,12 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:43:7: ( ']' )
-            // Dialog.g:43:9: ']'
+            // Dialog.g:42:7: ( 'criteria' )
+            // Dialog.g:42:9: 'criteria'
             {
-            match(']'); 
+            match("criteria"); 
+
+
 
             }
 
@@ -566,12 +546,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:44:7: ( 'criteria' )
-            // Dialog.g:44:9: 'criteria'
+            // Dialog.g:43:7: ( 'd' )
+            // Dialog.g:43:9: 'd'
             {
-            match("criteria"); 
-
-
+            match('d'); 
 
             }
 
@@ -589,10 +567,12 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__37;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:45:7: ( 'd' )
-            // Dialog.g:45:9: 'd'
+            // Dialog.g:44:7: ( 'events=' )
+            // Dialog.g:44:9: 'events='
             {
-            match('d'); 
+            match("events="); 
+
+
 
             }
 
@@ -610,10 +590,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__38;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:46:7: ( 'events=' )
-            // Dialog.g:46:9: 'events='
+            // Dialog.g:45:7: ( 'false' )
+            // Dialog.g:45:9: 'false'
             {
-            match("events="); 
+            match("false"); 
 
 
 
@@ -633,12 +613,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__39;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:47:7: ( 'false' )
-            // Dialog.g:47:9: 'false'
+            // Dialog.g:46:7: ( 'h' )
+            // Dialog.g:46:9: 'h'
             {
-            match("false"); 
-
-
+            match('h'); 
 
             }
 
@@ -656,10 +634,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__40;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:48:7: ( 'h' )
-            // Dialog.g:48:9: 'h'
+            // Dialog.g:47:7: ( 'm' )
+            // Dialog.g:47:9: 'm'
             {
-            match('h'); 
+            match('m'); 
 
             }
 
@@ -677,10 +655,12 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__41;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:49:7: ( 'm' )
-            // Dialog.g:49:9: 'm'
+            // Dialog.g:48:7: ( 'ms' )
+            // Dialog.g:48:9: 'ms'
             {
-            match('m'); 
+            match("ms"); 
+
+
 
             }
 
@@ -698,10 +678,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__42;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:50:7: ( 'ms' )
-            // Dialog.g:50:9: 'ms'
+            // Dialog.g:49:7: ( 'ns' )
+            // Dialog.g:49:9: 'ns'
             {
-            match("ms"); 
+            match("ns"); 
 
 
 
@@ -721,10 +701,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:51:7: ( 'ns' )
-            // Dialog.g:51:9: 'ns'
+            // Dialog.g:50:7: ( 'random {' )
+            // Dialog.g:50:9: 'random {'
             {
-            match("ns"); 
+            match("random {"); 
 
 
 
@@ -744,10 +724,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__44;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:52:7: ( 'random {' )
-            // Dialog.g:52:9: 'random {'
+            // Dialog.g:51:7: ( 'remember' )
+            // Dialog.g:51:9: 'remember'
             {
-            match("random {"); 
+            match("remember"); 
 
 
 
@@ -767,10 +747,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__45;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:53:7: ( 'remember' )
-            // Dialog.g:53:9: 'remember'
+            // Dialog.g:52:7: ( 'response' )
+            // Dialog.g:52:9: 'response'
             {
-            match("remember"); 
+            match("response"); 
 
 
 
@@ -790,10 +770,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__46;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:54:7: ( 'response' )
-            // Dialog.g:54:9: 'response'
+            // Dialog.g:53:7: ( 'rule' )
+            // Dialog.g:53:9: 'rule'
             {
-            match("response"); 
+            match("rule"); 
 
 
 
@@ -813,12 +793,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__47;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:55:7: ( 'rule' )
-            // Dialog.g:55:9: 'rule'
+            // Dialog.g:54:7: ( 's' )
+            // Dialog.g:54:9: 's'
             {
-            match("rule"); 
-
-
+            match('s'); 
 
             }
 
@@ -836,10 +814,12 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__48;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:56:7: ( 's' )
-            // Dialog.g:56:9: 's'
+            // Dialog.g:55:7: ( 'then' )
+            // Dialog.g:55:9: 'then'
             {
-            match('s'); 
+            match("then"); 
+
+
 
             }
 
@@ -857,10 +837,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__49;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:57:7: ( 'then' )
-            // Dialog.g:57:9: 'then'
+            // Dialog.g:56:7: ( 'true' )
+            // Dialog.g:56:9: 'true'
             {
-            match("then"); 
+            match("true"); 
 
 
 
@@ -880,10 +860,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__50;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:58:7: ( 'true' )
-            // Dialog.g:58:9: 'true'
+            // Dialog.g:57:7: ( 'us' )
+            // Dialog.g:57:9: 'us'
             {
-            match("true"); 
+            match("us"); 
 
 
 
@@ -903,12 +883,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__51;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:59:7: ( 'us' )
-            // Dialog.g:59:9: 'us'
+            // Dialog.g:58:7: ( '{' )
+            // Dialog.g:58:9: '{'
             {
-            match("us"); 
-
-
+            match('{'); 
 
             }
 
@@ -926,10 +904,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__52;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:60:7: ( '{' )
-            // Dialog.g:60:9: '{'
+            // Dialog.g:59:7: ( '}' )
+            // Dialog.g:59:9: '}'
             {
-            match('{'); 
+            match('}'); 
 
             }
 
@@ -947,29 +925,8 @@ public class DialogLexer extends Lexer {
         try {
             int _type = T__53;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:61:7: ( '}' )
-            // Dialog.g:61:9: '}'
-            {
-            match('}'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__53"
-
-    // $ANTLR start "T__54"
-    public final void mT__54() throws RecognitionException {
-        try {
-            int _type = T__54;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:62:7: ( '~=' )
-            // Dialog.g:62:9: '~='
+            // Dialog.g:60:7: ( '~=' )
+            // Dialog.g:60:9: '~='
             {
             match("~="); 
 
@@ -984,21 +941,21 @@ public class DialogLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "T__54"
+    // $ANTLR end "T__53"
 
     // $ANTLR start "ML_COMMENT"
     public final void mML_COMMENT() throws RecognitionException {
         try {
             int _type = ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:222:12: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // Dialog.g:223:5: '/*' ( options {greedy=false; } : . )* '*/'
+            // Dialog.g:219:12: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // Dialog.g:220:5: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
 
 
-            // Dialog.g:223:10: ( options {greedy=false; } : . )*
+            // Dialog.g:220:10: ( options {greedy=false; } : . )*
             loop1:
             do {
                 int alt1=2;
@@ -1023,7 +980,7 @@ public class DialogLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // Dialog.g:223:38: .
+            	    // Dialog.g:220:38: .
             	    {
             	    matchAny(); 
 
@@ -1058,14 +1015,14 @@ public class DialogLexer extends Lexer {
         try {
             int _type = LINE_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:225:14: ( '//' (~ NEWLINE )* )
-            // Dialog.g:226:5: '//' (~ NEWLINE )*
+            // Dialog.g:222:14: ( '//' (~ NEWLINE )* )
+            // Dialog.g:223:5: '//' (~ NEWLINE )*
             {
             match("//"); 
 
 
 
-            // Dialog.g:226:10: (~ NEWLINE )*
+            // Dialog.g:223:10: (~ NEWLINE )*
             loop2:
             do {
                 int alt2=2;
@@ -1115,7 +1072,7 @@ public class DialogLexer extends Lexer {
     // $ANTLR start "NEWLINE"
     public final void mNEWLINE() throws RecognitionException {
         try {
-            // Dialog.g:228:18: ( '\\n' | '\\r' )
+            // Dialog.g:225:18: ( '\\n' | '\\r' )
             // Dialog.g:
             {
             if ( input.LA(1)=='\n'||input.LA(1)=='\r' ) {
@@ -1143,10 +1100,10 @@ public class DialogLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Dialog.g:232:4: ( ( ' ' | '\\t' | '\\n' | '\\r' )+ )
-            // Dialog.g:233:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
+            // Dialog.g:229:4: ( ( ' ' | '\\t' | '\\n' | '\\r' )+ )
+            // Dialog.g:230:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
             {
-            // Dialog.g:233:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
+            // Dialog.g:230:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
             int cnt3=0;
             loop3:
             do {
@@ -1198,6 +1155,61 @@ public class DialogLexer extends Lexer {
     }
     // $ANTLR end "WS"
 
+    // $ANTLR start "QUERY"
+    public final void mQUERY() throws RecognitionException {
+        try {
+            int _type = QUERY;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Dialog.g:232:7: ( '$' IDENT ( '.' IDENT )* )
+            // Dialog.g:233:5: '$' IDENT ( '.' IDENT )*
+            {
+            match('$'); 
+
+            mIDENT(); 
+
+
+            // Dialog.g:233:15: ( '.' IDENT )*
+            loop4:
+            do {
+                int alt4=2;
+                int LA4_0 = input.LA(1);
+
+                if ( (LA4_0=='.') ) {
+                    alt4=1;
+                }
+
+
+                switch (alt4) {
+            	case 1 :
+            	    // Dialog.g:233:16: '.' IDENT
+            	    {
+            	    match('.'); 
+
+            	    mIDENT(); 
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop4;
+                }
+            } while (true);
+
+
+             setText(getText().substring(1)); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "QUERY"
+
     // $ANTLR start "IDENT"
     public final void mIDENT() throws RecognitionException {
         try {
@@ -1210,17 +1222,17 @@ public class DialogLexer extends Lexer {
 
 
             // Dialog.g:236:12: ( LETTER | '_' | DIGIT )*
-            loop4:
+            loop5:
             do {
-                int alt4=2;
-                int LA4_0 = input.LA(1);
+                int alt5=2;
+                int LA5_0 = input.LA(1);
 
-                if ( ((LA4_0 >= '0' && LA4_0 <= '9')||(LA4_0 >= 'A' && LA4_0 <= 'Z')||LA4_0=='_'||(LA4_0 >= 'a' && LA4_0 <= 'z')) ) {
-                    alt4=1;
+                if ( ((LA5_0 >= '0' && LA5_0 <= '9')||(LA5_0 >= 'A' && LA5_0 <= 'Z')||LA5_0=='_'||(LA5_0 >= 'a' && LA5_0 <= 'z')) ) {
+                    alt5=1;
                 }
 
 
-                switch (alt4) {
+                switch (alt5) {
             	case 1 :
             	    // Dialog.g:
             	    {
@@ -1238,7 +1250,7 @@ public class DialogLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop4;
+            	    break loop5;
                 }
             } while (true);
 
@@ -1313,18 +1325,18 @@ public class DialogLexer extends Lexer {
             // Dialog.g:245:5: ( DIGIT )+
             {
             // Dialog.g:245:5: ( DIGIT )+
-            int cnt5=0;
-            loop5:
+            int cnt6=0;
+            loop6:
             do {
-                int alt5=2;
-                int LA5_0 = input.LA(1);
+                int alt6=2;
+                int LA6_0 = input.LA(1);
 
-                if ( ((LA5_0 >= '0' && LA5_0 <= '9')) ) {
-                    alt5=1;
+                if ( ((LA6_0 >= '0' && LA6_0 <= '9')) ) {
+                    alt6=1;
                 }
 
 
-                switch (alt5) {
+                switch (alt6) {
             	case 1 :
             	    // Dialog.g:
             	    {
@@ -1342,12 +1354,12 @@ public class DialogLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt5 >= 1 ) break loop5;
+            	    if ( cnt6 >= 1 ) break loop6;
                         EarlyExitException eee =
-                            new EarlyExitException(5, input);
+                            new EarlyExitException(6, input);
                         throw eee;
                 }
-                cnt5++;
+                cnt6++;
             } while (true);
 
 
@@ -1370,13 +1382,13 @@ public class DialogLexer extends Lexer {
             // Dialog.g:248:5: ( '-' )? ( DIGIT )+ ( '.' ( DIGIT )+ )?
             {
             // Dialog.g:248:5: ( '-' )?
-            int alt6=2;
-            int LA6_0 = input.LA(1);
+            int alt7=2;
+            int LA7_0 = input.LA(1);
 
-            if ( (LA6_0=='-') ) {
-                alt6=1;
+            if ( (LA7_0=='-') ) {
+                alt7=1;
             }
-            switch (alt6) {
+            switch (alt7) {
                 case 1 :
                     // Dialog.g:248:5: '-'
                     {
@@ -1389,18 +1401,18 @@ public class DialogLexer extends Lexer {
 
 
             // Dialog.g:248:10: ( DIGIT )+
-            int cnt7=0;
-            loop7:
+            int cnt8=0;
+            loop8:
             do {
-                int alt7=2;
-                int LA7_0 = input.LA(1);
+                int alt8=2;
+                int LA8_0 = input.LA(1);
 
-                if ( ((LA7_0 >= '0' && LA7_0 <= '9')) ) {
-                    alt7=1;
+                if ( ((LA8_0 >= '0' && LA8_0 <= '9')) ) {
+                    alt8=1;
                 }
 
 
-                switch (alt7) {
+                switch (alt8) {
             	case 1 :
             	    // Dialog.g:
             	    {
@@ -1418,41 +1430,41 @@ public class DialogLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt7 >= 1 ) break loop7;
+            	    if ( cnt8 >= 1 ) break loop8;
                         EarlyExitException eee =
-                            new EarlyExitException(7, input);
+                            new EarlyExitException(8, input);
                         throw eee;
                 }
-                cnt7++;
+                cnt8++;
             } while (true);
 
 
             // Dialog.g:248:17: ( '.' ( DIGIT )+ )?
-            int alt9=2;
-            int LA9_0 = input.LA(1);
+            int alt10=2;
+            int LA10_0 = input.LA(1);
 
-            if ( (LA9_0=='.') ) {
-                alt9=1;
+            if ( (LA10_0=='.') ) {
+                alt10=1;
             }
-            switch (alt9) {
+            switch (alt10) {
                 case 1 :
                     // Dialog.g:248:18: '.' ( DIGIT )+
                     {
                     match('.'); 
 
                     // Dialog.g:248:22: ( DIGIT )+
-                    int cnt8=0;
-                    loop8:
+                    int cnt9=0;
+                    loop9:
                     do {
-                        int alt8=2;
-                        int LA8_0 = input.LA(1);
+                        int alt9=2;
+                        int LA9_0 = input.LA(1);
 
-                        if ( ((LA8_0 >= '0' && LA8_0 <= '9')) ) {
-                            alt8=1;
+                        if ( ((LA9_0 >= '0' && LA9_0 <= '9')) ) {
+                            alt9=1;
                         }
 
 
-                        switch (alt8) {
+                        switch (alt9) {
                     	case 1 :
                     	    // Dialog.g:
                     	    {
@@ -1470,12 +1482,12 @@ public class DialogLexer extends Lexer {
                     	    break;
 
                     	default :
-                    	    if ( cnt8 >= 1 ) break loop8;
+                    	    if ( cnt9 >= 1 ) break loop9;
                                 EarlyExitException eee =
-                                    new EarlyExitException(8, input);
+                                    new EarlyExitException(9, input);
                                 throw eee;
                         }
-                        cnt8++;
+                        cnt9++;
                     } while (true);
 
 
@@ -1502,43 +1514,43 @@ public class DialogLexer extends Lexer {
             int _type = STRING_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // Dialog.g:250:16: ( '\"' ( . )* '\"' | '\\'' ( . )* '\\'' )
-            int alt12=2;
-            int LA12_0 = input.LA(1);
+            int alt13=2;
+            int LA13_0 = input.LA(1);
 
-            if ( (LA12_0=='\"') ) {
-                alt12=1;
+            if ( (LA13_0=='\"') ) {
+                alt13=1;
             }
-            else if ( (LA12_0=='\'') ) {
-                alt12=2;
+            else if ( (LA13_0=='\'') ) {
+                alt13=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 12, 0, input);
+                    new NoViableAltException("", 13, 0, input);
 
                 throw nvae;
 
             }
-            switch (alt12) {
+            switch (alt13) {
                 case 1 :
                     // Dialog.g:251:5: '\"' ( . )* '\"'
                     {
                     match('\"'); 
 
                     // Dialog.g:251:9: ( . )*
-                    loop10:
+                    loop11:
                     do {
-                        int alt10=2;
-                        int LA10_0 = input.LA(1);
+                        int alt11=2;
+                        int LA11_0 = input.LA(1);
 
-                        if ( (LA10_0=='\"') ) {
-                            alt10=2;
+                        if ( (LA11_0=='\"') ) {
+                            alt11=2;
                         }
-                        else if ( ((LA10_0 >= '\u0000' && LA10_0 <= '!')||(LA10_0 >= '#' && LA10_0 <= '\uFFFF')) ) {
-                            alt10=1;
+                        else if ( ((LA11_0 >= '\u0000' && LA11_0 <= '!')||(LA11_0 >= '#' && LA11_0 <= '\uFFFF')) ) {
+                            alt11=1;
                         }
 
 
-                        switch (alt10) {
+                        switch (alt11) {
                     	case 1 :
                     	    // Dialog.g:251:9: .
                     	    {
@@ -1548,7 +1560,7 @@ public class DialogLexer extends Lexer {
                     	    break;
 
                     	default :
-                    	    break loop10;
+                    	    break loop11;
                         }
                     } while (true);
 
@@ -1565,20 +1577,20 @@ public class DialogLexer extends Lexer {
                     match('\''); 
 
                     // Dialog.g:252:12: ( . )*
-                    loop11:
+                    loop12:
                     do {
-                        int alt11=2;
-                        int LA11_0 = input.LA(1);
+                        int alt12=2;
+                        int LA12_0 = input.LA(1);
 
-                        if ( (LA11_0=='\'') ) {
-                            alt11=2;
+                        if ( (LA12_0=='\'') ) {
+                            alt12=2;
                         }
-                        else if ( ((LA11_0 >= '\u0000' && LA11_0 <= '&')||(LA11_0 >= '(' && LA11_0 <= '\uFFFF')) ) {
-                            alt11=1;
+                        else if ( ((LA12_0 >= '\u0000' && LA12_0 <= '&')||(LA12_0 >= '(' && LA12_0 <= '\uFFFF')) ) {
+                            alt12=1;
                         }
 
 
-                        switch (alt11) {
+                        switch (alt12) {
                     	case 1 :
                     	    // Dialog.g:252:12: .
                     	    {
@@ -1588,7 +1600,7 @@ public class DialogLexer extends Lexer {
                     	    break;
 
                     	default :
-                    	    break loop11;
+                    	    break loop12;
                         }
                     } while (true);
 
@@ -1611,380 +1623,372 @@ public class DialogLexer extends Lexer {
     // $ANTLR end "STRING_LITERAL"
 
     public void mTokens() throws RecognitionException {
-        // Dialog.g:1:8: ( T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | ML_COMMENT | LINE_COMMENT | WS | IDENT | NUMBER | STRING_LITERAL )
-        int alt13=47;
-        alt13 = dfa13.predict(input);
-        switch (alt13) {
+        // Dialog.g:1:8: ( T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | ML_COMMENT | LINE_COMMENT | WS | QUERY | IDENT | NUMBER | STRING_LITERAL )
+        int alt14=46;
+        alt14 = dfa14.predict(input);
+        switch (alt14) {
             case 1 :
-                // Dialog.g:1:10: T__14
-                {
-                mT__14(); 
-
-
-                }
-                break;
-            case 2 :
-                // Dialog.g:1:16: T__15
+                // Dialog.g:1:10: T__15
                 {
                 mT__15(); 
 
 
                 }
                 break;
-            case 3 :
-                // Dialog.g:1:22: T__16
+            case 2 :
+                // Dialog.g:1:16: T__16
                 {
                 mT__16(); 
 
 
                 }
                 break;
-            case 4 :
-                // Dialog.g:1:28: T__17
+            case 3 :
+                // Dialog.g:1:22: T__17
                 {
                 mT__17(); 
 
 
                 }
                 break;
-            case 5 :
-                // Dialog.g:1:34: T__18
+            case 4 :
+                // Dialog.g:1:28: T__18
                 {
                 mT__18(); 
 
 
                 }
                 break;
-            case 6 :
-                // Dialog.g:1:40: T__19
+            case 5 :
+                // Dialog.g:1:34: T__19
                 {
                 mT__19(); 
 
 
                 }
                 break;
-            case 7 :
-                // Dialog.g:1:46: T__20
+            case 6 :
+                // Dialog.g:1:40: T__20
                 {
                 mT__20(); 
 
 
                 }
                 break;
-            case 8 :
-                // Dialog.g:1:52: T__21
+            case 7 :
+                // Dialog.g:1:46: T__21
                 {
                 mT__21(); 
 
 
                 }
                 break;
-            case 9 :
-                // Dialog.g:1:58: T__22
+            case 8 :
+                // Dialog.g:1:52: T__22
                 {
                 mT__22(); 
 
 
                 }
                 break;
-            case 10 :
-                // Dialog.g:1:64: T__23
+            case 9 :
+                // Dialog.g:1:58: T__23
                 {
                 mT__23(); 
 
 
                 }
                 break;
-            case 11 :
-                // Dialog.g:1:70: T__24
+            case 10 :
+                // Dialog.g:1:64: T__24
                 {
                 mT__24(); 
 
 
                 }
                 break;
-            case 12 :
-                // Dialog.g:1:76: T__25
+            case 11 :
+                // Dialog.g:1:70: T__25
                 {
                 mT__25(); 
 
 
                 }
                 break;
-            case 13 :
-                // Dialog.g:1:82: T__26
+            case 12 :
+                // Dialog.g:1:76: T__26
                 {
                 mT__26(); 
 
 
                 }
                 break;
-            case 14 :
-                // Dialog.g:1:88: T__27
+            case 13 :
+                // Dialog.g:1:82: T__27
                 {
                 mT__27(); 
 
 
                 }
                 break;
-            case 15 :
-                // Dialog.g:1:94: T__28
+            case 14 :
+                // Dialog.g:1:88: T__28
                 {
                 mT__28(); 
 
 
                 }
                 break;
-            case 16 :
-                // Dialog.g:1:100: T__29
+            case 15 :
+                // Dialog.g:1:94: T__29
                 {
                 mT__29(); 
 
 
                 }
                 break;
-            case 17 :
-                // Dialog.g:1:106: T__30
+            case 16 :
+                // Dialog.g:1:100: T__30
                 {
                 mT__30(); 
 
 
                 }
                 break;
-            case 18 :
-                // Dialog.g:1:112: T__31
+            case 17 :
+                // Dialog.g:1:106: T__31
                 {
                 mT__31(); 
 
 
                 }
                 break;
-            case 19 :
-                // Dialog.g:1:118: T__32
+            case 18 :
+                // Dialog.g:1:112: T__32
                 {
                 mT__32(); 
 
 
                 }
                 break;
-            case 20 :
-                // Dialog.g:1:124: T__33
+            case 19 :
+                // Dialog.g:1:118: T__33
                 {
                 mT__33(); 
 
 
                 }
                 break;
-            case 21 :
-                // Dialog.g:1:130: T__34
+            case 20 :
+                // Dialog.g:1:124: T__34
                 {
                 mT__34(); 
 
 
                 }
                 break;
-            case 22 :
-                // Dialog.g:1:136: T__35
+            case 21 :
+                // Dialog.g:1:130: T__35
                 {
                 mT__35(); 
 
 
                 }
                 break;
-            case 23 :
-                // Dialog.g:1:142: T__36
+            case 22 :
+                // Dialog.g:1:136: T__36
                 {
                 mT__36(); 
 
 
                 }
                 break;
-            case 24 :
-                // Dialog.g:1:148: T__37
+            case 23 :
+                // Dialog.g:1:142: T__37
                 {
                 mT__37(); 
 
 
                 }
                 break;
-            case 25 :
-                // Dialog.g:1:154: T__38
+            case 24 :
+                // Dialog.g:1:148: T__38
                 {
                 mT__38(); 
 
 
                 }
                 break;
-            case 26 :
-                // Dialog.g:1:160: T__39
+            case 25 :
+                // Dialog.g:1:154: T__39
                 {
                 mT__39(); 
 
 
                 }
                 break;
-            case 27 :
-                // Dialog.g:1:166: T__40
+            case 26 :
+                // Dialog.g:1:160: T__40
                 {
                 mT__40(); 
 
 
                 }
                 break;
-            case 28 :
-                // Dialog.g:1:172: T__41
+            case 27 :
+                // Dialog.g:1:166: T__41
                 {
                 mT__41(); 
 
 
                 }
                 break;
-            case 29 :
-                // Dialog.g:1:178: T__42
+            case 28 :
+                // Dialog.g:1:172: T__42
                 {
                 mT__42(); 
 
 
                 }
                 break;
-            case 30 :
-                // Dialog.g:1:184: T__43
+            case 29 :
+                // Dialog.g:1:178: T__43
                 {
                 mT__43(); 
 
 
                 }
                 break;
-            case 31 :
-                // Dialog.g:1:190: T__44
+            case 30 :
+                // Dialog.g:1:184: T__44
                 {
                 mT__44(); 
 
 
                 }
                 break;
-            case 32 :
-                // Dialog.g:1:196: T__45
+            case 31 :
+                // Dialog.g:1:190: T__45
                 {
                 mT__45(); 
 
 
                 }
                 break;
-            case 33 :
-                // Dialog.g:1:202: T__46
+            case 32 :
+                // Dialog.g:1:196: T__46
                 {
                 mT__46(); 
 
 
                 }
                 break;
-            case 34 :
-                // Dialog.g:1:208: T__47
+            case 33 :
+                // Dialog.g:1:202: T__47
                 {
                 mT__47(); 
 
 
                 }
                 break;
-            case 35 :
-                // Dialog.g:1:214: T__48
+            case 34 :
+                // Dialog.g:1:208: T__48
                 {
                 mT__48(); 
 
 
                 }
                 break;
-            case 36 :
-                // Dialog.g:1:220: T__49
+            case 35 :
+                // Dialog.g:1:214: T__49
                 {
                 mT__49(); 
 
 
                 }
                 break;
-            case 37 :
-                // Dialog.g:1:226: T__50
+            case 36 :
+                // Dialog.g:1:220: T__50
                 {
                 mT__50(); 
 
 
                 }
                 break;
-            case 38 :
-                // Dialog.g:1:232: T__51
+            case 37 :
+                // Dialog.g:1:226: T__51
                 {
                 mT__51(); 
 
 
                 }
                 break;
-            case 39 :
-                // Dialog.g:1:238: T__52
+            case 38 :
+                // Dialog.g:1:232: T__52
                 {
                 mT__52(); 
 
 
                 }
                 break;
-            case 40 :
-                // Dialog.g:1:244: T__53
+            case 39 :
+                // Dialog.g:1:238: T__53
                 {
                 mT__53(); 
 
 
                 }
                 break;
-            case 41 :
-                // Dialog.g:1:250: T__54
-                {
-                mT__54(); 
-
-
-                }
-                break;
-            case 42 :
-                // Dialog.g:1:256: ML_COMMENT
+            case 40 :
+                // Dialog.g:1:244: ML_COMMENT
                 {
                 mML_COMMENT(); 
 
 
                 }
                 break;
-            case 43 :
-                // Dialog.g:1:267: LINE_COMMENT
+            case 41 :
+                // Dialog.g:1:255: LINE_COMMENT
                 {
                 mLINE_COMMENT(); 
 
 
                 }
                 break;
-            case 44 :
-                // Dialog.g:1:280: WS
+            case 42 :
+                // Dialog.g:1:268: WS
                 {
                 mWS(); 
 
 
                 }
                 break;
-            case 45 :
-                // Dialog.g:1:283: IDENT
+            case 43 :
+                // Dialog.g:1:271: QUERY
+                {
+                mQUERY(); 
+
+
+                }
+                break;
+            case 44 :
+                // Dialog.g:1:277: IDENT
                 {
                 mIDENT(); 
 
 
                 }
                 break;
-            case 46 :
-                // Dialog.g:1:289: NUMBER
+            case 45 :
+                // Dialog.g:1:283: NUMBER
                 {
                 mNUMBER(); 
 
 
                 }
                 break;
-            case 47 :
-                // Dialog.g:1:296: STRING_LITERAL
+            case 46 :
+                // Dialog.g:1:290: STRING_LITERAL
                 {
                 mSTRING_LITERAL(); 
 
@@ -1997,190 +2001,189 @@ public class DialogLexer extends Lexer {
     }
 
 
-    protected DFA13 dfa13 = new DFA13(this);
-    static final String DFA13_eotS =
-        "\6\uffff\1\46\2\uffff\1\50\1\uffff\1\53\2\uffff\1\55\1\uffff\1\57"+
-        "\2\uffff\1\42\1\61\2\42\1\64\1\66\2\42\1\73\2\42\22\uffff\1\42\1"+
-        "\uffff\2\42\1\uffff\1\102\1\uffff\1\103\3\42\1\uffff\2\42\1\112"+
-        "\3\42\2\uffff\6\42\1\uffff\6\42\1\132\1\133\1\134\2\42\1\137\3\42"+
-        "\3\uffff\2\42\1\uffff\4\42\2\uffff\2\42\1\153\1\154\1\155\3\uffff";
-    static final String DFA13_eofS =
-        "\156\uffff";
-    static final String DFA13_minS =
-        "\1\11\5\uffff\1\52\2\uffff\1\60\1\uffff\1\52\2\uffff\1\75\1\uffff"+
-        "\1\75\2\uffff\1\162\1\60\1\166\1\141\2\60\1\163\1\141\1\60\1\150"+
-        "\1\163\22\uffff\1\151\1\uffff\1\145\1\154\1\uffff\1\60\1\uffff\1"+
-        "\60\1\156\1\155\1\154\1\uffff\1\145\1\165\1\60\1\164\1\156\1\163"+
+    protected DFA14 dfa14 = new DFA14(this);
+    static final String DFA14_eotS =
+        "\5\uffff\1\45\2\uffff\1\47\1\52\2\uffff\1\54\1\uffff\1\56\2\uffff"+
+        "\1\41\1\60\2\41\1\63\1\65\2\41\1\72\2\41\23\uffff\1\41\1\uffff\2"+
+        "\41\1\uffff\1\101\1\uffff\1\102\3\41\1\uffff\2\41\1\111\3\41\2\uffff"+
+        "\6\41\1\uffff\6\41\1\131\1\132\1\133\2\41\1\136\3\41\3\uffff\2\41"+
+        "\1\uffff\4\41\2\uffff\2\41\1\152\1\153\1\154\3\uffff";
+    static final String DFA14_eofS =
+        "\155\uffff";
+    static final String DFA14_minS =
+        "\1\11\4\uffff\1\52\2\uffff\1\60\1\52\2\uffff\1\75\1\uffff\1\75\2"+
+        "\uffff\1\162\1\60\1\166\1\141\2\60\1\163\1\141\1\60\1\150\1\163"+
+        "\23\uffff\1\151\1\uffff\1\145\1\154\1\uffff\1\60\1\uffff\1\60\1"+
+        "\156\1\155\1\154\1\uffff\1\145\1\165\1\60\1\164\1\156\1\163\2\uffff"+
+        "\1\144\1\145\1\160\1\145\1\156\1\145\1\uffff\1\145\1\164\1\145\1"+
+        "\157\1\155\1\157\3\60\1\162\1\163\1\60\1\155\1\142\1\156\3\uffff"+
+        "\1\151\1\75\1\uffff\1\40\1\145\1\163\1\141\2\uffff\1\162\1\145\3"+
+        "\60\3\uffff";
+    static final String DFA14_maxS =
+        "\1\176\4\uffff\1\52\2\uffff\1\160\1\57\2\uffff\1\75\1\uffff\1\75"+
+        "\2\uffff\1\162\1\172\1\166\1\141\2\172\1\163\1\165\1\172\1\162\1"+
+        "\163\23\uffff\1\151\1\uffff\1\145\1\154\1\uffff\1\172\1\uffff\1"+
+        "\172\1\156\1\163\1\154\1\uffff\1\145\1\165\1\172\1\164\1\156\1\163"+
         "\2\uffff\1\144\1\145\1\160\1\145\1\156\1\145\1\uffff\1\145\1\164"+
-        "\1\145\1\157\1\155\1\157\3\60\1\162\1\163\1\60\1\155\1\142\1\156"+
+        "\1\145\1\157\1\155\1\157\3\172\1\162\1\163\1\172\1\155\1\142\1\156"+
         "\3\uffff\1\151\1\75\1\uffff\1\40\1\145\1\163\1\141\2\uffff\1\162"+
-        "\1\145\3\60\3\uffff";
-    static final String DFA13_maxS =
-        "\1\176\5\uffff\1\52\2\uffff\1\160\1\uffff\1\57\2\uffff\1\75\1\uffff"+
-        "\1\75\2\uffff\1\162\1\172\1\166\1\141\2\172\1\163\1\165\1\172\1"+
-        "\162\1\163\22\uffff\1\151\1\uffff\1\145\1\154\1\uffff\1\172\1\uffff"+
-        "\1\172\1\156\1\163\1\154\1\uffff\1\145\1\165\1\172\1\164\1\156\1"+
-        "\163\2\uffff\1\144\1\145\1\160\1\145\1\156\1\145\1\uffff\1\145\1"+
-        "\164\1\145\1\157\1\155\1\157\3\172\1\162\1\163\1\172\1\155\1\142"+
-        "\1\156\3\uffff\1\151\1\75\1\uffff\1\40\1\145\1\163\1\141\2\uffff"+
-        "\1\162\1\145\3\172\3\uffff";
-    static final String DFA13_acceptS =
-        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\uffff\1\10\1\11\1\uffff\1\14\1\uffff"+
-        "\1\16\1\17\1\uffff\1\22\1\uffff\1\25\1\26\13\uffff\1\47\1\50\1\51"+
-        "\1\54\1\55\1\56\1\57\1\7\1\6\1\13\1\12\1\52\1\53\1\15\1\21\1\20"+
-        "\1\24\1\23\1\uffff\1\30\2\uffff\1\33\1\uffff\1\34\4\uffff\1\43\6"+
-        "\uffff\1\35\1\36\6\uffff\1\46\17\uffff\1\42\1\44\1\45\2\uffff\1"+
-        "\32\4\uffff\1\31\1\37\5\uffff\1\27\1\40\1\41";
-    static final String DFA13_specialS =
-        "\156\uffff}>";
-    static final String[] DFA13_transitionS = {
-            "\2\41\2\uffff\1\41\22\uffff\1\41\1\1\1\44\1\uffff\1\2\1\3\1"+
-            "\uffff\1\44\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\12\43\1\14\1"+
-            "\15\1\16\1\17\1\20\2\uffff\32\42\1\21\1\uffff\1\22\3\uffff\2"+
-            "\42\1\23\1\24\1\25\1\26\1\42\1\27\4\42\1\30\1\31\3\42\1\32\1"+
-            "\33\1\34\1\35\5\42\1\36\1\uffff\1\37\1\40",
+        "\1\145\3\172\3\uffff";
+    static final String DFA14_acceptS =
+        "\1\uffff\1\1\1\2\1\3\1\4\1\uffff\1\7\1\10\2\uffff\1\14\1\15\1\uffff"+
+        "\1\20\1\uffff\1\23\1\24\13\uffff\1\45\1\46\1\47\1\52\1\53\1\54\1"+
+        "\55\1\56\1\6\1\5\1\12\1\11\1\50\1\51\1\13\1\17\1\16\1\22\1\21\1"+
+        "\uffff\1\26\2\uffff\1\31\1\uffff\1\32\4\uffff\1\41\6\uffff\1\33"+
+        "\1\34\6\uffff\1\44\17\uffff\1\40\1\42\1\43\2\uffff\1\30\4\uffff"+
+        "\1\27\1\35\5\uffff\1\25\1\36\1\37";
+    static final String DFA14_specialS =
+        "\155\uffff}>";
+    static final String[] DFA14_transitionS = {
+            "\2\37\2\uffff\1\37\22\uffff\1\37\1\1\1\43\1\uffff\1\40\1\2\1"+
+            "\uffff\1\43\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\11\12\42\1\12"+
+            "\1\13\1\14\1\15\1\16\2\uffff\32\41\1\17\1\uffff\1\20\3\uffff"+
+            "\2\41\1\21\1\22\1\23\1\24\1\41\1\25\4\41\1\26\1\27\3\41\1\30"+
+            "\1\31\1\32\1\33\5\41\1\34\1\uffff\1\35\1\36",
             "",
             "",
             "",
             "",
-            "",
-            "\1\45",
-            "",
-            "",
-            "\12\43\66\uffff\1\47",
-            "",
-            "\1\51\4\uffff\1\52",
+            "\1\44",
             "",
             "",
-            "\1\54",
+            "\12\42\66\uffff\1\46",
+            "\1\50\4\uffff\1\51",
             "",
-            "\1\56",
+            "",
+            "\1\53",
+            "",
+            "\1\55",
             "",
             "",
-            "\1\60",
-            "\12\42\7\uffff\32\42\4\uffff\1\42\1\uffff\32\42",
+            "\1\57",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+            "\1\61",
             "\1\62",
-            "\1\63",
-            "\12\42\7\uffff\32\42\4\uffff\1\42\1\uffff\32\42",
-            "\12\42\7\uffff\32\42\4\uffff\1\42\1\uffff\22\42\1\65\7\42",
-            "\1\67",
-            "\1\70\3\uffff\1\71\17\uffff\1\72",
-            "\12\42\7\uffff\32\42\4\uffff\1\42\1\uffff\32\42",
-            "\1\74\11\uffff\1\75",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\22\41\1\64\7\41",
+            "\1\66",
+            "\1\67\3\uffff\1\70\17\uffff\1\71",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+            "\1\73\11\uffff\1\74",
+            "\1\75",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\1\76",
             "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
             "\1\77",
-            "",
             "\1\100",
-            "\1\101",
             "",
-            "\12\42\7\uffff\32\42\4\uffff\1\42\1\uffff\32\42",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
             "",
-            "\12\42\7\uffff\32\42\4\uffff\1\42\1\uffff\32\42",
-            "\1\104",
-            "\1\105\5\uffff\1\106",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+            "\1\103",
+            "\1\104\5\uffff\1\105",
+            "\1\106",
+            "",
             "\1\107",
-            "",
             "\1\110",
-            "\1\111",
-            "\12\42\7\uffff\32\42\4\uffff\1\42\1\uffff\32\42",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+            "\1\112",
             "\1\113",
             "\1\114",
+            "",
+            "",
             "\1\115",
-            "",
-            "",
             "\1\116",
             "\1\117",
             "\1\120",
             "\1\121",
             "\1\122",
-            "\1\123",
             "",
+            "\1\123",
             "\1\124",
             "\1\125",
             "\1\126",
             "\1\127",
             "\1\130",
-            "\1\131",
-            "\12\42\7\uffff\32\42\4\uffff\1\42\1\uffff\32\42",
-            "\12\42\7\uffff\32\42\4\uffff\1\42\1\uffff\32\42",
-            "\12\42\7\uffff\32\42\4\uffff\1\42\1\uffff\32\42",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+            "\1\134",
             "\1\135",
-            "\1\136",
-            "\12\42\7\uffff\32\42\4\uffff\1\42\1\uffff\32\42",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+            "\1\137",
             "\1\140",
             "\1\141",
+            "",
+            "",
+            "",
             "\1\142",
-            "",
-            "",
-            "",
             "\1\143",
-            "\1\144",
             "",
+            "\1\144",
             "\1\145",
             "\1\146",
             "\1\147",
+            "",
+            "",
             "\1\150",
-            "",
-            "",
             "\1\151",
-            "\1\152",
-            "\12\42\7\uffff\32\42\4\uffff\1\42\1\uffff\32\42",
-            "\12\42\7\uffff\32\42\4\uffff\1\42\1\uffff\32\42",
-            "\12\42\7\uffff\32\42\4\uffff\1\42\1\uffff\32\42",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
             "",
             "",
             ""
     };
 
-    static final short[] DFA13_eot = DFA.unpackEncodedString(DFA13_eotS);
-    static final short[] DFA13_eof = DFA.unpackEncodedString(DFA13_eofS);
-    static final char[] DFA13_min = DFA.unpackEncodedStringToUnsignedChars(DFA13_minS);
-    static final char[] DFA13_max = DFA.unpackEncodedStringToUnsignedChars(DFA13_maxS);
-    static final short[] DFA13_accept = DFA.unpackEncodedString(DFA13_acceptS);
-    static final short[] DFA13_special = DFA.unpackEncodedString(DFA13_specialS);
-    static final short[][] DFA13_transition;
+    static final short[] DFA14_eot = DFA.unpackEncodedString(DFA14_eotS);
+    static final short[] DFA14_eof = DFA.unpackEncodedString(DFA14_eofS);
+    static final char[] DFA14_min = DFA.unpackEncodedStringToUnsignedChars(DFA14_minS);
+    static final char[] DFA14_max = DFA.unpackEncodedStringToUnsignedChars(DFA14_maxS);
+    static final short[] DFA14_accept = DFA.unpackEncodedString(DFA14_acceptS);
+    static final short[] DFA14_special = DFA.unpackEncodedString(DFA14_specialS);
+    static final short[][] DFA14_transition;
 
     static {
-        int numStates = DFA13_transitionS.length;
-        DFA13_transition = new short[numStates][];
+        int numStates = DFA14_transitionS.length;
+        DFA14_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA13_transition[i] = DFA.unpackEncodedString(DFA13_transitionS[i]);
+            DFA14_transition[i] = DFA.unpackEncodedString(DFA14_transitionS[i]);
         }
     }
 
-    class DFA13 extends DFA {
+    class DFA14 extends DFA {
 
-        public DFA13(BaseRecognizer recognizer) {
+        public DFA14(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 13;
-            this.eot = DFA13_eot;
-            this.eof = DFA13_eof;
-            this.min = DFA13_min;
-            this.max = DFA13_max;
-            this.accept = DFA13_accept;
-            this.special = DFA13_special;
-            this.transition = DFA13_transition;
+            this.decisionNumber = 14;
+            this.eot = DFA14_eot;
+            this.eof = DFA14_eof;
+            this.min = DFA14_min;
+            this.max = DFA14_max;
+            this.accept = DFA14_accept;
+            this.special = DFA14_special;
+            this.transition = DFA14_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | ML_COMMENT | LINE_COMMENT | WS | IDENT | NUMBER | STRING_LITERAL );";
+            return "1:1: Tokens : ( T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | ML_COMMENT | LINE_COMMENT | WS | QUERY | IDENT | NUMBER | STRING_LITERAL );";
         }
     }
  

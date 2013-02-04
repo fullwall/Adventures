@@ -102,7 +102,7 @@ public class ExpressionTest {
         variables.put("test", false);
         variables.put("test2.a.p", true);
         for (String key : variables.keySet()) {
-            assertThat(parse(key), equalTo(variables.get(key)));
+            assertThat(parse('$' + key), equalTo(variables.get(key)));
         }
     }
 }
