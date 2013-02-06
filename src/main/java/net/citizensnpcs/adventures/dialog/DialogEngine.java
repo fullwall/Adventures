@@ -118,6 +118,11 @@ public class DialogEngine {
         parse(null, string);
     }
 
+    public void reloadAsynchronouslyFromFolder(File file) {
+        globalRegistry.clear();
+        loadFolderAsynchronously(file);
+    }
+
     public interface ParseContext {
         QueryRunnable buildStatement(String name, Collection<Argument> args);
 

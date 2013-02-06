@@ -15,7 +15,6 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 
 public class StatementRegistry {
-    // @DialogStatement(name="log", arguments=""})
     private Injector injector;
     private final ListMultimap<String, DialogStatement> statements = ArrayListMultimap.create();
 

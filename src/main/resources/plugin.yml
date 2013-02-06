@@ -4,3 +4,6 @@ version: 1.0
 main: net.citizensnpcs.adventures.Adventures
 depend: [Citizens]
 softdepend: [Denizen]
+commands:
+    adventures:
+        description: Adventures admin commands

@@ -15,7 +15,16 @@ public class SimpleDialogRegistry implements DialogRegistry {
     private final Map<String, Response> responses = Collections.synchronizedMap(Maps.<String, Response> newHashMap());
     private final ListMultimap<String, Rule> rulesByEvent = Multimaps.synchronizedListMultimap(ArrayListMultimap
             .<String, Rule> create());
-    private final Map<String, Rule> rulesByName = Collections.synchronizedMap(Maps.<String, Rule> newHashMap());
+
+    @Override
+    public void clear() {
+        synchronized (rulesByEvent) {
+            rulesByEvent.clear();
+        }
+        synchronized (responses) {
+            responses.clear();
+        }
+    }
 
     @Override
     public Rule getBestRule(Query query) {
@@ -66,11 +75,6 @@ public class SimpleDialogRegistry implements DialogRegistry {
     public void registerRule(Collection<String> eventNames, Rule rule) {
         Preconditions.checkNotNull(rule);
         Preconditions.checkNotNull(eventNames);
-        synchronized (rulesByName) {
-            if (rulesByName.containsKey(rule.getName()))
-                throw new IllegalArgumentException("A rule already exists with name " + rule.getName());
-            rulesByName.put(rule.getName(), rule);
-        }
         synchronized (rulesByEvent) {
             for (String eventName : eventNames) {
                 rulesByEvent.put(eventName, rule);

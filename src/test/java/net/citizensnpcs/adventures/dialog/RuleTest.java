@@ -36,6 +36,23 @@ public class RuleTest {
     }
 
     @Test
+    public void testRemember() {
+        String parse = "rule test {" + "\ncriteria events=onchat $message='test';" + "\nresponse test2;" + "\n  }"
+                + "\nresponse test2 {" + "\nremember $r:true;" + "\n}";
+        engine.parse(parse);
+        final Map<String, Object> query = Maps.newHashMap();
+        query.put("message", "test");
+        boolean success = engine.execute(new AbstractQuery("onchat", query) {
+            @Override
+            public void remember(String key, Object value, ExpirationTime time) {
+                query.put(key, value);
+            }
+        });
+        assertThat(success, is(true));
+        assertThat(query.containsKey("r"), is(true));
+    }
+
+    @Test
     public void testSimpleQuery() {
         String parse = "rule test {" + "\ncriteria events=onchat $message='test';" + "\nresponse test2;" + "\n  }"
                 + "\nresponse test2 {" + "\nsay 'Hello, dialog world!', target:\"log\";" + "\n}";

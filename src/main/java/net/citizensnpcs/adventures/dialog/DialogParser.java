@@ -1,4 +1,4 @@
-// $ANTLR 3.4 Dialog.g 2013-02-06 14:43:42
+// $ANTLR 3.4 Dialog.g 2013-02-06 15:15:26
 
 package net.citizensnpcs.adventures.dialog;
 import java.util.Collection;
@@ -1057,7 +1057,7 @@ public class DialogParser extends Parser {
 
 
     // $ANTLR start "remember_assignment"
-    // Dialog.g:135:1: remember_assignment[Remember.Builder builder] :q= QUERY '=' expression (i1= INTEGER i2= time_unit )? ( '-p' )? ;
+    // Dialog.g:135:1: remember_assignment[Remember.Builder builder] :q= QUERY ':' expression (i1= INTEGER i2= time_unit )? ( '-p' )? ;
     public final void remember_assignment(Remember.Builder builder) throws RecognitionException {
         Token q=null;
         Token i1=null;
@@ -1067,14 +1067,14 @@ public class DialogParser extends Parser {
 
 
         try {
-            // Dialog.g:135:48: (q= QUERY '=' expression (i1= INTEGER i2= time_unit )? ( '-p' )? )
-            // Dialog.g:136:5: q= QUERY '=' expression (i1= INTEGER i2= time_unit )? ( '-p' )?
+            // Dialog.g:135:48: (q= QUERY ':' expression (i1= INTEGER i2= time_unit )? ( '-p' )? )
+            // Dialog.g:136:5: q= QUERY ':' expression (i1= INTEGER i2= time_unit )? ( '-p' )?
             {
              boolean isPersistent = false; long expiration = Long.MAX_VALUE; TimeUnit unit = TimeUnit.DAYS; 
 
             q=(Token)match(input,QUERY,FOLLOW_QUERY_in_remember_assignment800); 
 
-            match(input,30,FOLLOW_30_in_remember_assignment802); 
+            match(input,26,FOLLOW_26_in_remember_assignment802); 
 
             pushFollow(FOLLOW_expression_in_remember_assignment804);
             expression13=expression();
@@ -2360,8 +2360,8 @@ public class DialogParser extends Parser {
     public static final BitSet FOLLOW_remember_assignment_in_remember_statement758 = new BitSet(new long[]{0x0000000000400002L});
     public static final BitSet FOLLOW_22_in_remember_statement762 = new BitSet(new long[]{0x0000000000001000L});
     public static final BitSet FOLLOW_remember_assignment_in_remember_statement764 = new BitSet(new long[]{0x0000000000400002L});
-    public static final BitSet FOLLOW_QUERY_in_remember_assignment800 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_30_in_remember_assignment802 = new BitSet(new long[]{0x000A004200A23800L});
+    public static final BitSet FOLLOW_QUERY_in_remember_assignment800 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_26_in_remember_assignment802 = new BitSet(new long[]{0x000A004200A23800L});
     public static final BitSet FOLLOW_expression_in_remember_assignment804 = new BitSet(new long[]{0x0000000001000042L});
     public static final BitSet FOLLOW_INTEGER_in_remember_assignment831 = new BitSet(new long[]{0x0004879000000000L});
     public static final BitSet FOLLOW_time_unit_in_remember_assignment835 = new BitSet(new long[]{0x0000000001000002L});

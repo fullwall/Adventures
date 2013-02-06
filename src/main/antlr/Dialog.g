@@ -134,7 +134,7 @@ remember_statement returns [QueryRunnable statement] :
 
 remember_assignment [Remember.Builder builder] :
     { boolean isPersistent = false; long expiration = Long.MAX_VALUE; TimeUnit unit = TimeUnit.DAYS; }
-    q=QUERY '=' expression 
+    q=QUERY ':' expression 
         (
             i1=INTEGER i2=time_unit { expiration = Long.parseLong($INTEGER.text); unit = $i2.unit; }
         )? 
