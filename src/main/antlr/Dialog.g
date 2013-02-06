@@ -146,14 +146,14 @@ criteria [Rule.Builder builder] returns [Collection<String> eventNames]:
                     'events=' e1=IDENT  { $eventNames.add($e1.text); } (',' e2=IDENT { $eventNames.add($e2.text); })* 
                )
     (
-        i1=IDENT '=' op1=expression { builder.criterion(NumberQueryPredicate.equalTo($i1.text, $op1.value)); }
-        | i2=IDENT '>' op2=expression { builder.criterion(NumberQueryPredicate.greaterThan($i2.text, $op2.value)); }
-        | i3=IDENT '<' op3=expression { builder.criterion(NumberQueryPredicate.lessThan($i3.text, $op3.value)); }
-        | i4=IDENT '<=' op4=expression { builder.criterion(NumberQueryPredicate.lessThanOrEqual($i4.text, $op4.value)); }
-        | i5=IDENT '>=' op5=expression { builder.criterion(NumberQueryPredicate.greaterThanOrEqual($i5.text, $op5.value)); }
-        | i6=IDENT '!=' op6=expression { builder.criterion(NumberQueryPredicate.not($i6.text, $op6.value)); }
-        | i7=IDENT '~=' op7='/' regex=~('/')+ '/' { builder.criterion(RegexQueryPredicate.of($i7.text, $regex.text)); }
-        | i8=IDENT { builder.criterion(NumberQueryPredicate.of($i8.text, Predicates.<Number>alwaysTrue())); }
+        i1=QUERY '=' op1=expression { builder.criterion(NumberQueryPredicate.equalTo($i1.text, $op1.value)); }
+        | i2=QUERY '>' op2=expression { builder.criterion(NumberQueryPredicate.greaterThan($i2.text, $op2.value)); }
+        | i3=QUERY '<' op3=expression { builder.criterion(NumberQueryPredicate.lessThan($i3.text, $op3.value)); }
+        | i4=QUERY '<=' op4=expression { builder.criterion(NumberQueryPredicate.lessThanOrEqual($i4.text, $op4.value)); }
+        | i5=QUERY '>=' op5=expression { builder.criterion(NumberQueryPredicate.greaterThanOrEqual($i5.text, $op5.value)); }
+        | i6=QUERY '!=' op6=expression { builder.criterion(NumberQueryPredicate.not($i6.text, $op6.value)); }
+        | i7=QUERY '~=' op7='/' regex=~('/')+ '/' { builder.criterion(RegexQueryPredicate.of($i7.text, $regex.text)); }
+        | i8=QUERY { builder.criterion(NumberQueryPredicate.of($i8.text, Predicates.<Number>alwaysTrue())); }
     )*;
     
 expression returns [Evaluator value] :

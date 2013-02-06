@@ -1,4 +1,4 @@
-// $ANTLR 3.4 Dialog.g 2013-02-04 13:14:46
+// $ANTLR 3.4 Dialog.g 2013-02-06 14:31:20
 
 package net.citizensnpcs.adventures.dialog;
 import java.util.Collection;
@@ -1148,7 +1148,7 @@ public class DialogParser extends Parser {
 
 
     // $ANTLR start "criteria"
-    // Dialog.g:143:1: criteria[Rule.Builder builder] returns [Collection<String> eventNames] : 'criteria' ( 'events=' e1= IDENT ( ',' e2= IDENT )* ) (i1= IDENT '=' op1= expression |i2= IDENT '>' op2= expression |i3= IDENT '<' op3= expression |i4= IDENT '<=' op4= expression |i5= IDENT '>=' op5= expression |i6= IDENT '!=' op6= expression |i7= IDENT '~=' op7= '/' (regex=~ ( '/' ) )+ '/' |i8= IDENT )* ;
+    // Dialog.g:143:1: criteria[Rule.Builder builder] returns [Collection<String> eventNames] : 'criteria' ( 'events=' e1= IDENT ( ',' e2= IDENT )* ) (i1= QUERY '=' op1= expression |i2= QUERY '>' op2= expression |i3= QUERY '<' op3= expression |i4= QUERY '<=' op4= expression |i5= QUERY '>=' op5= expression |i6= QUERY '!=' op6= expression |i7= QUERY '~=' op7= '/' (regex=~ ( '/' ) )+ '/' |i8= QUERY )* ;
     public final Collection<String> criteria(Rule.Builder builder) throws RecognitionException {
         Collection<String> eventNames = null;
 
@@ -1179,8 +1179,8 @@ public class DialogParser extends Parser {
 
 
         try {
-            // Dialog.g:143:72: ( 'criteria' ( 'events=' e1= IDENT ( ',' e2= IDENT )* ) (i1= IDENT '=' op1= expression |i2= IDENT '>' op2= expression |i3= IDENT '<' op3= expression |i4= IDENT '<=' op4= expression |i5= IDENT '>=' op5= expression |i6= IDENT '!=' op6= expression |i7= IDENT '~=' op7= '/' (regex=~ ( '/' ) )+ '/' |i8= IDENT )* )
-            // Dialog.g:144:5: 'criteria' ( 'events=' e1= IDENT ( ',' e2= IDENT )* ) (i1= IDENT '=' op1= expression |i2= IDENT '>' op2= expression |i3= IDENT '<' op3= expression |i4= IDENT '<=' op4= expression |i5= IDENT '>=' op5= expression |i6= IDENT '!=' op6= expression |i7= IDENT '~=' op7= '/' (regex=~ ( '/' ) )+ '/' |i8= IDENT )*
+            // Dialog.g:143:72: ( 'criteria' ( 'events=' e1= IDENT ( ',' e2= IDENT )* ) (i1= QUERY '=' op1= expression |i2= QUERY '>' op2= expression |i3= QUERY '<' op3= expression |i4= QUERY '<=' op4= expression |i5= QUERY '>=' op5= expression |i6= QUERY '!=' op6= expression |i7= QUERY '~=' op7= '/' (regex=~ ( '/' ) )+ '/' |i8= QUERY )* )
+            // Dialog.g:144:5: 'criteria' ( 'events=' e1= IDENT ( ',' e2= IDENT )* ) (i1= QUERY '=' op1= expression |i2= QUERY '>' op2= expression |i3= QUERY '<' op3= expression |i4= QUERY '<=' op4= expression |i5= QUERY '>=' op5= expression |i6= QUERY '!=' op6= expression |i7= QUERY '~=' op7= '/' (regex=~ ( '/' ) )+ '/' |i8= QUERY )*
             {
              eventNames = new ArrayList<String>(); 
 
@@ -1228,13 +1228,13 @@ public class DialogParser extends Parser {
             }
 
 
-            // Dialog.g:148:5: (i1= IDENT '=' op1= expression |i2= IDENT '>' op2= expression |i3= IDENT '<' op3= expression |i4= IDENT '<=' op4= expression |i5= IDENT '>=' op5= expression |i6= IDENT '!=' op6= expression |i7= IDENT '~=' op7= '/' (regex=~ ( '/' ) )+ '/' |i8= IDENT )*
+            // Dialog.g:148:5: (i1= QUERY '=' op1= expression |i2= QUERY '>' op2= expression |i3= QUERY '<' op3= expression |i4= QUERY '<=' op4= expression |i5= QUERY '>=' op5= expression |i6= QUERY '!=' op6= expression |i7= QUERY '~=' op7= '/' (regex=~ ( '/' ) )+ '/' |i8= QUERY )*
             loop19:
             do {
                 int alt19=9;
                 int LA19_0 = input.LA(1);
 
-                if ( (LA19_0==IDENT) ) {
+                if ( (LA19_0==QUERY) ) {
                     switch ( input.LA(2) ) {
                     case 30:
                         {
@@ -1271,7 +1271,7 @@ public class DialogParser extends Parser {
                         alt19=7;
                         }
                         break;
-                    case IDENT:
+                    case QUERY:
                     case 27:
                         {
                         alt19=8;
@@ -1285,9 +1285,9 @@ public class DialogParser extends Parser {
 
                 switch (alt19) {
             	case 1 :
-            	    // Dialog.g:149:9: i1= IDENT '=' op1= expression
+            	    // Dialog.g:149:9: i1= QUERY '=' op1= expression
             	    {
-            	    i1=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria1008); 
+            	    i1=(Token)match(input,QUERY,FOLLOW_QUERY_in_criteria1008); 
 
             	    match(input,30,FOLLOW_30_in_criteria1010); 
 
@@ -1302,9 +1302,9 @@ public class DialogParser extends Parser {
             	    }
             	    break;
             	case 2 :
-            	    // Dialog.g:150:11: i2= IDENT '>' op2= expression
+            	    // Dialog.g:150:11: i2= QUERY '>' op2= expression
             	    {
-            	    i2=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria1030); 
+            	    i2=(Token)match(input,QUERY,FOLLOW_QUERY_in_criteria1030); 
 
             	    match(input,31,FOLLOW_31_in_criteria1032); 
 
@@ -1319,9 +1319,9 @@ public class DialogParser extends Parser {
             	    }
             	    break;
             	case 3 :
-            	    // Dialog.g:151:11: i3= IDENT '<' op3= expression
+            	    // Dialog.g:151:11: i3= QUERY '<' op3= expression
             	    {
-            	    i3=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria1052); 
+            	    i3=(Token)match(input,QUERY,FOLLOW_QUERY_in_criteria1052); 
 
             	    match(input,28,FOLLOW_28_in_criteria1054); 
 
@@ -1336,9 +1336,9 @@ public class DialogParser extends Parser {
             	    }
             	    break;
             	case 4 :
-            	    // Dialog.g:152:11: i4= IDENT '<=' op4= expression
+            	    // Dialog.g:152:11: i4= QUERY '<=' op4= expression
             	    {
-            	    i4=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria1074); 
+            	    i4=(Token)match(input,QUERY,FOLLOW_QUERY_in_criteria1074); 
 
             	    match(input,29,FOLLOW_29_in_criteria1076); 
 
@@ -1353,9 +1353,9 @@ public class DialogParser extends Parser {
             	    }
             	    break;
             	case 5 :
-            	    // Dialog.g:153:11: i5= IDENT '>=' op5= expression
+            	    // Dialog.g:153:11: i5= QUERY '>=' op5= expression
             	    {
-            	    i5=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria1096); 
+            	    i5=(Token)match(input,QUERY,FOLLOW_QUERY_in_criteria1096); 
 
             	    match(input,32,FOLLOW_32_in_criteria1098); 
 
@@ -1370,9 +1370,9 @@ public class DialogParser extends Parser {
             	    }
             	    break;
             	case 6 :
-            	    // Dialog.g:154:11: i6= IDENT '!=' op6= expression
+            	    // Dialog.g:154:11: i6= QUERY '!=' op6= expression
             	    {
-            	    i6=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria1118); 
+            	    i6=(Token)match(input,QUERY,FOLLOW_QUERY_in_criteria1118); 
 
             	    match(input,15,FOLLOW_15_in_criteria1120); 
 
@@ -1387,9 +1387,9 @@ public class DialogParser extends Parser {
             	    }
             	    break;
             	case 7 :
-            	    // Dialog.g:155:11: i7= IDENT '~=' op7= '/' (regex=~ ( '/' ) )+ '/'
+            	    // Dialog.g:155:11: i7= QUERY '~=' op7= '/' (regex=~ ( '/' ) )+ '/'
             	    {
-            	    i7=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria1140); 
+            	    i7=(Token)match(input,QUERY,FOLLOW_QUERY_in_criteria1140); 
 
             	    match(input,53,FOLLOW_53_in_criteria1142); 
 
@@ -1443,9 +1443,9 @@ public class DialogParser extends Parser {
             	    }
             	    break;
             	case 8 :
-            	    // Dialog.g:156:11: i8= IDENT
+            	    // Dialog.g:156:11: i8= QUERY
             	    {
-            	    i8=(Token)match(input,IDENT,FOLLOW_IDENT_in_criteria1172); 
+            	    i8=(Token)match(input,QUERY,FOLLOW_QUERY_in_criteria1172); 
 
             	     builder.criterion(NumberQueryPredicate.of((i8!=null?i8.getText():null), Predicates.<Number>alwaysTrue())); 
 
@@ -2366,33 +2366,33 @@ public class DialogParser extends Parser {
     public static final BitSet FOLLOW_24_in_remember_assignment873 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_35_in_criteria930 = new BitSet(new long[]{0x0000002000000000L});
     public static final BitSet FOLLOW_37_in_criteria954 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENT_in_criteria958 = new BitSet(new long[]{0x0000000000400022L});
+    public static final BitSet FOLLOW_IDENT_in_criteria958 = new BitSet(new long[]{0x0000000000401002L});
     public static final BitSet FOLLOW_22_in_criteria964 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENT_in_criteria968 = new BitSet(new long[]{0x0000000000400022L});
-    public static final BitSet FOLLOW_IDENT_in_criteria1008 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_IDENT_in_criteria968 = new BitSet(new long[]{0x0000000000401002L});
+    public static final BitSet FOLLOW_QUERY_in_criteria1008 = new BitSet(new long[]{0x0000000040000000L});
     public static final BitSet FOLLOW_30_in_criteria1010 = new BitSet(new long[]{0x000A004200A23800L});
-    public static final BitSet FOLLOW_expression_in_criteria1014 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_IDENT_in_criteria1030 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_expression_in_criteria1014 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_QUERY_in_criteria1030 = new BitSet(new long[]{0x0000000080000000L});
     public static final BitSet FOLLOW_31_in_criteria1032 = new BitSet(new long[]{0x000A004200A23800L});
-    public static final BitSet FOLLOW_expression_in_criteria1036 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_IDENT_in_criteria1052 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_expression_in_criteria1036 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_QUERY_in_criteria1052 = new BitSet(new long[]{0x0000000010000000L});
     public static final BitSet FOLLOW_28_in_criteria1054 = new BitSet(new long[]{0x000A004200A23800L});
-    public static final BitSet FOLLOW_expression_in_criteria1058 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_IDENT_in_criteria1074 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_expression_in_criteria1058 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_QUERY_in_criteria1074 = new BitSet(new long[]{0x0000000020000000L});
     public static final BitSet FOLLOW_29_in_criteria1076 = new BitSet(new long[]{0x000A004200A23800L});
-    public static final BitSet FOLLOW_expression_in_criteria1080 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_IDENT_in_criteria1096 = new BitSet(new long[]{0x0000000100000000L});
+    public static final BitSet FOLLOW_expression_in_criteria1080 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_QUERY_in_criteria1096 = new BitSet(new long[]{0x0000000100000000L});
     public static final BitSet FOLLOW_32_in_criteria1098 = new BitSet(new long[]{0x000A004200A23800L});
-    public static final BitSet FOLLOW_expression_in_criteria1102 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_IDENT_in_criteria1118 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_expression_in_criteria1102 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_QUERY_in_criteria1118 = new BitSet(new long[]{0x0000000000008000L});
     public static final BitSet FOLLOW_15_in_criteria1120 = new BitSet(new long[]{0x000A004200A23800L});
-    public static final BitSet FOLLOW_expression_in_criteria1124 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_IDENT_in_criteria1140 = new BitSet(new long[]{0x0020000000000000L});
+    public static final BitSet FOLLOW_expression_in_criteria1124 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_QUERY_in_criteria1140 = new BitSet(new long[]{0x0020000000000000L});
     public static final BitSet FOLLOW_53_in_criteria1142 = new BitSet(new long[]{0x0000000002000000L});
     public static final BitSet FOLLOW_25_in_criteria1146 = new BitSet(new long[]{0x003FFFFFFDFFFFF0L});
     public static final BitSet FOLLOW_set_in_criteria1150 = new BitSet(new long[]{0x003FFFFFFFFFFFF0L});
-    public static final BitSet FOLLOW_25_in_criteria1156 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_IDENT_in_criteria1172 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_25_in_criteria1156 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_QUERY_in_criteria1172 = new BitSet(new long[]{0x0000000000001002L});
     public static final BitSet FOLLOW_mult_in_expression1203 = new BitSet(new long[]{0x0000000000A00002L});
     public static final BitSet FOLLOW_21_in_expression1217 = new BitSet(new long[]{0x000A004200A23800L});
     public static final BitSet FOLLOW_mult_in_expression1221 = new BitSet(new long[]{0x0000000000A00002L});
