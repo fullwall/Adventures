@@ -24,11 +24,13 @@ import net.citizensnpcs.adventures.dialog.evaluators.*;
 }
 
 @members {
-/*  @Override
-    public void reportError(RecognitionException e) {
-        throw e;
-    }
+/*
+@Override
+public void reportError(RecognitionException e) {
+    throw new RuntimeException(e);
+}
 */
+
 private VariableSource variableSource;
 
 public void setVariableSource(VariableSource source) {
@@ -42,11 +44,13 @@ import java.util.concurrent.TimeUnit;
 }
 
 @lexer::members {
-/*  @Override
-    public void reportError(RecognitionException e) {
-        throw e;
-    }
+/*
+@Override
+public void reportError(RecognitionException e) {
+    throw e;
+}
 */
+
 private String stripQuotes(String quoted) {
     return quoted.substring(1, quoted.length() - 1);
 }

@@ -20,9 +20,9 @@ public class RuleTest {
 
     @Test
     public void testCompetingQuery() {
-        String parse = "rule test {" + "\ncriteria events=onchat message='test';" + "\nresponse test2;" + "\n  }"
-                + "rule test2 {" + "\ncriteria events=onchat message='test' test=1;" + "\nresponse test2;" + "\n  }"
-                + "\nresponse test2 {" + "\nsay 'Hello, dialog world!', target=\"log\";" + "\n}";
+        String parse = "rule test {" + "\n  criteria events=onchat $message='test';" + "\n  response test2;" + "\n}"
+                + "\nrule test2 {" + "\n  criteria events=onchat $message='test' $test=1;" + "\n  response test2;"
+                + "\n}" + "\nresponse test2 {" + "\n  say 'Hello, dialog world!', target:\"log\";" + "\n}";
         engine.parse(parse);
         Map<String, Object> query = Maps.newHashMap();
         query.put("message", "test");
@@ -37,8 +37,8 @@ public class RuleTest {
 
     @Test
     public void testSimpleQuery() {
-        String parse = "rule test {" + "\ncriteria events=onchat message='test';" + "\nresponse test2;" + "\n  }"
-                + "\nresponse test2 {" + "\nsay 'Hello, dialog world!', target=\"log\";" + "\n}";
+        String parse = "rule test {" + "\ncriteria events=onchat $message='test';" + "\nresponse test2;" + "\n  }"
+                + "\nresponse test2 {" + "\nsay 'Hello, dialog world!', target:\"log\";" + "\n}";
         engine.parse(parse);
         Map<String, Object> query = Maps.newHashMap();
         query.put("message", "test");
