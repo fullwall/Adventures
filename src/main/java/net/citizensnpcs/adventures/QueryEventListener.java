@@ -19,6 +19,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 import com.google.common.collect.Maps;
@@ -58,6 +60,27 @@ public class QueryEventListener implements Listener {
         representBlock(event.getBlock(), "block", eventMap);
         representEntity(event.getPlayer(), "player", eventMap);
         executeQuery(eventMap, "onblockplace");
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        Map<String, Object> eventMap = Maps.newHashMap();
+        representEntity(event.getPlayer(), "player", eventMap);
+        switch (event.getAction()) {
+            case LEFT_CLICK_BLOCK:
+                representBlock(event.getClickedBlock(), "clicked", eventMap);
+            case LEFT_CLICK_AIR:
+                executeQuery(eventMap, "onblockleftclick");
+                break;
+            case RIGHT_CLICK_BLOCK:
+                representBlock(event.getClickedBlock(), "clicked", eventMap);
+            case RIGHT_CLICK_AIR:
+                executeQuery(eventMap, "onblockrightclick");
+                break;
+            case PHYSICAL:
+            default:
+                return;
+        }
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -101,7 +124,19 @@ public class QueryEventListener implements Listener {
         if (entity instanceof Player) {
             Player player = (Player) entity;
             eventMap.put(root + ".name", player.getName());
+            representItemStack(player.getInventory().getItemInHand(), root + ".holding", eventMap);
         }
+    }
+
+    private void representItemStack(ItemStack item, String root, Map<String, Object> eventMap) {
+        if (item == null)
+            return;
+        eventMap.put(root + ".type", item.getType());
+        eventMap.put(root + ".type.name", item.getType().name());
+        eventMap.put(root + ".durability", item.getDurability());
+        eventMap.put(root + ".amount", item.getAmount());
+        eventMap.put(root + ".meta", item.getItemMeta());
+        eventMap.put(root, item);
     }
 
     private void representLocation(Location location, String root, Map<String, Object> eventMap) {
