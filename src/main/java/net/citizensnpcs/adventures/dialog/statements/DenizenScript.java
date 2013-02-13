@@ -1,6 +1,8 @@
 package net.citizensnpcs.adventures.dialog.statements;
 
 import net.aufdemrand.denizen.npc.dNPC;
+import net.aufdemrand.denizen.scripts.ScriptRegistry;
+import net.aufdemrand.denizen.scripts.containers.core.TaskScriptContainer;
 import net.aufdemrand.denizen.utilities.DenizenAPI;
 import net.citizensnpcs.adventures.dialog.DialogEngine.ParseContext;
 import net.citizensnpcs.adventures.dialog.DialogException;
@@ -54,7 +56,10 @@ public class DenizenScript implements QueryRunnable {
         if (player == null && denizen == null) {
             throw new DialogException("Couldn't parse a player or a denizen");
         }
-        DenizenAPI.getCurrentInstance().getScriptEngine().getScriptBuilder().runTaskScript(denizen, player, name);
+        TaskScriptContainer task = ScriptRegistry.getScriptContainerAs(name, TaskScriptContainer.class);
+        if (task == null)
+            throw new DialogException("Couldn't find a task script by that name");
+        task.runTaskScript(player, denizen, null);
     }
 
     @StatementBuilder(name = "dtask", arguments = "[name] [denizen] (player)")
