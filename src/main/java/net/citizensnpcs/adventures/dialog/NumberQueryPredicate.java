@@ -11,16 +11,16 @@ import com.google.common.base.Predicates;
 
 public class NumberQueryPredicate implements QueryPredicate {
     private final Predicate<Number> predicate;
-    private final String queryKey;
+    private final Evaluator queryKey;
 
-    private NumberQueryPredicate(String queryKey, Predicate<Number> predicate) {
+    private NumberQueryPredicate(Evaluator queryKey, Predicate<Number> predicate) {
         this.queryKey = queryKey;
         this.predicate = predicate;
     }
 
     @Override
     public boolean apply(@Nullable Query input) {
-        Object object = input.get(queryKey);
+        Object object = input.get((String) queryKey.get());
         if (object == null)
             return false;
         return predicate.apply(toNumber(object));
@@ -28,7 +28,7 @@ public class NumberQueryPredicate implements QueryPredicate {
 
     @Override
     public String getQueryKey() {
-        return queryKey;
+        return (String) queryKey.get();
     }
 
     @Override
@@ -104,7 +104,7 @@ public class NumberQueryPredicate implements QueryPredicate {
         }
     };
 
-    public static QueryPredicate equalTo(String key, final Evaluator evaluator) {
+    public static QueryPredicate equalTo(Evaluator key, final Evaluator evaluator) {
         if (evaluator.isConstant()) {
             return of(key, Predicates.<Number> equalTo(toNumber(evaluator)));
         }
@@ -157,27 +157,27 @@ public class NumberQueryPredicate implements QueryPredicate {
         };
     }
 
-    public static QueryPredicate greaterThan(String key, Evaluator evaluator) {
+    public static QueryPredicate greaterThan(Evaluator key, Evaluator evaluator) {
         return of(key, getComparisonPredicate(evaluator, GREATER_THAN_PREDICATE));
     }
 
-    public static QueryPredicate greaterThanOrEqual(String key, Evaluator evaluator) {
+    public static QueryPredicate greaterThanOrEqual(Evaluator key, Evaluator evaluator) {
         return of(key, getComparisonPredicate(evaluator, GREATER_THAN_OR_EQUAL_PREDICATE));
     }
 
-    public static QueryPredicate lessThan(String key, Evaluator evaluator) {
+    public static QueryPredicate lessThan(Evaluator key, Evaluator evaluator) {
         return of(key, getComparisonPredicate(evaluator, LESS_THAN_PREDICATE));
     }
 
-    public static QueryPredicate lessThanOrEqual(String key, Evaluator evaluator) {
+    public static QueryPredicate lessThanOrEqual(Evaluator key, Evaluator evaluator) {
         return of(key, getComparisonPredicate(evaluator, LESS_THAN_OR_EQUAL_PREDICATE));
     }
 
-    public static QueryPredicate not(String key, Evaluator evaluator) {
+    public static QueryPredicate not(Evaluator key, Evaluator evaluator) {
         return of(key, getComparisonPredicate(evaluator, NOT_PREDICATE));
     }
 
-    public static QueryPredicate of(String queryKey, Predicate<Number> predicate) {
+    public static QueryPredicate of(Evaluator queryKey, Predicate<Number> predicate) {
         return new NumberQueryPredicate(queryKey, predicate);
     }
 

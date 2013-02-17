@@ -71,6 +71,7 @@ public class ExpressionTest {
         source = new VariableSource() {
             @Override
             public Object getVariable(String key) {
+                System.err.println(key);
                 return variables.get(key);
             }
         };
@@ -100,7 +101,9 @@ public class ExpressionTest {
     @Test
     public void variable() {
         variables.put("test", false);
+        variables.put("test.false", false);
         variables.put("test2.a.p", true);
+        assertThat((Boolean) parse("$test.${test}"), equalTo(false));
         for (String key : variables.keySet()) {
             assertThat(parse('$' + key), equalTo(variables.get(key)));
         }

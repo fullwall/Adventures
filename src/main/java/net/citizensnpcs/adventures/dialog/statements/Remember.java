@@ -6,6 +6,7 @@ import java.util.List;
 import net.citizensnpcs.adventures.dialog.ExpirationTime;
 import net.citizensnpcs.adventures.dialog.QueryContext;
 import net.citizensnpcs.adventures.dialog.QueryRunnable;
+import net.citizensnpcs.adventures.dialog.evaluators.Evaluator;
 
 import com.google.common.collect.Lists;
 
@@ -19,7 +20,7 @@ public class Remember implements QueryRunnable {
     @Override
     public void run(QueryContext context) {
         for (MemoryEntry entry : entries) {
-            context.getQuery().remember(entry.key, entry.value, entry.expiration);
+            context.getQuery().remember((String) entry.key.get(), entry.value, entry.expiration);
         }
     }
 
@@ -30,7 +31,7 @@ public class Remember implements QueryRunnable {
             return new Remember(entries);
         }
 
-        public Builder remember(String key, Object value, ExpirationTime time) {
+        public Builder remember(Evaluator key, Object value, ExpirationTime time) {
             entries.add(new MemoryEntry(key, value, time));
             return this;
         }
@@ -38,10 +39,10 @@ public class Remember implements QueryRunnable {
 
     private static class MemoryEntry {
         private final ExpirationTime expiration;
-        private final String key;
+        private final Evaluator key;
         private final Object value;
 
-        private MemoryEntry(String key, Object value, ExpirationTime time) {
+        private MemoryEntry(Evaluator key, Object value, ExpirationTime time) {
             this.key = key;
             this.value = value;
             this.expiration = time;

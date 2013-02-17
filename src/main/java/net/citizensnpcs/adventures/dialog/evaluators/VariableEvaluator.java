@@ -1,17 +1,17 @@
 package net.citizensnpcs.adventures.dialog.evaluators;
 
 public class VariableEvaluator implements Evaluator {
-    private final String identifier;
+    private final Evaluator identifier;
     private final VariableSource variableSource;
 
-    private VariableEvaluator(VariableSource source, String identifier) {
+    private VariableEvaluator(VariableSource source, Evaluator identifier) {
         this.identifier = identifier;
         this.variableSource = source;
     }
 
     @Override
     public Object get() {
-        return variableSource.getVariable(identifier);
+        return variableSource.getVariable((String) identifier.get());
     }
 
     @Override
@@ -21,10 +21,10 @@ public class VariableEvaluator implements Evaluator {
 
     @Override
     public String toString() {
-        return "VariableEvaluator [" + identifier + "]";
+        return "VariableEvaluator [" + identifier.get() + "]";
     }
 
-    public static VariableEvaluator create(VariableSource source, String identifier) {
-        return new VariableEvaluator(source, identifier);
+    public static VariableEvaluator create(VariableSource source, Evaluator evaluator) {
+        return new VariableEvaluator(source, evaluator);
     }
 }

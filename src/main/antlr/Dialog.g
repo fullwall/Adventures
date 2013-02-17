@@ -47,7 +47,7 @@ import java.util.concurrent.TimeUnit;
 /*
 @Override
 public void reportError(RecognitionException e) {
-    throw e;
+    e.printStackTrace();
 }
 */
 
@@ -134,14 +134,14 @@ remember_statement returns [QueryRunnable statement] :
 
 remember_assignment [Remember.Builder builder] :
     { boolean isPersistent = false; long expiration = Long.MAX_VALUE; TimeUnit unit = TimeUnit.DAYS; }
-    q=QUERY ':' expression 
+    q=query ':' expression 
         (
             i1=INTEGER i2=time_unit { expiration = Long.parseLong($INTEGER.text); unit = $i2.unit; }
         )? 
         (
             '-p' { isPersistent = true; }
         )? 
-        { builder.remember($q.text, $expression.value, ExpirationTime.expiringAt(expiration, unit, isPersistent)); } 
+        { builder.remember($q.value, $expression.value, ExpirationTime.expiringAt(expiration, unit, isPersistent)); } 
     ;
     
 criteria [Rule.Builder builder] returns [Collection<String> eventNames]:
@@ -150,15 +150,19 @@ criteria [Rule.Builder builder] returns [Collection<String> eventNames]:
                     'events=' e1=IDENT  { $eventNames.add($e1.text); } (',' e2=IDENT { $eventNames.add($e2.text); })* 
                )
     (
-        i1=QUERY '=' op1=expression { builder.criterion(NumberQueryPredicate.equalTo($i1.text, $op1.value)); }
-        | i2=QUERY '>' op2=expression { builder.criterion(NumberQueryPredicate.greaterThan($i2.text, $op2.value)); }
-        | i3=QUERY '<' op3=expression { builder.criterion(NumberQueryPredicate.lessThan($i3.text, $op3.value)); }
-        | i4=QUERY '<=' op4=expression { builder.criterion(NumberQueryPredicate.lessThanOrEqual($i4.text, $op4.value)); }
-        | i5=QUERY '>=' op5=expression { builder.criterion(NumberQueryPredicate.greaterThanOrEqual($i5.text, $op5.value)); }
-        | i6=QUERY '!=' op6=expression { builder.criterion(NumberQueryPredicate.not($i6.text, $op6.value)); }
-        | i7=QUERY '~=' op7='/' regex=~('/')+ '/' { builder.criterion(RegexQueryPredicate.of($i7.text, $regex.text)); }
-        | i8=QUERY { builder.criterion(NumberQueryPredicate.of($i8.text, Predicates.<Number>alwaysTrue())); }
+        i1=query '=' op1=expression { builder.criterion(NumberQueryPredicate.equalTo($i1.value, $op1.value)); }
+        | i2=query '>' op2=expression { builder.criterion(NumberQueryPredicate.greaterThan($i2.value, $op2.value)); }
+        | i3=query '<' op3=expression { builder.criterion(NumberQueryPredicate.lessThan($i3.value, $op3.value)); }
+        | i4=query '<=' op4=expression { builder.criterion(NumberQueryPredicate.lessThanOrEqual($i4.value, $op4.value)); }
+        | i5=query '>=' op5=expression { builder.criterion(NumberQueryPredicate.greaterThanOrEqual($i5.value, $op5.value)); }
+        | i6=query '!=' op6=expression { builder.criterion(NumberQueryPredicate.not($i6.value, $op6.value)); }
+        | i7=query '~=' op7='/' regex=~('/')+ '/' { builder.criterion(RegexQueryPredicate.of($i7.value, $regex.text)); }
+        | i8=query { builder.criterion(NumberQueryPredicate.of($i8.value, Predicates.<Number>alwaysTrue())); }
     )*;
+    
+query returns [Evaluator value] :
+    q=QUERY_KEY { $value = StringEvaluator.create($q.text, variableSource); }
+    ;
     
 expression returns [Evaluator value] :
     op1=mult { $value = $op1.value; }
@@ -190,7 +194,7 @@ term returns [Evaluator value] :
     | b=bool { $value = BooleanEvaluator.create($b.value); }
     | NUMBER { $value = NumberEvaluator.create($NUMBER.text); }
     | STRING_LITERAL { $value = StringEvaluator.create($STRING_LITERAL.text, this.variableSource); }
-    | q=QUERY  { $value = VariableEvaluator.create(variableSource, $q.text); }
+    | q=query  { $value = VariableEvaluator.create(variableSource, $q.value); }
     | '[' 
             { List<Evaluator> array = Lists.newArrayList(); }
             (
@@ -226,27 +230,14 @@ ML_COMMENT :
 LINE_COMMENT :
     '//' ~NEWLINE* { $channel = HIDDEN; };
 
-fragment NEWLINE :
-    '\n'
-    | '\r';
-
 WS :
-    (' ' | '\t' | '\n' | '\r')+ { $channel = HIDDEN; };
-
-QUERY :
-    '$' IDENT ('.' IDENT)* { setText(getText().substring(1)); };
+    (' ' | '\t' | '\n' | '\r')+ { $channel = HIDDEN; };   
     
+QUERY_KEY : 
+    '$' IDENT ('.' (IDENT | QUERY_KEY_VAR))* { setText(getText().substring(1)); };
+
 IDENT :
     LETTER (LETTER | '_' | DIGIT)*;
-
-fragment LETTER :
-    ('a'..'z' | 'A'..'Z');
-
-fragment DIGIT :
-    ('0'..'9');
-
-fragment INTEGER : 
-    DIGIT+;
 
 NUMBER :
     '-'? DIGIT+ ('.' DIGIT+)?;
@@ -255,3 +246,18 @@ STRING_LITERAL :
     '"' .* '"' { setText(stripQuotes(getText())); }
     | '\'' .* '\'' { setText(stripQuotes(getText())); }
     ;
+    
+fragment NEWLINE :
+    '\n' | '\r';
+    
+fragment QUERY_KEY_VAR :
+    '${' IDENT ('.' IDENT)* '}';
+    
+fragment LETTER :
+    ('a'..'z' | 'A'..'Z');
+
+fragment DIGIT :
+    ('0'..'9');
+
+fragment INTEGER : 
+    DIGIT+;

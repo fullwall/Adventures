@@ -4,18 +4,20 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 
+import net.citizensnpcs.adventures.dialog.evaluators.Evaluator;
+
 public class RegexQueryPredicate implements QueryPredicate {
-    private final String key;
+    private final Evaluator key;
     private final Pattern regex;
 
-    public RegexQueryPredicate(String key, Pattern regex) {
+    public RegexQueryPredicate(Evaluator key, Pattern regex) {
         this.key = key;
         this.regex = regex;
     }
 
     @Override
     public boolean apply(@Nullable Query input) {
-        Object raw = input.get(key);
+        Object raw = input.get((String) key.get());
         if (!(raw instanceof String))
             throw new DialogException("Expected string for regex but got " + raw);
         return regex.matcher(input.toString()).matches();
@@ -26,7 +28,7 @@ public class RegexQueryPredicate implements QueryPredicate {
         return null;
     }
 
-    public static QueryPredicate of(String key, String regex) {
+    public static QueryPredicate of(Evaluator key, String regex) {
         return new RegexQueryPredicate(key, Pattern.compile(regex));
     }
 }
