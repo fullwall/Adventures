@@ -17,6 +17,8 @@ public class RegexQueryPredicate implements QueryPredicate {
 
     @Override
     public boolean apply(@Nullable Query input) {
+		if(input == null) return false;
+		
         Object raw = input.get((String) key.get());
         if (!(raw instanceof String))
             throw new DialogException("Expected string for regex but got " + raw);

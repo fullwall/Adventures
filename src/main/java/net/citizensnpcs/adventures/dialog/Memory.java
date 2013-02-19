@@ -17,7 +17,7 @@ import com.google.common.collect.Sets;
 public class Memory implements Map<String, Object> {
     private final Map<String, Entry> delegate = Maps.newHashMap();
 
-    private boolean checkExpired(Object key, Entry entry) {
+    private boolean checkExpired(String key, Entry entry) {
         if (entry.expiration != Long.MAX_VALUE && System.nanoTime() >= entry.expiration) {
             delegate.remove(key);
             return true;
@@ -32,10 +32,10 @@ public class Memory implements Map<String, Object> {
 
     @Override
     public boolean containsKey(Object key) {
-        Entry entry = delegate.get(key);
+        Entry entry = delegate.get((String ) key);
         if (entry == null)
             return false;
-        return !checkExpired(key, entry);
+        return !checkExpired((String ) key, entry);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class Memory implements Map<String, Object> {
     @Override
     public Object get(Object key) {
         Entry entry = delegate.get(key);
-        return entry != null && !checkExpired(key, entry) ? entry : null;
+        return entry != null && !checkExpired((String ) key, entry) ? entry : null;
     }
 
     @Override

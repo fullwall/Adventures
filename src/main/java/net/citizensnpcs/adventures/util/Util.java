@@ -27,17 +27,16 @@ public class Util {
                 if (superClass != null && superClass != Object.class) {
                     nextLevel.add(superClass);
                 }
-                for (Class<?> eachInt : each.getInterfaces()) {
-                    nextLevel.add(eachInt);
-                }
+				
+				nextLevel.addAll(Arrays.asList(each.getInterfaces()));
             }
         } while (!nextLevel.isEmpty());
         return classes;
     }
 
     public static List<Class<?>> getCommonSuperClasses(Collection<Evaluator> evaluators) {
-        if (evaluators.size() == 0)
-            return OBJECT;
+        if (evaluators.isEmpty()) return OBJECT;
+		
         Iterator<Evaluator> itr = evaluators.iterator();
         Set<Class<?>> rollingIntersect = new LinkedHashSet<Class<?>>(getClassesBfs(itr.next().get().getClass()));
         while (itr.hasNext()) {

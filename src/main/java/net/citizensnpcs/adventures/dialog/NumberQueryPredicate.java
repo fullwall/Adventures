@@ -20,6 +20,8 @@ public class NumberQueryPredicate implements QueryPredicate {
 
     @Override
     public boolean apply(@Nullable Query input) {
+		if(input == null) return false;
+		
         Object object = input.get((String) queryKey.get());
         if (object == null)
             return false;
@@ -186,6 +188,6 @@ public class NumberQueryPredicate implements QueryPredicate {
     }
 
     private static Number toNumber(Object object) {
-        return object instanceof Number ? (Number) object : object.hashCode();
+        return object == null ? 0 : object instanceof Number ? (Number) object : object.hashCode();
     }
 }
