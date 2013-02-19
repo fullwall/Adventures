@@ -44,11 +44,11 @@
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
-        <dependency>
-            <groupId>javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>${javassist.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>${javassist.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>net.aufdemrand</groupId>
 			<artifactId>denizen</artifactId>
@@ -88,7 +88,7 @@
 	</scm>
 
 	<build>
-		<defaultGoal>clean install</defaultGoal>
+		<defaultGoal>clean generate-sources install</defaultGoal>
 		<sourceDirectory>${basedir}/src/main/java</sourceDirectory>
 
 		<resources>
@@ -121,6 +121,22 @@
 			</plugin>
 
 			<plugin>
+				<groupId>org.antlr</groupId>
+				<artifactId>antlr3-maven-plugin</artifactId>
+				<version>${antlr.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>antlr</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					 <outputDirectory>src/main/java</outputDirectory>
+				</configuration>
+			</plugin>
+
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>1.6</version>
@@ -131,7 +147,6 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
-							<minimizeJar>false</minimizeJar>
 							<relocations>
 								<relocation>
 									<pattern>org.antlr</pattern>
