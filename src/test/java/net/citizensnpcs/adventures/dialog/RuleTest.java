@@ -19,7 +19,7 @@ public class RuleTest {
     }
 
     @Test
-    public void testy() {
+    public void test() {
         String parse = "rule saidHi {\n" + "    criteria events=onchat $message=\"Hi!\";\n" + "    response sayHi;\n"
                 + "}\n" + "response sayHi {\n" + "    say message:\"Hello, ${sender.name}!\", target:$sender;\n" + "}";
         engine.parse(parse);

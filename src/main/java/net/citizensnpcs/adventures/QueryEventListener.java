@@ -86,11 +86,12 @@ public class QueryEventListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onChat(AsyncPlayerChatEvent event) {
         final Map<String, Object> eventMap = Maps.newHashMap();
+        final Player player = event.getPlayer();
         eventMap.put("message", event.getMessage());
-        representEntity(event.getPlayer(), "sender", eventMap);
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
             @Override
             public void run() {
+                representEntity(player, "sender", eventMap);
                 executeQuery(eventMap, "onchat");
             }
         });
