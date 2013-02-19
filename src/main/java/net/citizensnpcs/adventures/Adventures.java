@@ -2,6 +2,7 @@ package net.citizensnpcs.adventures;
 
 import java.io.File;
 
+import net.citizensnpcs.adventures.commands.AdminCommands;
 import net.citizensnpcs.adventures.dialog.DialogEngine;
 import net.citizensnpcs.adventures.dialog.statements.DenizenScript;
 import net.citizensnpcs.api.CitizensAPI;
@@ -20,6 +21,10 @@ public class Adventures extends JavaPlugin {
         return engine;
     }
 
+    public File getDialogFolder() {
+        return new File(getDataFolder(), "dialog");
+    }
+
     @Override
     public void onDisable() {
     }
@@ -34,14 +39,18 @@ public class Adventures extends JavaPlugin {
         CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(DialogTrait.class).withName("dialog"));
     }
 
+    public void reload() {
+        engine.reloadAsynchronouslyFromFolder(getDialogFolder());
+    }
+
     private void setupCommands() {
-        commands.register(Class.class);
+        commands.register(AdminCommands.class);
     }
 
     private void setupEngine() {
         Plugin denizenPlugin = Bukkit.getPluginManager().getPlugin("Denizen");
         if (denizenPlugin != null)
             engine.getStatementRegistry().register(DenizenScript.class);
-        engine.loadFolderAsynchronously(new File(getDataFolder(), "dialog"));
+        engine.loadFolderAsynchronously(getDialogFolder());
     }
 }

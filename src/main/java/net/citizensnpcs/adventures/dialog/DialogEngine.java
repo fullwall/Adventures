@@ -65,7 +65,6 @@ public class DialogEngine {
             @Override
             public void run() {
                 folder.mkdirs();
-
                 for (File file : folder.listFiles(DIALOG_FILE_FILTER)) {
                     try {
                         parse(folder, Files.toString(file, Charsets.UTF_8));

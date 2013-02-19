@@ -6,6 +6,7 @@ import net.citizensnpcs.adventures.dialog.AbstractQuery;
 import net.citizensnpcs.adventures.dialog.DialogEngine;
 import net.citizensnpcs.adventures.dialog.ExpirationTime;
 import net.citizensnpcs.adventures.dialog.Memory;
+import net.citizensnpcs.adventures.util.QueryRepresenters;
 import net.citizensnpcs.api.trait.Trait;
 import net.citizensnpcs.api.util.DataKey;
 
@@ -17,6 +18,7 @@ public class DialogTrait extends Trait {
     }
 
     public void executeQuery(DialogEngine engine, String eventName, Map<String, Object> eventMap) {
+        QueryRepresenters.representNPC(getNPC(), "me", eventMap);
         eventMap.putAll(memory);
         engine.execute(new SimpleQuery(eventName, eventMap));
     }
