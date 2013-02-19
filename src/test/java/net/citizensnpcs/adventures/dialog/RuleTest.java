@@ -19,6 +19,23 @@ public class RuleTest {
     }
 
     @Test
+    public void testy() {
+        String parse = "rule saidHi {\n" + "    criteria events=onchat $message=\"Hi!\";\n" + "    response sayHi;\n"
+                + "}\n" + "response sayHi {\n" + "    say message:\"Hello, ${sender.name}!\", target:$sender;\n" + "}";
+        engine.parse(parse);
+        Map<String, Object> query = Maps.newHashMap();
+        query.put("message", "Hi!");
+        query.put("sender", "log");
+        query.put("sender.name", "log");
+        boolean success = engine.execute(new AbstractQuery("onchat", query) {
+            @Override
+            public void remember(String key, Object value, ExpirationTime time) {
+            }
+        });
+        assertThat(success, is(true));
+    }
+
+    @Test
     public void testCompetingQuery() {
         String parse = "rule test {" + "\n  criteria events=onchat $message='test';" + "\n  response test2;" + "\n}"
                 + "\nrule test2 {" + "\n  criteria events=onchat $message='test' $test=1;" + "\n  response test2;"
