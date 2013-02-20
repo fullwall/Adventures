@@ -1,6 +1,8 @@
 package net.citizensnpcs.adventures.commands;
 
 import net.citizensnpcs.adventures.Adventures;
+import net.citizensnpcs.adventures.util.debug.Debug;
+import net.citizensnpcs.adventures.util.debug.Language;
 import net.citizensnpcs.api.command.Command;
 import net.citizensnpcs.api.command.CommandContext;
 import net.citizensnpcs.api.command.Requirements;
@@ -27,6 +29,6 @@ public class AdminCommands {
             permission = "adventures.admin.reload")
     public void reload(CommandContext context, CommandSender sender, NPC npc) {
         plugin.reload();
-        Messaging.send(sender, "Reloading...");
+        Debug.send(sender, Language.RELOAD.toString());
     }
 }
