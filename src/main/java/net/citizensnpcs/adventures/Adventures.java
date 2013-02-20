@@ -8,11 +8,14 @@ import net.citizensnpcs.adventures.dialog.DialogEngine;
 import net.citizensnpcs.adventures.dialog.statements.DenizenScript;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.command.CommandManager;
+import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.trait.TraitInfo;
 import net.citizensnpcs.api.util.ResourceTranslationProvider;
 import net.citizensnpcs.api.util.Translator;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -53,6 +56,17 @@ public class Adventures extends JavaPlugin {
     private void setupCommands() {
         commands.register(AdminCommands.class);
         commands.register(DialogCommands.class);
+    }
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String cmdName, String[] args) {
+        String modifier = args.length > 0 ? args[0] : "";
+        if (!commands.hasCommand(command, modifier) && !modifier.isEmpty()) {
+            return false;
+        }
+        NPC npc = CitizensAPI.getDefaultNPCSelector().getSelected(sender);
+        Object[] methodArgs = { sender, npc };
+        return commands.executeSafe(command, args, sender, methodArgs);
     }
 
     private void setupEngine() {
