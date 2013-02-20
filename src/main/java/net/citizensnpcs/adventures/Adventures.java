@@ -14,6 +14,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Adventures extends JavaPlugin {
+	private Config config;
     private final CommandManager commands = new CommandManager();
     private final DialogEngine engine = new DialogEngine();
 
@@ -32,6 +33,8 @@ public class Adventures extends JavaPlugin {
     @Override
     public void onEnable() {
         getDataFolder().mkdirs();
+		
+		config = new Config(this);
         setupEngine();
         setupCommands();
 

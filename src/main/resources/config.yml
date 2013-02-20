@@ -1,0 +1,4 @@
+debug:
+  enabled: false
+  detailed: true
+  colors: true
