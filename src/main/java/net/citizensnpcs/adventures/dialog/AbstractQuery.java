@@ -19,6 +19,11 @@ public abstract class AbstractQuery implements Query {
     }
 
     @Override
+    public boolean acceptsRule(Rule rule) {
+        return true;
+    }
+
+    @Override
     public boolean contains(String key) {
         return queryVariables.containsKey(key);
     }
@@ -61,9 +66,9 @@ public abstract class AbstractQuery implements Query {
             ret = source.getMethod(name, (Class<?>[]) null);
             if (ret.getReturnType() == null || Modifier.isStatic(ret.getModifiers()))
                 return null;
-			
+
             ret.setAccessible(true);
-			
+
         } catch (Exception e) {
         }
 

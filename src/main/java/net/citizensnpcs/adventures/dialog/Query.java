@@ -1,6 +1,8 @@
 package net.citizensnpcs.adventures.dialog;
 
 public interface Query {
+    boolean acceptsRule(Rule rule);
+
     boolean contains(String key);
 
     void forget(String... keys);

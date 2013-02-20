@@ -23,6 +23,10 @@ public class Rule implements Comparable<Rule> {
         return other.criteria.length - criteria.length;
     }
 
+    public String getFileName() {
+        return name.split("/")[0];
+    }
+
     public String getName() {
         return name;
     }

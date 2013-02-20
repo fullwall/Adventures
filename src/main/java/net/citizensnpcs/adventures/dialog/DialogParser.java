@@ -1,4 +1,4 @@
-// $ANTLR 3.5 net\\citizensnpcs\\adventures\\dialog\\Dialog.g 2013-02-20 16:58:14
+// $ANTLR 3.5 net\\citizensnpcs\\adventures\\dialog\\Dialog.g 2013-02-20 17:37:50
 
 package net.citizensnpcs.adventures.dialog;
 import java.util.Collection;

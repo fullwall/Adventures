@@ -3,6 +3,7 @@ package net.citizensnpcs.adventures;
 import java.io.File;
 
 import net.citizensnpcs.adventures.commands.AdminCommands;
+import net.citizensnpcs.adventures.commands.DialogCommands;
 import net.citizensnpcs.adventures.dialog.DialogEngine;
 import net.citizensnpcs.adventures.dialog.statements.DenizenScript;
 import net.citizensnpcs.api.CitizensAPI;
@@ -51,6 +52,7 @@ public class Adventures extends JavaPlugin {
 
     private void setupCommands() {
         commands.register(AdminCommands.class);
+        commands.register(DialogCommands.class);
     }
 
     private void setupEngine() {

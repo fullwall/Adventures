@@ -15,6 +15,12 @@ public class Debug {
 
     private static CommandSender sender = null;
 
+    public static void debug(String message) {
+        if (!Config.DEBUG)
+            return;
+        send(message);
+    }
+
     /**
      * Logs a message to the console. This will only send the message if the
      * debug option is enabled inside the configuration!

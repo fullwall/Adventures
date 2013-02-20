@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
+import net.citizensnpcs.adventures.util.Debug;
+
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Iterables;
@@ -33,9 +35,11 @@ public class SimpleDialogRegistry implements DialogRegistry {
         Rule lastMatching = null;
         synchronized (rulesByEvent) {
             for (Rule rule : Iterables.concat(rulesByEvent.get("any"), rulesByEvent.get(query.getEventName()))) {
+                if (!query.acceptsRule(rule))
+                    continue;
                 if (highestScore > rule.getNumberOfCriteria()) {
-                    System.err.println("[q] Skipping rest of rules as highest score > number of criteria ("
-                            + highestScore + ">" + rule.getNumberOfCriteria() + ")");
+                    Debug.debug("[q] Skipping rest of rules as highest score > number of criteria (" + highestScore
+                            + ">" + rule.getNumberOfCriteria() + ")");
                     break;
                 }
 
@@ -43,14 +47,14 @@ public class SimpleDialogRegistry implements DialogRegistry {
                 if (matches > highestScore) {
                     highestScore = matches;
                     lastMatching = rule;
-                    System.err.println("[q] Found a new top score @" + highestScore);
+                    Debug.debug("[q] Found a new top score @" + highestScore);
                 } else {
-                    System.err.println("[q] Number of matches " + matches + " < highest score " + highestScore);
+                    Debug.debug("[q] Number of matches " + matches + " < highest score " + highestScore);
                 }
                 iterations++;
             }
         }
-        System.err.println("[q] Iterated " + iterations + " highest score was " + highestScore);
+        Debug.debug("[q] Iterated " + iterations + " highest score was " + highestScore);
         return lastMatching;
     }
 
