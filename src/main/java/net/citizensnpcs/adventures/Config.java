@@ -9,16 +9,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 
 public class Config {
-	public static boolean DEBUG;
-	public static boolean SHOW_TRACES;
-	public static boolean COLORS;
-	
-	private final static String FILE_NAME = "config.yml";
-	
-	private final Adventures plugin;
 	private final File configFile;
-	
-	
+	private final Adventures plugin;
 	public Config( Adventures plugin ) {
 		this.plugin = plugin;
 		
@@ -42,11 +34,6 @@ public class Config {
 		return plugin.getConfig();
 	}
 	
-	/** Saves the current state of the plugin's configuration file */
-	public void save() {
-		plugin.saveConfig();
-	}
-	
 	/**
 	 * Reloads the plugin's configuration file from disk.
 	 * <b>This will not save the current configuration. Use {@link #save()} instead!</b>
@@ -63,5 +50,18 @@ public class Config {
 			// TODO "Invalid configuration, please check if the YAML is valid!"
 		}
 	}
+	/** Saves the current state of the plugin's configuration file */
+	public void save() {
+		plugin.saveConfig();
+	}
+	
+	
+	public static boolean COLORS;
+	
+	public static boolean DEBUG;
+	
+	private final static String FILE_NAME = "config.yml";
+	
+	public static boolean SHOW_TRACES;
 	
 }

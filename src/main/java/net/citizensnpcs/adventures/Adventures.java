@@ -8,14 +8,16 @@ import net.citizensnpcs.adventures.dialog.statements.DenizenScript;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.command.CommandManager;
 import net.citizensnpcs.api.trait.TraitInfo;
+import net.citizensnpcs.api.util.ResourceTranslationProvider;
+import net.citizensnpcs.api.util.Translator;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Adventures extends JavaPlugin {
-	private Config config;
     private final CommandManager commands = new CommandManager();
+    private Config config;
     private final DialogEngine engine = new DialogEngine();
 
     public DialogEngine getDialogEngine() {
@@ -33,13 +35,14 @@ public class Adventures extends JavaPlugin {
     @Override
     public void onEnable() {
         getDataFolder().mkdirs();
-		
-		config = new Config(this);
+
+        config = new Config(this);
         setupEngine();
         setupCommands();
 
         Bukkit.getPluginManager().registerEvents(new QueryEventListener(this, engine), this);
         CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(DialogTrait.class).withName("dialog"));
+        Translator.addTranslations(new ResourceTranslationProvider("messages_en.properties", Adventures.class));
     }
 
     public void reload() {

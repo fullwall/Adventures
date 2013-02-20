@@ -1,9 +1,9 @@
 package net.citizensnpcs.adventures.util;
 
 import net.citizensnpcs.adventures.dialog.DialogException;
-import net.citizensnpcs.adventures.util.debug.Debug;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
+import net.citizensnpcs.api.util.Messaging;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -18,23 +18,23 @@ public class TargetUtil {
      */
     private static void parseAndSend(String message, String target) {
         if (target.equalsIgnoreCase("log")) {
-            Debug.log(message);
+            System.out.println(message);
             return;
         }
-		
+
         if (target.equalsIgnoreCase("broadcast")) {
             Bukkit.broadcastMessage(message);
-			return;
+            return;
         }
-		
+
         if (target.startsWith("p:")) {
             Player player = Bukkit.getPlayerExact(target.substring(2));
             if (player == null)
                 throw new DialogException("Couldn't find online player from target " + target);
-            Debug.send(player, message);
+            Messaging.send(player, message);
             return;
         }
-		
+
         if (target.startsWith("n:")) {
             int id;
             try {
@@ -47,22 +47,22 @@ public class TargetUtil {
                 throw new DialogException("Couldn't find NPC with id " + id);
             if (!(npc.getBukkitEntity() instanceof CommandSender))
                 throw new DialogException("NPC was not a command sender");
-			
-            Debug.send((CommandSender) npc.getBukkitEntity(), message);
+
+            Messaging.send((CommandSender) npc.getBukkitEntity(), message);
             return;
         }
-		
+
         throw new DialogException("Unable to parse target format");
     }
 
     public static void sendMessage(String message, Object rawTarget) {
         if (rawTarget instanceof CommandSender) {
-            Debug.send((CommandSender) rawTarget, message);
+            Messaging.send((CommandSender) rawTarget, message);
             return;
         }
         if (rawTarget instanceof CommandSender[]) {
             for (CommandSender sender : ((CommandSender[]) rawTarget)) {
-                Debug.send(sender, message);
+                Messaging.send(sender, message);
             }
             return;
         }
