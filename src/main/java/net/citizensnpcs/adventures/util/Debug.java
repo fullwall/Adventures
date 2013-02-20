@@ -21,12 +21,15 @@ public class Debug {
      * 
      * @param message 
      *            The message to send
+     * @param args 
+     *            Optional arguments to parse
      */
-    public static void info(String message) {
+    public static void info(String message, Object... args) {
         if(!Config.DEBUG)
             return;
-        String msg = ChatColor.RESET + message;
-        send("<&3>" + Language.INFO_LABEL.toUpperCase() + ": " + msg);
+        String prefix = Translator.translate(Language.INFO_LABEL);
+        String msg = ChatColor.RESET + Translator.translate(message, args);
+        send("<&3>" + prefix.toUpperCase() + ": " + msg);
     }
     
     /**
@@ -35,12 +38,15 @@ public class Debug {
      * 
      * @param message 
      *            The message to send
+     * @param args 
+     *            Optional arguments to parse
      */
-    public static void error(String message) {
+    public static void error(String message, Object... args) {
         if(!Config.DEBUG)
             return;
-        String msg = ChatColor.RESET + message;
-        send("<&4>" + Language.ERROR_LABEL.toUpperCase() + ": " + msg);
+        String prefix = Translator.translate(Language.ERROR_LABEL);
+        String msg = ChatColor.RESET + Translator.translate(message, args);
+        send("<&4>" + prefix.toUpperCase() + ": " + msg);
     }
     
     /**
@@ -49,11 +55,13 @@ public class Debug {
      * 
      * @param message 
      *            The message to send
+     * @param args 
+     *            Optional arguments to parse
      */
-    public static void debug(String message) {
+    public static void debug(String message, Object... args) {
         if (!Config.DEBUG)
             return;
-        send(message);
+        send(Translator.translate(message, args));
     }
 
     /**
