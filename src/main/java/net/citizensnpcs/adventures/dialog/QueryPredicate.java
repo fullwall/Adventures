@@ -1,7 +1,12 @@
 package net.citizensnpcs.adventures.dialog;
 
-import com.google.common.base.Predicate;
 
-public interface QueryPredicate extends Predicate<Query> {
-    String getQueryKey();
+public interface QueryPredicate {
+    MatchResult apply(Query query);
+
+    public enum MatchResult {
+        CANCEL,
+        MATCHED,
+        UNMATCHED;
+    }
 }

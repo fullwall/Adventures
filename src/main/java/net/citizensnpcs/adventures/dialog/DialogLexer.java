@@ -1,4 +1,4 @@
-// $ANTLR 3.5 net\\citizensnpcs\\adventures\\dialog\\Dialog.g 2013-02-19 21:33:02
+// $ANTLR 3.5 net\\citizensnpcs\\adventures\\dialog\\Dialog.g 2013-02-20 15:41:09
 
 package net.citizensnpcs.adventures.dialog;
 import java.util.concurrent.TimeUnit;
@@ -51,6 +51,7 @@ public class DialogLexer extends Lexer {
 	public static final int T__52=52;
 	public static final int T__53=53;
 	public static final int T__54=54;
+	public static final int T__55=55;
 	public static final int DIGIT=4;
 	public static final int IDENT=5;
 	public static final int INTEGER=6;
@@ -96,11 +97,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__16;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:24:7: ( '!=' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:24:9: '!='
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:24:7: ( '!' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:24:9: '!'
 			{
-			match("!="); 
-
+			match('!'); 
 			}
 
 			state.type = _type;
@@ -117,10 +117,11 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__17;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:25:7: ( '%' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:25:9: '%'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:25:7: ( '!=' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:25:9: '!='
 			{
-			match('%'); 
+			match("!="); 
+
 			}
 
 			state.type = _type;
@@ -137,10 +138,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__18;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:26:7: ( '(' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:26:9: '('
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:26:7: ( '%' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:26:9: '%'
 			{
-			match('('); 
+			match('%'); 
 			}
 
 			state.type = _type;
@@ -157,10 +158,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__19;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:27:7: ( ')' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:27:9: ')'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:27:7: ( '(' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:27:9: '('
 			{
-			match(')'); 
+			match('('); 
 			}
 
 			state.type = _type;
@@ -177,10 +178,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__20;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:28:7: ( '*' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:28:9: '*'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:28:7: ( ')' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:28:9: ')'
 			{
-			match('*'); 
+			match(')'); 
 			}
 
 			state.type = _type;
@@ -197,11 +198,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__21;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:29:7: ( '**' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:29:9: '**'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:29:7: ( '*' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:29:9: '*'
 			{
-			match("**"); 
-
+			match('*'); 
 			}
 
 			state.type = _type;
@@ -218,10 +218,11 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__22;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:30:7: ( '+' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:30:9: '+'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:30:7: ( '**' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:30:9: '**'
 			{
-			match('+'); 
+			match("**"); 
+
 			}
 
 			state.type = _type;
@@ -238,10 +239,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__23;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:31:7: ( ',' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:31:9: ','
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:31:7: ( '+' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:31:9: '+'
 			{
-			match(','); 
+			match('+'); 
 			}
 
 			state.type = _type;
@@ -258,10 +259,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__24;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:32:7: ( '-' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:32:9: '-'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:32:7: ( ',' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:32:9: ','
 			{
-			match('-'); 
+			match(','); 
 			}
 
 			state.type = _type;
@@ -278,11 +279,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__25;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:33:7: ( '-p' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:33:9: '-p'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:33:7: ( '-' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:33:9: '-'
 			{
-			match("-p"); 
-
+			match('-'); 
 			}
 
 			state.type = _type;
@@ -299,10 +299,11 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__26;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:34:7: ( '/' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:34:9: '/'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:34:7: ( '-p' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:34:9: '-p'
 			{
-			match('/'); 
+			match("-p"); 
+
 			}
 
 			state.type = _type;
@@ -319,10 +320,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__27;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:35:7: ( ':' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:35:9: ':'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:35:7: ( '/' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:35:9: '/'
 			{
-			match(':'); 
+			match('/'); 
 			}
 
 			state.type = _type;
@@ -339,10 +340,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__28;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:36:7: ( ';' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:36:9: ';'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:36:7: ( ':' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:36:9: ':'
 			{
-			match(';'); 
+			match(':'); 
 			}
 
 			state.type = _type;
@@ -359,10 +360,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__29;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:37:7: ( '<' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:37:9: '<'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:37:7: ( ';' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:37:9: ';'
 			{
-			match('<'); 
+			match(';'); 
 			}
 
 			state.type = _type;
@@ -379,11 +380,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__30;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:38:7: ( '<=' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:38:9: '<='
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:38:7: ( '<' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:38:9: '<'
 			{
-			match("<="); 
-
+			match('<'); 
 			}
 
 			state.type = _type;
@@ -400,10 +400,11 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__31;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:39:7: ( '=' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:39:9: '='
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:39:7: ( '<=' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:39:9: '<='
 			{
-			match('='); 
+			match("<="); 
+
 			}
 
 			state.type = _type;
@@ -420,10 +421,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__32;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:40:7: ( '>' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:40:9: '>'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:40:7: ( '=' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:40:9: '='
 			{
-			match('>'); 
+			match('='); 
 			}
 
 			state.type = _type;
@@ -440,11 +441,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__33;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:41:7: ( '>=' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:41:9: '>='
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:41:7: ( '>' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:41:9: '>'
 			{
-			match(">="); 
-
+			match('>'); 
 			}
 
 			state.type = _type;
@@ -461,10 +461,11 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__34;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:42:7: ( '[' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:42:9: '['
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:42:7: ( '>=' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:42:9: '>='
 			{
-			match('['); 
+			match(">="); 
+
 			}
 
 			state.type = _type;
@@ -481,10 +482,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__35;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:43:7: ( ']' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:43:9: ']'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:43:7: ( '[' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:43:9: '['
 			{
-			match(']'); 
+			match('['); 
 			}
 
 			state.type = _type;
@@ -501,11 +502,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__36;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:44:7: ( 'criteria' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:44:9: 'criteria'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:44:7: ( ']' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:44:9: ']'
 			{
-			match("criteria"); 
-
+			match(']'); 
 			}
 
 			state.type = _type;
@@ -522,10 +522,11 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__37;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:45:7: ( 'd' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:45:9: 'd'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:45:7: ( 'criteria' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:45:9: 'criteria'
 			{
-			match('d'); 
+			match("criteria"); 
+
 			}
 
 			state.type = _type;
@@ -542,11 +543,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__38;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:46:7: ( 'events=' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:46:9: 'events='
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:46:7: ( 'd' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:46:9: 'd'
 			{
-			match("events="); 
-
+			match('d'); 
 			}
 
 			state.type = _type;
@@ -563,10 +563,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__39;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:47:7: ( 'false' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:47:9: 'false'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:47:7: ( 'events=' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:47:9: 'events='
 			{
-			match("false"); 
+			match("events="); 
 
 			}
 
@@ -584,10 +584,11 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__40;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:48:7: ( 'h' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:48:9: 'h'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:48:7: ( 'false' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:48:9: 'false'
 			{
-			match('h'); 
+			match("false"); 
+
 			}
 
 			state.type = _type;
@@ -604,10 +605,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__41;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:49:7: ( 'm' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:49:9: 'm'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:49:7: ( 'h' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:49:9: 'h'
 			{
-			match('m'); 
+			match('h'); 
 			}
 
 			state.type = _type;
@@ -624,11 +625,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__42;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:50:7: ( 'ms' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:50:9: 'ms'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:50:7: ( 'm' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:50:9: 'm'
 			{
-			match("ms"); 
-
+			match('m'); 
 			}
 
 			state.type = _type;
@@ -645,10 +645,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__43;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:51:7: ( 'ns' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:51:9: 'ns'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:51:7: ( 'ms' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:51:9: 'ms'
 			{
-			match("ns"); 
+			match("ms"); 
 
 			}
 
@@ -666,10 +666,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__44;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:52:7: ( 'random {' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:52:9: 'random {'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:52:7: ( 'ns' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:52:9: 'ns'
 			{
-			match("random {"); 
+			match("ns"); 
 
 			}
 
@@ -687,10 +687,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__45;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:53:7: ( 'remember' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:53:9: 'remember'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:53:7: ( 'random {' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:53:9: 'random {'
 			{
-			match("remember"); 
+			match("random {"); 
 
 			}
 
@@ -708,10 +708,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__46;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:54:7: ( 'response' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:54:9: 'response'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:54:7: ( 'remember' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:54:9: 'remember'
 			{
-			match("response"); 
+			match("remember"); 
 
 			}
 
@@ -729,10 +729,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__47;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:55:7: ( 'rule' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:55:9: 'rule'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:55:7: ( 'response' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:55:9: 'response'
 			{
-			match("rule"); 
+			match("response"); 
 
 			}
 
@@ -750,10 +750,11 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__48;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:56:7: ( 's' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:56:9: 's'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:56:7: ( 'rule' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:56:9: 'rule'
 			{
-			match('s'); 
+			match("rule"); 
+
 			}
 
 			state.type = _type;
@@ -770,11 +771,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__49;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:57:7: ( 'then' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:57:9: 'then'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:57:7: ( 's' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:57:9: 's'
 			{
-			match("then"); 
-
+			match('s'); 
 			}
 
 			state.type = _type;
@@ -791,10 +791,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__50;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:58:7: ( 'true' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:58:9: 'true'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:58:7: ( 'then' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:58:9: 'then'
 			{
-			match("true"); 
+			match("then"); 
 
 			}
 
@@ -812,10 +812,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__51;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:59:7: ( 'us' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:59:9: 'us'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:59:7: ( 'true' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:59:9: 'true'
 			{
-			match("us"); 
+			match("true"); 
 
 			}
 
@@ -833,10 +833,11 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__52;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:60:7: ( '{' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:60:9: '{'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:60:7: ( 'us' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:60:9: 'us'
 			{
-			match('{'); 
+			match("us"); 
+
 			}
 
 			state.type = _type;
@@ -853,10 +854,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__53;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:61:7: ( '}' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:61:9: '}'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:61:7: ( '{' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:61:9: '{'
 			{
-			match('}'); 
+			match('{'); 
 			}
 
 			state.type = _type;
@@ -873,8 +874,28 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = T__54;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:62:7: ( '~=' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:62:9: '~='
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:62:7: ( '}' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:62:9: '}'
+			{
+			match('}'); 
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "T__54"
+
+	// $ANTLR start "T__55"
+	public final void mT__55() throws RecognitionException {
+		try {
+			int _type = T__55;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:63:7: ( '~=' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:63:9: '~='
 			{
 			match("~="); 
 
@@ -887,19 +908,19 @@ public class DialogLexer extends Lexer {
 			// do for sure before leaving
 		}
 	}
-	// $ANTLR end "T__54"
+	// $ANTLR end "T__55"
 
 	// $ANTLR start "ML_COMMENT"
 	public final void mML_COMMENT() throws RecognitionException {
 		try {
 			int _type = ML_COMMENT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:227:12: ( '/*' ( options {greedy=false; } : . )* '*/' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:228:5: '/*' ( options {greedy=false; } : . )* '*/'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:229:12: ( '/*' ( options {greedy=false; } : . )* '*/' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:230:5: '/*' ( options {greedy=false; } : . )* '*/'
 			{
 			match("/*"); 
 
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:228:10: ( options {greedy=false; } : . )*
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:230:10: ( options {greedy=false; } : . )*
 			loop1:
 			while (true) {
 				int alt1=2;
@@ -920,7 +941,7 @@ public class DialogLexer extends Lexer {
 
 				switch (alt1) {
 				case 1 :
-					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:228:38: .
+					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:230:38: .
 					{
 					matchAny(); 
 					}
@@ -950,12 +971,12 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = LINE_COMMENT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:230:14: ( '//' (~ NEWLINE )* )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:231:5: '//' (~ NEWLINE )*
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:232:14: ( '//' (~ NEWLINE )* )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:233:5: '//' (~ NEWLINE )*
 			{
 			match("//"); 
 
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:231:10: (~ NEWLINE )*
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:233:10: (~ NEWLINE )*
 			loop2:
 			while (true) {
 				int alt2=2;
@@ -1001,10 +1022,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = WS;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:233:4: ( ( ' ' | '\\t' | '\\n' | '\\r' )+ )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:234:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:235:4: ( ( ' ' | '\\t' | '\\n' | '\\r' )+ )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:236:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
 			{
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:234:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:236:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
 			int cnt3=0;
 			loop3:
 			while (true) {
@@ -1054,13 +1075,13 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = QUERY_KEY;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:236:11: ( '$' IDENT ( '.' ( IDENT | QUERY_KEY_VAR ) )* )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:237:5: '$' IDENT ( '.' ( IDENT | QUERY_KEY_VAR ) )*
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:238:11: ( '$' IDENT ( '.' ( IDENT | QUERY_KEY_VAR ) )* )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:239:5: '$' IDENT ( '.' ( IDENT | QUERY_KEY_VAR ) )*
 			{
 			match('$'); 
 			mIDENT(); 
 
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:237:15: ( '.' ( IDENT | QUERY_KEY_VAR ) )*
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:239:15: ( '.' ( IDENT | QUERY_KEY_VAR ) )*
 			loop5:
 			while (true) {
 				int alt5=2;
@@ -1071,10 +1092,10 @@ public class DialogLexer extends Lexer {
 
 				switch (alt5) {
 				case 1 :
-					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:237:16: '.' ( IDENT | QUERY_KEY_VAR )
+					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:239:16: '.' ( IDENT | QUERY_KEY_VAR )
 					{
 					match('.'); 
-					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:237:20: ( IDENT | QUERY_KEY_VAR )
+					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:239:20: ( IDENT | QUERY_KEY_VAR )
 					int alt4=2;
 					int LA4_0 = input.LA(1);
 					if ( ((LA4_0 >= 'A' && LA4_0 <= 'Z')||(LA4_0 >= 'a' && LA4_0 <= 'z')) ) {
@@ -1092,14 +1113,14 @@ public class DialogLexer extends Lexer {
 
 					switch (alt4) {
 						case 1 :
-							// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:237:21: IDENT
+							// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:239:21: IDENT
 							{
 							mIDENT(); 
 
 							}
 							break;
 						case 2 :
-							// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:237:29: QUERY_KEY_VAR
+							// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:239:29: QUERY_KEY_VAR
 							{
 							mQUERY_KEY_VAR(); 
 
@@ -1133,12 +1154,12 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = IDENT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:239:7: ( LETTER ( LETTER | '_' | DIGIT )* )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:240:5: LETTER ( LETTER | '_' | DIGIT )*
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:241:7: ( LETTER ( LETTER | '_' | DIGIT )* )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:242:5: LETTER ( LETTER | '_' | DIGIT )*
 			{
 			mLETTER(); 
 
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:240:12: ( LETTER | '_' | DIGIT )*
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:242:12: ( LETTER | '_' | DIGIT )*
 			loop6:
 			while (true) {
 				int alt6=2;
@@ -1183,10 +1204,10 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = NUMBER;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:242:8: ( ( '-' )? ( DIGIT )+ ( '.' ( DIGIT )+ )? )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:243:5: ( '-' )? ( DIGIT )+ ( '.' ( DIGIT )+ )?
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:244:8: ( ( '-' )? ( DIGIT )+ ( '.' ( DIGIT )+ )? )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:245:5: ( '-' )? ( DIGIT )+ ( '.' ( DIGIT )+ )?
 			{
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:243:5: ( '-' )?
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:245:5: ( '-' )?
 			int alt7=2;
 			int LA7_0 = input.LA(1);
 			if ( (LA7_0=='-') ) {
@@ -1194,7 +1215,7 @@ public class DialogLexer extends Lexer {
 			}
 			switch (alt7) {
 				case 1 :
-					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:243:5: '-'
+					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:245:5: '-'
 					{
 					match('-'); 
 					}
@@ -1202,7 +1223,7 @@ public class DialogLexer extends Lexer {
 
 			}
 
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:243:10: ( DIGIT )+
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:245:10: ( DIGIT )+
 			int cnt8=0;
 			loop8:
 			while (true) {
@@ -1235,7 +1256,7 @@ public class DialogLexer extends Lexer {
 				cnt8++;
 			}
 
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:243:17: ( '.' ( DIGIT )+ )?
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:245:17: ( '.' ( DIGIT )+ )?
 			int alt10=2;
 			int LA10_0 = input.LA(1);
 			if ( (LA10_0=='.') ) {
@@ -1243,10 +1264,10 @@ public class DialogLexer extends Lexer {
 			}
 			switch (alt10) {
 				case 1 :
-					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:243:18: '.' ( DIGIT )+
+					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:245:18: '.' ( DIGIT )+
 					{
 					match('.'); 
-					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:243:22: ( DIGIT )+
+					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:245:22: ( DIGIT )+
 					int cnt9=0;
 					loop9:
 					while (true) {
@@ -1300,7 +1321,7 @@ public class DialogLexer extends Lexer {
 		try {
 			int _type = STRING_LITERAL;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:245:16: ( '\"' ( . )* '\"' | '\\'' ( . )* '\\'' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:247:16: ( '\"' ( . )* '\"' | '\\'' ( . )* '\\'' )
 			int alt13=2;
 			int LA13_0 = input.LA(1);
 			if ( (LA13_0=='\"') ) {
@@ -1318,10 +1339,10 @@ public class DialogLexer extends Lexer {
 
 			switch (alt13) {
 				case 1 :
-					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:246:5: '\"' ( . )* '\"'
+					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:248:5: '\"' ( . )* '\"'
 					{
 					match('\"'); 
-					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:246:9: ( . )*
+					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:248:9: ( . )*
 					loop11:
 					while (true) {
 						int alt11=2;
@@ -1335,7 +1356,7 @@ public class DialogLexer extends Lexer {
 
 						switch (alt11) {
 						case 1 :
-							// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:246:9: .
+							// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:248:9: .
 							{
 							matchAny(); 
 							}
@@ -1351,10 +1372,10 @@ public class DialogLexer extends Lexer {
 					}
 					break;
 				case 2 :
-					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:247:7: '\\'' ( . )* '\\''
+					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:249:7: '\\'' ( . )* '\\''
 					{
 					match('\''); 
-					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:247:12: ( . )*
+					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:249:12: ( . )*
 					loop12:
 					while (true) {
 						int alt12=2;
@@ -1368,7 +1389,7 @@ public class DialogLexer extends Lexer {
 
 						switch (alt12) {
 						case 1 :
-							// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:247:12: .
+							// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:249:12: .
 							{
 							matchAny(); 
 							}
@@ -1397,7 +1418,7 @@ public class DialogLexer extends Lexer {
 	// $ANTLR start "NEWLINE"
 	public final void mNEWLINE() throws RecognitionException {
 		try {
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:250:18: ( '\\n' | '\\r' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:252:18: ( '\\n' | '\\r' )
 			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:
 			{
 			if ( input.LA(1)=='\n'||input.LA(1)=='\r' ) {
@@ -1420,14 +1441,14 @@ public class DialogLexer extends Lexer {
 	// $ANTLR start "QUERY_KEY_VAR"
 	public final void mQUERY_KEY_VAR() throws RecognitionException {
 		try {
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:253:24: ( '${' IDENT ( '.' IDENT )* '}' )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:254:5: '${' IDENT ( '.' IDENT )* '}'
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:255:24: ( '${' IDENT ( '.' IDENT )* '}' )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:256:5: '${' IDENT ( '.' IDENT )* '}'
 			{
 			match("${"); 
 
 			mIDENT(); 
 
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:254:16: ( '.' IDENT )*
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:256:16: ( '.' IDENT )*
 			loop14:
 			while (true) {
 				int alt14=2;
@@ -1438,7 +1459,7 @@ public class DialogLexer extends Lexer {
 
 				switch (alt14) {
 				case 1 :
-					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:254:17: '.' IDENT
+					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:256:17: '.' IDENT
 					{
 					match('.'); 
 					mIDENT(); 
@@ -1464,7 +1485,7 @@ public class DialogLexer extends Lexer {
 	// $ANTLR start "LETTER"
 	public final void mLETTER() throws RecognitionException {
 		try {
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:256:17: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:258:17: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
 			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
@@ -1487,7 +1508,7 @@ public class DialogLexer extends Lexer {
 	// $ANTLR start "DIGIT"
 	public final void mDIGIT() throws RecognitionException {
 		try {
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:259:16: ( ( '0' .. '9' ) )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:261:16: ( ( '0' .. '9' ) )
 			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:
 			{
 			if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
@@ -1510,10 +1531,10 @@ public class DialogLexer extends Lexer {
 	// $ANTLR start "INTEGER"
 	public final void mINTEGER() throws RecognitionException {
 		try {
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:262:18: ( ( DIGIT )+ )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:263:5: ( DIGIT )+
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:264:18: ( ( DIGIT )+ )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:265:5: ( DIGIT )+
 			{
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:263:5: ( DIGIT )+
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:265:5: ( DIGIT )+
 			int cnt15=0;
 			loop15:
 			while (true) {
@@ -1557,8 +1578,8 @@ public class DialogLexer extends Lexer {
 
 	@Override
 	public void mTokens() throws RecognitionException {
-		// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:1:8: ( T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | ML_COMMENT | LINE_COMMENT | WS | QUERY_KEY | IDENT | NUMBER | STRING_LITERAL )
-		int alt16=46;
+		// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:1:8: ( T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | ML_COMMENT | LINE_COMMENT | WS | QUERY_KEY | IDENT | NUMBER | STRING_LITERAL )
+		int alt16=47;
 		alt16 = dfa16.predict(input);
 		switch (alt16) {
 			case 1 :
@@ -1835,49 +1856,56 @@ public class DialogLexer extends Lexer {
 				}
 				break;
 			case 40 :
-				// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:1:244: ML_COMMENT
+				// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:1:244: T__55
+				{
+				mT__55(); 
+
+				}
+				break;
+			case 41 :
+				// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:1:250: ML_COMMENT
 				{
 				mML_COMMENT(); 
 
 				}
 				break;
-			case 41 :
-				// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:1:255: LINE_COMMENT
+			case 42 :
+				// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:1:261: LINE_COMMENT
 				{
 				mLINE_COMMENT(); 
 
 				}
 				break;
-			case 42 :
-				// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:1:268: WS
+			case 43 :
+				// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:1:274: WS
 				{
 				mWS(); 
 
 				}
 				break;
-			case 43 :
-				// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:1:271: QUERY_KEY
+			case 44 :
+				// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:1:277: QUERY_KEY
 				{
 				mQUERY_KEY(); 
 
 				}
 				break;
-			case 44 :
-				// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:1:281: IDENT
+			case 45 :
+				// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:1:287: IDENT
 				{
 				mIDENT(); 
 
 				}
 				break;
-			case 45 :
-				// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:1:287: NUMBER
+			case 46 :
+				// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:1:293: NUMBER
 				{
 				mNUMBER(); 
 
 				}
 				break;
-			case 46 :
-				// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:1:294: STRING_LITERAL
+			case 47 :
+				// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:1:300: STRING_LITERAL
 				{
 				mSTRING_LITERAL(); 
 
@@ -1890,145 +1918,148 @@ public class DialogLexer extends Lexer {
 
 	protected DFA16 dfa16 = new DFA16(this);
 	static final String DFA16_eotS =
-		"\5\uffff\1\45\2\uffff\1\47\1\52\2\uffff\1\54\1\uffff\1\56\2\uffff\1\41"+
-		"\1\60\2\41\1\63\1\65\2\41\1\72\2\41\23\uffff\1\41\1\uffff\2\41\1\uffff"+
-		"\1\101\1\uffff\1\102\3\41\1\uffff\2\41\1\111\3\41\2\uffff\6\41\1\uffff"+
-		"\6\41\1\131\1\132\1\133\2\41\1\136\3\41\3\uffff\2\41\1\uffff\4\41\2\uffff"+
-		"\2\41\1\152\1\153\1\154\3\uffff";
+		"\1\uffff\1\45\3\uffff\1\47\2\uffff\1\51\1\54\2\uffff\1\56\1\uffff\1\60"+
+		"\2\uffff\1\41\1\62\2\41\1\65\1\67\2\41\1\74\2\41\25\uffff\1\41\1\uffff"+
+		"\2\41\1\uffff\1\103\1\uffff\1\104\3\41\1\uffff\2\41\1\113\3\41\2\uffff"+
+		"\6\41\1\uffff\6\41\1\133\1\134\1\135\2\41\1\140\3\41\3\uffff\2\41\1\uffff"+
+		"\4\41\2\uffff\2\41\1\154\1\155\1\156\3\uffff";
 	static final String DFA16_eofS =
-		"\155\uffff";
+		"\157\uffff";
 	static final String DFA16_minS =
-		"\1\11\4\uffff\1\52\2\uffff\1\60\1\52\2\uffff\1\75\1\uffff\1\75\2\uffff"+
-		"\1\162\1\60\1\166\1\141\2\60\1\163\1\141\1\60\1\150\1\163\23\uffff\1\151"+
-		"\1\uffff\1\145\1\154\1\uffff\1\60\1\uffff\1\60\1\156\1\155\1\154\1\uffff"+
-		"\1\145\1\165\1\60\1\164\1\156\1\163\2\uffff\1\144\1\145\1\160\1\145\1"+
-		"\156\1\145\1\uffff\1\145\1\164\1\145\1\157\1\155\1\157\3\60\1\162\1\163"+
-		"\1\60\1\155\1\142\1\156\3\uffff\1\151\1\75\1\uffff\1\40\1\145\1\163\1"+
-		"\141\2\uffff\1\162\1\145\3\60\3\uffff";
+		"\1\11\1\75\3\uffff\1\52\2\uffff\1\60\1\52\2\uffff\1\75\1\uffff\1\75\2"+
+		"\uffff\1\162\1\60\1\166\1\141\2\60\1\163\1\141\1\60\1\150\1\163\25\uffff"+
+		"\1\151\1\uffff\1\145\1\154\1\uffff\1\60\1\uffff\1\60\1\156\1\155\1\154"+
+		"\1\uffff\1\145\1\165\1\60\1\164\1\156\1\163\2\uffff\1\144\1\145\1\160"+
+		"\1\145\1\156\1\145\1\uffff\1\145\1\164\1\145\1\157\1\155\1\157\3\60\1"+
+		"\162\1\163\1\60\1\155\1\142\1\156\3\uffff\1\151\1\75\1\uffff\1\40\1\145"+
+		"\1\163\1\141\2\uffff\1\162\1\145\3\60\3\uffff";
 	static final String DFA16_maxS =
-		"\1\176\4\uffff\1\52\2\uffff\1\160\1\57\2\uffff\1\75\1\uffff\1\75\2\uffff"+
-		"\1\162\1\172\1\166\1\141\2\172\1\163\1\165\1\172\1\162\1\163\23\uffff"+
-		"\1\151\1\uffff\1\145\1\154\1\uffff\1\172\1\uffff\1\172\1\156\1\163\1\154"+
-		"\1\uffff\1\145\1\165\1\172\1\164\1\156\1\163\2\uffff\1\144\1\145\1\160"+
-		"\1\145\1\156\1\145\1\uffff\1\145\1\164\1\145\1\157\1\155\1\157\3\172\1"+
-		"\162\1\163\1\172\1\155\1\142\1\156\3\uffff\1\151\1\75\1\uffff\1\40\1\145"+
-		"\1\163\1\141\2\uffff\1\162\1\145\3\172\3\uffff";
+		"\1\176\1\75\3\uffff\1\52\2\uffff\1\160\1\57\2\uffff\1\75\1\uffff\1\75"+
+		"\2\uffff\1\162\1\172\1\166\1\141\2\172\1\163\1\165\1\172\1\162\1\163\25"+
+		"\uffff\1\151\1\uffff\1\145\1\154\1\uffff\1\172\1\uffff\1\172\1\156\1\163"+
+		"\1\154\1\uffff\1\145\1\165\1\172\1\164\1\156\1\163\2\uffff\1\144\1\145"+
+		"\1\160\1\145\1\156\1\145\1\uffff\1\145\1\164\1\145\1\157\1\155\1\157\3"+
+		"\172\1\162\1\163\1\172\1\155\1\142\1\156\3\uffff\1\151\1\75\1\uffff\1"+
+		"\40\1\145\1\163\1\141\2\uffff\1\162\1\145\3\172\3\uffff";
 	static final String DFA16_acceptS =
-		"\1\uffff\1\1\1\2\1\3\1\4\1\uffff\1\7\1\10\2\uffff\1\14\1\15\1\uffff\1"+
-		"\20\1\uffff\1\23\1\24\13\uffff\1\45\1\46\1\47\1\52\1\53\1\54\1\55\1\56"+
-		"\1\6\1\5\1\12\1\11\1\50\1\51\1\13\1\17\1\16\1\22\1\21\1\uffff\1\26\2\uffff"+
-		"\1\31\1\uffff\1\32\4\uffff\1\41\6\uffff\1\33\1\34\6\uffff\1\44\17\uffff"+
-		"\1\40\1\42\1\43\2\uffff\1\30\4\uffff\1\27\1\35\5\uffff\1\25\1\36\1\37";
+		"\2\uffff\1\3\1\4\1\5\1\uffff\1\10\1\11\2\uffff\1\15\1\16\1\uffff\1\21"+
+		"\1\uffff\1\24\1\25\13\uffff\1\46\1\47\1\50\1\53\1\54\1\55\1\56\1\57\1"+
+		"\2\1\1\1\7\1\6\1\13\1\12\1\51\1\52\1\14\1\20\1\17\1\23\1\22\1\uffff\1"+
+		"\27\2\uffff\1\32\1\uffff\1\33\4\uffff\1\42\6\uffff\1\34\1\35\6\uffff\1"+
+		"\45\17\uffff\1\41\1\43\1\44\2\uffff\1\31\4\uffff\1\30\1\36\5\uffff\1\26"+
+		"\1\37\1\40";
 	static final String DFA16_specialS =
-		"\155\uffff}>";
+		"\157\uffff}>";
 	static final String[] DFA16_transitionS = {
 			"\2\37\2\uffff\1\37\22\uffff\1\37\1\1\1\43\1\uffff\1\40\1\2\1\uffff\1"+
 			"\43\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\11\12\42\1\12\1\13\1\14\1\15\1"+
 			"\16\2\uffff\32\41\1\17\1\uffff\1\20\3\uffff\2\41\1\21\1\22\1\23\1\24"+
 			"\1\41\1\25\4\41\1\26\1\27\3\41\1\30\1\31\1\32\1\33\5\41\1\34\1\uffff"+
 			"\1\35\1\36",
-			"",
-			"",
-			"",
-			"",
 			"\1\44",
 			"",
 			"",
-			"\12\42\66\uffff\1\46",
-			"\1\50\4\uffff\1\51",
+			"",
+			"\1\46",
 			"",
 			"",
-			"\1\53",
+			"\12\42\66\uffff\1\50",
+			"\1\52\4\uffff\1\53",
+			"",
 			"",
 			"\1\55",
 			"",
-			"",
 			"\1\57",
-			"\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+			"",
+			"",
 			"\1\61",
-			"\1\62",
 			"\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
-			"\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\22\41\1\64\7\41",
-			"\1\66",
-			"\1\67\3\uffff\1\70\17\uffff\1\71",
+			"\1\63",
+			"\1\64",
 			"\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
-			"\1\73\11\uffff\1\74",
-			"\1\75",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"\1\76",
-			"",
+			"\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\22\41\1\66\7\41",
+			"\1\70",
+			"\1\71\3\uffff\1\72\17\uffff\1\73",
+			"\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+			"\1\75\11\uffff\1\76",
 			"\1\77",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
 			"\1\100",
 			"",
+			"\1\101",
+			"\1\102",
+			"",
 			"\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
 			"",
 			"\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
-			"\1\103",
-			"\1\104\5\uffff\1\105",
-			"\1\106",
-			"",
-			"\1\107",
+			"\1\105",
+			"\1\106\5\uffff\1\107",
 			"\1\110",
-			"\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+			"",
+			"\1\111",
 			"\1\112",
-			"\1\113",
+			"\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
 			"\1\114",
-			"",
-			"",
 			"\1\115",
 			"\1\116",
+			"",
+			"",
 			"\1\117",
 			"\1\120",
 			"\1\121",
 			"\1\122",
-			"",
 			"\1\123",
 			"\1\124",
+			"",
 			"\1\125",
 			"\1\126",
 			"\1\127",
 			"\1\130",
+			"\1\131",
+			"\1\132",
 			"\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
 			"\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
 			"\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
-			"\1\134",
-			"\1\135",
-			"\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+			"\1\136",
 			"\1\137",
-			"\1\140",
+			"\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
 			"\1\141",
-			"",
-			"",
-			"",
 			"\1\142",
 			"\1\143",
 			"",
+			"",
+			"",
 			"\1\144",
 			"\1\145",
+			"",
 			"\1\146",
 			"\1\147",
-			"",
-			"",
 			"\1\150",
 			"\1\151",
+			"",
+			"",
+			"\1\152",
+			"\1\153",
 			"\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
 			"\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
 			"\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
@@ -2068,7 +2099,7 @@ public class DialogLexer extends Lexer {
 		}
 		@Override
 		public String getDescription() {
-			return "1:1: Tokens : ( T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | ML_COMMENT | LINE_COMMENT | WS | QUERY_KEY | IDENT | NUMBER | STRING_LITERAL );";
+			return "1:1: Tokens : ( T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | ML_COMMENT | LINE_COMMENT | WS | QUERY_KEY | IDENT | NUMBER | STRING_LITERAL );";
 		}
 	}
 

@@ -150,16 +150,18 @@ criteria [Rule.Builder builder] returns [Collection<String> eventNames]:
                     'events=' e1=IDENT  { $eventNames.add($e1.text); } (',' e2=IDENT { $eventNames.add($e2.text); })* 
                )
     (
-        i1=query '=' op1=expression { builder.criterion(NumberQueryPredicate.equalTo($i1.value, $op1.value)); }
-        | i2=query '>' op2=expression { builder.criterion(NumberQueryPredicate.greaterThan($i2.value, $op2.value)); }
-        | i3=query '<' op3=expression { builder.criterion(NumberQueryPredicate.lessThan($i3.value, $op3.value)); }
-        | i4=query '<=' op4=expression { builder.criterion(NumberQueryPredicate.lessThanOrEqual($i4.value, $op4.value)); }
-        | i5=query '>=' op5=expression { builder.criterion(NumberQueryPredicate.greaterThanOrEqual($i5.value, $op5.value)); }
-        | i6=query '!=' op6=expression { builder.criterion(NumberQueryPredicate.not($i6.value, $op6.value)); }
-        | i7=query '~=' op7='/' regex=~('/')+ '/' { builder.criterion(RegexQueryPredicate.of($i7.value, $regex.text)); }
-        | i8=query { builder.criterion(NumberQueryPredicate.of($i8.value, Predicates.<Number>alwaysTrue())); }
+        i1=query '=' op1=expression r1=require { builder.criterion(NumberQueryPredicate.equalTo($i1.value, $op1.value, $r8.required)); }
+        | i2=query '>' op2=expression r2=require { builder.criterion(NumberQueryPredicate.greaterThan($i2.value, $op2.value, $r8.required)); }
+        | i3=query '<' op3=expression r3=require { builder.criterion(NumberQueryPredicate.lessThan($i3.value, $op3.value, $r8.required)); }
+        | i4=query '<=' op4=expression r4=require { builder.criterion(NumberQueryPredicate.lessThanOrEqual($i4.value, $op4.value, $r8.required)); }
+        | i5=query '>=' op5=expression r5=require { builder.criterion(NumberQueryPredicate.greaterThanOrEqual($i5.value, $op5.value, $r8.required)); }
+        | i6=query '!=' op6=expression r6=require { builder.criterion(NumberQueryPredicate.not($i6.value, $op6.value, $r8.required)); }
+        | i7=query '~=' op7='/' regex=~('/')+ '/' r7=require { builder.criterion(RegexQueryPredicate.of($i7.value, $regex.text, $r8.required)); }
+        | i8=query r8=require { builder.criterion(NumberQueryPredicate.of($i8.value, Predicates.<Number>alwaysTrue(), $r8.required)); }
     )*;
-    
+
+require returns [boolean required] :
+    ( '!' { $required = true; } )?;
 query returns [Evaluator value] :
     q=QUERY_KEY { $value = StringEvaluator.create($q.text, variableSource); }
     ;

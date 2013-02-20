@@ -39,13 +39,16 @@ public class Rule implements Comparable<Rule> {
         int matched = 0;
         for (int i = 0; i < criteria.length; i++) {
             QueryPredicate criterion = criteria[i];
-            if (!query.contains(criterion.getQueryKey())) {
-                System.err.println("[r] aborted early due to missing key " + criterion.getQueryKey() + ", saved "
-                        + (criteria.length - i) + " iterations.");
-                return 0;
-            }
-            if (criterion.apply(query)) {
-                matched++;
+            switch (criterion.apply(query)) {
+                case CANCEL:
+                    System.err.println("[r] aborted early due to cancellation, saved " + (criteria.length - i)
+                            + " iterations.");
+                    return 0;
+                case UNMATCHED:
+                    break;
+                case MATCHED:
+                    matched++;
+                    break;
             }
             if (highestScore > matched && criteria.length - i < highestScore - matched) {
                 System.err.println("[r] aborted search early, saved " + (criteria.length - i) + " iterations.");
