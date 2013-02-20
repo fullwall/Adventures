@@ -15,6 +15,41 @@ public class Debug {
 
     private static CommandSender sender = null;
 
+    /**
+     * Logs a message with an additional info tag to the console. This will only
+     * send the message if the debug option is enabled inside the configuration!
+     * 
+     * @param message 
+     *            The message to send
+     */
+    public static void info(String message) {
+        if(!Config.DEBUG)
+            return;
+        String msg = ChatColor.RESET + message;
+        send("<&3>" + Language.INFO_LABEL.toUpperCase() + ": " + msg);
+    }
+    
+    /**
+     * Logs a message with an additional error tag to the console. This will only
+     * send the message if the debug option is enabled inside the configuration!
+     * 
+     * @param message 
+     *            The message to send
+     */
+    public static void error(String message) {
+        if(!Config.DEBUG)
+            return;
+        String msg = ChatColor.RESET + message;
+        send("<&4>" + Language.ERROR_LABEL.toUpperCase() + ": " + msg);
+    }
+    
+    /**
+     * Logs an untranslated message to the console. This will only send the
+     * message if the debug option is enabled inside the configuration!
+     * 
+     * @param message 
+     *            The message to send
+     */
     public static void debug(String message) {
         if (!Config.DEBUG)
             return;
