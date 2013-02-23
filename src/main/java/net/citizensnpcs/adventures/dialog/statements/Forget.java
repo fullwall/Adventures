@@ -14,7 +14,7 @@ public class Forget implements QueryRunnable {
 
     @Override
     public void run(QueryContext context) {
-        Object raw = statementContext.getUnsafe("memory");
+        Object raw = statementContext.getUnsafe(context.getQuery(), "memory");
         if (raw instanceof String[]) {
             context.getQuery().forget((String[]) raw);
         } else if (raw instanceof String) {

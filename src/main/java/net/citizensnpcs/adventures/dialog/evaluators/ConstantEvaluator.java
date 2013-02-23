@@ -8,7 +8,7 @@ public class ConstantEvaluator implements Evaluator {
     }
 
     @Override
-    public Object get() {
+    public Object get(VariableSource variables) {
         return value;
     }
 

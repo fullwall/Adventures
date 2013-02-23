@@ -17,13 +17,13 @@ public class ArrayEvaluator {
         }
 
         @Override
-        public Object get() {
-            List<Class<?>> commonClasses = Util.getCommonSuperClasses(evaluators);
+        public Object get(VariableSource variables) {
+            List<Class<?>> commonClasses = Util.getCommonSuperClasses(variables, evaluators);
             if (commonClasses.size() == 0)
                 throw new DialogParserException("No common superclass in array " + Arrays.toString(evaluators));
             Object[] value = (Object[]) Array.newInstance(getClass(), evaluators.length);
             for (int i = 0; i < value.length; i++) {
-                value[i] = evaluators[i].get();
+                value[i] = evaluators[i].get(variables);
             }
             return value;
         }
@@ -43,12 +43,12 @@ public class ArrayEvaluator {
             if (!evaluator.isConstant())
                 return new DynamicArrayEvaluator(evaluators);
         }
-        List<Class<?>> commonClasses = Util.getCommonSuperClasses(evaluators);
+        List<Class<?>> commonClasses = Util.getCommonSuperClasses(null, evaluators);
         if (commonClasses.size() == 0)
             throw new DialogParserException("No common superclass in array " + Arrays.toString(evaluators));
         Object[] value = (Object[]) Array.newInstance(commonClasses.get(0), evaluators.length);
         for (int i = 0; i < evaluators.length; i++)
-            value[i] = evaluators[i].get();
+            value[i] = evaluators[i].get(null);
         return ConstantEvaluator.create(value);
     }
 }

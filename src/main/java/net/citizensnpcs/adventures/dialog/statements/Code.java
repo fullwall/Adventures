@@ -1,6 +1,5 @@
 package net.citizensnpcs.adventures.dialog.statements;
 
-import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -18,27 +17,26 @@ import net.citizensnpcs.adventures.dialog.DialogEngine.ParseContext;
 import net.citizensnpcs.adventures.dialog.DialogException;
 import net.citizensnpcs.adventures.dialog.QueryContext;
 import net.citizensnpcs.adventures.dialog.QueryRunnable;
+import net.citizensnpcs.adventures.dialog.statements.StatementContext.Locals;
 import net.citizensnpcs.api.CitizensAPI;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 public class Code implements QueryRunnable {
-    private final Map<String, Object> codeVars;
     private final String extension;
     private final StatementContext statementContext;
 
     private Code(String extension, StatementContext statementContext) {
         this.extension = extension;
         this.statementContext = statementContext;
-        this.codeVars = Maps.newHashMap(statementContext.getMap());
     }
 
     @Override
     public void run(QueryContext context) {
-        String code = statementContext.getRequired("code", String.class);
+        Locals locals = statementContext.createLocals(context.getQuery());
+        String code = locals.getRequired("code", String.class);
         try {
-            CitizensAPI.getScriptCompiler().run(code, extension, codeVars);
+            CitizensAPI.getScriptCompiler().run(code, extension, locals.getMap());
         } catch (ScriptException e) {
             throw new DialogException(e);
         }
@@ -65,7 +63,7 @@ public class Code implements QueryRunnable {
 
         @Override
         public void run(QueryContext context) {
-            String code = statementContext.getRequired("code", String.class);
+            String code = statementContext.getRequired(context.getQuery(), "code", String.class);
             if (instance == null) {
                 try {
                     instance = generateClass(code).newInstance();

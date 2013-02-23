@@ -1,6 +1,8 @@
 package net.citizensnpcs.adventures.dialog;
 
-public interface Query {
+import net.citizensnpcs.adventures.dialog.evaluators.VariableSource;
+
+public interface Query extends VariableSource {
     boolean acceptsRule(Rule rule);
 
     boolean contains(String key);

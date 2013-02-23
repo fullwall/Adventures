@@ -5,16 +5,17 @@ import java.util.Comparator;
 import javax.annotation.Nullable;
 
 import net.citizensnpcs.adventures.dialog.evaluators.Evaluator;
+import net.citizensnpcs.adventures.dialog.evaluators.VariableSource;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
 public class NumberQueryPredicate implements QueryPredicate {
-    private final Predicate<Number> predicate;
+    private final Matcher predicate;
     private final Evaluator queryKey;
     private final boolean required;
 
-    private NumberQueryPredicate(Evaluator queryKey, Predicate<Number> predicate, boolean required) {
+    private NumberQueryPredicate(Evaluator queryKey, Matcher predicate, boolean required) {
         this.queryKey = queryKey;
         this.predicate = predicate;
         this.required = required;
@@ -22,10 +23,12 @@ public class NumberQueryPredicate implements QueryPredicate {
 
     @Override
     public MatchResult apply(Query input) {
-        Object object = input.get((String) queryKey.get());
+        Object object = input.get((String) queryKey.get(input));
         if (object == null)
             return MatchResult.CANCEL;
-        return predicate.apply(toNumber(object)) ? MatchResult.MATCHED : required ? MatchResult.CANCEL
+        if (object instanceof Evaluator)
+            object = ((Evaluator) object).get(input);
+        return predicate.matches(input, object) ? MatchResult.MATCHED : required ? MatchResult.CANCEL
                 : MatchResult.UNMATCHED;
     }
 
@@ -33,6 +36,17 @@ public class NumberQueryPredicate implements QueryPredicate {
     public String toString() {
         return "NumberQueryPredicate [predicate=" + predicate + ", queryKey=" + queryKey + "]";
     }
+
+    private static interface Matcher {
+        boolean matches(VariableSource variables, Object variable);
+    }
+
+    private static final Matcher ALWAYS_TRUE = new Matcher() {
+        @Override
+        public boolean matches(VariableSource variables, Object variable) {
+            return true;
+        }
+    };
 
     private static Comparator<Number> DOUBLE_COMPARATOR = new Comparator<Number>() {
         @Override
@@ -89,7 +103,6 @@ public class NumberQueryPredicate implements QueryPredicate {
             return ((Long) o1).compareTo(o2.longValue());
         }
     };
-
     private static final Predicate<Integer> NOT_PREDICATE = new Predicate<Integer>() {
         @Override
         public boolean apply(@Nullable Integer input) {
@@ -102,14 +115,29 @@ public class NumberQueryPredicate implements QueryPredicate {
         }
     };
 
+    public static QueryPredicate alwaysTrue(Evaluator evaluator, boolean required) {
+        return of(evaluator, ALWAYS_TRUE, required);
+    }
+
     public static QueryPredicate equalTo(Evaluator key, final Evaluator evaluator, boolean required) {
         if (evaluator.isConstant()) {
-            return of(key, Predicates.<Number> equalTo(toNumber(evaluator)), required);
+            final Object constant = evaluator.get(null);
+            return of(key, new Matcher() {
+                @Override
+                public boolean matches(VariableSource variables, Object variable) {
+                    return variable.equals(constant);
+                }
+
+                @Override
+                public String toString() {
+                    return "NumberQueryPredicate [==]";
+                }
+            }, required);
         }
-        return of(key, new Predicate<Number>() {
+        return of(key, new Matcher() {
             @Override
-            public boolean apply(@Nullable Number input) {
-                return toNumber(evaluator).equals(input);
+            public boolean matches(VariableSource variables, Object variable) {
+                return variable.equals(evaluator.get(variables));
             }
 
             @Override
@@ -124,14 +152,14 @@ public class NumberQueryPredicate implements QueryPredicate {
                 : number instanceof Float ? FLOAT_COMPARATOR : DOUBLE_COMPARATOR;
     }
 
-    private static Predicate<Number> getComparisonPredicate(final Evaluator evaluator, final Predicate<Integer> pred) {
+    private static Matcher getComparisonPredicate(final Evaluator evaluator, final Predicate<Integer> pred) {
         if (evaluator.isConstant()) {
-            final Number number = toNumber(evaluator);
+            final Number number = toNumber(evaluator.get(null));
             final Comparator<Number> comparator = getBestComparator(number);
-            return new Predicate<Number>() {
+            return new Matcher() {
                 @Override
-                public boolean apply(@Nullable Number input) {
-                    return pred.apply(comparator.compare(number, input));
+                public boolean matches(VariableSource variables, Object variable) {
+                    return pred.apply(comparator.compare(toNumber(variable), number));
                 }
 
                 @Override
@@ -140,12 +168,13 @@ public class NumberQueryPredicate implements QueryPredicate {
                 }
             };
         }
-        return new Predicate<Number>() {
+        return new Matcher() {
+
             @Override
-            public boolean apply(@Nullable Number input) {
-                final Number number = toNumber(evaluator);
+            public boolean matches(VariableSource variables, Object variable) {
+                final Number number = toNumber(variable);
                 final Comparator<Number> comparator = getBestComparator(number);
-                return pred.apply(comparator.compare(number, input));
+                return pred.apply(comparator.compare(number, toNumber(evaluator.get(variables))));
             }
 
             @Override
@@ -175,12 +204,8 @@ public class NumberQueryPredicate implements QueryPredicate {
         return of(key, getComparisonPredicate(evaluator, NOT_PREDICATE), required);
     }
 
-    public static QueryPredicate of(Evaluator queryKey, Predicate<Number> predicate, boolean required) {
+    public static QueryPredicate of(Evaluator queryKey, Matcher predicate, boolean required) {
         return new NumberQueryPredicate(queryKey, predicate, required);
-    }
-
-    private static Number toNumber(Evaluator value) {
-        return toNumber(value.get());
     }
 
     private static Number toNumber(Object object) {

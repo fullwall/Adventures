@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import net.citizensnpcs.adventures.dialog.evaluators.Evaluator;
+import net.citizensnpcs.adventures.dialog.evaluators.VariableSource;
 
 import com.google.common.collect.Lists;
 
@@ -27,25 +28,27 @@ public class Util {
                 if (superClass != null && superClass != Object.class) {
                     nextLevel.add(superClass);
                 }
-				
-				nextLevel.addAll(Arrays.asList(each.getInterfaces()));
+
+                nextLevel.addAll(Arrays.asList(each.getInterfaces()));
             }
         } while (!nextLevel.isEmpty());
         return classes;
     }
 
-    public static List<Class<?>> getCommonSuperClasses(Collection<Evaluator> evaluators) {
-        if (evaluators.isEmpty()) return OBJECT;
-		
+    public static List<Class<?>> getCommonSuperClasses(VariableSource variables, Collection<Evaluator> evaluators) {
+        if (evaluators.isEmpty())
+            return OBJECT;
+
         Iterator<Evaluator> itr = evaluators.iterator();
-        Set<Class<?>> rollingIntersect = new LinkedHashSet<Class<?>>(getClassesBfs(itr.next().get().getClass()));
+        Set<Class<?>> rollingIntersect = new LinkedHashSet<Class<?>>(
+                getClassesBfs(itr.next().get(variables).getClass()));
         while (itr.hasNext()) {
-            rollingIntersect.retainAll(getClassesBfs(itr.next().get().getClass()));
+            rollingIntersect.retainAll(getClassesBfs(itr.next().get(variables).getClass()));
         }
         return Lists.newArrayList(rollingIntersect);
     }
 
-    public static List<Class<?>> getCommonSuperClasses(Evaluator... evaluators) {
-        return getCommonSuperClasses(Arrays.asList(evaluators));
+    public static List<Class<?>> getCommonSuperClasses(VariableSource variables, Evaluator... evaluators) {
+        return getCommonSuperClasses(variables, Arrays.asList(evaluators));
     }
 }

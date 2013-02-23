@@ -5,7 +5,6 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Collection;
 
-import net.citizensnpcs.adventures.dialog.evaluators.VariableSource;
 import net.citizensnpcs.adventures.dialog.statements.Argument;
 import net.citizensnpcs.adventures.dialog.statements.Code;
 import net.citizensnpcs.adventures.dialog.statements.Forget;
@@ -24,17 +23,8 @@ import com.google.common.base.Throwables;
 import com.google.common.io.Files;
 
 public class DialogEngine {
-    private Query currentQuery;
     private final DialogRegistry globalRegistry = new SimpleDialogRegistry();
     private final StatementRegistry statementRegistry = new StatementRegistry();
-    private final VariableSource variableSource = new VariableSource() {
-        @Override
-        public Object getVariable(String key) {
-            if (currentQuery == null)
-                throw new IllegalStateException();
-            return currentQuery.get(key);
-        }
-    };
 
     public DialogEngine() {
         statementRegistry.register(Say.class);
@@ -43,7 +33,6 @@ public class DialogEngine {
     }
 
     public boolean execute(Query query) {
-        currentQuery = query;
         Rule lastMatching = globalRegistry.getBestRule(query);
         try {
             if (lastMatching != null)
@@ -52,7 +41,6 @@ public class DialogEngine {
             Throwables.getRootCause(ex).printStackTrace();
             lastMatching = null;
         }
-        currentQuery = null;
         return lastMatching != null;
     }
 
@@ -80,7 +68,6 @@ public class DialogEngine {
         DialogLexer lexer = new DialogLexer(new ANTLRStringStream(string));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         DialogParser parser = new DialogParser(tokens);
-        parser.setVariableSource(variableSource);
         try {
             parser.program(new ParseContext() {
                 @Override

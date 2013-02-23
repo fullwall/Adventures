@@ -8,13 +8,13 @@ public class MinusEvaluator extends LeftRightEvaluator {
     }
 
     @Override
-    public Object get() {
-        return minus(left.get(), right.get());
+    public Object get(VariableSource variables) {
+        return minus(left.get(variables), right.get(variables));
     }
 
     public static Evaluator create(Evaluator left, Evaluator right) {
         if (left.isConstant() && right.isConstant())
-            return ConstantEvaluator.create(minus(left.get(), right.get()));
+            return ConstantEvaluator.create(minus(left.get(null), right.get(null)));
         return new MinusEvaluator(left, right);
     }
 

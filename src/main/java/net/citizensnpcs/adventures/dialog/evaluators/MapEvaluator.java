@@ -13,16 +13,16 @@ public class MapEvaluator {
         private final Map<String, Object> value;
 
         public ConstantMapEvaluator(Map<String, Evaluator> evaluators) {
-            List<Class<?>> commonClasses = Util.getCommonSuperClasses(evaluators.values());
+            List<Class<?>> commonClasses = Util.getCommonSuperClasses(null, evaluators.values());
             if (commonClasses.size() == 0)
                 throw new DialogParserException("No common superclass in map " + evaluators);
             value = Maps.newHashMap();
             for (Map.Entry<String, Evaluator> entry : evaluators.entrySet())
-                value.put(entry.getKey(), entry.getValue().get());
+                value.put(entry.getKey(), entry.getValue().get(null));
         }
 
         @Override
-        public Object get() {
+        public Object get(VariableSource variables) {
             return value;
         }
 
@@ -40,13 +40,13 @@ public class MapEvaluator {
         }
 
         @Override
-        public Object get() {
-            List<Class<?>> commonClasses = Util.getCommonSuperClasses(evaluators.values());
+        public Object get(VariableSource variables) {
+            List<Class<?>> commonClasses = Util.getCommonSuperClasses(variables, evaluators.values());
             if (commonClasses.size() == 0)
                 throw new DialogParserException("No common superclass in map " + evaluators);
             Map<String, Object> value = Maps.newHashMap();
             for (Map.Entry<String, Evaluator> entry : evaluators.entrySet()) {
-                value.put(entry.getKey(), entry.getValue().get());
+                value.put(entry.getKey(), entry.getValue().get(variables));
             }
             return value;
         }

@@ -20,7 +20,7 @@ public class Remember implements QueryRunnable {
     @Override
     public void run(QueryContext context) {
         for (MemoryEntry entry : entries) {
-            context.getQuery().remember((String) entry.key.get(), entry.value, entry.expiration);
+            context.getQuery().remember((String) entry.key.get(context.getQuery()), entry.value, entry.expiration);
         }
     }
 

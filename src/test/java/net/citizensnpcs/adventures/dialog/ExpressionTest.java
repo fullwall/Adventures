@@ -54,9 +54,8 @@ public class ExpressionTest {
         DialogLexer lexer = new DialogLexer(new ANTLRStringStream(string));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         DialogParser parser = new DialogParser(tokens);
-        parser.setVariableSource(source);
         try {
-            return (T) parser.expression().get();
+            return (T) parser.expression().get(source);
         } catch (RecognitionException e) {
             e.printStackTrace();
         } catch (DialogException e) {
@@ -80,7 +79,7 @@ public class ExpressionTest {
     @Test
     public void stringInterpolation() {
         variables.put("player.name", "test");
-        assertThat((String) StringEvaluator.create("Hello, ${player.name}!", source).get(), equalTo("Hello, test!"));
+        assertThat((String) StringEvaluator.create("Hello, ${player.name}!").get(source), equalTo("Hello, test!"));
     }
 
     @Test

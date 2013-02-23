@@ -6,23 +6,21 @@ import java.util.regex.Pattern;
 public class StringEvaluator {
     private static class InterpolatedStringEvaluator implements Evaluator {
         private final Matcher matcher;
-        private final VariableSource source;
         private final String value;
 
-        private InterpolatedStringEvaluator(VariableSource source, String value, Matcher matcher) {
+        private InterpolatedStringEvaluator(String value, Matcher matcher) {
             this.value = value;
             this.matcher = matcher;
-            this.source = source;
         }
 
         @Override
-        public Object get() {
+        public Object get(VariableSource variables) {
             matcher.reset();
             boolean result = matcher.find();
             if (result) {
                 StringBuffer sb = new StringBuffer();
                 do {
-                    Object variable = source.getVariable(matcher.group(1));
+                    Object variable = variables.getVariable(matcher.group(1));
                     matcher.appendReplacement(sb, variable == null ? "null" : variable.toString());
                     result = matcher.find();
                 } while (result);
@@ -45,10 +43,10 @@ public class StringEvaluator {
 
     private static final Pattern INTERPOLATION = Pattern.compile("[$][{]([a-zA-Z.]+?)[}]");
 
-    public static Evaluator create(String raw, VariableSource source) {
+    public static Evaluator create(String raw) {
         Matcher matcher = INTERPOLATION.matcher(raw);
         if (matcher.find())
-            return new InterpolatedStringEvaluator(source, raw, matcher);
+            return new InterpolatedStringEvaluator(raw, matcher);
         return ConstantEvaluator.create(raw);
     }
 }

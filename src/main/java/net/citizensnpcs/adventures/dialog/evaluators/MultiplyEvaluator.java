@@ -8,13 +8,13 @@ public class MultiplyEvaluator extends LeftRightEvaluator {
     }
 
     @Override
-    public Object get() {
-        return multiply(left.get(), right.get());
+    public Object get(VariableSource variables) {
+        return multiply(left.get(variables), right.get(variables));
     }
 
     public static Evaluator create(Evaluator left, Evaluator right) {
         if (left.isConstant() && right.isConstant())
-            return ConstantEvaluator.create(multiply(left.get(), right.get()));
+            return ConstantEvaluator.create(multiply(left.get(null), right.get(null)));
         return new MultiplyEvaluator(left, right);
     }
 

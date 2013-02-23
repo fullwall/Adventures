@@ -10,8 +10,8 @@ public class NegationEvaluator implements Evaluator {
     }
 
     @Override
-    public Object get() {
-        return negate(evaluator.get());
+    public Object get(VariableSource variables) {
+        return negate(evaluator.get(variables));
     }
 
     @Override
@@ -21,7 +21,7 @@ public class NegationEvaluator implements Evaluator {
 
     public static Evaluator create(Evaluator evaluator) {
         if (evaluator.isConstant())
-            return ConstantEvaluator.create(negate(evaluator.get()));
+            return ConstantEvaluator.create(negate(evaluator.get(null)));
         return new NegationEvaluator(evaluator);
     }
 

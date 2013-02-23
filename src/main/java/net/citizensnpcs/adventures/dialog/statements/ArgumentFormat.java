@@ -40,7 +40,7 @@ public class ArgumentFormat {
                 break;
             if (arg.name != null) {
                 remaining.remove(arg.name);
-                map.put(arg.name, arg.value.isConstant() ? arg.value.get() : arg.value);
+                map.put(arg.name, arg.value.isConstant() ? arg.value.get(null) : arg.value);
                 continue;
             } else {
                 Iterator<String> itr = remaining.iterator();

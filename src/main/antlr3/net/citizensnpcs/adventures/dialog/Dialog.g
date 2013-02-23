@@ -30,12 +30,6 @@ public void reportError(RecognitionException e) {
     throw new RuntimeException(e);
 }
 */
-
-private VariableSource variableSource;
-
-public void setVariableSource(VariableSource source) {
-    this.variableSource = source;
-}
 }
 
 @lexer::header {
@@ -157,13 +151,13 @@ criteria [Rule.Builder builder] returns [Collection<String> eventNames]:
         | i5=query '>=' op5=expression r5=require { builder.criterion(NumberQueryPredicate.greaterThanOrEqual($i5.value, $op5.value, $r8.required)); }
         | i6=query '!=' op6=expression r6=require { builder.criterion(NumberQueryPredicate.not($i6.value, $op6.value, $r8.required)); }
         | i7=query '~=' op7='/' regex=~('/')+ '/' r7=require { builder.criterion(RegexQueryPredicate.of($i7.value, $regex.text, $r8.required)); }
-        | i8=query r8=require { builder.criterion(NumberQueryPredicate.of($i8.value, Predicates.<Number>alwaysTrue(), $r8.required)); }
+        | i8=query r8=require { builder.criterion(NumberQueryPredicate.alwaysTrue($i8.value, $r8.required)); }
     )*;
 
 require returns [boolean required] :
     ( '!' { $required = true; } )?;
 query returns [Evaluator value] :
-    q=QUERY_KEY { $value = StringEvaluator.create($q.text, variableSource); }
+    q=QUERY_KEY { $value = StringEvaluator.create($q.text); }
     ;
     
 expression returns [Evaluator value] :
@@ -195,8 +189,8 @@ term returns [Evaluator value] :
     '(' expression ')' { $value = $expression.value; }
     | b=bool { $value = BooleanEvaluator.create($b.value); }
     | NUMBER { $value = NumberEvaluator.create($NUMBER.text); }
-    | STRING_LITERAL { $value = StringEvaluator.create($STRING_LITERAL.text, this.variableSource); }
-    | q=query  { $value = VariableEvaluator.create(variableSource, $q.value); }
+    | STRING_LITERAL { $value = StringEvaluator.create($STRING_LITERAL.text); }
+    | q=query  { $value = VariableEvaluator.create($q.value); }
     | '[' 
             { List<Evaluator> array = Lists.newArrayList(); }
             (

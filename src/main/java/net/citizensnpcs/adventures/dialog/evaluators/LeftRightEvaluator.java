@@ -15,7 +15,7 @@ public abstract class LeftRightEvaluator implements Evaluator {
 
     @Override
     public String toString() {
-        return "LeftRightEvaluator[" + (left.isConstant() ? left.get() : left.toString()) + " "
-                + (right.isConstant() ? right.get() : right.toString()) + "]";
+        return "LeftRightEvaluator[" + (left.isConstant() ? left.get(null) : left.toString()) + " "
+                + (right.isConstant() ? right.get(null) : right.toString()) + "]";
     }
 }

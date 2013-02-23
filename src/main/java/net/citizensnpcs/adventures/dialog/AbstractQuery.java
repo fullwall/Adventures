@@ -75,6 +75,11 @@ public abstract class AbstractQuery implements Query {
         return ret;
     }
 
+    @Override
+    public Object getVariable(String key) {
+        return get(key);
+    }
+
     private Object slowGet(String key) {
         int dotIndex;
         Object current = null;

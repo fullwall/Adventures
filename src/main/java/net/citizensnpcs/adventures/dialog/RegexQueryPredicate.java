@@ -17,7 +17,7 @@ public class RegexQueryPredicate implements QueryPredicate {
 
     @Override
     public MatchResult apply(Query input) {
-        Object raw = input.get((String) key.get());
+        Object raw = input.get((String) key.get(input));
         if (raw == null)
             return MatchResult.CANCEL;
         if (!(raw instanceof String))

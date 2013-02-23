@@ -3,6 +3,7 @@ package net.citizensnpcs.adventures.dialog.statements;
 import net.citizensnpcs.adventures.dialog.DialogEngine.ParseContext;
 import net.citizensnpcs.adventures.dialog.QueryContext;
 import net.citizensnpcs.adventures.dialog.QueryRunnable;
+import net.citizensnpcs.adventures.dialog.statements.StatementContext.Locals;
 import net.citizensnpcs.adventures.util.TargetUtil;
 
 public class Say implements QueryRunnable {
@@ -14,8 +15,9 @@ public class Say implements QueryRunnable {
 
     @Override
     public void run(QueryContext context) {
-        Object rawTarget = statementContext.getUnsafe("target");
-        String message = statementContext.getSafe("message", String.class);
+        Locals locals = statementContext.createLocals(context.getQuery());
+        Object rawTarget = locals.getUnsafe("target");
+        String message = locals.getSafe("message", String.class);
         TargetUtil.sendMessage(message, rawTarget);
     }
 

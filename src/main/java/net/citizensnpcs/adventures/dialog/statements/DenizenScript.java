@@ -8,6 +8,7 @@ import net.citizensnpcs.adventures.dialog.DialogEngine.ParseContext;
 import net.citizensnpcs.adventures.dialog.DialogException;
 import net.citizensnpcs.adventures.dialog.QueryContext;
 import net.citizensnpcs.adventures.dialog.QueryRunnable;
+import net.citizensnpcs.adventures.dialog.statements.StatementContext.Locals;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 
@@ -15,11 +16,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class DenizenScript implements QueryRunnable {
-    private final String name;
     private final StatementContext statementContext;
 
     public DenizenScript(StatementContext statementContext) {
-        this.name = statementContext.getRequired("name", String.class);
         this.statementContext = statementContext;
     }
 
@@ -51,11 +50,13 @@ public class DenizenScript implements QueryRunnable {
 
     @Override
     public void run(QueryContext context) {
-        dNPC denizen = parseDenizen(statementContext.getUnsafe("denizen"));
-        Player player = parsePlayer(statementContext.getUnsafe("player"));
+        Locals locals = statementContext.createLocals(context.getQuery());
+        dNPC denizen = parseDenizen(locals.getUnsafe("denizen"));
+        Player player = parsePlayer(locals.getUnsafe("player"));
         if (player == null && denizen == null) {
             throw new DialogException("Couldn't parse a player or a denizen");
         }
+        String name = locals.getRequired("name", String.class);
         TaskScriptContainer task = ScriptRegistry.getScriptContainerAs(name, TaskScriptContainer.class);
         if (task == null)
             throw new DialogException("Couldn't find a task script by that name");

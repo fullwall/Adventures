@@ -8,13 +8,13 @@ public class ModEvaluator extends LeftRightEvaluator {
     }
 
     @Override
-    public Object get() {
-        return mod(left.get(), right.get());
+    public Object get(VariableSource variables) {
+        return mod(left.get(variables), right.get(variables));
     }
 
     public static Evaluator create(Evaluator left, Evaluator right) {
         if (left.isConstant() && right.isConstant())
-            return ConstantEvaluator.create(mod(left.get(), right.get()));
+            return ConstantEvaluator.create(mod(left.get(null), right.get(null)));
         return new ModEvaluator(left, right);
     }
 

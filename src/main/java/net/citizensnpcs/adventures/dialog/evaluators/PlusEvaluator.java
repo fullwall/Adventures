@@ -8,13 +8,13 @@ public class PlusEvaluator extends LeftRightEvaluator {
     }
 
     @Override
-    public Object get() {
-        return plus(left.get(), right.get());
+    public Object get(VariableSource variables) {
+        return plus(left.get(variables), right.get(variables));
     }
 
     public static Evaluator create(Evaluator left, Evaluator right) {
         if (left.isConstant() && right.isConstant())
-            return ConstantEvaluator.create(plus(left.get(), right.get()));
+            return ConstantEvaluator.create(plus(left.get(null), right.get(null)));
         return new PlusEvaluator(left, right);
     }
 
