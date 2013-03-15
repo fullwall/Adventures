@@ -6,6 +6,8 @@ import net.citizensnpcs.adventures.commands.AdminCommands;
 import net.citizensnpcs.adventures.commands.DialogCommands;
 import net.citizensnpcs.adventures.dialog.DialogEngine;
 import net.citizensnpcs.adventures.dialog.statements.DenizenScript;
+import net.citizensnpcs.adventures.race.RaceLoader;
+import net.citizensnpcs.adventures.race.RaceRegistry;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.command.CommandManager;
 import net.citizensnpcs.api.npc.NPC;
@@ -23,6 +25,7 @@ public class Adventures extends JavaPlugin {
     private final CommandManager commands = new CommandManager();
     private Config config;
     private final DialogEngine engine = new DialogEngine();
+    private final RaceRegistry races = new RaceRegistry();
 
     public DialogEngine getDialogEngine() {
         return engine;
@@ -52,6 +55,7 @@ public class Adventures extends JavaPlugin {
         getDataFolder().mkdirs();
 
         config = new Config(this);
+        new RaceLoader(new File(getDataFolder(), "races"), races).load();
         setupEngine();
         setupCommands();
 
@@ -62,6 +66,7 @@ public class Adventures extends JavaPlugin {
 
     public void reload() {
         engine.reloadAsynchronouslyFromFolder(getDialogFolder());
+        config.reload();
     }
 
     private void setupCommands() {
