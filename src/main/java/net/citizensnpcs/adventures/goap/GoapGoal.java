@@ -1,6 +1,6 @@
 package net.citizensnpcs.adventures.goap;
 
-public interface Goal {
+public interface GoapGoal {
     boolean canContinue();
 
     float evaluateRelevancy(PlannerAgent agent);

@@ -6,7 +6,6 @@ import java.util.concurrent.ExecutionException;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.scripting.ScriptFactory;
 import net.citizensnpcs.api.util.DataKey;
-import net.citizensnpcs.api.util.Storage;
 import net.citizensnpcs.api.util.YamlStorage;
 
 public class RaceLoader {
@@ -52,19 +51,19 @@ public class RaceLoader {
         return (RaceDescriptor) object;
     }
 
-    private RaceDescriptor loadFromYaml(Storage storage) {
+    private RaceDescriptor loadFromYaml(YamlStorage storage) {
         DataKey root = storage.getKey("");
         String name = root.getString("name");
         if (name == null)
             return null;
         RaceDescriptor race = RaceDescriptor.builder(name).build();
-        CitizensAPI.registerEvents(new YamlTribeGenerator(registry, root));
-        return race;
+        TribeGenerator gen = YamlTribeGenerator.create(race, storage);
+        return gen == null ? null : race;
     }
 
     private RaceDescriptor loadRaceDescriptor(File infoFile) {
         if (infoFile.getName().contains(".yml")) {
-            Storage storage = new YamlStorage(infoFile);
+            YamlStorage storage = new YamlStorage(infoFile);
             if (!storage.load())
                 throw new RuntimeException("Couldn't load " + infoFile.getName());
             return loadFromYaml(storage);

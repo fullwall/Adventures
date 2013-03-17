@@ -6,7 +6,7 @@ import java.util.List;
 
 import net.citizensnpcs.adventures.goap.Action;
 import net.citizensnpcs.adventures.goap.ActionPlan;
-import net.citizensnpcs.adventures.goap.Goal;
+import net.citizensnpcs.adventures.goap.GoapGoal;
 import net.citizensnpcs.adventures.goap.PlannerAgent;
 import net.citizensnpcs.api.ai.tree.BehaviorStatus;
 import net.citizensnpcs.api.astar.Plan;
@@ -16,8 +16,8 @@ import com.google.common.collect.Lists;
 public class SimpleActionPlanner implements ActionPlanner {
     private final PlannerAgent agent;
     private final List<Action> availableActions = Lists.newArrayList();
-    private final List<Goal> availableGoals = Lists.newArrayList();
-    private Goal currentGoal;
+    private final List<GoapGoal> availableGoals = Lists.newArrayList();
+    private GoapGoal currentGoal;
     private Plan currentPlan;
 
     public SimpleActionPlanner(PlannerAgent agent) {
@@ -35,7 +35,7 @@ public class SimpleActionPlanner implements ActionPlanner {
     }
 
     private void replan() {
-        Goal best = selectBestGoal(agent);
+        GoapGoal best = selectBestGoal(agent);
         if (best != null) {
             Plan plan = agent.generatePlan(best.getGoalState());
             boolean replace = shouldReplaceCurrentPlan(plan);
@@ -50,15 +50,15 @@ public class SimpleActionPlanner implements ActionPlanner {
         currentGoal = null;
     }
 
-    private Goal selectBestGoal(final PlannerAgent agent) {
-        Collections.sort(availableGoals, new Comparator<Goal>() {
+    private GoapGoal selectBestGoal(final PlannerAgent agent) {
+        Collections.sort(availableGoals, new Comparator<GoapGoal>() {
             @Override
-            public int compare(Goal o1, Goal o2) {
+            public int compare(GoapGoal o1, GoapGoal o2) {
                 // descending order
                 return (int) (o2.evaluateRelevancy(agent) - o1.evaluateRelevancy(agent));
             }
         });
-        for (Goal goal : availableGoals) {
+        for (GoapGoal goal : availableGoals) {
             if (goal == currentGoal) {
                 break;
             }
@@ -84,7 +84,7 @@ public class SimpleActionPlanner implements ActionPlanner {
         return ((Comparable<Plan>) currentPlan).compareTo(plan) < 0 && !currentPlan.equals(plan);
     }
 
-    private void switchPlanTo(Goal goal, Plan plan) {
+    private void switchPlanTo(GoapGoal goal, Plan plan) {
         currentGoal = goal;
         currentPlan = plan;
     }

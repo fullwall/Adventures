@@ -9,11 +9,11 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<citizensapi.version>2.0.7-SNAPSHOT</citizensapi.version>
-		<craftbukkit.version>1.4.7-R1.1-SNAPSHOT</craftbukkit.version>
+		<citizensapi.version>2.0.8-SNAPSHOT</citizensapi.version>
+		<craftbukkit.version>LATEST</craftbukkit.version>
 		<antlr.version>3.5</antlr.version>
+        <groovy.version>2.1.1</groovy.version>
 		<denizen.version>0.8-PRERELEASE</denizen.version>
-		<javassist.version>3.12.1.GA</javassist.version>
 		<powermock.version>1.5</powermock.version>
 		<build.number>Unknown</build.number>
 	</properties>
@@ -45,9 +45,9 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>javassist</groupId>
-			<artifactId>javassist</artifactId>
-			<version>${javassist.version}</version>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<version>${groovy.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.aufdemrand</groupId>
@@ -132,7 +132,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					 <outputDirectory>src/main/java</outputDirectory>
+					<outputDirectory>src/main/java</outputDirectory>
 				</configuration>
 			</plugin>
 
@@ -152,6 +152,10 @@
 									<pattern>org.antlr</pattern>
 									<shadedPattern>lib.antlr</shadedPattern>
 								</relocation>
+                                <relocation>
+                                    <pattern>org.codehaus.groovy</pattern>
+                                    <shadedPattern>lib.groovy</shadedPattern>
+                                </relocation>
 							</relocations>
 						</configuration>
 					</execution>
