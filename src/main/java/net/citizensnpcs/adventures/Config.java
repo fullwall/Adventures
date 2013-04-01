@@ -30,6 +30,7 @@ public class Config {
         Config.DEBUG = get().getBoolean("debug.enabled", false);
         Config.SHOW_TRACES = get().getBoolean("debug.detailed", true);
         Config.COLORS = get().getBoolean("debug.colors", true);
+        Config.CACHE_SCRIPTS = get().getBoolean("scripts.cache", true);
     }
 
     /**
@@ -55,6 +56,7 @@ public class Config {
         plugin.saveConfig();
     }
 
+    public static boolean CACHE_SCRIPTS;
     public static boolean COLORS;
     public static boolean DEBUG;
     private final static String FILE_NAME = "config.yml";

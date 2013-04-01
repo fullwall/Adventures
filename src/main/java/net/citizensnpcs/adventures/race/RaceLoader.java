@@ -34,15 +34,14 @@ public class RaceLoader {
     }
 
     private RaceDescriptor loadAsScript(File infoFile) {
-        ScriptFactory[] factories = new ScriptFactory[1];
+        ScriptFactory factory = null;
         try {
-            factories = CitizensAPI.getScriptCompiler().compile(infoFile).beginWithFuture().get();
+            factory = CitizensAPI.getScriptCompiler().compile(infoFile).beginWithFuture().get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        ScriptFactory factory = factories[0];
         if (factory == null)
             return null;
         Object object = factory.newInstance().invoke("getDescriptor", (Object[]) null);
