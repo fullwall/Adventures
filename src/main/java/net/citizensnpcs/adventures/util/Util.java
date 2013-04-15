@@ -5,10 +5,14 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import net.citizensnpcs.adventures.dialog.evaluators.Evaluator;
 import net.citizensnpcs.adventures.dialog.evaluators.VariableSource;
+
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 
 import com.google.common.collect.Lists;
 
@@ -50,5 +54,15 @@ public class Util {
 
     public static List<Class<?>> getCommonSuperClasses(VariableSource variables, Evaluator... evaluators) {
         return getCommonSuperClasses(variables, Arrays.asList(evaluators));
+    }
+
+    public static EntityType getRandomLivingType() {
+        EntityType[] types = EntityType.values();
+        Random random = new Random();
+        EntityType chosen = null;
+        while (chosen == null || !LivingEntity.class.isAssignableFrom(chosen.getEntityClass())) {
+            chosen = types[random.nextInt(types.length)];
+        }
+        return chosen;
     }
 }

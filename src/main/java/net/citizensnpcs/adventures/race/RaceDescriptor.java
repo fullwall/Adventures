@@ -7,6 +7,10 @@ public class RaceDescriptor {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public static class Builder {
         private final String name;
 
@@ -21,9 +25,5 @@ public class RaceDescriptor {
 
     public static Builder builder(String name) {
         return new Builder(name);
-    }
-
-    public String getName() {
-        return name;
     }
 }

@@ -25,7 +25,6 @@ import com.google.common.collect.Maps;
 public class QueryEventListener implements Listener {
     private final Set<DialogTrait> dialogTraits = Collections.newSetFromMap(new WeakHashMap<DialogTrait, Boolean>());
     private final DialogEngine engine;
-
     private final Plugin plugin;
 
     public QueryEventListener(Plugin plugin, DialogEngine engine) {

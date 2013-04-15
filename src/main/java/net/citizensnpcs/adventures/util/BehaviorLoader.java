@@ -1,4 +1,4 @@
-package net.citizensnpcs.adventures.race;
+package net.citizensnpcs.adventures.util;
 
 import java.io.File;
 import java.util.Collection;
@@ -14,38 +14,14 @@ import net.citizensnpcs.api.ai.tree.BehaviorStatus;
 import net.citizensnpcs.api.ai.tree.Selector;
 import net.citizensnpcs.api.ai.tree.Selectors;
 import net.citizensnpcs.api.ai.tree.Sequence;
-import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.scripting.Script;
 import net.citizensnpcs.api.scripting.ScriptFactory;
 import net.citizensnpcs.api.util.DataKey;
-import net.citizensnpcs.api.util.YamlStorage;
 
 import com.google.common.collect.Lists;
 
-public class YamlTribeGenerator implements TribeGenerator {
-    private final RaceDescriptor race;
-    private final YamlStorage storage;
-
-    private YamlTribeGenerator(RaceDescriptor race, YamlStorage storage) {
-        this.race = race;
-        this.storage = storage;
-    }
-
-    private Tribe createTribe(Iterable<NPC> members) {
-        for (NPC npc : members) {
-            npc.getDefaultGoalController().addGoal(loadBehaviors(storage.getFile(), storage.getKey("behavior.member")),
-                    1);
-        }
-        Tribe tribe = new SimpleTribe(race, members);
-        tribe.getTribeAI().addGoal(loadBehaviors(storage.getFile(), storage.getKey("behavior.tribe")), 1);
-        return tribe;
-    }
-
-    public static TribeGenerator create(RaceDescriptor race, YamlStorage storage) {
-        return new YamlTribeGenerator(race, storage);
-    }
-
-    private static Goal loadBehaviors(File file, DataKey key) {
+public class BehaviorLoader {
+    public static Goal loadBehaviors(File file, DataKey key) {
         Iterator<DataKey> subKeys = key.getSubKeys().iterator();
         if (!subKeys.hasNext())
             return null;

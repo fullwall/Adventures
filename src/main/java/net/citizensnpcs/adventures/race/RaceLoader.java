@@ -56,8 +56,10 @@ public class RaceLoader {
         if (name == null)
             return null;
         RaceDescriptor race = RaceDescriptor.builder(name).build();
-        TribeGenerator gen = YamlTribeGenerator.create(race, storage);
-        return gen == null ? null : race;
+        TribeGenerator gen = TribeGenerator.create(race);
+        gen.setNPCSupplier(new FlatfileNPCSupplier(storage));
+        gen.addDecorator(new FlatfileBehaviorDecorator(storage));
+        return race;
     }
 
     private RaceDescriptor loadRaceDescriptor(File infoFile) {
