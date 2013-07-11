@@ -9,7 +9,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<citizensapi.version>2.0.8-SNAPSHOT</citizensapi.version>
+		<citizensapi.version>2.0.9-SNAPSHOT</citizensapi.version>
 		<craftbukkit.version>LATEST</craftbukkit.version>
 		<antlr.version>3.5</antlr.version>
         <groovy.version>2.1.1</groovy.version>

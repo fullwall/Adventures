@@ -42,8 +42,9 @@ public class TribeGenerator {
             npc = decorateNPC(tribe, npc);
             if (npc != null) {
                 npcs.add(npc);
-            } else
+            } else {
                 itr.remove();
+            }
         }
         tribe.addMembers(npcs);
         return tribe;

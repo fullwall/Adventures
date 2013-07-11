@@ -17,10 +17,12 @@ public class FlatfileBehaviorDecorator implements TribeMemberDecorator {
     public NPC decorate(Tribe tribe, NPC npc) {
         Goal rootMemberGoal = BehaviorLoader.loadBehaviors(storage.getFile(), storage.getKey("members.behavior"));
         Goal rootTribeGoal = BehaviorLoader.loadBehaviors(storage.getFile(), storage.getKey("tribe.behavior"));
-        if (rootMemberGoal != null)
+        if (rootMemberGoal != null) {
             npc.getDefaultGoalController().addGoal(rootMemberGoal, 1);
-        if (rootTribeGoal != null)
+        }
+        if (rootTribeGoal != null) {
             tribe.getTribeAI().addGoal(rootTribeGoal, 1);
+        }
         npc.addTrait(DialogTrait.class);
         return npc;
     }

@@ -27,7 +27,7 @@ public class FlatfileNPCSupplier implements NPCSupplier {
 
     public FlatfileNPCSupplier(Storage storage) {
         this.parameters = PersistenceLoader.load(NPCParameters.class, storage.getKey(""));
-        this.maxNPCs = storage.getKey("").getInt("tribe.size");
+        this.maxNPCs = storage.getKey("").getInt("tribe.max-size");
     }
 
     @Override
@@ -57,8 +57,9 @@ public class FlatfileNPCSupplier implements NPCSupplier {
                     }
                     standable = MinecraftBlockExaminer.canStandOn(block);
                 }
-                if (standable)
+                if (standable) {
                     return block.getLocation();
+                }
             }
         }
         return in.getWorld().getSpawnLocation();

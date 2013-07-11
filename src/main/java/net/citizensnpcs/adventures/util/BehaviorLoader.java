@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 import net.citizensnpcs.adventures.Config;
 import net.citizensnpcs.api.CitizensAPI;
@@ -14,6 +16,7 @@ import net.citizensnpcs.api.ai.tree.BehaviorStatus;
 import net.citizensnpcs.api.ai.tree.Selector;
 import net.citizensnpcs.api.ai.tree.Selectors;
 import net.citizensnpcs.api.ai.tree.Sequence;
+import net.citizensnpcs.api.persistence.PersistenceLoader;
 import net.citizensnpcs.api.scripting.Script;
 import net.citizensnpcs.api.scripting.ScriptFactory;
 import net.citizensnpcs.api.util.DataKey;
@@ -26,6 +29,8 @@ public class BehaviorLoader {
         if (!subKeys.hasNext())
             return null;
         final Behavior behavior = loadRecursive(file, subKeys.next());
+        if (behavior == null)
+            return null;
         return behavior instanceof Goal ? (Goal) behavior : new BehaviorGoalAdapter() {
             @Override
             public void reset() {
@@ -84,15 +89,22 @@ public class BehaviorLoader {
                 e.printStackTrace();
                 return null;
             }
+        } else if (first.isEmpty()) {
+            return null;
         } else {
             String namespacedName = name;
-            try {
-                Class<?> clazz = Class.forName(namespacedName);
-                return (Behavior) clazz.newInstance();
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
+            Class<?> clazz = CLASS_CACHE.get(namespacedName);
+            if (clazz == null) {
+                try {
+                    clazz = Class.forName(namespacedName);
+                    CLASS_CACHE.put(namespacedName, clazz);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
+            return (Behavior) PersistenceLoader.load(clazz, key);
         }
     }
+
+    private static final Map<String, Class<?>> CLASS_CACHE = new WeakHashMap<String, Class<?>>();
 }

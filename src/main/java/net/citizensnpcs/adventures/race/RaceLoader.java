@@ -26,8 +26,9 @@ public class RaceLoader {
                 if (!possibleInfoFile.isFile() || !possibleInfoFile.getName().startsWith("info"))
                     continue;
                 RaceDescriptor desc = loadRaceDescriptor(possibleInfoFile);
-                if (desc != null)
+                if (desc != null) {
                     registry.register(desc);
+                }
                 break;
             }
         }
