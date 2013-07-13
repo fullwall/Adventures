@@ -76,12 +76,12 @@ public class BehaviorLoader {
         } else if (first.equals("js")) {
             try {
                 ScriptFactory factory = CitizensAPI.getScriptCompiler()
-                        .compile(new File(file.getParent(), name.replaceFirst("js", ""))).cache(Config.CACHE_SCRIPTS)
-                        .beginWithFuture().get();
+                        .compile(new File(file.getParent(), name.replaceFirst("js", "").trim()))
+                        .cache(Config.CACHE_SCRIPTS).beginWithFuture().get();
                 if (factory == null)
                     throw new IllegalStateException("Couldn't load javascript");
                 Script s = factory.newInstance();
-                Object o = s.convertToInterface(s.invoke("getBehavior", (Object[]) null), Behavior.class);
+                Object o = s.convertToInterface(s.invoke("getBehavior", key), Behavior.class);
                 if (o == null || !(o instanceof Behavior))
                     throw new IllegalArgumentException("Couldn't convert to Behavior");
                 return (Behavior) o;

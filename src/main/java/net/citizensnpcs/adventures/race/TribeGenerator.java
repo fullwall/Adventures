@@ -12,12 +12,8 @@ import com.google.common.collect.Lists;
 
 public class TribeGenerator {
     private final List<TribeMemberDecorator> decorators = Lists.newArrayList();
-    private final RaceDescriptor race;
+    private RaceDescriptor race;
     private NPCSupplier supplier;
-
-    private TribeGenerator(RaceDescriptor race) {
-        this.race = race;
-    }
 
     public void addDecorator(TribeMemberDecorator decorator) {
         decorators.add(decorator);
@@ -54,7 +50,7 @@ public class TribeGenerator {
         this.supplier = supplier;
     }
 
-    public static TribeGenerator create(RaceDescriptor race) {
-        return new TribeGenerator(race);
+    public void setRace(RaceDescriptor race) {
+        this.race = race;
     }
 }

@@ -4,12 +4,14 @@ import java.io.File;
 
 import net.citizensnpcs.adventures.commands.AdminCommands;
 import net.citizensnpcs.adventures.commands.DialogCommands;
+import net.citizensnpcs.adventures.commands.RaceCommands;
 import net.citizensnpcs.adventures.dialog.DialogEngine;
 import net.citizensnpcs.adventures.dialog.statements.DenizenScript;
 import net.citizensnpcs.adventures.race.RaceLoader;
 import net.citizensnpcs.adventures.race.RaceRegistry;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.command.CommandManager;
+import net.citizensnpcs.api.command.Injector;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.trait.TraitInfo;
 import net.citizensnpcs.api.util.ResourceTranslationProvider;
@@ -35,6 +37,10 @@ public class Adventures extends JavaPlugin {
         return new File(getDataFolder(), "dialog");
     }
 
+    public RaceRegistry getRaceRegistry() {
+        return races;
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String cmdName, String[] args) {
         String modifier = args.length > 0 ? args[0] : "";
@@ -52,6 +58,7 @@ public class Adventures extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        commands.setInjector(new Injector(this));
         getDataFolder().mkdirs();
 
         config = new Config(this);
@@ -72,6 +79,7 @@ public class Adventures extends JavaPlugin {
     private void setupCommands() {
         commands.register(AdminCommands.class);
         commands.register(DialogCommands.class);
+        commands.register(RaceCommands.class);
     }
 
     private void setupEngine() {

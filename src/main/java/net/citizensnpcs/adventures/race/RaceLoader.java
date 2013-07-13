@@ -56,10 +56,10 @@ public class RaceLoader {
         String name = root.getString("name");
         if (name == null)
             return null;
-        RaceDescriptor race = RaceDescriptor.builder(name).build();
-        TribeGenerator gen = TribeGenerator.create(race);
+        TribeGenerator gen = new TribeGenerator();
         gen.setNPCSupplier(new FlatfileNPCSupplier(storage));
         gen.addDecorator(new FlatfileBehaviorDecorator(storage));
+        RaceDescriptor race = RaceDescriptor.builder(name).generator(gen).build();
         return race;
     }
 

@@ -23,11 +23,11 @@ import com.google.common.collect.Lists;
 public class FlatfileNPCSupplier implements NPCSupplier {
     private final int maxNPCs;
     private final NPCParameters parameters;
-    private Random random;
+    private final Random random = new Random();
 
     public FlatfileNPCSupplier(Storage storage) {
         this.parameters = PersistenceLoader.load(NPCParameters.class, storage.getKey(""));
-        this.maxNPCs = storage.getKey("").getInt("tribe.max-size");
+        this.maxNPCs = storage.getKey("").getInt("tribe.max-size", 10);
     }
 
     @Override
@@ -58,18 +58,18 @@ public class FlatfileNPCSupplier implements NPCSupplier {
                     standable = MinecraftBlockExaminer.canStandOn(block);
                 }
                 if (standable) {
-                    return block.getLocation();
+                    return block.getLocation().add(0, 1, 0);
                 }
             }
         }
         return in.getWorld().getSpawnLocation();
     }
 
-    private static class NPCParameters {
+    public static class NPCParameters {
         @Persist(value = "members.names", required = true)
-        private List<String> names;
+        public List<String> names;
 
         @Persist(value = "members.types", required = true)
-        private List<EntityType> types;
+        public List<EntityType> types;
     }
 }

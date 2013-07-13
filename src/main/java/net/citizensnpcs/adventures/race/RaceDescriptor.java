@@ -1,10 +1,17 @@
 package net.citizensnpcs.adventures.race;
 
 public class RaceDescriptor {
+    private final TribeGenerator generator;
     private final String name;
 
-    private RaceDescriptor(String name) {
+    private RaceDescriptor(String name, TribeGenerator generator) {
         this.name = name;
+        this.generator = generator;
+        this.generator.setRace(this);
+    }
+
+    public TribeGenerator getGenerator() {
+        return generator;
     }
 
     public String getName() {
@@ -12,6 +19,7 @@ public class RaceDescriptor {
     }
 
     public static class Builder {
+        private TribeGenerator generator;
         private final String name;
 
         private Builder(String name) {
@@ -19,7 +27,12 @@ public class RaceDescriptor {
         }
 
         public RaceDescriptor build() {
-            return new RaceDescriptor(name);
+            return new RaceDescriptor(name, generator);
+        }
+
+        public Builder generator(TribeGenerator gen) {
+            this.generator = gen;
+            return this;
         }
     }
 

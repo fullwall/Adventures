@@ -45,11 +45,6 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy-all</artifactId>
-			<version>${groovy.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>net.aufdemrand</groupId>
 			<artifactId>denizen</artifactId>
 			<version>${denizen.version}</version>
@@ -152,10 +147,6 @@
 									<pattern>org.antlr</pattern>
 									<shadedPattern>lib.antlr</shadedPattern>
 								</relocation>
-                                <relocation>
-                                    <pattern>org.codehaus.groovy</pattern>
-                                    <shadedPattern>lib.groovy</shadedPattern>
-                                </relocation>
 							</relocations>
 						</configuration>
 					</execution>
