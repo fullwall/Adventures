@@ -1,7 +1,6 @@
 package net.citizensnpcs.adventures.race;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import net.citizensnpcs.api.npc.NPC;
@@ -31,18 +30,13 @@ public class TribeGenerator {
 
     public Tribe generateTribe(Chunk at) {
         Tribe tribe = new Tribe(race);
-        Collection<NPC> npcs = supplier.createTribe(race, at);
-        Iterator<NPC> itr = npcs.iterator();
-        while (itr.hasNext()) {
-            NPC npc = itr.next();
+        Collection<NPC> canonical = supplier.createTribe(race, at);
+        for (NPC npc : canonical) {
             npc = decorateNPC(tribe, npc);
-            if (npc != null) {
-                npcs.add(npc);
-            } else {
-                itr.remove();
-            }
+            if (npc == null)
+                continue;
+            tribe.addMember(npc);
         }
-        tribe.addMembers(npcs);
         return tribe;
     }
 

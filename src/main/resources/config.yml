@@ -1,4 +1,6 @@
 debug:
-  enabled: false
-  detailed: true
-  colors: true
+    enabled: false
+    detailed: true
+    colors: true
+scripts:
+    cache: true

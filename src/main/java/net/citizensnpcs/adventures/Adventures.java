@@ -58,6 +58,7 @@ public class Adventures extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        saveDefaultConfig();
         commands.setInjector(new Injector(this));
         getDataFolder().mkdirs();
 

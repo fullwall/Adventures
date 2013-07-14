@@ -18,6 +18,10 @@ public class Tribe {
         this.race = race;
     }
 
+    public void addMember(NPC npc) {
+        members.add(npc);
+    }
+
     public void addMembers(Collection<NPC> npcs) {
         members.addAll(npcs);
     }
