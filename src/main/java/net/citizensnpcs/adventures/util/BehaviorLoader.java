@@ -22,6 +22,7 @@ import net.citizensnpcs.api.scripting.ScriptFactory;
 import net.citizensnpcs.api.util.DataKey;
 import net.citizensnpcs.api.util.Messaging;
 
+import com.google.common.base.Throwables;
 import com.google.common.collect.Lists;
 
 public class BehaviorLoader {
@@ -50,8 +51,9 @@ public class BehaviorLoader {
                 }
             };
         } catch (Exception e) {
-            Messaging.severeTr(Language.ERROR_LOADING_BEHAVIOR, e.getMessage());
-            e.printStackTrace();
+            Throwable root = Throwables.getRootCause(e);
+            Messaging.severeTr(Language.ERROR_LOADING_BEHAVIOR, root.getMessage());
+            root.printStackTrace();
             return null;
         }
     }
@@ -64,7 +66,7 @@ public class BehaviorLoader {
                 clazz = Class.forName(namespacedName);
                 CLASS_CACHE.put(namespacedName, clazz);
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
         return (Behavior) PersistenceLoader.load(clazz, key);
@@ -99,8 +101,7 @@ public class BehaviorLoader {
 
             return (Behavior) converted;
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new RuntimeException(e);
         }
     }
 

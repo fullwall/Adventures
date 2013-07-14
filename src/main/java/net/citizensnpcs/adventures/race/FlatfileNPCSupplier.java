@@ -39,7 +39,7 @@ public class FlatfileNPCSupplier implements NPCSupplier {
             EntityType type = parameters.types.get(random.nextInt(parameters.types.size()));
             NPC npc = CitizensAPI.getNPCRegistry().createNPC(type, name);
             npc.spawn(spawnLocation);
-            npcs.add(CitizensAPI.getNPCRegistry().createNPC(type, name));
+            npcs.add(npc);
         }
         return npcs;
     }

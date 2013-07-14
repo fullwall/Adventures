@@ -8,6 +8,7 @@ import net.citizensnpcs.api.command.CommandContext;
 import net.citizensnpcs.api.command.Requirements;
 import net.citizensnpcs.api.command.exception.CommandException;
 import net.citizensnpcs.api.npc.NPC;
+import net.citizensnpcs.api.util.Messaging;
 
 import org.bukkit.command.CommandSender;
 
@@ -35,6 +36,6 @@ public class RaceCommands {
             throw new CommandException(Language.UNKNOWN_RACE_GENERATOR);
         if (args.getSenderLocation() == null)
             throw new CommandException(Language.NO_GENERATION_LOCATION);
-        desc.getGenerator().generateTribe(args.getSenderLocation().getChunk());
+        Messaging.sendTr(sender, Language.TRIBE_GENERATED_SUCCESSFULLY, desc.getName());
     }
 }
