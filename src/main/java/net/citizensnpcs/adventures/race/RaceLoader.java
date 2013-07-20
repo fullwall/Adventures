@@ -27,7 +27,7 @@ public class RaceLoader {
                     continue;
                 RaceDescriptor desc = loadRaceDescriptor(possibleInfoFile);
                 if (desc != null) {
-                    registry.register(desc);
+                    registry.registerRace(desc);
                 }
                 break;
             }
@@ -45,7 +45,7 @@ public class RaceLoader {
         }
         if (factory == null)
             return null;
-        Object object = factory.newInstance().invoke("getDescriptor", (Object[]) null);
+        Object object = factory.newInstance().invoke("getDescriptor", registry, infoFile.getParentFile());
         if (!(object instanceof RaceDescriptor))
             throw new RuntimeException("Expected RaceDescriptor, got " + object);
         return (RaceDescriptor) object;
@@ -59,7 +59,7 @@ public class RaceLoader {
         TribeGenerator gen = new TribeGenerator();
         gen.setNPCSupplier(new FlatfileNPCSupplier(storage));
         gen.addDecorator(new FlatfileBehaviorDecorator(storage));
-        RaceDescriptor race = RaceDescriptor.builder(name).generator(gen).build();
+        RaceDescriptor race = RaceDescriptor.builder(registry, name).generator(gen).build();
         return race;
     }
 

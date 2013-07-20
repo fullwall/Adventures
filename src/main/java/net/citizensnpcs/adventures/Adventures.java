@@ -70,6 +70,7 @@ public class Adventures extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new QueryEventListener(this, engine), this);
         CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(DialogTrait.class).withName("dialog"));
         Translator.addTranslations(new ResourceTranslationProvider("messages_en.properties", Adventures.class));
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, races, 0, 1);
     }
 
     public void reload() {

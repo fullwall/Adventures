@@ -46,6 +46,7 @@ public class FlatfileNPCSupplier implements NPCSupplier {
 
     private Location findSpawnLocation(Chunk in) {
         ChunkSnapshot snap = in.getChunkSnapshot(true, false, false);
+        // TODO: better randomisation of spawn positions
         for (int x = 0; x < 128; x++) {
             for (int z = 0; z < 128; z++) {
                 int y = snap.getHighestBlockYAt(x, z);

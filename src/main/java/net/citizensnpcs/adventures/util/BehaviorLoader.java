@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 import net.citizensnpcs.adventures.Config;
+import net.citizensnpcs.adventures.race.Tribe;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.ai.Goal;
 import net.citizensnpcs.api.ai.tree.Behavior;
@@ -26,12 +27,22 @@ import com.google.common.base.Throwables;
 import com.google.common.collect.Lists;
 
 public class BehaviorLoader {
-    public static Goal loadBehaviors(File file, DataKey key) {
+    private static class Context {
+        File file;
+        Tribe tribe;
+
+        public Context(File file, Tribe tribe) {
+            this.file = file;
+            this.tribe = tribe;
+        }
+    }
+
+    public static Goal loadBehaviors(Tribe tribe, File file, DataKey key) {
         Iterator<DataKey> subKeys = key.getSubKeys().iterator();
         if (!subKeys.hasNext())
             return null;
         try {
-            final Behavior behavior = loadRecursive(file, subKeys.next());
+            final Behavior behavior = loadRecursive(new Context(file, tribe), subKeys.next());
             if (behavior == null)
                 return null;
             return behavior instanceof Goal ? (Goal) behavior : new BehaviorGoalAdapter() {
@@ -72,10 +83,10 @@ public class BehaviorLoader {
         return (Behavior) PersistenceLoader.load(clazz, key);
     }
 
-    private static Collection<Behavior> loadCompositeGoals(File file, Iterable<DataKey> subKeys) {
+    private static Collection<Behavior> loadCompositeGoals(Context context, Iterable<DataKey> subKeys) {
         List<Behavior> goals = Lists.newArrayList();
         for (DataKey key : subKeys) {
-            Behavior temp = loadRecursive(file, key);
+            Behavior temp = loadRecursive(context, key);
             if (temp == null)
                 continue;
             goals.add(temp);
@@ -83,9 +94,9 @@ public class BehaviorLoader {
         return goals;
     }
 
-    private static Behavior loadJavascriptBehavior(File file, DataKey key, String name) {
+    private static Behavior loadJavascriptBehavior(Context context, DataKey key, String name) {
         String fileName = name.replaceFirst("js", "").trim() + ".js";
-        File jsFile = new File(file.getParent(), fileName);
+        File jsFile = new File(context.file.getParent(), fileName);
         try {
             ScriptFactory factory = CitizensAPI.getScriptCompiler().compile(jsFile).cache(Config.CACHE_SCRIPTS)
                     .beginWithFuture().get();
@@ -93,7 +104,7 @@ public class BehaviorLoader {
                 throw new IllegalStateException("Couldn't load javascript");
 
             Script script = factory.newInstance();
-            Object res = script.invoke("getBehavior", key);
+            Object res = script.invoke("getBehavior", context.tribe, key);
             Object converted = res == null ? null : script.convertToInterface(res, Behavior.class);
 
             if (converted == null || !(converted instanceof Behavior))
@@ -105,15 +116,15 @@ public class BehaviorLoader {
         }
     }
 
-    private static Behavior loadRecursive(File file, DataKey key) {
+    private static Behavior loadRecursive(Context context, DataKey key) {
         String name = key.name();
         String first = name.split(" ")[0];
         if (first.equals("sequence")) {
-            return loadSequence(file, key, name);
+            return loadSequence(context, key, name);
         } else if (first.equals("selector")) {
-            return loadSelector(file, key, name);
+            return loadSelector(context, key, name);
         } else if (first.equals("js")) {
-            return loadJavascriptBehavior(file, key, name);
+            return loadJavascriptBehavior(context, key, name);
         } else if (first.isEmpty()) {
             return null;
         } else {
@@ -121,8 +132,8 @@ public class BehaviorLoader {
         }
     }
 
-    private static Behavior loadSelector(File file, DataKey key, String name) {
-        Collection<Behavior> sub = loadCompositeGoals(file, key.getSubKeys());
+    private static Behavior loadSelector(Context context, DataKey key, String name) {
+        Collection<Behavior> sub = loadCompositeGoals(context, key.getSubKeys());
         if (sub.isEmpty())
             return null;
 
@@ -133,13 +144,11 @@ public class BehaviorLoader {
         return builder.build();
     }
 
-    private static Behavior loadSequence(File file, DataKey key, String name) {
+    private static Behavior loadSequence(Context context, DataKey key, String name) {
         boolean retry = name.contains("-r");
-        Collection<Behavior> sub = loadCompositeGoals(file, key.getSubKeys());
-
+        Collection<Behavior> sub = loadCompositeGoals(context, key.getSubKeys());
         if (sub.isEmpty())
             return null;
-
         return retry ? Sequence.createRetryingSequence(sub) : Sequence.createSequence(sub);
     }
 

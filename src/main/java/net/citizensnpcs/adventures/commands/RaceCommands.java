@@ -2,6 +2,7 @@ package net.citizensnpcs.adventures.commands;
 
 import net.citizensnpcs.adventures.Adventures;
 import net.citizensnpcs.adventures.race.RaceDescriptor;
+import net.citizensnpcs.adventures.race.Tribe;
 import net.citizensnpcs.adventures.util.Language;
 import net.citizensnpcs.api.command.Command;
 import net.citizensnpcs.api.command.CommandContext;
@@ -32,10 +33,11 @@ public class RaceCommands {
         RaceDescriptor desc = plugin.getRaceRegistry().getDescriptor(args.getString(1));
         if (desc == null)
             throw new CommandException(Language.UNKNOWN_RACE, args.getString(1));
-        if (desc.getGenerator() == null)
-            throw new CommandException(Language.UNKNOWN_RACE_GENERATOR);
         if (args.getSenderLocation() == null)
             throw new CommandException(Language.NO_GENERATION_LOCATION);
+        Tribe tribe = desc.generateAndRegisterTribe(args.getSenderLocation().getChunk());
+        if (tribe == null)
+            throw new CommandException(Language.UNKNOWN_RACE_GENERATOR);
         Messaging.sendTr(sender, Language.TRIBE_GENERATED_SUCCESSFULLY, desc.getName());
     }
 }

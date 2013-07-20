@@ -1,13 +1,25 @@
 package net.citizensnpcs.adventures.race;
 
+import org.bukkit.Chunk;
+
 public class RaceDescriptor {
     private final TribeGenerator generator;
     private final String name;
+    private final RaceRegistry registry;
 
-    private RaceDescriptor(String name, TribeGenerator generator) {
+    private RaceDescriptor(RaceRegistry registry, String name, TribeGenerator generator) {
         this.name = name;
         this.generator = generator;
         this.generator.setRace(this);
+        this.registry = registry;
+    }
+
+    public Tribe generateAndRegisterTribe(Chunk chunk) {
+        Tribe tribe = generator == null ? null : generator.generateTribe(chunk);
+        if (tribe == null)
+            return null;
+        registry.registerTribe(tribe);
+        return tribe;
     }
 
     public TribeGenerator getGenerator() {
@@ -18,16 +30,22 @@ public class RaceDescriptor {
         return name;
     }
 
+    public RaceRegistry getRegistry() {
+        return registry;
+    }
+
     public static class Builder {
         private TribeGenerator generator;
         private final String name;
+        private final RaceRegistry registry;
 
-        private Builder(String name) {
+        private Builder(RaceRegistry registry, String name) {
             this.name = name;
+            this.registry = registry;
         }
 
         public RaceDescriptor build() {
-            return new RaceDescriptor(name, generator);
+            return new RaceDescriptor(registry, name, generator);
         }
 
         public Builder generator(TribeGenerator gen) {
@@ -36,7 +54,7 @@ public class RaceDescriptor {
         }
     }
 
-    public static Builder builder(String name) {
-        return new Builder(name);
+    public static Builder builder(RaceRegistry registry, String name) {
+        return new Builder(registry, name);
     }
 }
