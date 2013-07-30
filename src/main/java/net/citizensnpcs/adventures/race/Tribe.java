@@ -5,7 +5,9 @@ import java.util.List;
 
 import net.citizensnpcs.api.ai.GoalController;
 import net.citizensnpcs.api.ai.SimpleGoalController;
+import net.citizensnpcs.api.npc.MetadataStore;
 import net.citizensnpcs.api.npc.NPC;
+import net.citizensnpcs.api.npc.SimpleMetadataStore;
 import net.citizensnpcs.api.util.prtree.Region3D;
 
 import org.bukkit.Location;
@@ -16,6 +18,7 @@ import com.google.common.collect.Lists;
 public class Tribe implements Runnable {
     private final GoalController ai = new SimpleGoalController();
     private final List<NPC> members = Lists.newArrayList();
+    private final MetadataStore metadata = new SimpleMetadataStore();
     private final RaceDescriptor race;
 
     public Tribe(RaceDescriptor race) {
@@ -30,7 +33,17 @@ public class Tribe implements Runnable {
         members.addAll(npcs);
     }
 
-    public Iterable<NPC> getMembers() {
+    public MetadataStore data() {
+        return metadata;
+    }
+
+    public void destroy() {
+        for (NPC npc : members) {
+            npc.destroy();
+        }
+    }
+
+    public Collection<NPC> getMembers() {
         return members;
     }
 
@@ -55,6 +68,8 @@ public class Tribe implements Runnable {
             max.setY(Math.max(max.getY(), loc.getY()));
             max.setZ(Math.max(max.getZ(), loc.getZ()));
         }
+        if (min == null || max == null)
+            return null;
         return new Region3D<Tribe>(min, max, this);
     }
 

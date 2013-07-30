@@ -1,11 +1,17 @@
 package net.citizensnpcs.adventures.race;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import net.citizensnpcs.api.util.prtree.DistanceResult;
+import net.citizensnpcs.api.util.prtree.NodeFilter;
 import net.citizensnpcs.api.util.prtree.PRTree;
+import net.citizensnpcs.api.util.prtree.PointND;
 import net.citizensnpcs.api.util.prtree.Region3D;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
@@ -19,8 +25,42 @@ public class RaceRegistry implements Runnable {
         tribes.remove(tribe);
     }
 
+    public void destroyAllTribes() {
+        tribeLocations.clear();
+        for (Tribe tribe : tribes) {
+            deregisterTribe(tribe);
+            tribe.destroy();
+        }
+    }
+
     public RaceDescriptor getDescriptor(String name) {
         return races.get(name.toLowerCase());
+    }
+
+    public Collection<Tribe> getNearbyTribes(PointND root, int maxHits) {
+        return getNearbyTribes(root, maxHits, Region3D.<Tribe> alwaysAcceptNodeFilter());
+    }
+
+    public Collection<Tribe> getNearbyTribes(PointND root, int maxHits, NodeFilter<Region3D<Tribe>> filter) {
+        List<Tribe> result = Lists.newArrayListWithCapacity(maxHits);
+        for (DistanceResult<Region3D<Tribe>> res : tribeLocations.nearestNeighbour(
+                Region3D.<Tribe> distanceCalculator(), filter, maxHits, root)) {
+            result.add(res.get().getData());
+        }
+        return result;
+    }
+
+    public Collection<Tribe> getTribesByRace(RaceDescriptor race) {
+        return getTribesByRace(race, null);
+    }
+
+    public Collection<Tribe> getTribesByRace(final RaceDescriptor race, final Tribe excluding) {
+        return Collections2.filter(tribes, new Predicate<Tribe>() {
+            @Override
+            public boolean apply(Tribe input) {
+                return input.getRace().equals(race) && !input.equals(excluding);
+            }
+        });
     }
 
     public void registerRace(RaceDescriptor desc) {
@@ -44,11 +84,13 @@ public class RaceRegistry implements Runnable {
             if (locations == null)
                 continue;
             Region3D<Tribe> region = tribe.getRepresentativeLocation();
-            if (region == null)
-                continue;
-            locations.add(tribe.getRepresentativeLocation());
+            if (region != null) {
+                locations.add(region);
+            }
         }
-        tribeLocations.load(locations);
+        if (locations != null) {
+            tribeLocations.load(locations);
+        }
     }
 
     private static final int LOCATION_UPDATE_DELAY = 100;

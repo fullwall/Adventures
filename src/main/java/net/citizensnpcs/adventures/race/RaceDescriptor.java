@@ -1,6 +1,6 @@
 package net.citizensnpcs.adventures.race;
 
-import org.bukkit.Chunk;
+import org.bukkit.Location;
 
 public class RaceDescriptor {
     private final TribeGenerator generator;
@@ -14,8 +14,8 @@ public class RaceDescriptor {
         this.registry = registry;
     }
 
-    public Tribe generateAndRegisterTribe(Chunk chunk) {
-        Tribe tribe = generator == null ? null : generator.generateTribe(chunk);
+    public Tribe generateAndRegisterTribe(Location at) {
+        Tribe tribe = generator == null ? null : generator.generateTribe(at);
         if (tribe == null)
             return null;
         registry.registerTribe(tribe);

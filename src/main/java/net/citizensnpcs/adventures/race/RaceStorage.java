@@ -8,11 +8,11 @@ import net.citizensnpcs.api.scripting.ScriptFactory;
 import net.citizensnpcs.api.util.DataKey;
 import net.citizensnpcs.api.util.YamlStorage;
 
-public class RaceLoader {
+public class RaceStorage {
     private final RaceRegistry registry;
     private final File rootDirectory;
 
-    public RaceLoader(File rootDirectory, RaceRegistry registry) {
+    public RaceStorage(File rootDirectory, RaceRegistry registry) {
         this.rootDirectory = rootDirectory;
         this.registry = registry;
         rootDirectory.mkdirs();

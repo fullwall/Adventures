@@ -11,3 +11,5 @@ commands:
         description: Adventures dialog commands
     race:
         description: Adventures race commands
+    tribe:
+        description: Adventures tribe commands

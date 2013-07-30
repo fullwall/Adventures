@@ -27,9 +27,9 @@ import com.google.common.base.Throwables;
 import com.google.common.collect.Lists;
 
 public class BehaviorLoader {
-    private static class Context {
-        File file;
-        Tribe tribe;
+    public static class Context {
+        public File file;
+        public Tribe tribe;
 
         public Context(File file, Tribe tribe) {
             this.file = file;
@@ -104,7 +104,7 @@ public class BehaviorLoader {
                 throw new IllegalStateException("Couldn't load javascript");
 
             Script script = factory.newInstance();
-            Object res = script.invoke("getBehavior", context.tribe, key);
+            Object res = script.invoke("getBehavior", context, key);
             Object converted = res == null ? null : script.convertToInterface(res, Behavior.class);
 
             if (converted == null || !(converted instanceof Behavior))

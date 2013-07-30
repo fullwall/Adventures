@@ -21,36 +21,39 @@ import org.bukkit.entity.EntityType;
 import com.google.common.collect.Lists;
 
 public class FlatfileNPCSupplier implements NPCSupplier {
-    private final int maxNPCs;
     private final NPCParameters parameters;
     private final Random random = new Random();
 
     public FlatfileNPCSupplier(Storage storage) {
         this.parameters = PersistenceLoader.load(NPCParameters.class, storage.getKey(""));
-        this.maxNPCs = storage.getKey("").getInt("tribe.max-size", 10);
     }
 
     @Override
-    public Collection<NPC> createTribe(RaceDescriptor race, Chunk in) {
+    public Collection<NPC> createTribe(RaceDescriptor race, Location in) {
         Location spawnLocation = findSpawnLocation(in);
-        List<NPC> npcs = Lists.newArrayListWithCapacity(maxNPCs);
-        for (int i = 0; i < maxNPCs; i++) {
+        List<NPC> npcs = Lists.newArrayListWithCapacity(parameters.maxNPCs);
+        for (int i = 0; i < parameters.maxNPCs; i++) {
             String name = parameters.names.get(random.nextInt(parameters.names.size()));
             EntityType type = parameters.types.get(random.nextInt(parameters.types.size()));
             NPC npc = CitizensAPI.getNPCRegistry().createNPC(type, name);
+            npc.data().setPersistent(NPC.DEFAULT_PROTECTED_METADATA, !parameters.defaultVulnerable);
             npc.spawn(spawnLocation);
             npcs.add(npc);
         }
         return npcs;
     }
 
-    private Location findSpawnLocation(Chunk in) {
-        ChunkSnapshot snap = in.getChunkSnapshot(true, false, false);
+    private Location findSpawnLocation(Location in) {
+        Block found = findStandableBlock(in.getBlock());
+        if (found != null)
+            return found.getLocation().add(0, 1, 0);
+        Chunk chunk = in.getChunk();
+        ChunkSnapshot snap = chunk.getChunkSnapshot(true, false, false);
         // TODO: better randomisation of spawn positions
         for (int x = 0; x < 128; x++) {
             for (int z = 0; z < 128; z++) {
                 int y = snap.getHighestBlockYAt(x, z);
-                Block block = in.getBlock(x, y, z);
+                Block block = chunk.getBlock(x, y, z);
                 boolean standable = MinecraftBlockExaminer.canStandOn(block);
                 while (!standable && block.getY() >= 0) {
                     while (block.getY() > 0 && !block.getType().isSolid()) {
@@ -66,7 +69,22 @@ public class FlatfileNPCSupplier implements NPCSupplier {
         return in.getWorld().getSpawnLocation();
     }
 
+    private Block findStandableBlock(Block block) {
+        boolean standable = MinecraftBlockExaminer.canStandOn(block);
+        while (!standable && block.getY() >= 0) {
+            while (block.getY() > 0 && !block.getType().isSolid()) {
+                block = block.getRelative(BlockFace.DOWN);
+            }
+            standable = MinecraftBlockExaminer.canStandOn(block);
+        }
+        return standable ? block : null;
+    }
+
     public static class NPCParameters {
+        @Persist(value = "members.vulnerable", required = true)
+        public boolean defaultVulnerable = true;
+        @Persist(value = "tribe.max-size", required = true)
+        public int maxNPCs = 10;
         @Persist(value = "members.names", required = true)
         public List<String> names;
 

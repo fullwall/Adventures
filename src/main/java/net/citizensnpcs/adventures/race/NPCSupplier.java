@@ -4,8 +4,8 @@ import java.util.Collection;
 
 import net.citizensnpcs.api.npc.NPC;
 
-import org.bukkit.Chunk;
+import org.bukkit.Location;
 
 public interface NPCSupplier {
-    Collection<NPC> createTribe(RaceDescriptor race, Chunk in);
+    Collection<NPC> createTribe(RaceDescriptor race, Location at);
 }

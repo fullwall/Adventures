@@ -5,7 +5,7 @@ import java.util.List;
 
 import net.citizensnpcs.api.npc.NPC;
 
-import org.bukkit.Chunk;
+import org.bukkit.Location;
 
 import com.google.common.collect.Lists;
 
@@ -28,7 +28,7 @@ public class TribeGenerator {
         return npc;
     }
 
-    public Tribe generateTribe(Chunk at) {
+    public Tribe generateTribe(Location at) {
         Tribe tribe = new Tribe(race);
         Collection<NPC> canonical = supplier.createTribe(race, at);
         for (NPC npc : canonical) {

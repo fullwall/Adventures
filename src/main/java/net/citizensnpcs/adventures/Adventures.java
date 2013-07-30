@@ -7,7 +7,7 @@ import net.citizensnpcs.adventures.commands.DialogCommands;
 import net.citizensnpcs.adventures.commands.RaceCommands;
 import net.citizensnpcs.adventures.dialog.DialogEngine;
 import net.citizensnpcs.adventures.dialog.statements.DenizenScript;
-import net.citizensnpcs.adventures.race.RaceLoader;
+import net.citizensnpcs.adventures.race.RaceStorage;
 import net.citizensnpcs.adventures.race.RaceRegistry;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.command.CommandManager;
@@ -63,7 +63,7 @@ public class Adventures extends JavaPlugin {
         getDataFolder().mkdirs();
 
         config = new Config(this);
-        new RaceLoader(new File(getDataFolder(), "races"), races).load();
+        new RaceStorage(new File(getDataFolder(), "races"), races).load();
         setupEngine();
         setupCommands();
 
