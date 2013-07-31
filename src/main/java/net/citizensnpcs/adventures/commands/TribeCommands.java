@@ -24,11 +24,12 @@ public class TribeCommands {
             usage = "remove (-a)",
             desc = "Removes a tribe",
             modifiers = "remove",
+            flags = "a",
             min = 1,
             max = 2,
             permission = "adventures.tribe.remove")
     public void remove(CommandContext args, CommandSender sender, NPC npc) throws CommandException {
-        if (args.hasFlag('a')) {
+        if (args.hasFlag('a') || (args.argsLength() > 1 && args.getString(1).equalsIgnoreCase("all"))) {
             plugin.getRaceRegistry().destroyAllTribes();
             Messaging.sendTr(sender, Language.TRIBES_REMOVED_SUCCESSFULLY);
         }

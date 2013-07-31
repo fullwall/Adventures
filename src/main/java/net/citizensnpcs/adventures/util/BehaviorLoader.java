@@ -8,15 +8,17 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 import net.citizensnpcs.adventures.Config;
+import net.citizensnpcs.adventures.race.RaceDescriptor;
+import net.citizensnpcs.adventures.race.RaceRegistry;
 import net.citizensnpcs.adventures.race.Tribe;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.ai.Goal;
 import net.citizensnpcs.api.ai.tree.Behavior;
-import net.citizensnpcs.api.ai.tree.BehaviorGoalAdapter;
-import net.citizensnpcs.api.ai.tree.BehaviorStatus;
+import net.citizensnpcs.api.ai.tree.ForwardingBehaviorGoalAdapter;
 import net.citizensnpcs.api.ai.tree.Selector;
 import net.citizensnpcs.api.ai.tree.Selectors;
 import net.citizensnpcs.api.ai.tree.Sequence;
+import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.persistence.PersistenceLoader;
 import net.citizensnpcs.api.scripting.Script;
 import net.citizensnpcs.api.scripting.ScriptFactory;
@@ -29,38 +31,33 @@ import com.google.common.collect.Lists;
 public class BehaviorLoader {
     public static class Context {
         public File file;
+        public NPC npc;
+        public RaceDescriptor race;
+        public RaceRegistry registry;
         public Tribe tribe;
 
         public Context(File file, Tribe tribe) {
+            this(file, tribe, null);
+        }
+
+        public Context(File file, Tribe tribe, NPC npc) {
             this.file = file;
             this.tribe = tribe;
+            this.race = tribe.getRace();
+            this.registry = this.race.getRegistry();
+            this.npc = npc;
         }
     }
 
-    public static Goal loadBehaviors(Tribe tribe, File file, DataKey key) {
+    public static Goal loadBehaviors(Context context, DataKey key) {
         Iterator<DataKey> subKeys = key.getSubKeys().iterator();
         if (!subKeys.hasNext())
             return null;
         try {
-            final Behavior behavior = loadRecursive(new Context(file, tribe), subKeys.next());
+            final Behavior behavior = loadRecursive(context, subKeys.next());
             if (behavior == null)
                 return null;
-            return behavior instanceof Goal ? (Goal) behavior : new BehaviorGoalAdapter() {
-                @Override
-                public void reset() {
-                    behavior.reset();
-                }
-
-                @Override
-                public BehaviorStatus run() {
-                    return behavior.run();
-                }
-
-                @Override
-                public boolean shouldExecute() {
-                    return behavior.shouldExecute();
-                }
-            };
+            return behavior instanceof Goal ? (Goal) behavior : new ForwardingBehaviorGoalAdapter(behavior);
         } catch (Exception e) {
             Throwable root = Throwables.getRootCause(e);
             Messaging.severeTr(Language.ERROR_LOADING_BEHAVIOR, root.getMessage());

@@ -27,7 +27,7 @@ public class RaceRegistry implements Runnable {
 
     public void destroyAllTribes() {
         tribeLocations.clear();
-        for (Tribe tribe : tribes) {
+        for (Tribe tribe : Lists.newArrayList(tribes)) {
             deregisterTribe(tribe);
             tribe.destroy();
         }
@@ -79,7 +79,8 @@ public class RaceRegistry implements Runnable {
             locations = Lists.newArrayList();
             locationUpdateCounter = 0;
         }
-        for (Tribe tribe : tribes) {
+        for (int i = 0; i < tribes.size(); i++) {
+            Tribe tribe = tribes.get(i);
             tribe.run();
             if (locations == null)
                 continue;
