@@ -31,7 +31,8 @@ public class Adventures extends JavaPlugin {
     private final CommandManager commands = new CommandManager();
     private Config config;
     private final DialogEngine engine = new DialogEngine();
-    private final RaceRegistry races = new RaceRegistry();
+    private final RaceRegistry raceRegistry = new RaceRegistry();
+    private RaceStorage storage;
 
     public DialogEngine getDialogEngine() {
         return engine;
@@ -42,7 +43,7 @@ public class Adventures extends JavaPlugin {
     }
 
     public RaceRegistry getRaceRegistry() {
-        return races;
+        return raceRegistry;
     }
 
     @Override
@@ -67,14 +68,15 @@ public class Adventures extends JavaPlugin {
         getDataFolder().mkdirs();
 
         config = new Config(this);
-        new RaceStorage(new File(getDataFolder(), "races"), races).load();
+        storage = new RaceStorage(new File(getDataFolder(), "races"), raceRegistry);
+        storage.load();
         setupEngine();
         setupCommands();
 
         Bukkit.getPluginManager().registerEvents(new QueryEventListener(this, engine), this);
         CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(DialogTrait.class).withName("dialog"));
         Translator.addTranslations(new ResourceTranslationProvider("messages_en.properties", Adventures.class));
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, races, 0, 1);
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, raceRegistry, 0, 1);
     }
 
     public void reload() {
