@@ -1,20 +1,32 @@
 package net.citizensnpcs.adventures.race;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
+import net.citizensnpcs.adventures.Adventures;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.scripting.ScriptFactory;
 import net.citizensnpcs.api.util.DataKey;
 import net.citizensnpcs.api.util.YamlStorage;
 
+import org.bukkit.plugin.java.PluginClassLoader;
+
+import com.google.common.collect.Sets;
+
 public class RaceStorage {
+    private boolean loadedLibs;
+    private final Adventures plugin;
     private final RaceRegistry registry;
     private final File rootDirectory;
 
-    public RaceStorage(File rootDirectory, RaceRegistry registry) {
+    public RaceStorage(Adventures plugin, File rootDirectory, RaceRegistry registry) {
         this.rootDirectory = rootDirectory;
         this.registry = registry;
+        this.plugin = plugin;
         rootDirectory.mkdirs();
     }
 
@@ -51,10 +63,47 @@ public class RaceStorage {
         return (RaceDescriptor) object;
     }
 
+    private boolean loadDependencies(File file, DataKey root) {
+        PluginClassLoader ldr = plugin.getPluginClassLoader();
+        if (!loadedLibs) {
+            File libs = new File(rootDirectory, "lib");
+            for (File lib : libs.listFiles()) {
+                if (!lib.getName().endsWith(".jar"))
+                    continue;
+                try {
+                    ldr.addURL(lib.toURI().toURL());
+                } catch (MalformedURLException e) {
+                    e.printStackTrace(); // should never happen
+                }
+            }
+            loadedLibs = true;
+        }
+        if (!root.keyExists("depend"))
+            return true;
+        Set<URL> urls = Sets.newHashSet();
+        for (String dependency : root.<List<String>> getRawUnchecked("depend")) {
+            File dep = new File(file, dependency + ".jar");
+            if (!dep.exists()) {
+                return false;
+            }
+            try {
+                urls.add(dep.toURI().toURL());
+            } catch (MalformedURLException e) {
+                e.printStackTrace(); // should never happen
+            }
+        }
+        for (URL url : urls) {
+            ldr.addURL(url);
+        }
+        return true;
+    }
+
     private RaceDescriptor loadFromYaml(YamlStorage storage) {
         DataKey root = storage.getKey("");
         String name = root.getString("name");
         if (name == null)
+            return null;
+        if (!loadDependencies(storage.getFile(), root))
             return null;
         TribeGenerator gen = new TribeGenerator();
         gen.setNPCSupplier(new FlatfileNPCSupplier(storage));

@@ -87,7 +87,6 @@ public class FlatfileNPCSupplier implements NPCSupplier {
         public int maxNPCs = 10;
         @Persist(value = "members.names", required = true)
         public List<String> names;
-
         @Persist(value = "members.types", required = true)
         public List<EntityType> types;
     }

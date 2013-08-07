@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
 import net.citizensnpcs.adventures.dialog.evaluators.Evaluator;
 import net.citizensnpcs.adventures.dialog.evaluators.VariableSource;
 
@@ -17,8 +21,6 @@ import org.bukkit.entity.LivingEntity;
 import com.google.common.collect.Lists;
 
 public class Util {
-    private static final List<Class<?>> OBJECT = Arrays.<Class<?>> asList(Object.class);
-
     private static Set<Class<?>> getClassesBfs(Class<?> clazz) {
         Set<Class<?>> classes = new LinkedHashSet<Class<?>>();
         Set<Class<?>> nextLevel = new LinkedHashSet<Class<?>>();
@@ -65,4 +67,12 @@ public class Util {
         }
         return chosen;
     }
+
+    public static void main(String[] args) throws ScriptException {
+        ScriptEngineManager mgr = new ScriptEngineManager();
+        ScriptEngine f = mgr.getEngineByExtension("lua");
+        f.eval("print 'a';");
+    }
+
+    private static final List<Class<?>> OBJECT = Arrays.<Class<?>> asList(Object.class);
 }

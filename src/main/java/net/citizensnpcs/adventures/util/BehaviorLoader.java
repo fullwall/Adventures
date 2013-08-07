@@ -1,6 +1,8 @@
 package net.citizensnpcs.adventures.util;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -27,6 +29,7 @@ import net.citizensnpcs.api.util.Messaging;
 
 import com.google.common.base.Throwables;
 import com.google.common.collect.Lists;
+import com.google.common.collect.MapMaker;
 
 public class BehaviorLoader {
     public static class Context {
@@ -66,10 +69,10 @@ public class BehaviorLoader {
         }
     }
 
-    private static Behavior loadClassBehavior(DataKey key, String name) {
+    private static Behavior loadClassBehavior(Context context, DataKey key, String name) {
         String namespacedName = name;
         Class<?> clazz = CLASS_CACHE.get(namespacedName);
-        if (clazz != null) {
+        if (clazz == null) {
             try {
                 clazz = Class.forName(namespacedName);
                 CLASS_CACHE.put(namespacedName, clazz);
@@ -77,7 +80,30 @@ public class BehaviorLoader {
                 throw new RuntimeException(e);
             }
         }
-        return (Behavior) PersistenceLoader.load(clazz, key);
+        if (!CLASS_METHOD_CACHE.containsKey(clazz)) {
+            try {
+                Method method = clazz.getDeclaredMethod("createInstance", Context.class, DataKey.class);
+                CLASS_METHOD_CACHE.put(clazz, method);
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        }
+        Method m = CLASS_METHOD_CACHE.get(clazz);
+        if (m == null)
+            return (Behavior) PersistenceLoader.load(clazz, key);
+        try {
+            Object behavior = m.invoke(context, key);
+            return (Behavior) PersistenceLoader.load(behavior, key);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private static Collection<Behavior> loadCompositeGoals(Context context, Iterable<DataKey> subKeys) {
@@ -125,7 +151,7 @@ public class BehaviorLoader {
         } else if (first.isEmpty()) {
             return null;
         } else {
-            return loadClassBehavior(key, name);
+            return loadClassBehavior(context, key, name);
         }
     }
 
@@ -149,5 +175,6 @@ public class BehaviorLoader {
         return retry ? Sequence.createRetryingSequence(sub) : Sequence.createSequence(sub);
     }
 
-    private static final Map<String, Class<?>> CLASS_CACHE = new WeakHashMap<String, Class<?>>();
+    private static final Map<String, Class<?>> CLASS_CACHE = new MapMaker().weakValues().makeMap();
+    private static final Map<Class<?>, Method> CLASS_METHOD_CACHE = new WeakHashMap<Class<?>, Method>();
 }
