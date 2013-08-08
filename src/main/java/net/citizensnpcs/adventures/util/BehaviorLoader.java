@@ -1,7 +1,6 @@
 package net.citizensnpcs.adventures.util;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Iterator;
@@ -70,7 +69,7 @@ public class BehaviorLoader {
     }
 
     private static Behavior loadClassBehavior(Context context, DataKey key, String name) {
-        String namespacedName = name;
+        String namespacedName = name.replace('-', '.');
         Class<?> clazz = CLASS_CACHE.get(namespacedName);
         if (clazz == null) {
             try {
@@ -83,24 +82,22 @@ public class BehaviorLoader {
         if (!CLASS_METHOD_CACHE.containsKey(clazz)) {
             try {
                 Method method = clazz.getDeclaredMethod("createInstance", Context.class, DataKey.class);
+                if (method != null) {
+                    method.setAccessible(true);
+                }
                 CLASS_METHOD_CACHE.put(clazz, method);
-            } catch (SecurityException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         Method m = CLASS_METHOD_CACHE.get(clazz);
-        if (m == null)
+        if (m == null) {
             return (Behavior) PersistenceLoader.load(clazz, key);
+        }
         try {
-            Object behavior = m.invoke(context, key);
+            Object behavior = m.invoke(null, context, key);
             return (Behavior) PersistenceLoader.load(behavior, key);
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -140,7 +137,7 @@ public class BehaviorLoader {
     }
 
     private static Behavior loadRecursive(Context context, DataKey key) {
-        String name = key.name();
+        String name = key.name().trim();
         String first = name.split(" ")[0];
         if (first.equals("sequence")) {
             return loadSequence(context, key, name);

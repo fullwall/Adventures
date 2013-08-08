@@ -67,13 +67,15 @@ public class RaceStorage {
         PluginClassLoader ldr = plugin.getPluginClassLoader();
         if (!loadedLibs) {
             File libs = new File(rootDirectory, "lib");
-            for (File lib : libs.listFiles()) {
-                if (!lib.getName().endsWith(".jar"))
-                    continue;
-                try {
-                    ldr.addURL(lib.toURI().toURL());
-                } catch (MalformedURLException e) {
-                    e.printStackTrace(); // should never happen
+            if (libs.exists()) {
+                for (File lib : libs.listFiles()) {
+                    if (!lib.getName().endsWith(".jar"))
+                        continue;
+                    try {
+                        ldr.addURL(lib.toURI().toURL());
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace(); // should never happen
+                    }
                 }
             }
             loadedLibs = true;
