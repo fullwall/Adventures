@@ -64,7 +64,7 @@ public class RaceStorage {
     }
 
     private boolean loadDependencies(File file, DataKey root) {
-        PluginClassLoader ldr = plugin.getPluginClassLoader();
+        PluginClassLoader loader = plugin.getPluginClassLoader();
         if (!loadedLibs) {
             File libs = new File(rootDirectory, "lib");
             if (libs.exists()) {
@@ -72,7 +72,7 @@ public class RaceStorage {
                     if (!lib.getName().endsWith(".jar"))
                         continue;
                     try {
-                        ldr.addURL(lib.toURI().toURL());
+                        loader.addURL(lib.toURI().toURL());
                     } catch (MalformedURLException e) {
                         e.printStackTrace(); // should never happen
                     }
@@ -95,7 +95,7 @@ public class RaceStorage {
             }
         }
         for (URL url : urls) {
-            ldr.addURL(url);
+            loader.addURL(url);
         }
         return true;
     }

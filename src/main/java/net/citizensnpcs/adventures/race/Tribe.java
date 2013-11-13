@@ -56,7 +56,7 @@ public class Tribe implements Runnable {
         for (NPC npc : members) {
             if (!npc.isSpawned())
                 continue;
-            Location loc = npc.getBukkitEntity().getLocation(CACHE_LOCATION);
+            Location loc = npc.getEntity().getLocation(CACHE_LOCATION);
             if (min == null)
                 min = loc.toVector();
             if (max == null)

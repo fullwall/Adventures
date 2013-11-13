@@ -34,7 +34,6 @@ public class Util {
                 if (superClass != null && superClass != Object.class) {
                     nextLevel.add(superClass);
                 }
-
                 nextLevel.addAll(Arrays.asList(each.getInterfaces()));
             }
         } while (!nextLevel.isEmpty());

@@ -10,7 +10,6 @@ import java.util.WeakHashMap;
 
 import net.citizensnpcs.adventures.Config;
 import net.citizensnpcs.adventures.race.RaceDescriptor;
-import net.citizensnpcs.adventures.race.RaceRegistry;
 import net.citizensnpcs.adventures.race.Tribe;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.ai.Goal;
@@ -35,7 +34,6 @@ public class BehaviorLoader {
         public File file;
         public NPC npc;
         public RaceDescriptor race;
-        public RaceRegistry registry;
         public Tribe tribe;
 
         public Context(File file, Tribe tribe) {
@@ -46,7 +44,6 @@ public class BehaviorLoader {
             this.file = file;
             this.tribe = tribe;
             this.race = tribe.getRace();
-            this.registry = this.race.getRegistry();
             this.npc = npc;
         }
     }

@@ -45,10 +45,10 @@ public class TargetUtil {
             NPC npc = CitizensAPI.getNPCRegistry().getById(id);
             if (npc == null)
                 throw new DialogException("Couldn't find NPC with id " + id);
-            if (!(npc.getBukkitEntity() instanceof CommandSender))
+            if (!(npc.getEntity() instanceof CommandSender))
                 throw new DialogException("NPC was not a command sender");
 
-            Messaging.send((CommandSender) npc.getBukkitEntity(), message);
+            Messaging.send((CommandSender) npc.getEntity(), message);
             return;
         }
 

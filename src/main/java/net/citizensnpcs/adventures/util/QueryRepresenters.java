@@ -6,6 +6,7 @@ import net.citizensnpcs.api.npc.NPC;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -18,10 +19,12 @@ public class QueryRepresenters {
         QueryRepresenters.representLocation(block.getLocation(), root + ".location", eventMap);
     }
 
-    public static void representEntity(LivingEntity entity, String root, Map<String, Object> eventMap) {
+    public static void representEntity(Entity entity, String root, Map<String, Object> eventMap) {
         eventMap.put(root, entity);
-        eventMap.put(root + ".health", entity.getHealth());
-        eventMap.put(root + ".maxhealth", entity.getMaxHealth());
+        if (entity instanceof LivingEntity) {
+            eventMap.put(root + ".health", ((LivingEntity) entity).getHealth());
+            eventMap.put(root + ".maxhealth", ((LivingEntity) entity).getMaxHealth());
+        }
         eventMap.put(root + ".type", entity.getType());
         eventMap.put(root + ".type.name", entity.getType().name().toLowerCase());
         QueryRepresenters.representLocation(entity.getLocation(), root + ".location", eventMap);
@@ -58,7 +61,7 @@ public class QueryRepresenters {
         eventMap.put(root + ".spawned", npc.isSpawned());
         eventMap.put(root + ".id", npc.getId());
         if (npc.isSpawned())
-            representEntity(npc.getBukkitEntity(), root + ".entity", eventMap);
+            representEntity(npc.getEntity(), root + ".entity", eventMap);
         eventMap.put(root + ".name", npc.getName());
     }
 

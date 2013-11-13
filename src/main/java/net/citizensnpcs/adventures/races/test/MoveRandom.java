@@ -17,22 +17,21 @@ public class MoveRandom implements Behavior {
 
     @Override
     public void reset() {
-        this.goal.reset();
+        goal.reset();
     }
 
     @Override
     public BehaviorStatus run() {
-        BehaviorStatus res = this.goal.run();
-        boolean stillRunning = (res == BehaviorStatus.RUNNING);
-        return stillRunning ? BehaviorStatus.RUNNING : BehaviorStatus.SUCCESS;
+        BehaviorStatus res = goal.run();
+        return res == BehaviorStatus.RUNNING ? res : BehaviorStatus.SUCCESS;
     }
 
     @Override
     public boolean shouldExecute() {
-        if (context.tribe.data().get("executing", false) == true) {
+        if (context.tribe.data().<Boolean> get("executing", false)) {
             return false;
         }
-        return this.goal.shouldExecute();
+        return goal.shouldExecute();
     }
 
     public static Behavior createInstance(Context context, DataKey key) {

@@ -9,9 +9,8 @@ import net.citizensnpcs.api.ai.tree.Behavior;
 import net.citizensnpcs.api.ai.tree.BehaviorStatus;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.util.DataKey;
-import net.citizensnpcs.api.util.Messaging;
 
-import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 
 public class AttackOtherTribe implements Behavior {
     private final Context context;
@@ -25,15 +24,15 @@ public class AttackOtherTribe implements Behavior {
     }
 
     private boolean isThreat(NPC enemy) {
-        return enemy.isSpawned() && enemy.getBukkitEntity().getHealth() > 5;
+        return enemy.isSpawned() && enemy.getEntity().getType().isAlive()
+                && ((LivingEntity) enemy.getEntity()).getHealth() > 5;
     }
 
     @Override
     public void reset() {
-        if (this.won) {
+        if (won) {
             context.tribe.merge(this.enemyTribe);
-            this.won = false;
-            Messaging.log('w');
+            won = false;
         }
         context.tribe.data().set("executing", false);
     }
@@ -57,7 +56,7 @@ public class AttackOtherTribe implements Behavior {
             for (NPC enemy : this.enemyTribeMembers) {
                 if (!this.isThreat(enemy))
                     continue;
-                member.getNavigator().setTarget((Entity) enemy.getBukkitEntity(), true);
+                member.getNavigator().setTarget(enemy.getEntity(), true);
                 break;
             }
         }
@@ -78,7 +77,7 @@ public class AttackOtherTribe implements Behavior {
 
     @Override
     public boolean shouldExecute() {
-        Collection<Tribe> otherTribes = context.registry.getTribesByRace(context.race, context.tribe);
+        Collection<Tribe> otherTribes = context.race.getRegistry().getTribesByRace(context.race, context.tribe);
         if (otherTribes.size() > 0) {
             this.enemyTribe = otherTribes.iterator().next();
             this.enemyTribeMembers = this.enemyTribe.getMembers();

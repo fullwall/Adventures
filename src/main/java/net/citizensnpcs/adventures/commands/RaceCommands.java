@@ -43,7 +43,7 @@ public class RaceCommands {
         Messaging.sendTr(sender, Language.TRIBE_GENERATED_SUCCESSFULLY, desc.getName());
         if (args.hasFlag('t') && sender instanceof Player && tribe.getMembers().size() > 0) {
             Player player = (Player) sender;
-            player.teleport(tribe.getMembers().iterator().next().getBukkitEntity().getLocation());
+            player.teleport(tribe.getMembers().iterator().next().getEntity().getLocation());
         }
     }
 }

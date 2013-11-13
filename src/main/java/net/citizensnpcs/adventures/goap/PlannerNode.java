@@ -42,6 +42,32 @@ public class PlannerNode extends AStarNode {
         return otherState.difference(state);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        PlannerNode other = (PlannerNode) obj;
+        if (applied == null) {
+            if (other.applied != null) {
+                return false;
+            }
+        } else if (!applied.equals(other.applied)) {
+            return false;
+        }
+        if (state == null) {
+            if (other.state != null) {
+                return false;
+            }
+        } else if (!state.equals(other.state)) {
+            return false;
+        }
+        return true;
+    }
+
     private float getHeuristicModifier() {
         if (applied == null)
             return 0;
@@ -67,6 +93,15 @@ public class PlannerNode extends AStarNode {
             neighbours.add(newNode);
         }
         return neighbours;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((applied == null) ? 0 : applied.hashCode());
+        result = prime * result + ((state == null) ? 0 : state.hashCode());
+        return result;
     }
 
     public float heuristic(PlannerNode to) {
