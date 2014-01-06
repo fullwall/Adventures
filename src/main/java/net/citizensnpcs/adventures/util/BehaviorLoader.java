@@ -77,15 +77,15 @@ public class BehaviorLoader {
             }
         }
         if (!CLASS_METHOD_CACHE.containsKey(clazz)) {
+            Method method = null;
             try {
-                Method method = clazz.getDeclaredMethod("createInstance", Context.class, DataKey.class);
-                if (method != null) {
-                    method.setAccessible(true);
-                }
-                CLASS_METHOD_CACHE.put(clazz, method);
+                method = clazz.getDeclaredMethod("createInstance", Context.class, DataKey.class);
             } catch (Exception e) {
-                e.printStackTrace();
             }
+            if (method != null) {
+                method.setAccessible(true);
+            }
+            CLASS_METHOD_CACHE.put(clazz, method);
         }
         Method m = CLASS_METHOD_CACHE.get(clazz);
         if (m == null) {

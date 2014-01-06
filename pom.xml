@@ -9,7 +9,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<citizensapi.version>2.0.10-SNAPSHOT</citizensapi.version>
+		<citizensapi.version>2.0.11-SNAPSHOT</citizensapi.version>
 		<craftbukkit.version>LATEST</craftbukkit.version>
 		<antlr.version>3.5</antlr.version>
 		<denizen.version>0.9.2-SNAPSHOT</denizen.version>
@@ -43,7 +43,7 @@
 		</dependency>
 		<dependency>
 			<groupId>net.citizensnpcs</groupId>
-			<artifactId>citizensapi</artifactId>
+			<artifactId>citizens</artifactId>
 			<version>${citizensapi.version}</version>
 			<type>jar</type>
 			<scope>provided</scope>

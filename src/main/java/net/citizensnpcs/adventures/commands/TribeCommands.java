@@ -1,7 +1,10 @@
 package net.citizensnpcs.adventures.commands;
 
 import net.citizensnpcs.adventures.Adventures;
+import net.citizensnpcs.adventures.races.test.BuildSchematic;
 import net.citizensnpcs.adventures.util.Language;
+import net.citizensnpcs.api.ai.Goal;
+import net.citizensnpcs.api.ai.tree.Sequence;
 import net.citizensnpcs.api.command.Command;
 import net.citizensnpcs.api.command.CommandContext;
 import net.citizensnpcs.api.command.Requirements;
@@ -17,6 +20,21 @@ public class TribeCommands {
 
     public TribeCommands(Adventures plugin) {
         this.plugin = plugin;
+    }
+
+    @Command(
+            aliases = "tribe",
+            usage = "build [schematic]",
+            desc = "Builds a building",
+            modifiers = "build",
+            min = 2,
+            max = 2,
+            permission = "")
+    @Requirements(selected = true, ownership = true)
+    public void build(CommandContext args, CommandSender sender, NPC npc) {
+        Goal g = npc.getDefaultGoalController().iterator().next().getGoal();
+        BuildSchematic m = (BuildSchematic) ((Sequence) g).getBehaviors().get(0);
+        m.setCurrentSchematic(args.getString(1));
     }
 
     @Command(

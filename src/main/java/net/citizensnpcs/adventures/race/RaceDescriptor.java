@@ -1,17 +1,21 @@
 package net.citizensnpcs.adventures.race;
 
+import java.io.File;
+
 import org.bukkit.Location;
 
 public class RaceDescriptor {
+    private final File folder;
     private final TribeGenerator generator;
     private final String name;
     private final RaceRegistry registry;
 
-    private RaceDescriptor(RaceRegistry registry, String name, TribeGenerator generator) {
+    private RaceDescriptor(RaceRegistry registry, String name, TribeGenerator generator, File folder) {
         this.name = name;
         this.generator = generator;
         this.generator.setRace(this);
         this.registry = registry;
+        this.folder = folder;
     }
 
     public Tribe generateAndRegisterTribe(Location at) {
@@ -30,11 +34,16 @@ public class RaceDescriptor {
         return name;
     }
 
+    public File getRaceFolder() {
+        return folder;
+    }
+
     public RaceRegistry getRegistry() {
         return registry;
     }
 
     public static class Builder {
+        private File folder;
         private TribeGenerator generator;
         private final String name;
         private final RaceRegistry registry;
@@ -45,7 +54,12 @@ public class RaceDescriptor {
         }
 
         public RaceDescriptor build() {
-            return new RaceDescriptor(registry, name, generator);
+            return new RaceDescriptor(registry, name, generator, folder);
+        }
+
+        public Builder folder(File folder) {
+            this.folder = folder;
+            return this;
         }
 
         public Builder generator(TribeGenerator gen) {

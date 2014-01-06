@@ -3,6 +3,7 @@ package net.citizensnpcs.adventures.race;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
@@ -13,9 +14,8 @@ import net.citizensnpcs.api.scripting.ScriptFactory;
 import net.citizensnpcs.api.util.DataKey;
 import net.citizensnpcs.api.util.YamlStorage;
 
-import org.bukkit.plugin.java.PluginClassLoader;
-
 import com.google.common.collect.Sets;
+import com.google.common.io.Closeables;
 
 public class RaceStorage {
     private boolean loadedLibs;
@@ -64,7 +64,7 @@ public class RaceStorage {
     }
 
     private boolean loadDependencies(File file, DataKey root) {
-        PluginClassLoader loader = plugin.getPluginClassLoader();
+        PublicURLClassLoader loader = new PublicURLClassLoader(new URL[] {}, plugin.getClass().getClassLoader());
         if (!loadedLibs) {
             File libs = new File(rootDirectory, "lib");
             if (libs.exists()) {
@@ -80,12 +80,15 @@ public class RaceStorage {
             }
             loadedLibs = true;
         }
-        if (!root.keyExists("depend"))
+        if (!root.keyExists("depend")) {
+            Closeables.closeQuietly(loader);
             return true;
+        }
         Set<URL> urls = Sets.newHashSet();
         for (String dependency : root.<List<String>> getRawUnchecked("depend")) {
             File dep = new File(file, dependency + ".jar");
             if (!dep.exists()) {
+                Closeables.closeQuietly(loader);
                 return false;
             }
             try {
@@ -97,6 +100,7 @@ public class RaceStorage {
         for (URL url : urls) {
             loader.addURL(url);
         }
+        Closeables.closeQuietly(loader);
         return true;
     }
 
@@ -110,7 +114,8 @@ public class RaceStorage {
         TribeGenerator gen = new TribeGenerator();
         gen.setNPCSupplier(new FlatfileNPCSupplier(storage));
         gen.addDecorator(new FlatfileBehaviorDecorator(storage));
-        RaceDescriptor race = RaceDescriptor.builder(registry, name).generator(gen).build();
+        RaceDescriptor race = RaceDescriptor.builder(registry, name).generator(gen)
+                .folder(storage.getFile().getParentFile()).build();
         return race;
     }
 
@@ -122,5 +127,16 @@ public class RaceStorage {
             return loadFromYaml(storage);
         }
         return loadAsScript(infoFile);
+    }
+
+    private static class PublicURLClassLoader extends URLClassLoader {
+        public PublicURLClassLoader(URL[] urls, ClassLoader parent) {
+            super(urls, parent);
+        }
+
+        @Override
+        public void addURL(URL url) {
+            super.addURL(url);
+        }
     }
 }
