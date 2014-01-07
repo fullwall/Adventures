@@ -1,6 +1,7 @@
 package net.citizensnpcs.adventures.race;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -15,7 +16,6 @@ import net.citizensnpcs.api.util.DataKey;
 import net.citizensnpcs.api.util.YamlStorage;
 
 import com.google.common.collect.Sets;
-import com.google.common.io.Closeables;
 
 public class RaceStorage {
     private boolean loadedLibs;
@@ -63,7 +63,7 @@ public class RaceStorage {
         return (RaceDescriptor) object;
     }
 
-    private boolean loadDependencies(File file, DataKey root) {
+    private boolean loadDependencies(File file, DataKey root) throws IOException {
         PublicURLClassLoader loader = new PublicURLClassLoader(new URL[] {}, plugin.getClass().getClassLoader());
         if (!loadedLibs) {
             File libs = new File(rootDirectory, "lib");
@@ -81,14 +81,14 @@ public class RaceStorage {
             loadedLibs = true;
         }
         if (!root.keyExists("depend")) {
-            Closeables.closeQuietly(loader);
+            loader.close();
             return true;
         }
         Set<URL> urls = Sets.newHashSet();
         for (String dependency : root.<List<String>> getRawUnchecked("depend")) {
             File dep = new File(file, dependency + ".jar");
             if (!dep.exists()) {
-                Closeables.closeQuietly(loader);
+                loader.close();
                 return false;
             }
             try {
@@ -100,7 +100,7 @@ public class RaceStorage {
         for (URL url : urls) {
             loader.addURL(url);
         }
-        Closeables.closeQuietly(loader);
+        loader.close();
         return true;
     }
 
@@ -109,8 +109,13 @@ public class RaceStorage {
         String name = root.getString("name");
         if (name == null)
             return null;
-        if (!loadDependencies(storage.getFile(), root))
+        try {
+            if (!loadDependencies(storage.getFile(), root))
+                return null;
+        } catch (IOException e) {
+            e.printStackTrace();
             return null;
+        }
         TribeGenerator gen = new TribeGenerator();
         gen.setNPCSupplier(new FlatfileNPCSupplier(storage));
         gen.addDecorator(new FlatfileBehaviorDecorator(storage));
