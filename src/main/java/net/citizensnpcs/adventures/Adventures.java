@@ -26,7 +26,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.java.PluginClassLoader;
 
 public class Adventures extends JavaPlugin {
     private final CommandManager commands = new CommandManager();
@@ -41,10 +40,6 @@ public class Adventures extends JavaPlugin {
 
     public File getDialogFolder() {
         return new File(getDataFolder(), "dialog");
-    }
-
-    public PluginClassLoader getPluginClassLoader() {
-        return (PluginClassLoader) super.getClassLoader();
     }
 
     public RaceRegistry getRaceRegistry() {
