@@ -81,14 +81,12 @@ public class RaceStorage {
             loadedLibs = true;
         }
         if (!root.keyExists("depend")) {
-            loader.close();
             return true;
         }
         Set<URL> urls = Sets.newHashSet();
         for (String dependency : root.<List<String>> getRawUnchecked("depend")) {
             File dep = new File(file, dependency + ".jar");
             if (!dep.exists()) {
-                loader.close();
                 return false;
             }
             try {
@@ -100,7 +98,6 @@ public class RaceStorage {
         for (URL url : urls) {
             loader.addURL(url);
         }
-        loader.close();
         return true;
     }
 
