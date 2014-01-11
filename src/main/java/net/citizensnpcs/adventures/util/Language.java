@@ -2,6 +2,9 @@ package net.citizensnpcs.adventures.util;
 
 public class Language {
     public static final String ASSIGNED_SUCCESSFULLY = "adventures.command.dialog.assign.success";
+    public static final String CONFIG_FILE_INVALID = "adventures.system.config.invalid-yaml";
+    public static final String CONFIG_FILE_LOAD_ERROR = "adventures.system.config.load-error";
+    public static final String CONFIG_FILE_NOT_FOUND = "adventures.system.config.file-not-found";
     public static final String ERROR_LABEL = "adventures.debug.label.error";
     public static final String ERROR_LOADING_BEHAVIOR = "adventures.behavior-loader.error-loading";
     public static final String INFO_LABEL = "adventures.debug.label.info";

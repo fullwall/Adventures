@@ -1,5 +1,6 @@
 package net.citizensnpcs.adventures.util;
 
+import net.citizensnpcs.adventures.Adventures;
 import net.citizensnpcs.adventures.dialog.DialogException;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
@@ -42,7 +43,7 @@ public class TargetUtil {
             } catch (NumberFormatException ex) {
                 throw new DialogException("Invalid ID " + target.substring(2));
             }
-            NPC npc = CitizensAPI.getNPCRegistry().getById(id);
+            NPC npc = CitizensAPI.getNamedNPCRegistry(Adventures.REGISTRY_NAME).getById(id);
             if (npc == null)
                 throw new DialogException("Couldn't find NPC with id " + id);
             if (!(npc.getEntity() instanceof CommandSender))

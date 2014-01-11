@@ -3,7 +3,7 @@ package net.citizensnpcs.adventures.race;
 import net.citizensnpcs.adventures.DialogTrait;
 import net.citizensnpcs.adventures.util.BehaviorLoader;
 import net.citizensnpcs.adventures.util.BehaviorLoader.Context;
-import net.citizensnpcs.api.ai.Goal;
+import net.citizensnpcs.api.ai.tree.Behavior;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.util.DataKey;
 import net.citizensnpcs.api.util.FileStorage;
@@ -19,16 +19,15 @@ public class FlatfileBehaviorDecorator implements TribeMemberDecorator {
 
     @Override
     public NPC decorate(Tribe tribe, NPC npc) {
-        Goal rootMemberGoal = BehaviorLoader.loadBehaviors(new Context(storage.getFile(), tribe, npc),
+        Behavior rootMemberGoal = BehaviorLoader.loadBehaviors(new Context(tribe, npc),
                 storage.getKey("members.behavior"));
         if (rootMemberGoal != null) {
-            npc.getDefaultGoalController().addGoal(rootMemberGoal, 1);
+            npc.getDefaultGoalController().addBehavior(rootMemberGoal, 1);
         }
         if (!tribe.getTribeAI().iterator().hasNext()) {
-            Goal rootTribeGoal = BehaviorLoader.loadBehaviors(new Context(storage.getFile(), tribe),
-                    storage.getKey("tribe.behavior"));
+            Behavior rootTribeGoal = BehaviorLoader.loadBehaviors(new Context(tribe), storage.getKey("tribe.behavior"));
             if (rootTribeGoal != null) {
-                tribe.getTribeAI().addGoal(rootTribeGoal, 1);
+                tribe.getTribeAI().addBehavior(rootTribeGoal, 1);
             }
         }
         DialogTrait trait = new DialogTrait();

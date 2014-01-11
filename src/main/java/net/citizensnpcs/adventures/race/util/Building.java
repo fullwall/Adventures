@@ -32,6 +32,7 @@ public class Building {
 
             @Override
             public BuildingBlock next() {
+                @SuppressWarnings("deprecation")
                 BuildingBlock ret = new BuildingBlock(Material.getMaterial(clipboard.getBlock(vector).getId()), x, y, z);
                 if (++z >= clipboard.getLength()) {
                     z = 0;

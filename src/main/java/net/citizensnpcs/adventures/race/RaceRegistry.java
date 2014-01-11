@@ -50,6 +50,14 @@ public class RaceRegistry implements Runnable {
         return result;
     }
 
+    public Iterable<RaceDescriptor> getRaces() {
+        return races.values();
+    }
+
+    public Iterable<Tribe> getTribes() {
+        return tribes;
+    }
+
     public Collection<Tribe> getTribesByRace(RaceDescriptor race) {
         return getTribesByRace(race, null);
     }

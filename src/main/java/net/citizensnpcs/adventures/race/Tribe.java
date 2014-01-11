@@ -3,11 +3,19 @@ package net.citizensnpcs.adventures.race;
 import java.util.Collection;
 import java.util.List;
 
+import net.citizensnpcs.adventures.Adventures;
+import net.citizensnpcs.adventures.util.BehaviorLoader;
+import net.citizensnpcs.adventures.util.BehaviorLoader.Context;
+import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.ai.GoalController;
+import net.citizensnpcs.api.ai.GoalController.GoalEntry;
 import net.citizensnpcs.api.ai.SimpleGoalController;
+import net.citizensnpcs.api.ai.tree.Behavior;
 import net.citizensnpcs.api.npc.MetadataStore;
 import net.citizensnpcs.api.npc.NPC;
+import net.citizensnpcs.api.npc.NPCRegistry;
 import net.citizensnpcs.api.npc.SimpleMetadataStore;
+import net.citizensnpcs.api.util.DataKey;
 import net.citizensnpcs.api.util.prtree.Region3D;
 
 import org.bukkit.Location;
@@ -77,6 +85,35 @@ public class Tribe implements Runnable {
         return ai;
     }
 
+    public void load(DataKey key) {
+        NPCRegistry registry = CitizensAPI.getNamedNPCRegistry(Adventures.REGISTRY_NAME);
+        for (DataKey root : key.getRelative("npcs").getIntegerSubKeys()) {
+            int id = root.getInt("id");
+            NPC npc = registry.getById(id);
+            if (npc == null)
+                continue;
+            Context context = new Context(this, npc);
+            context.redirect = root.getRelative("behavior");
+            Behavior behavior = BehaviorLoader.loadBehaviors(context, root.getRelative("behavior"));
+            if (behavior != null) {
+                npc.getDefaultGoalController().addBehavior(behavior, 1);
+            }
+            members.add(npc);
+        }
+
+        if (key.keyExists("behavior")) {
+            DataKey behaviorKey = key.getRelative("behavior");
+            Context context = new Context(this);
+            context.redirect = behaviorKey;
+            Behavior rootGoal = BehaviorLoader.loadBehaviors(context, key);
+            if (rootGoal != null) {
+                ai.addBehavior(rootGoal, 1);
+            }
+        }
+
+        metadata.loadFrom(key.getRelative("metadata"));
+    }
+
     public Tribe merge(Tribe other) {
         addMembers(other.members);
         race.getRegistry().deregisterTribe(other);
@@ -86,6 +123,22 @@ public class Tribe implements Runnable {
     @Override
     public void run() {
         ai.run();
+    }
+
+    public void save(DataKey key) {
+        int i = 0;
+        for (NPC npc : members) {
+            key.setInt("npcs." + i + ".id", npc.getId());
+            for (GoalEntry entry : npc.getDefaultGoalController()) {
+                BehaviorLoader.saveBehaviors(entry.getBehavior(), new Context(this, npc),
+                        key.getRelative("npcs." + i + ".behavior"));
+            }
+            i++;
+        }
+        metadata.saveTo(key.getRelative("metadata"));
+        for (GoalEntry entry : ai) {
+            BehaviorLoader.saveBehaviors(entry.getBehavior(), new Context(this), key.getRelative("behavior"));
+        }
     }
 
     private static final Location CACHE_LOCATION = new Location(null, 0, 0, 0);

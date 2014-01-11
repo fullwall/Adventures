@@ -7,12 +7,10 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
 
 import net.citizensnpcs.adventures.Adventures;
-import net.citizensnpcs.api.CitizensAPI;
-import net.citizensnpcs.api.scripting.ScriptFactory;
 import net.citizensnpcs.api.util.DataKey;
+import net.citizensnpcs.api.util.Storage;
 import net.citizensnpcs.api.util.YamlStorage;
 
 import com.google.common.collect.Sets;
@@ -34,33 +32,21 @@ public class RaceStorage {
         for (File raceDirectory : rootDirectory.listFiles()) {
             if (!raceDirectory.isDirectory())
                 continue;
+            RaceDescriptor desc = null;
             for (File possibleInfoFile : raceDirectory.listFiles()) {
                 if (!possibleInfoFile.isFile() || !possibleInfoFile.getName().startsWith("info"))
                     continue;
-                RaceDescriptor desc = loadRaceDescriptor(possibleInfoFile);
+                desc = loadRaceDescriptor(possibleInfoFile);
                 if (desc != null) {
                     registry.registerRace(desc);
                 }
                 break;
             }
+            File file = new File(raceDirectory, "tribes.yml");
+            if (desc != null && file.exists()) {
+                loadTribes(desc, file);
+            }
         }
-    }
-
-    private RaceDescriptor loadAsScript(File infoFile) {
-        ScriptFactory factory = null;
-        try {
-            factory = CitizensAPI.getScriptCompiler().compile(infoFile).beginWithFuture().get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        if (factory == null)
-            return null;
-        Object object = factory.newInstance().invoke("getDescriptor", registry, infoFile.getParentFile());
-        if (!(object instanceof RaceDescriptor))
-            throw new RuntimeException("Expected RaceDescriptor, got " + object);
-        return (RaceDescriptor) object;
     }
 
     private boolean loadDependencies(File file, DataKey root) throws IOException {
@@ -128,7 +114,30 @@ public class RaceStorage {
                 throw new RuntimeException("Couldn't load " + infoFile.getName());
             return loadFromYaml(storage);
         }
-        return loadAsScript(infoFile);
+        throw new RuntimeException("Unknown info type " + infoFile.getName());
+    }
+
+    private void loadTribes(RaceDescriptor race, File tribeFile) {
+        Storage storage = new YamlStorage(tribeFile);
+        if (!storage.load())
+            throw new RuntimeException("Couldn't load " + tribeFile.getName());
+        for (DataKey tribeKey : storage.getKey("tribes").getIntegerSubKeys()) {
+            Tribe tribe = new Tribe(race);
+            tribe.load(tribeKey);
+        }
+    }
+
+    public void save() {
+        for (RaceDescriptor descriptor : registry.getRaces()) {
+            File saveFile = new File(descriptor.getRaceFolder(), "tribes.yml");
+            saveFile.delete();
+            Storage storage = new YamlStorage(saveFile);
+            int i = 0;
+            for (Tribe tribe : registry.getTribesByRace(descriptor)) {
+                tribe.save(storage.getKey("tribes." + i));
+                i++;
+            }
+        }
     }
 
     private static class PublicURLClassLoader extends URLClassLoader {

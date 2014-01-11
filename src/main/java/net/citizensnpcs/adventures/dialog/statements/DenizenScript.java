@@ -5,6 +5,7 @@ import net.aufdemrand.denizen.objects.dPlayer;
 import net.aufdemrand.denizen.scripts.ScriptRegistry;
 import net.aufdemrand.denizen.scripts.containers.core.TaskScriptContainer;
 import net.aufdemrand.denizen.utilities.DenizenAPI;
+import net.citizensnpcs.adventures.Adventures;
 import net.citizensnpcs.adventures.dialog.DialogEngine.ParseContext;
 import net.citizensnpcs.adventures.dialog.DialogException;
 import net.citizensnpcs.adventures.dialog.QueryContext;
@@ -30,13 +31,14 @@ public class DenizenScript implements QueryRunnable {
             return DenizenAPI.getDenizenNPC((NPC) unsafe);
         if (unsafe instanceof String) {
             try {
-                return DenizenAPI.getDenizenNPC(CitizensAPI.getNPCRegistry().getById(
+                return DenizenAPI.getDenizenNPC(CitizensAPI.getNamedNPCRegistry(Adventures.REGISTRY_NAME).getById(
                         Integer.parseInt(unsafe.toString())));
             } catch (NumberFormatException swallow) {
             }
         }
         if (unsafe instanceof Integer) {
-            return DenizenAPI.getDenizenNPC(CitizensAPI.getNPCRegistry().getById((Integer) unsafe));
+            return DenizenAPI.getDenizenNPC(CitizensAPI.getNamedNPCRegistry(Adventures.REGISTRY_NAME).getById(
+                    (Integer) unsafe));
         }
         return null;
     }

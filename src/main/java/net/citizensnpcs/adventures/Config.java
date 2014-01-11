@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import net.citizensnpcs.adventures.util.Language;
+import net.citizensnpcs.api.util.Messaging;
+
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -30,7 +33,6 @@ public class Config {
         Config.DEBUG = get().getBoolean("debug.enabled", false);
         Config.SHOW_TRACES = get().getBoolean("debug.detailed", true);
         Config.COLORS = get().getBoolean("debug.colors", true);
-        Config.CACHE_SCRIPTS = get().getBoolean("scripts.cache", true);
     }
 
     /**
@@ -39,14 +41,17 @@ public class Config {
      */
     public void reload() {
         try {
-            if (configFile.exists())
+            if (configFile.exists()) {
                 get().load(configFile);
+            }
         } catch (FileNotFoundException ex) {
-            // TODO "Configuration file not found!"
+            Messaging.severeTr(Language.CONFIG_FILE_NOT_FOUND);
         } catch (IOException ex) {
-            // TODO "Could not read configuration file!"
+            Messaging.severeTr(Language.CONFIG_FILE_LOAD_ERROR);
+            ex.printStackTrace();
         } catch (InvalidConfigurationException ex) {
-            // TODO "Invalid configuration, please check if the YAML is valid!"
+            Messaging.severeTr(Language.CONFIG_FILE_INVALID);
+            ex.printStackTrace();
         }
         load();
     }
@@ -56,7 +61,6 @@ public class Config {
         plugin.saveConfig();
     }
 
-    public static boolean CACHE_SCRIPTS;
     public static boolean COLORS;
     public static boolean DEBUG;
     private final static String FILE_NAME = "config.yml";

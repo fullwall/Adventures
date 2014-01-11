@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
+import net.citizensnpcs.adventures.Adventures;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.astar.pathfinder.MinecraftBlockExaminer;
 import net.citizensnpcs.api.npc.NPC;
@@ -35,7 +36,7 @@ public class FlatfileNPCSupplier implements NPCSupplier {
         for (int i = 0; i < parameters.maxNPCs; i++) {
             String name = parameters.names.get(random.nextInt(parameters.names.size()));
             EntityType type = parameters.types.get(random.nextInt(parameters.types.size()));
-            NPC npc = CitizensAPI.getNPCRegistry().createNPC(type, name);
+            NPC npc = CitizensAPI.getNamedNPCRegistry(Adventures.REGISTRY_NAME).createNPC(type, name);
             npc.data().setPersistent(NPC.DEFAULT_PROTECTED_METADATA, !parameters.defaultVulnerable);
             npc.spawn(spawnLocation);
             npcs.add(npc);
