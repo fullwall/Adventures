@@ -2,6 +2,7 @@ package net.citizensnpcs.adventures.race;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 import net.citizensnpcs.adventures.Adventures;
 import net.citizensnpcs.adventures.util.BehaviorLoader;
@@ -88,8 +89,8 @@ public class Tribe implements Runnable {
     public void load(DataKey key) {
         NPCRegistry registry = CitizensAPI.getNamedNPCRegistry(Adventures.REGISTRY_NAME);
         for (DataKey root : key.getRelative("npcs").getIntegerSubKeys()) {
-            int id = root.getInt("id");
-            NPC npc = registry.getById(id);
+            String id = root.getString("id");
+            NPC npc = registry.getByUniqueIdGlobal(UUID.fromString(id));
             if (npc == null)
                 continue;
             Context context = new Context(this, npc);
@@ -128,7 +129,7 @@ public class Tribe implements Runnable {
     public void save(DataKey key) {
         int i = 0;
         for (NPC npc : members) {
-            key.setInt("npcs." + i + ".id", npc.getId());
+            key.setString("npcs." + i + ".id", npc.getUniqueId().toString());
             for (GoalEntry entry : npc.getDefaultGoalController()) {
                 BehaviorLoader.saveBehaviors(entry.getBehavior(), new Context(this, npc),
                         key.getRelative("npcs." + i + ".behavior"));

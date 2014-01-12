@@ -86,10 +86,10 @@ public class Adventures extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        despawnNPCs();
         npcStorage.storeAll(npcRegistry);
         npcStorage.saveToDiskImmediate();
         storage.save();
+        despawnNPCs();
     }
 
     @Override
@@ -99,13 +99,11 @@ public class Adventures extends JavaPlugin {
         getDataFolder().mkdirs();
 
         config = new Config(this);
+        setupEngine();
         setupRegistry();
         storage = new RaceStorage(this, new File(getDataFolder(), "races"), raceRegistry);
         storage.load();
-        setupEngine();
         setupCommands();
-        Bukkit.getPluginManager().registerEvents(new QueryEventListener(this, engine), this);
-        CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(DialogTrait.class).withName("dialog"));
         Translator.addTranslations(new ResourceTranslationProvider("messages_en.properties", Adventures.class));
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, raceRegistry, 0, 1);
         scheduleSaveTask(20 * 60 * 60);
@@ -139,10 +137,13 @@ public class Adventures extends JavaPlugin {
     }
 
     private void setupEngine() {
+        CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(DialogTrait.class).withName("dialog"));
         Plugin denizenPlugin = Bukkit.getPluginManager().getPlugin("Denizen");
-        if (denizenPlugin != null)
+        if (denizenPlugin != null) {
             engine.getStatementRegistry().register(DenizenScript.class);
+        }
         engine.loadFolderAsynchronously(getDialogFolder());
+        Bukkit.getPluginManager().registerEvents(new QueryEventListener(this, engine), this);
     }
 
     private void setupRegistry() {

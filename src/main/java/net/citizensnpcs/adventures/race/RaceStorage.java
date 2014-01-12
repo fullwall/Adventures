@@ -124,6 +124,7 @@ public class RaceStorage {
         for (DataKey tribeKey : storage.getKey("tribes").getIntegerSubKeys()) {
             Tribe tribe = new Tribe(race);
             tribe.load(tribeKey);
+            registry.registerTribe(tribe);
         }
     }
 
@@ -137,6 +138,7 @@ public class RaceStorage {
                 tribe.save(storage.getKey("tribes." + i));
                 i++;
             }
+            storage.save();
         }
     }
 
