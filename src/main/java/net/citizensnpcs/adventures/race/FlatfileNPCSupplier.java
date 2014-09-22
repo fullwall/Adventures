@@ -30,7 +30,7 @@ public class FlatfileNPCSupplier implements NPCSupplier {
     }
 
     @Override
-    public Collection<NPC> createTribe(RaceDescriptor race, Location in) {
+    public Collection<NPC> createTribeMembers(RaceDescriptor race, Location in) {
         Location spawnLocation = findSpawnLocation(in);
         List<NPC> npcs = Lists.newArrayListWithCapacity(parameters.maxNPCs);
         for (int i = 0; i < parameters.maxNPCs; i++) {

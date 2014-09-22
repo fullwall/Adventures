@@ -7,5 +7,5 @@ import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Location;
 
 public interface NPCSupplier {
-    Collection<NPC> createTribe(RaceDescriptor race, Location at);
+    Collection<NPC> createTribeMembers(RaceDescriptor race, Location at);
 }

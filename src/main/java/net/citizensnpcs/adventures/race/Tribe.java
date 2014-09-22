@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import net.citizensnpcs.adventures.Adventures;
+import net.citizensnpcs.adventures.race.util.Blackboard;
 import net.citizensnpcs.adventures.util.BehaviorLoader;
 import net.citizensnpcs.adventures.util.BehaviorLoader.Context;
 import net.citizensnpcs.api.CitizensAPI;
@@ -26,6 +27,7 @@ import com.google.common.collect.Lists;
 
 public class Tribe implements Runnable {
     private final GoalController ai = new SimpleGoalController();
+    private final Blackboard blackboard = new Blackboard();
     private final List<NPC> members = Lists.newArrayList();
     private final MetadataStore metadata = new SimpleMetadataStore();
     private final RaceDescriptor race;
@@ -36,10 +38,13 @@ public class Tribe implements Runnable {
 
     public void addMember(NPC npc) {
         members.add(npc);
+        npc.getTrait(TribeTrait.class).setTribe(this);
     }
 
     public void addMembers(Collection<NPC> npcs) {
-        members.addAll(npcs);
+        for (NPC npc : npcs) {
+            addMember(npc);
+        }
     }
 
     public MetadataStore data() {
@@ -50,6 +55,10 @@ public class Tribe implements Runnable {
         for (NPC npc : members) {
             npc.destroy();
         }
+    }
+
+    public Blackboard getBlackboard() {
+        return blackboard;
     }
 
     public Collection<NPC> getMembers() {
@@ -99,7 +108,7 @@ public class Tribe implements Runnable {
             if (behavior != null) {
                 npc.getDefaultGoalController().addBehavior(behavior, 1);
             }
-            members.add(npc);
+            addMember(npc);
         }
 
         if (key.keyExists("behavior")) {

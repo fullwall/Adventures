@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Iterator;
 
 import net.citizensnpcs.adventures.race.RaceDescriptor;
+import net.citizensnpcs.adventures.race.TribeTrait;
+import net.citizensnpcs.adventures.race.util.Blackboard.PropertySubscriber;
 import net.citizensnpcs.adventures.race.util.Building;
 import net.citizensnpcs.adventures.race.util.Building.BuildingBlock;
 import net.citizensnpcs.adventures.util.BehaviorLoader.Context;
@@ -20,7 +22,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
-public class BuildSchematic implements Behavior {
+public class BuildSchematic implements Behavior, PropertySubscriber<String> {
     private Location baseLocation;
     private Iterator<BuildingBlock> blocks;
     private Building building;
@@ -32,6 +34,19 @@ public class BuildSchematic implements Behavior {
     public BuildSchematic(RaceDescriptor race, NPC npc) {
         this.race = race;
         this.npc = npc;
+        npc.getTrait(TribeTrait.class).getBlackboard().subscribe("buildschematic.schematic", this);
+    }
+
+    @Override
+    public void onChanged(String oldState, String newState) {
+        if (newState == null)
+            return;
+        File currentSchematic = new File(race.getRaceFolder(), newState + ".schematic");
+        building = Building.load(currentSchematic);
+        baseLocation = npc.getEntity().getLocation();
+        blocks = building.bottomUpBlocks();
+        current = blocks.next();
+        executing = true;
     }
 
     @Override
@@ -71,15 +86,6 @@ public class BuildSchematic implements Behavior {
             });
         }
         return BehaviorStatus.RUNNING;
-    }
-
-    public void setCurrentSchematic(String schematic) {
-        File currentSchematic = new File(race.getRaceFolder(), schematic + ".schematic");
-        building = Building.load(currentSchematic);
-        baseLocation = npc.getEntity().getLocation();
-        blocks = building.bottomUpBlocks();
-        current = blocks.next();
-        executing = true;
     }
 
     @Override

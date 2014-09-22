@@ -20,22 +20,17 @@ public class TribeGenerator {
 
     private NPC decorateNPC(Tribe tribe, NPC npc) {
         for (TribeMemberDecorator decorator : decorators) {
-            npc = decorator.decorate(tribe, npc);
-            if (npc == null) {
-                return null;
-            }
+            decorator.decorate(tribe, npc);
         }
         return npc;
     }
 
     public Tribe generateTribe(Location at) {
         Tribe tribe = new Tribe(race);
-        Collection<NPC> canonical = supplier.createTribe(race, at);
+        Collection<NPC> canonical = supplier.createTribeMembers(race, at);
         for (NPC npc : canonical) {
-            npc = decorateNPC(tribe, npc);
-            if (npc == null)
-                continue;
             tribe.addMember(npc);
+            decorateNPC(tribe, npc);
         }
         return tribe;
     }

@@ -11,6 +11,7 @@ import net.citizensnpcs.adventures.dialog.DialogEngine;
 import net.citizensnpcs.adventures.dialog.statements.DenizenScript;
 import net.citizensnpcs.adventures.race.RaceRegistry;
 import net.citizensnpcs.adventures.race.RaceStorage;
+import net.citizensnpcs.adventures.race.TribeTrait;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.command.CommandManager;
 import net.citizensnpcs.api.command.CommandMessages;
@@ -138,6 +139,7 @@ public class Adventures extends JavaPlugin {
 
     private void setupEngine() {
         CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(DialogTrait.class).withName("dialog"));
+        CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(TribeTrait.class).withName("tribetrait"));
         Plugin denizenPlugin = Bukkit.getPluginManager().getPlugin("Denizen");
         if (denizenPlugin != null) {
             engine.getStatementRegistry().register(DenizenScript.class);

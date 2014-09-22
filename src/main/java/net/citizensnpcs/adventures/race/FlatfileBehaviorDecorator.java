@@ -18,7 +18,7 @@ public class FlatfileBehaviorDecorator implements TribeMemberDecorator {
     }
 
     @Override
-    public NPC decorate(Tribe tribe, NPC npc) {
+    public void decorate(Tribe tribe, NPC npc) {
         Behavior rootMemberGoal = BehaviorLoader.loadBehaviors(new Context(tribe, npc),
                 storage.getKey("members.behavior"));
         if (rootMemberGoal != null) {
@@ -38,6 +38,5 @@ public class FlatfileBehaviorDecorator implements TribeMemberDecorator {
             }
         }
         npc.addTrait(trait);
-        return npc;
     }
 }

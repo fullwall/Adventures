@@ -1,10 +1,8 @@
 package net.citizensnpcs.adventures.commands;
 
 import net.citizensnpcs.adventures.Adventures;
-import net.citizensnpcs.adventures.races.test.BuildSchematic;
+import net.citizensnpcs.adventures.race.TribeTrait;
 import net.citizensnpcs.adventures.util.Language;
-import net.citizensnpcs.api.ai.Goal;
-import net.citizensnpcs.api.ai.tree.Sequence;
 import net.citizensnpcs.api.command.Command;
 import net.citizensnpcs.api.command.CommandContext;
 import net.citizensnpcs.api.command.Requirements;
@@ -32,9 +30,7 @@ public class TribeCommands {
             permission = "")
     @Requirements(selected = true, ownership = true)
     public void build(CommandContext args, CommandSender sender, NPC npc) {
-        Goal g = npc.getDefaultGoalController().iterator().next().getGoal();
-        BuildSchematic m = (BuildSchematic) ((Sequence) g).getBehaviors().get(0);
-        m.setCurrentSchematic(args.getString(1));
+        npc.getTrait(TribeTrait.class).getBlackboard().put("buildschematic.schematic", args.getString(1));
     }
 
     @Command(
