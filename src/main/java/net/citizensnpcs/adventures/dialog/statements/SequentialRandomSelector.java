@@ -17,8 +17,9 @@ public class SequentialRandomSelector implements QueryRunnable {
 
     @Override
     public void run(QueryContext context) {
+        double prob = Math.random();
         for (RandomEntry choice : choices) {
-            if (Math.random() < choice.probability) {
+            if (prob < choice.probability) {
                 choice.choice.run(context);
                 break;
             }
@@ -44,6 +45,7 @@ public class SequentialRandomSelector implements QueryRunnable {
         QueryRunnable choice;
 
         double probability;
+
         private RandomEntry(QueryRunnable choice, double probability) {
             this.choice = choice;
             this.probability = probability;

@@ -1,4 +1,4 @@
-package net.citizensnpcs.adventures.races.test;
+package net.citizensnpcs.adventures.races.civ;
 
 import net.citizensnpcs.adventures.util.BehaviorLoader.Context;
 import net.citizensnpcs.api.ai.goals.WanderGoal;

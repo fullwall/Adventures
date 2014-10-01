@@ -1,4 +1,4 @@
-// $ANTLR 3.5 net\\citizensnpcs\\adventures\\dialog\\Dialog.g 2013-03-08 18:16:08
+// $ANTLR 3.5 net\\citizensnpcs\\adventures\\dialog\\Dialog.g 2014-09-25 15:29:30
 
 package net.citizensnpcs.adventures.dialog;
 import java.util.Collection;
@@ -1515,7 +1515,7 @@ public class DialogParser extends Parser {
 			         value = term14;
 			         if (!positive)
 			         	value = NegationEvaluator.create(value);
-			         
+			    
 			}
 
 		}
@@ -1940,22 +1940,22 @@ public class DialogParser extends Parser {
 
 
 	// $ANTLR start "map_pair"
-	// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:210:1: map_pair[Map<String, Evaluator> vars] : k= STRING_LITERAL ':' expression ;
+	// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:210:1: map_pair[Map<String, Evaluator> vars] : k= STRING_LITERAL ':' v= expression ;
 	public final void map_pair(Map<String, Evaluator> vars) throws RecognitionException {
 		Token k=null;
-		Evaluator expression18 =null;
+		Evaluator v =null;
 
 		try {
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:210:40: (k= STRING_LITERAL ':' expression )
-			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:211:5: k= STRING_LITERAL ':' expression
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:210:40: (k= STRING_LITERAL ':' v= expression )
+			// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:211:5: k= STRING_LITERAL ':' v= expression
 			{
 			k=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_map_pair1744); 
 			match(input,28,FOLLOW_28_in_map_pair1746); 
-			pushFollow(FOLLOW_expression_in_map_pair1748);
-			expression18=expression();
+			pushFollow(FOLLOW_expression_in_map_pair1750);
+			v=expression();
 			state._fsp--;
 
-			 vars.put((k!=null?k.getText():null), expression18); 
+			 vars.put((k!=null?k.getText():null), v); 
 			}
 
 		}
@@ -2026,49 +2026,49 @@ public class DialogParser extends Parser {
 				case 1 :
 					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:214:5: 'ns'
 					{
-					match(input,44,FOLLOW_44_in_time_unit1766); 
+					match(input,44,FOLLOW_44_in_time_unit1768); 
 					 unit = TimeUnit.NANOSECONDS; 
 					}
 					break;
 				case 2 :
 					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:215:7: 'us'
 					{
-					match(input,52,FOLLOW_52_in_time_unit1776); 
+					match(input,52,FOLLOW_52_in_time_unit1778); 
 					 unit = TimeUnit.MICROSECONDS; 
 					}
 					break;
 				case 3 :
 					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:216:7: 'ms'
 					{
-					match(input,43,FOLLOW_43_in_time_unit1786); 
+					match(input,43,FOLLOW_43_in_time_unit1788); 
 					 unit = TimeUnit.MILLISECONDS; 
 					}
 					break;
 				case 4 :
 					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:217:7: 's'
 					{
-					match(input,49,FOLLOW_49_in_time_unit1796); 
+					match(input,49,FOLLOW_49_in_time_unit1798); 
 					 unit = TimeUnit.SECONDS; 
 					}
 					break;
 				case 5 :
 					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:218:7: 'm'
 					{
-					match(input,42,FOLLOW_42_in_time_unit1806); 
+					match(input,42,FOLLOW_42_in_time_unit1808); 
 					 unit = TimeUnit.MINUTES; 
 					}
 					break;
 				case 6 :
 					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:219:7: 'h'
 					{
-					match(input,41,FOLLOW_41_in_time_unit1816); 
+					match(input,41,FOLLOW_41_in_time_unit1818); 
 					 unit = TimeUnit.HOURS; 
 					}
 					break;
 				case 7 :
 					// net\\citizensnpcs\\adventures\\dialog\\Dialog.g:220:7: 'd'
 					{
-					match(input,38,FOLLOW_38_in_time_unit1826); 
+					match(input,38,FOLLOW_38_in_time_unit1828); 
 					 unit = TimeUnit.DAYS; 
 					}
 					break;
@@ -2222,12 +2222,12 @@ public class DialogParser extends Parser {
 	public static final BitSet FOLLOW_40_in_bool1721 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_STRING_LITERAL_in_map_pair1744 = new BitSet(new long[]{0x0000000010000000L});
 	public static final BitSet FOLLOW_28_in_map_pair1746 = new BitSet(new long[]{0x0028010802885800L});
-	public static final BitSet FOLLOW_expression_in_map_pair1748 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_44_in_time_unit1766 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_52_in_time_unit1776 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_43_in_time_unit1786 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_49_in_time_unit1796 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_42_in_time_unit1806 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_41_in_time_unit1816 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_38_in_time_unit1826 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_expression_in_map_pair1750 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_44_in_time_unit1768 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_52_in_time_unit1778 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_43_in_time_unit1788 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_49_in_time_unit1798 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_42_in_time_unit1808 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_41_in_time_unit1818 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_38_in_time_unit1828 = new BitSet(new long[]{0x0000000000000002L});
 }

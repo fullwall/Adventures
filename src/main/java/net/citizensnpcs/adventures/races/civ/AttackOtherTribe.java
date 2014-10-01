@@ -1,4 +1,4 @@
-package net.citizensnpcs.adventures.races.test;
+package net.citizensnpcs.adventures.races.civ;
 
 import java.util.Collection;
 

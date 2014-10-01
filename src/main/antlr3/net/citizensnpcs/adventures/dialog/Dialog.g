@@ -174,7 +174,7 @@ unary returns [Evaluator value] :
          $value = $term.value;
          if (!positive)
          	$value = NegationEvaluator.create($value);
-         };
+    };
 
 mult returns [Evaluator value] :
     op1=unary { $value = $op1.value; }
@@ -208,7 +208,7 @@ bool returns [boolean value] :
     ('true' { $value = true; } | 'false' { $value = false; });
     
 map_pair [Map<String, Evaluator> vars] :
-    k=STRING_LITERAL ':' expression { vars.put($k.text, $expression.value); };
+    k=STRING_LITERAL ':' v=expression { vars.put($k.text, $v.value); };
 
 time_unit returns [TimeUnit unit] :
     'ns' { $unit = TimeUnit.NANOSECONDS; }

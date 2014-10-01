@@ -2,6 +2,7 @@ package net.citizensnpcs.adventures.race;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import net.citizensnpcs.adventures.Adventures;
@@ -24,16 +25,22 @@ import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class Tribe implements Runnable {
     private final GoalController ai = new SimpleGoalController();
     private final Blackboard blackboard = new Blackboard();
+    private final Map<Class<? extends TribeComponent>, TribeComponent> components = Maps.newHashMap();
     private final List<NPC> members = Lists.newArrayList();
     private final MetadataStore metadata = new SimpleMetadataStore();
     private final RaceDescriptor race;
 
     public Tribe(RaceDescriptor race) {
         this.race = race;
+    }
+
+    public void addComponent(Class<? extends TribeComponent> clazz, TribeComponent component) {
+        components.put(clazz, component);
     }
 
     public void addMember(NPC npc) {
@@ -59,6 +66,10 @@ public class Tribe implements Runnable {
 
     public Blackboard getBlackboard() {
         return blackboard;
+    }
+
+    public TribeComponent getComponent(Class<? extends TribeComponent> clazz) {
+        return components.get(clazz);
     }
 
     public Collection<NPC> getMembers() {
@@ -122,6 +133,12 @@ public class Tribe implements Runnable {
         }
 
         metadata.loadFrom(key.getRelative("metadata"));
+
+        for (TribeComponent component : components.values()) {
+            if (key.keyExists("components." + component.getName())) {
+                component.load(key.getRelative("components").getRelative(component.getName()));
+            }
+        }
     }
 
     public Tribe merge(Tribe other) {
@@ -148,6 +165,9 @@ public class Tribe implements Runnable {
         metadata.saveTo(key.getRelative("metadata"));
         for (GoalEntry entry : ai) {
             BehaviorLoader.saveBehaviors(entry.getBehavior(), new Context(this), key.getRelative("behavior"));
+        }
+        for (TribeComponent component : components.values()) {
+            component.save(key.getRelative("components").getRelative(component.getName()));
         }
     }
 

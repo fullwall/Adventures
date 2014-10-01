@@ -1,4 +1,4 @@
-package net.citizensnpcs.adventures.races.test;
+package net.citizensnpcs.adventures.races.civ;
 
 import java.io.File;
 import java.util.Iterator;
@@ -6,8 +6,8 @@ import java.util.Iterator;
 import net.citizensnpcs.adventures.race.RaceDescriptor;
 import net.citizensnpcs.adventures.race.TribeTrait;
 import net.citizensnpcs.adventures.race.util.Blackboard.PropertySubscriber;
-import net.citizensnpcs.adventures.race.util.Building;
-import net.citizensnpcs.adventures.race.util.Building.BuildingBlock;
+import net.citizensnpcs.adventures.race.util.BuildingSchematic;
+import net.citizensnpcs.adventures.race.util.BuildingSchematic.BuildingBlock;
 import net.citizensnpcs.adventures.util.BehaviorLoader.Context;
 import net.citizensnpcs.api.ai.event.CancelReason;
 import net.citizensnpcs.api.ai.event.NavigatorCallback;
@@ -25,7 +25,7 @@ import org.bukkit.entity.Player;
 public class BuildSchematic implements Behavior, PropertySubscriber<String> {
     private Location baseLocation;
     private Iterator<BuildingBlock> blocks;
-    private Building building;
+    private BuildingSchematic building;
     private BuildingBlock current;
     private boolean executing = false;
     private final NPC npc;
@@ -42,7 +42,7 @@ public class BuildSchematic implements Behavior, PropertySubscriber<String> {
         if (newState == null)
             return;
         File currentSchematic = new File(race.getRaceFolder(), newState + ".schematic");
-        building = Building.load(currentSchematic);
+        building = BuildingSchematic.load(currentSchematic);
         baseLocation = npc.getEntity().getLocation();
         blocks = building.bottomUpBlocks();
         current = blocks.next();
