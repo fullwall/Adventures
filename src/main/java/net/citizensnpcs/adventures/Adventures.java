@@ -7,6 +7,7 @@ import net.citizensnpcs.adventures.commands.AdminCommands;
 import net.citizensnpcs.adventures.commands.DialogCommands;
 import net.citizensnpcs.adventures.commands.RaceCommands;
 import net.citizensnpcs.adventures.commands.TribeCommands;
+import net.citizensnpcs.adventures.commands.WorldeditCommands;
 import net.citizensnpcs.adventures.dialog.DialogEngine;
 import net.citizensnpcs.adventures.dialog.statements.DenizenScript;
 import net.citizensnpcs.adventures.race.RaceRegistry;
@@ -135,6 +136,7 @@ public class Adventures extends JavaPlugin {
         commands.register(DialogCommands.class);
         commands.register(RaceCommands.class);
         commands.register(TribeCommands.class);
+        commands.register(WorldeditCommands.class);
     }
 
     private void setupEngine() {
