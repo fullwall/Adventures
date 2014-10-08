@@ -20,8 +20,6 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Multimap;
 import com.sk89q.worldedit.CuboidClipboard;
-import com.sk89q.worldedit.EmptyClipboardException;
-import com.sk89q.worldedit.LocalSession;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.bukkit.selections.Selection;
 
@@ -44,27 +42,26 @@ public class WorldeditCommands {
             max = 1,
             permission = "adventures.editor.save")
     public void save(CommandContext args, Player sender, NPC npc) throws CommandException {
-        LocalSession session = worldedit.getSession(sender);
-        if (session == null)
+        Selection selection = worldedit.getSelection(sender);
+        if (selection == null)
             throw new CommandException();
-        final CuboidClipboard clipboard;
-        try {
-            clipboard = session.getClipboard();
-        } catch (EmptyClipboardException e) {
-            throw new CommandException();
-        }
-        final Location origin = new Location(null, clipboard.getOrigin().getX(), clipboard.getOrigin().getY(),
-                clipboard.getOrigin().getZ());
+        final CuboidClipboard clipboard = new CuboidClipboard(new com.sk89q.worldedit.Vector(selection.getWidth(),
+                selection.getHeight(), selection.getLength()), new com.sk89q.worldedit.Vector(selection
+                        .getMinimumPoint().getX(), selection.getMinimumPoint().getY(), selection.getMinimumPoint().getZ()));
+        clipboard.copy(worldedit.createEditSession(sender));
+
+        final Location origin = new Location(selection.getWorld(), clipboard.getOrigin().getX(), clipboard.getOrigin()
+                .getY(), clipboard.getOrigin().getZ());
         Collection<TaggedRegion> relativeTags = Collections2.transform(buildingTags.get(sender.getUniqueId()),
                 new Function<TaggedRegion, TaggedRegion>() {
-            @Override
-            public TaggedRegion apply(TaggedRegion arg0) {
-                return new TaggedRegion(arg0.getName(), arg0.getMin().subtract(origin), arg0.getMax().subtract(
-                        origin));
-            }
-        });
-        new BuildingSchematic(args.getString(1), clipboard, relativeTags).save(new File(plugin.getDataFolder(), args
-                .getString(1)));
+                    @Override
+                    public TaggedRegion apply(TaggedRegion arg0) {
+                        return new TaggedRegion(arg0.getName(), arg0.getMin().subtract(origin), arg0.getMax().subtract(
+                                origin));
+                    }
+                });
+        new BuildingSchematic(args.getString(0), clipboard, relativeTags).save(new File(plugin.getDataFolder(), args
+                .getString(0) + ".schematic"));
     }
 
     @Command(
@@ -84,7 +81,7 @@ public class WorldeditCommands {
         Selection selection = worldedit.getSelection(sender);
         if (selection == null)
             throw new CommandException();
-        buildingTags.put(sender.getUniqueId(), new TaggedRegion(args.getString(1), selection.getMinimumPoint(),
+        buildingTags.put(sender.getUniqueId(), new TaggedRegion(args.getString(0), selection.getMinimumPoint(),
                 selection.getMaximumPoint()));
     }
 }

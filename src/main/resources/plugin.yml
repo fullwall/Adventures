@@ -13,3 +13,7 @@ commands:
         description: Adventures race commands
     tribe:
         description: Adventures tribe commands
+    /tag:
+        description: Tag command
+    /savebuilding:
+        description: Save command
