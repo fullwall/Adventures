@@ -70,7 +70,7 @@ public class WorldeditCommands {
             desc = "Tags the current selection",
             modifiers = "*",
             flags = "c",
-            min = 1,
+            min = 0,
             max = 1,
             permission = "adventures.editor.tag")
     public void tag(CommandContext args, Player sender, NPC npc) throws CommandException {

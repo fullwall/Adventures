@@ -102,9 +102,9 @@ public class BuildingSchematic {
     public void save(File file) {
         try {
             SchematicFormat.MCEDIT.save(clipboard, file);
-            NBTStorage storage = new NBTStorage(file);
+            NBTStorage storage = new NBTStorage(file, "Schematic");
             storage.load();
-            saveRegions(storage.getKey("Schematic.TaggedRegions"), tags);
+            saveRegions(storage.getKey("TaggedRegions"), tags);
             storage.save();
         } catch (IOException e) {
             e.printStackTrace();
@@ -156,9 +156,9 @@ public class BuildingSchematic {
 
     private static Collection<TaggedRegion> loadRegions(File file) {
         Collection<TaggedRegion> ret = Lists.newArrayList();
-        Storage storage = new NBTStorage(file);
+        Storage storage = new NBTStorage(file, "Schematic");
         storage.load();
-        for (DataKey sub : storage.getKey("Schematic.TaggedRegions").getSubKeys()) {
+        for (DataKey sub : storage.getKey("TaggedRegions").getSubKeys()) {
             String name = sub.name();
             for (DataKey sub2 : sub.getIntegerSubKeys()) {
                 Location min = loadLocation(sub2.getRelative("min"));
