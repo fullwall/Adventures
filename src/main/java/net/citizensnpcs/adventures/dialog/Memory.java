@@ -5,14 +5,12 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Nullable;
-
-import net.citizensnpcs.api.util.DataKey;
-
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+
+import net.citizensnpcs.api.util.DataKey;
 
 public class Memory implements Map<String, Object> {
     private final Map<String, Entry> delegate = Maps.newHashMap();
@@ -32,10 +30,10 @@ public class Memory implements Map<String, Object> {
 
     @Override
     public boolean containsKey(Object key) {
-        Entry entry = delegate.get((String ) key);
+        Entry entry = delegate.get((String) key);
         if (entry == null)
             return false;
-        return !checkExpired((String ) key, entry);
+        return !checkExpired((String) key, entry);
     }
 
     @Override
@@ -76,7 +74,7 @@ public class Memory implements Map<String, Object> {
     @Override
     public Object get(Object key) {
         Entry entry = delegate.get(key);
-        return entry != null && !checkExpired((String ) key, entry) ? entry : null;
+        return entry != null && !checkExpired((String) key, entry) ? entry : null;
     }
 
     @Override
@@ -140,7 +138,7 @@ public class Memory implements Map<String, Object> {
     public Collection<Object> values() {
         return Collections2.transform(delegate.values(), new Function<Entry, Object>() {
             @Override
-            public Object apply(@Nullable Entry input) {
+            public Object apply(Entry input) {
                 return input == null ? null : input.value;
             }
         });

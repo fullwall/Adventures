@@ -2,13 +2,11 @@ package net.citizensnpcs.adventures.dialog;
 
 import java.util.Comparator;
 
-import javax.annotation.Nullable;
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 
 import net.citizensnpcs.adventures.dialog.evaluators.Evaluator;
 import net.citizensnpcs.adventures.dialog.evaluators.VariableSource;
-
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
 
 public class NumberQueryPredicate implements QueryPredicate {
     private final Matcher predicate;
@@ -28,8 +26,8 @@ public class NumberQueryPredicate implements QueryPredicate {
             return MatchResult.CANCEL;
         if (object instanceof Evaluator)
             object = ((Evaluator) object).get(input);
-        return predicate.matches(input, object) ? MatchResult.MATCHED : required ? MatchResult.CANCEL
-                : MatchResult.UNMATCHED;
+        return predicate.matches(input, object) ? MatchResult.MATCHED
+                : required ? MatchResult.CANCEL : MatchResult.UNMATCHED;
     }
 
     @Override
@@ -40,80 +38,6 @@ public class NumberQueryPredicate implements QueryPredicate {
     private static interface Matcher {
         boolean matches(VariableSource variables, Object variable);
     }
-
-    private static final Matcher ALWAYS_TRUE = new Matcher() {
-        @Override
-        public boolean matches(VariableSource variables, Object variable) {
-            return true;
-        }
-    };
-
-    private static Comparator<Number> DOUBLE_COMPARATOR = new Comparator<Number>() {
-        @Override
-        public int compare(Number o1, Number o2) {
-            return ((Double) o1).compareTo(o2.doubleValue());
-        }
-    };
-
-    private static Comparator<Number> FLOAT_COMPARATOR = new Comparator<Number>() {
-        @Override
-        public int compare(Number o1, Number o2) {
-            return ((Float) o1).compareTo(o2.floatValue());
-        }
-    };
-
-    private static final Predicate<Integer> GREATER_THAN_OR_EQUAL_PREDICATE = new Predicate<Integer>() {
-        @Override
-        public boolean apply(@Nullable Integer input) {
-            return input >= 0;
-        }
-
-        @Override
-        public String toString() {
-            return "NumberQueryPredicate [>=]";
-        }
-    };
-
-    private static final Predicate<Integer> GREATER_THAN_PREDICATE = Predicates.equalTo(1);
-
-    private static Comparator<Number> INTEGER_COMPARATOR = new Comparator<Number>() {
-        @Override
-        public int compare(Number o1, Number o2) {
-            return ((Integer) o1).compareTo(o2.intValue());
-        }
-    };
-
-    private static final Predicate<Integer> LESS_THAN_OR_EQUAL_PREDICATE = new Predicate<Integer>() {
-        @Override
-        public boolean apply(@Nullable Integer input) {
-            return input <= 0;
-        }
-
-        @Override
-        public String toString() {
-            return "NumberQueryPredicate [<=]";
-        }
-    };
-
-    private static final Predicate<Integer> LESS_THAN_PREDICATE = Predicates.equalTo(-1);
-
-    private static Comparator<Number> LONG_COMPARATOR = new Comparator<Number>() {
-        @Override
-        public int compare(Number o1, Number o2) {
-            return ((Long) o1).compareTo(o2.longValue());
-        }
-    };
-    private static final Predicate<Integer> NOT_PREDICATE = new Predicate<Integer>() {
-        @Override
-        public boolean apply(@Nullable Integer input) {
-            return input != 0;
-        }
-
-        @Override
-        public String toString() {
-            return "NumberQueryPredicate [!=]";
-        }
-    };
 
     public static QueryPredicate alwaysTrue(Evaluator evaluator, boolean required) {
         return of(evaluator, ALWAYS_TRUE, required);
@@ -148,8 +72,9 @@ public class NumberQueryPredicate implements QueryPredicate {
     }
 
     private static Comparator<Number> getBestComparator(Number number) {
-        return number instanceof Long ? LONG_COMPARATOR : number instanceof Integer ? INTEGER_COMPARATOR
-                : number instanceof Float ? FLOAT_COMPARATOR : DOUBLE_COMPARATOR;
+        return number instanceof Long ? LONG_COMPARATOR
+                : number instanceof Integer ? INTEGER_COMPARATOR
+                        : number instanceof Float ? FLOAT_COMPARATOR : DOUBLE_COMPARATOR;
     }
 
     private static Matcher getComparisonPredicate(final Evaluator evaluator, final Predicate<Integer> pred) {
@@ -211,4 +136,79 @@ public class NumberQueryPredicate implements QueryPredicate {
     private static Number toNumber(Object object) {
         return object == null ? 0 : object instanceof Number ? (Number) object : object.hashCode();
     }
+
+    private static final Matcher ALWAYS_TRUE = new Matcher() {
+        @Override
+        public boolean matches(VariableSource variables, Object variable) {
+            return true;
+        }
+    };
+
+    private static Comparator<Number> DOUBLE_COMPARATOR = new Comparator<Number>() {
+        @Override
+        public int compare(Number o1, Number o2) {
+            return ((Double) o1).compareTo(o2.doubleValue());
+        }
+    };
+
+    private static Comparator<Number> FLOAT_COMPARATOR = new Comparator<Number>() {
+        @Override
+        public int compare(Number o1, Number o2) {
+            return ((Float) o1).compareTo(o2.floatValue());
+        }
+    };
+
+    private static final Predicate<Integer> GREATER_THAN_OR_EQUAL_PREDICATE = new Predicate<Integer>() {
+        @Override
+        public boolean apply(Integer input) {
+            return input >= 0;
+        }
+
+        @Override
+        public String toString() {
+            return "NumberQueryPredicate [>=]";
+        }
+    };
+
+    private static final Predicate<Integer> GREATER_THAN_PREDICATE = Predicates.equalTo(1);
+
+    private static Comparator<Number> INTEGER_COMPARATOR = new Comparator<Number>() {
+        @Override
+        public int compare(Number o1, Number o2) {
+            return ((Integer) o1).compareTo(o2.intValue());
+        }
+    };
+
+    private static final Predicate<Integer> LESS_THAN_OR_EQUAL_PREDICATE = new Predicate<Integer>() {
+        @Override
+        public boolean apply(Integer input) {
+            return input <= 0;
+        }
+
+        @Override
+        public String toString() {
+            return "NumberQueryPredicate [<=]";
+        }
+    };
+
+    private static final Predicate<Integer> LESS_THAN_PREDICATE = Predicates.equalTo(-1);
+
+    private static Comparator<Number> LONG_COMPARATOR = new Comparator<Number>() {
+        @Override
+        public int compare(Number o1, Number o2) {
+            return ((Long) o1).compareTo(o2.longValue());
+        }
+    };
+
+    private static final Predicate<Integer> NOT_PREDICATE = new Predicate<Integer>() {
+        @Override
+        public boolean apply(Integer input) {
+            return input != 0;
+        }
+
+        @Override
+        public String toString() {
+            return "NumberQueryPredicate [!=]";
+        }
+    };
 }

@@ -3,13 +3,18 @@ package net.citizensnpcs.adventures;
 import java.io.File;
 import java.util.Iterator;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.java.JavaPlugin;
+
 import net.citizensnpcs.adventures.commands.AdminCommands;
 import net.citizensnpcs.adventures.commands.DialogCommands;
 import net.citizensnpcs.adventures.commands.RaceCommands;
 import net.citizensnpcs.adventures.commands.TribeCommands;
 import net.citizensnpcs.adventures.commands.WorldeditCommands;
 import net.citizensnpcs.adventures.dialog.DialogEngine;
-import net.citizensnpcs.adventures.dialog.statements.DenizenScript;
 import net.citizensnpcs.adventures.race.RaceRegistry;
 import net.citizensnpcs.adventures.race.RaceStorage;
 import net.citizensnpcs.adventures.race.TribeTrait;
@@ -29,13 +34,6 @@ import net.citizensnpcs.api.util.ResourceTranslationProvider;
 import net.citizensnpcs.api.util.Storage;
 import net.citizensnpcs.api.util.Translator;
 import net.citizensnpcs.api.util.YamlStorage;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class Adventures extends JavaPlugin {
     private final CommandManager commands = new CommandManager();
@@ -142,10 +140,6 @@ public class Adventures extends JavaPlugin {
     private void setupEngine() {
         CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(DialogTrait.class).withName("dialog"));
         CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(TribeTrait.class).withName("tribetrait"));
-        Plugin denizenPlugin = Bukkit.getPluginManager().getPlugin("Denizen");
-        if (denizenPlugin != null) {
-            engine.getStatementRegistry().register(DenizenScript.class);
-        }
         engine.loadFolderAsynchronously(getDialogFolder());
         Bukkit.getPluginManager().registerEvents(new QueryEventListener(this, engine), this);
     }
