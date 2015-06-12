@@ -8,12 +8,12 @@ import java.net.URLClassLoader;
 import java.util.List;
 import java.util.Set;
 
+import com.google.common.collect.Sets;
+
 import net.citizensnpcs.adventures.Adventures;
 import net.citizensnpcs.api.util.DataKey;
 import net.citizensnpcs.api.util.Storage;
 import net.citizensnpcs.api.util.YamlStorage;
-
-import com.google.common.collect.Sets;
 
 public class RaceStorage {
     private boolean loadedLibs;
@@ -50,6 +50,7 @@ public class RaceStorage {
     }
 
     private boolean loadDependencies(File file, DataKey root) throws IOException {
+        @SuppressWarnings("resource")
         PublicURLClassLoader loader = new PublicURLClassLoader(new URL[] {}, plugin.getClass().getClassLoader());
         if (!loadedLibs) {
             File libs = new File(rootDirectory, "lib");

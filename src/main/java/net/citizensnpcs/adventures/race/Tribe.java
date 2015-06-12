@@ -5,6 +5,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.bukkit.Location;
+import org.bukkit.util.Vector;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
 import net.citizensnpcs.adventures.Adventures;
 import net.citizensnpcs.adventures.race.util.Blackboard;
 import net.citizensnpcs.adventures.util.BehaviorLoader;
@@ -20,12 +26,6 @@ import net.citizensnpcs.api.npc.NPCRegistry;
 import net.citizensnpcs.api.npc.SimpleMetadataStore;
 import net.citizensnpcs.api.util.DataKey;
 import net.citizensnpcs.api.util.prtree.Region3D;
-
-import org.bukkit.Location;
-import org.bukkit.util.Vector;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 public class Tribe implements Runnable {
     private final GoalController ai = new SimpleGoalController();
@@ -104,6 +104,10 @@ public class Tribe implements Runnable {
 
     public GoalController getTribeAI() {
         return ai;
+    }
+
+    public boolean hasComponent(Class<? extends TribeComponent> clazz) {
+        return components.containsKey(clazz);
     }
 
     public void load(DataKey key) {

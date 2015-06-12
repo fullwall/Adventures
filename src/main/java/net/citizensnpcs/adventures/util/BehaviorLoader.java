@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import com.google.common.base.Throwables;
+import com.google.common.collect.Lists;
+import com.google.common.collect.MapMaker;
+
 import net.citizensnpcs.adventures.race.RaceDescriptor;
 import net.citizensnpcs.adventures.race.Tribe;
 import net.citizensnpcs.api.ai.tree.Behavior;
@@ -20,10 +24,6 @@ import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.persistence.PersistenceLoader;
 import net.citizensnpcs.api.util.DataKey;
 import net.citizensnpcs.api.util.Messaging;
-
-import com.google.common.base.Throwables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.MapMaker;
 
 public class BehaviorLoader {
     public static class Context {

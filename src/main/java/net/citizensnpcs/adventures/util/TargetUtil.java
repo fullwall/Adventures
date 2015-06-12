@@ -1,14 +1,16 @@
 package net.citizensnpcs.adventures.util;
 
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 import net.citizensnpcs.adventures.Adventures;
 import net.citizensnpcs.adventures.dialog.DialogException;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.util.Messaging;
-
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class TargetUtil {
     private TargetUtil() {
@@ -29,7 +31,8 @@ public class TargetUtil {
         }
 
         if (target.startsWith("p:")) {
-            Player player = Bukkit.getPlayerExact(target.substring(2));
+            Player player = target.contains("-") ? Bukkit.getPlayer(UUID.fromString(target.substring(2)))
+                    : Bukkit.getPlayerExact(target.substring(2));
             if (player == null)
                 throw new DialogException("Couldn't find online player from target " + target);
             Messaging.send(player, message);

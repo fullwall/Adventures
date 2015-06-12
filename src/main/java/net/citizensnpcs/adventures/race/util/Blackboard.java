@@ -11,23 +11,23 @@ public class Blackboard extends HashMap<String, Object> {
     @Override
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public Object put(String key, Object value) {
-        Object old = super.get(key);
+        Object old = super.put(key, value);
         for (PropertySubscriber sub : subscribers.get(key.toString())) {
             sub.onChanged(old, value);
         }
-        return super.put(key, value);
+        return old;
     }
 
     @Override
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public Object remove(Object key) {
-        Object old = super.get(key);
+        Object old = super.remove(key);
         if (old != null) {
             for (PropertySubscriber sub : subscribers.get(key.toString())) {
                 sub.onChanged(old, null);
             }
         }
-        return super.remove(key);
+        return old;
     }
 
     public void subscribe(String key, PropertySubscriber<?> subscriber) {
