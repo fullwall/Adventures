@@ -12,11 +12,16 @@ public class TaggedRegion {
         this.min = min;
         this.max = max;
     }
+
+    public Location getMax() {
+        return max;
+    }
+
     public Location getMin() {
         return min;
-    }public Location getMax() {
-        return max;
-    }public String getName() {
+    }
+
+    public String getName() {
         return name;
     }
 }

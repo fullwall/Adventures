@@ -1,26 +1,44 @@
 package net.citizensnpcs.adventures.util;
 
+import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
-
-import net.citizensnpcs.adventures.dialog.evaluators.Evaluator;
-import net.citizensnpcs.adventures.dialog.evaluators.VariableSource;
 
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 
 import com.google.common.collect.Lists;
 
+import net.citizensnpcs.adventures.dialog.evaluators.Evaluator;
+import net.citizensnpcs.adventures.dialog.evaluators.VariableSource;
+
 public class Util {
+    public static <T> T createUnsafeInstance(Class<? extends T> clazz) {
+        @SuppressWarnings("unchecked")
+        Constructor<? extends T> cache = (Constructor<? extends T>) CONSTRUCTOR_CACHE.get(clazz);
+        if (cache == null) {
+            try {
+                cache = clazz.getDeclaredConstructor();
+                cache.setAccessible(true);
+                CONSTRUCTOR_CACHE.put(clazz, cache);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        try {
+            return cache.newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private static Set<Class<?>> getClassesBfs(Class<?> clazz) {
         Set<Class<?>> classes = new LinkedHashSet<Class<?>>();
         Set<Class<?>> nextLevel = new LinkedHashSet<Class<?>>();
@@ -67,11 +85,6 @@ public class Util {
         return chosen;
     }
 
-    public static void main(String[] args) throws ScriptException {
-        ScriptEngineManager mgr = new ScriptEngineManager();
-        ScriptEngine f = mgr.getEngineByExtension("lua");
-        f.eval("print 'a';");
-    }
-
+    private static final Map<Class<?>, Constructor<?>> CONSTRUCTOR_CACHE = new HashMap<Class<?>, Constructor<?>>();
     private static final List<Class<?>> OBJECT = Arrays.<Class<?>> asList(Object.class);
 }

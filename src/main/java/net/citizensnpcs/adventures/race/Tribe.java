@@ -15,6 +15,7 @@ import net.citizensnpcs.adventures.Adventures;
 import net.citizensnpcs.adventures.race.util.Blackboard;
 import net.citizensnpcs.adventures.util.BehaviorLoader;
 import net.citizensnpcs.adventures.util.BehaviorLoader.Context;
+import net.citizensnpcs.adventures.util.Util;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.ai.GoalController;
 import net.citizensnpcs.api.ai.GoalController.GoalEntry;
@@ -41,6 +42,7 @@ public class Tribe implements Runnable {
 
     public void addComponent(Class<? extends TribeComponent> clazz, TribeComponent component) {
         components.put(clazz, component);
+        component.setTribe(this);
     }
 
     public void addMember(NPC npc) {
@@ -68,8 +70,21 @@ public class Tribe implements Runnable {
         return blackboard;
     }
 
-    public TribeComponent getComponent(Class<? extends TribeComponent> clazz) {
-        return components.get(clazz);
+    @SuppressWarnings("unchecked")
+    public <T extends TribeComponent> T getComponent(Class<? extends T> clazz) {
+        return (T) components.get(clazz);
+    }
+
+    public void getDefaultedComponent() {
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T extends TribeComponent> T getDefaultedComponent(Class<? extends T> clazz) {
+        TribeComponent inst = components.get(clazz);
+        if (inst == null) {
+            addComponent(clazz, inst = Util.createUnsafeInstance(clazz));
+        }
+        return (T) inst;
     }
 
     public Collection<NPC> getMembers() {
@@ -154,6 +169,10 @@ public class Tribe implements Runnable {
     @Override
     public void run() {
         ai.run();
+
+        for (TribeComponent component : components.values()) {
+            component.run();
+        }
     }
 
     public void save(DataKey key) {
